@@ -12,6 +12,9 @@ require "sprockets/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+# these gems are not required by above line
+require "haml-rails"
+require "jquery-rails"
 
 module FluentdUi
   class Application < Rails::Application
