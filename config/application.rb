@@ -12,7 +12,7 @@ require "sprockets/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-# these gems are not required by above line
+# these gems are not required by Bundler.require
 require "haml-rails"
 require "jquery-rails"
 

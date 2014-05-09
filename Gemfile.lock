@@ -2,8 +2,9 @@ PATH
   remote: .
   specs:
     fluentd-ui (0.0.1)
+      bundler (~> 1.5)
       coffee-rails (~> 4.0.0)
-      fluentd
+      fluentd (= 0.10.46)
       haml-rails (~> 0.5.3)
       jbuilder (~> 2.0)
       jquery-rails (~> 3.1.0)
@@ -158,7 +159,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.5)
   fluentd-ui!
   pry
   rake
