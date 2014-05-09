@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  resources :fluentd, only: [:index] do
+    member do
+      get "status"
+      put "start"
+      put "stop"
+      put "reload"
+      get "log"
+      resource :config do
+      end
+    end
+  end
+  resources :plugins do
+  end
+
+  resources :misc, only: [] do
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
