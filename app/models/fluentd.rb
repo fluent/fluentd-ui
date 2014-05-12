@@ -92,7 +92,7 @@ class Fluentd
   end
 
   def config
-    File.read config_file # TODO: Use Fluent::Engine or Fluent::V1Config
+    ::Fluentd::Configuration.new(config_file)
   end
 
   private
