@@ -1,16 +1,13 @@
 Rails.application.routes.draw do
   resources :fluentd, only: [:index] do
-    member do
-      get "status"
+    resource :daemon, only: [:show], module: :fluentd do
       put "start"
       put "stop"
       put "reload"
       get "log"
-      resource :config do
-      end
     end
-  end
-  resources :plugins do
+    resource :setting, only: [:show, :edit, :update], module: :fluentd do
+    end
   end
 
   resources :misc, only: [] do

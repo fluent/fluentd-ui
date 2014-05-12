@@ -1,0 +1,2 @@
+module Fluentd::SettingsHelper
+end
