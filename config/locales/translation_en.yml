@@ -1,4 +1,8 @@
 en:
+  terms:
+    sign_in: Sign in
+    sign_out: Sign out
+
   error:
     login_failed: Login failed.
 

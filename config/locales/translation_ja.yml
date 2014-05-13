@@ -1,4 +1,8 @@
 ja:
+  terms:
+    sign_in: ログイン
+    sign_out: ログアウト
+
   error:
     login_failed: ログインに失敗しました。
 

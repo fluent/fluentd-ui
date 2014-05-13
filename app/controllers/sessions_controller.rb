@@ -10,6 +10,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    current_user.update_attribute(:remember_token, nil)
+    session.delete :remember_token
+    redirect_to new_sessions_path
   end
 
   private
