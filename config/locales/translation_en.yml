@@ -1,4 +1,7 @@
 en:
+  error:
+    login_failed: Login failed.
+
   activerecord:
     models:
       user: user  #g

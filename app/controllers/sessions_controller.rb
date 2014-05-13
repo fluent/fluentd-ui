@@ -2,8 +2,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(name: session_params[:name]).try(:authenticate, session_params[:password])
     unless user
-      # TODO: i18n
-      flash.now[:notice] = I18n.t(:login_failed)
+      flash.now[:notice] = I18n.t("error.login_failed")
       return render :new
     end
     sign_in user

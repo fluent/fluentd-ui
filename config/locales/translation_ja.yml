@@ -1,4 +1,7 @@
 ja:
+  error:
+    login_failed: ログインに失敗しました。
+
   activerecord:
     models:
       user: user  #g
