@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(remember_token: session[:remember_token])
   end
 
-  def login_require
-    !!current_user
+  def login_required
+    return true if current_user
+    redirect_to new_sessions_path
   end
 end
