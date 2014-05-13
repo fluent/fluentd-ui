@@ -11,4 +11,5 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "database_cleaner", "~> 1.2.0"
   gem "capybara", "~> 2.2.1"
+  gem "simplecov", "~> 0.7.1", require: false
 end

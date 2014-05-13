@@ -168,6 +168,10 @@ GEM
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
     sigdump (0.2.2)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     slop (3.5.0)
     sprockets (2.11.0)
       hike (~> 1.2)
@@ -209,3 +213,4 @@ DEPENDENCIES
   pry
   rake
   rspec-rails (~> 2.0)
+  simplecov (~> 0.7.1)
