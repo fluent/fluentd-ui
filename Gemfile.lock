@@ -56,6 +56,7 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     cool.io (1.2.4)
+    database_cleaner (1.2.0)
     diff-lcs (1.2.5)
     domain_name (0.5.18)
       unf (>= 0.0.5, < 1.0.0)
@@ -193,6 +194,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  database_cleaner (~> 1.2.0)
   factory_girl_rails
   fluentd-ui!
   pry
