@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :users
+
   resources :fluentd, only: [:index] do
     resource :daemon, only: [:show], module: :fluentd do
       put "start"
@@ -8,6 +10,11 @@ Rails.application.routes.draw do
     end
     resource :setting, only: [:show, :edit, :update], module: :fluentd do
     end
+  end
+
+  resource :sessions
+
+  resources :users do
   end
 
   resources :misc, only: [] do

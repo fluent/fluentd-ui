@@ -1,0 +1,7 @@
+= render partial: "shared/error"
+= form_for(:session, url: sessions_path) do |f|
+  = f.label :name
+  = f.text_field :name
+  = f.label :password
+  = f.text_field :password
+  = f.submit
