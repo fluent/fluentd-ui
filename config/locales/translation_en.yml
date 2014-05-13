@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    models:
+      user: user  #g
+
+    attributes:
+      user:
+        name: name  #g
+        password_digest: password_digest  #g
+        remember_token: remember_token  #g
