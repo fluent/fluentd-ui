@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root "fluentd#index" # TODO: change to dashboard
+
+
   resources :fluentd, only: [:index] do
     resource :daemon, only: [:show], module: :fluentd do
       put "start"
@@ -9,6 +12,9 @@ Rails.application.routes.draw do
     resource :setting, only: [:show, :edit, :update], module: :fluentd do
     end
   end
+
+  resources :users
+  resource :sessions
 
   resources :misc, only: [] do
   end

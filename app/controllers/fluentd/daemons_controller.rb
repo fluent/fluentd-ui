@@ -1,5 +1,6 @@
 class Fluentd::DaemonsController < ApplicationController
-  before_filter :fluentd
+  before_action :login_required
+  before_action :fluentd
 
   def show
   end

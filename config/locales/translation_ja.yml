@@ -1,0 +1,17 @@
+ja:
+  terms:
+    sign_in: ログイン
+    sign_out: ログアウト
+
+  error:
+    login_failed: ログインに失敗しました。
+
+  activerecord:
+    models:
+      user: user  #g
+
+    attributes:
+      user:
+        name: name  #g
+        password_digest: password_digest  #g
+        remember_token: remember_token  #g

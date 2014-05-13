@@ -1,0 +1,17 @@
+en:
+  terms:
+    sign_in: Sign in
+    sign_out: Sign out
+
+  error:
+    login_failed: Login failed.
+
+  activerecord:
+    models:
+      user: user  #g
+
+    attributes:
+      user:
+        name: name  #g
+        password_digest: password_digest  #g
+        remember_token: remember_token  #g
