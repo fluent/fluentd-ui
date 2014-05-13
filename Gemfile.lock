@@ -61,6 +61,11 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.0.2)
+    factory_girl (4.4.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.4.1)
+      factory_girl (~> 4.4.0)
+      railties (>= 3.0.0)
     fluentd (0.10.46)
       cool.io (>= 1.1.1, < 2.0.0, != 1.2.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
@@ -188,6 +193,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  factory_girl_rails
   fluentd-ui!
   pry
   rake
