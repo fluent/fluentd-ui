@@ -13,3 +13,5 @@ group :development, :test do
   gem "capybara", "~> 2.2.1"
   gem "simplecov", "~> 0.7.1", require: false
 end
+
+eval File.read "Gemfile.plugins" if File.exist?("Gemfile.plugins")

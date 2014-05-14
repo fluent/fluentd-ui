@@ -1,0 +1,7 @@
+- @plugins.each do |plugin|
+  / TODO: 
+  = plugin.gem_name
+  = plugin.version
+  = "(#{plugin.installed? ? t("terms.installed") : t("terms.not_installed")})"
+  = link_to t("terms.install"), plugin_install_path(plugin), method: :put
+  = link_to t("terms.uninstall"), plugin_uninstall_path(plugin), method: :put

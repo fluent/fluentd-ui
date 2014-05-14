@@ -2,6 +2,11 @@ en:
   terms:
     sign_in: Sign in
     sign_out: Sign out
+    install: Install
+    uninstall: Uninstall
+    upgrade: Upgrade
+    installed: Installed
+    not_installed: Not Installed
 
   error:
     login_failed: Login failed.

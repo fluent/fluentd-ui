@@ -46,6 +46,7 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
+    bson (1.10.0)
     builder (3.2.2)
     capybara (2.2.1)
       mime-types (>= 1.16)
@@ -73,6 +74,9 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
+    fluent-plugin-mongo (0.7.3)
+      fluentd (~> 0.10.9)
+      mongo (>= 1.8.0)
     fluentd (0.10.46)
       cool.io (>= 1.1.1, < 2.0.0, != 1.2.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
@@ -118,6 +122,8 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.3)
     minitest (5.3.3)
+    mongo (1.10.0)
+      bson (~> 1.10.0)
     msgpack (0.5.8)
     multi_json (1.10.0)
     net-http-digest_auth (1.4)
@@ -209,6 +215,7 @@ DEPENDENCIES
   capybara (~> 2.2.1)
   database_cleaner (~> 1.2.0)
   factory_girl_rails
+  fluent-plugin-mongo (= 0.7.3)
   fluentd-ui!
   pry
   rake

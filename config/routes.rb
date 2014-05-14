@@ -16,6 +16,12 @@ Rails.application.routes.draw do
   resources :users
   resource :sessions
 
+  resources :plugins do
+    put :install
+    put :uninstall
+  end
+
+
   resources :misc, only: [] do
   end
   # The priority is based upon order of creation: first created -> highest priority.

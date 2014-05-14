@@ -23,3 +23,5 @@
 /coverage
 
 /.DS_Store
+
+/Gemfile.plugins
