@@ -93,11 +93,7 @@ class Plugin
   end
 
   def self.gemfile_path
-    if Rails.env == "test"
-      gemfile_path = "/tmp/fluentd-ui-test-Gemfile.plugins" # can't create a file under Rails.root directory on Circle CI
-    else
-      gemfile_path = Rails.root + "Gemfile.plugins"
-    end
+    Rails.root + "Gemfile.plugins"
   end
 
   def self.pristine!
@@ -118,7 +114,7 @@ class Plugin
 
   def fluent_gem(*commands)
     unless system(*%W(bundle exec fluent-gem) + commands) # TODO: should grab stdout/stderr
-      raise GemError, "failed command #{commands}"
+      raise GemError, "failed command #{commands.join(" ")}"
     end
     true
   end
