@@ -9,6 +9,9 @@ ja:
     not_installed: 未インストール
     new_version: "%{version}があります"
 
+  messages:
+    need_restart: fluentd-uiの再起動が必要です
+
   error:
     login_failed: ログインに失敗しました。
 

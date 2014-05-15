@@ -9,6 +9,9 @@ en:
     not_installed: Not Installed
     new_version: "%{version} is available"
 
+  messages:
+    need_restart: Need to restart fluentd-ui
+
   error:
     login_failed: Login failed.
 
