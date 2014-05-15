@@ -74,9 +74,12 @@ class Plugin
   def latest_version
     @latest_version ||=
       begin
-        res = HTTPClient.get("https://rubygems.org/api/v1/versions/#{gem_name}.json")
-        if res.code == 200
-          JSON.parse(res.body).map {|ver| Gem::Version.new ver["number"] }.max.to_s
+        url = "https://rubygems.org/api/v1/versions/#{gem_name}.json"
+        Rails.cache.fetch(url, expires_in: 10.minutes) do  # NOTE: 10.minutes could be changed if it doesn't fit
+          res = HTTPClient.get(url)
+          if res.code == 200
+            JSON.parse(res.body).map {|ver| Gem::Version.new ver["number"] }.max.to_s
+          end
         end
       end
   end

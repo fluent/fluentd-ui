@@ -22,6 +22,8 @@ Rails.application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
+  config.cache_store = :memory_store, { size: 16 * 1024 * 1024 } # NOTE: `16.megabytes` will be undefined method error at here
+
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
