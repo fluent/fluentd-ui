@@ -63,10 +63,13 @@ class Plugin
   end
 
   def latest_version
-    res = HTTPClient.get("https://rubygems.org/api/v1/versions/#{gem_name}.json")
-    if res.code == 200
-      JSON.parse(res.body).map {|ver| Gem::Version.new ver["number"] }.max.to_s
-    end
+    @latest_version ||=
+      begin
+        res = HTTPClient.get("https://rubygems.org/api/v1/versions/#{gem_name}.json")
+        if res.code == 200
+          JSON.parse(res.body).map {|ver| Gem::Version.new ver["number"] }.max.to_s
+        end
+      end
   end
 
   def self.gemfile_changed?
