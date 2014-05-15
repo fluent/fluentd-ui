@@ -4,7 +4,7 @@ describe Plugin do
   let(:plugin) { FactoryGirl.build(:plugin) }
 
   before do
-    Plugin.stub(:gemfile_path).and_return { "/tmp/fluentd-ui-test-gemfile.plugins" } # NOTE: can't create a file under Rails.root directory on Circle CI
+    Plugin.stub(:gemfile_path).and_return { Rails.root + "tmp/fluentd-ui-test-gemfile.plugins" }
   end
 
   after do
