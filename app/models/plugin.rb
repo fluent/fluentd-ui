@@ -1,4 +1,6 @@
 require "fileutils"
+require "json"
+require "httpclient"
 
 class Plugin
   class GemError < StandardError; end
@@ -14,21 +16,25 @@ class Plugin
   end
 
   def install!
-    if valid? && !installed?
-      if fluent_gem("install", gem_name, "-v", version)
-        File.open(gemfile_path, "a") do |f|
-          f.puts format_gemfile
+    unless installed?
+      self.version = latest_version unless version
+      if valid?
+        if fluent_gem("install", gem_name, "-v", version)
+          File.open(gemfile_path, "a") do |f|
+            f.puts format_gemfile
+          end
         end
       end
     end
   end
 
   def uninstall!
-    if valid? && installed?
+    if installed?
       # NOTE: do not uninstall gem actually for now. because it is not necessary, and slow job
+      # NOTE: should uninstall that situation: installed verions is A, self.version is NOT A.
       new_gemfile = ""
       File.open(gemfile_path).each_line do |line|
-        next if line.strip == format_gemfile
+        next if line.include?(%Q|gem "#{gem_name}"|)
         new_gemfile << line
       end
       File.open(gemfile_path, "w"){|f| f.write new_gemfile }
@@ -46,16 +52,32 @@ class Plugin
   end
 
   def installed?
-    File.read(gemfile_path).lines.map(&:strip).grep(format_gemfile).present?
+    self.class.installed.find do |plugin|
+      plugin.gem_name == gem_name
+    end
   end
 
   def format_gemfile
+    self.version = latest_version unless version
     %Q|gem "#{gem_name}", "#{version}"|
+  end
+
+  def latest_version
+    res = HTTPClient.get("https://rubygems.org/api/v1/versions/#{gem_name}.json")
+    if res.code == 200
+      JSON.parse(res.body).map {|ver| Gem::Version.new ver["number"] }.max.to_s
+    end
   end
 
   def self.gemfile_changed?
     # if true, rails server needs to restart }
     @initial_gemfile_content != File.read(gemfile_path)
+  end
+
+  def self.installed
+    File.read(gemfile_path).scan(/"(.*?)", "(.*?)"/).map do |plugin|
+      new(gem_name: plugin[0], version: plugin[1])
+    end
   end
 
   def self.gemfile_path

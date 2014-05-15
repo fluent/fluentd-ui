@@ -20,7 +20,8 @@ class PluginsController < ApplicationController
   def plugins
     # TODO
     [
-      Plugin.new(gem_name: "fluent-plugin-mongo", version: "0.7.3")
+      Plugin.new(gem_name: "fluent-plugin-mongo", version: "0.7.3"),
+      Plugin.new(gem_name: "fluent-plugin-s3"),
     ]
   end
 
