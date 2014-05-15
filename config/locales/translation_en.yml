@@ -7,6 +7,7 @@ en:
     upgrade: Upgrade
     installed: Installed
     not_installed: Not Installed
+    new_version: "%{version} is available"
 
   error:
     login_failed: Login failed.

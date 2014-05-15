@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :plugins do
     put :install
     put :uninstall
+    put :upgrade
   end
 
 

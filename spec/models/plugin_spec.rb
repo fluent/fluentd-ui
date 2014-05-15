@@ -110,6 +110,5 @@ describe Plugin do
     it do
       Plugin.should be_gemfile_changed
     end
-
   end
 end

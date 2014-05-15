@@ -7,6 +7,7 @@ ja:
     upgrade: アップグレード
     installed: インストール済み
     not_installed: 未インストール
+    new_version: "%{version}があります"
 
   error:
     login_failed: ログインに失敗しました。

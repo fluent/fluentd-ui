@@ -43,7 +43,7 @@ class Plugin
 
   def upgrade!(new_version)
     if installed?
-      upgrade = new(gem_name: self.gem_name, version: new_version)
+      upgrade = self.class.new(gem_name: self.gem_name, version: new_version)
       if self.valid? && upgrade.valid?
         self.uninstall!
         upgrade.install!
@@ -60,6 +60,15 @@ class Plugin
   def format_gemfile
     self.version = latest_version unless version
     %Q|gem "#{gem_name}", "#{version}"|
+  end
+
+  def installed_version
+    return unless inst = installed?
+    inst.version
+  end
+
+  def latest_version?
+    installed_version == latest_version
   end
 
   def latest_version

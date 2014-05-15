@@ -1,7 +1,17 @@
 - @plugins.each do |plugin|
-  / TODO: 
-  = plugin.gem_name
-  = plugin.version
-  = "(#{plugin.installed? ? t("terms.installed") : t("terms.not_installed")})"
-  = link_to t("terms.install"), plugin_install_path(plugin), method: :put
-  = link_to t("terms.uninstall"), plugin_uninstall_path(plugin), method: :put
+  / TODO: make this page faster, such as do async, cache API response, etc
+  %p
+    = plugin.gem_name
+    - if plugin.installed?
+      = t("terms.installed")
+      = "(#{plugin.installed_version})"
+    - else
+      = t("terms.not_installed")
+  %p
+    - if plugin.installed?
+      = link_to t("terms.uninstall"), plugin_uninstall_path(plugin), method: :put
+      - unless plugin.latest_version?
+        = link_to t("terms.upgrade"), plugin_upgrade_path(plugin), method: :put
+        = t("terms.new_version", version: plugin.latest_version)
+    - else
+      = link_to t("terms.install"), plugin_install_path(plugin), method: :put

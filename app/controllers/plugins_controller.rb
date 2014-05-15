@@ -15,6 +15,11 @@ class PluginsController < ApplicationController
     redirect_to plugins_path
   end
 
+  def upgrade
+    @plugin.upgrade!(@plugin.latest_version)
+    redirect_to plugins_path
+  end
+
   private
 
   def plugins
@@ -22,6 +27,7 @@ class PluginsController < ApplicationController
     [
       Plugin.new(gem_name: "fluent-plugin-mongo", version: "0.7.3"),
       Plugin.new(gem_name: "fluent-plugin-s3"),
+      Plugin.new(gem_name: "fluent-plugin-secure-forward", version: "0.1.7"),
     ]
   end
 
