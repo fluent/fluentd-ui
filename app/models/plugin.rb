@@ -71,16 +71,11 @@ class Plugin
   end
 
   def latest_version
-    @latest_version ||=
-      begin
-        url = "https://rubygems.org/api/v1/versions/#{gem_name}.json"
-        Rails.cache.fetch(url, expires_in: 10.minutes) do  # NOTE: 10.minutes could be changed if it doesn't fit
-          res = HTTPClient.get(url)
-          if res.code == 200
-            JSON.parse(res.body).map {|ver| Gem::Version.new ver["number"] }.max.to_s
-          end
-        end
-      end
+    @latest_version ||= JSON.parse(gem_versions).map {|ver| Gem::Version.new ver["number"] }.max.to_s
+  end
+
+  def released_versions
+    @released_versions ||= JSON.parse(gem_versions).map {|ver| ver["number"]}.sort_by{|ver| Gem::Version.new ver}.reverse
   end
 
   def self.gemfile_changed?
@@ -113,6 +108,14 @@ class Plugin
   end
 
   private
+
+  def gem_versions
+    url = "https://rubygems.org/api/v1/versions/#{gem_name}.json"
+    Rails.cache.fetch(url, expires_in: 10.minutes) do  # NOTE: 10.minutes could be changed if it doesn't fit
+      res = HTTPClient.get(url)
+      res.body if res.code == 200
+    end
+  end
 
   def gem_install
     fluent_gem("install", gem_name, "-v", version)

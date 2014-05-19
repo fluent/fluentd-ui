@@ -1,33 +1,39 @@
 = render partial: "installing"
 = render partial: "nav"
 
-
-= form_tag(uninstall_plugins_path, method: :patch) do
-  %table
+%table
+  %tr
+    %th= t('terms.uninstall')
+    %th= t('terms.plugin.name')
+    %th= t('terms.plugin.status')
+    %th= t('terms.plugin.installed_version')
+    %th= t('terms.plugin.latest_version')
+    %th
+  - @plugins.each do |plugin|
     %tr
-      %th
-      %th= t('terms.plugin.name')
-      %th= t('terms.plugin.status')
-      %th= t('terms.plugin.installed_version')
-      %th= t('terms.plugin.latest_version')
-    - @plugins.each do |plugin|
-      %tr
-        %td
-          = check_box_tag("plugins[]", plugin.gem_name, false, id: "plugin_#{plugin.gem_name}")
-        %td
-          %label{for: "plugin_#{plugin.gem_name}"}
-            = plugin.gem_name
-        %td
-          - if plugin.installed?
-            - if plugin.latest_version?
-              = t("terms.installed")
-            - else
-              = t("terms.new_version", version: plugin.latest_version)
+      %td
+        = form_tag(uninstall_plugins_path, method: :patch) do
+          = hidden_field_tag("plugins[]", plugin.gem_name)
+          = submit_tag t('terms.uninstall')
+      %td
+        %label{for: "plugin_#{plugin.gem_name}"}
+          = plugin.gem_name
+      %td
+        - if plugin.installed?
+          - if plugin.latest_version?
+            = t("terms.installed")
           - else
-            = t("terms.not_installed")
-        %td
-          = plugin.installed_version
-        %td
-          = plugin.latest_version
-  = submit_tag t('terms.uninstall')
-
+            = t("terms.new_version", version: plugin.latest_version)
+        - else
+          = t("terms.not_installed")
+      %td
+        = plugin.installed_version
+      %td
+        = plugin.latest_version
+      %td
+        = form_tag(upgrade_plugins_path, method: :patch) do
+          = hidden_field_tag("plugins[name]", plugin.gem_name)
+          %select{name: "plugins[version]"}
+            - plugin.released_versions.each do |ver|
+              %option{value: ver, disabled: (ver == plugin.installed_version)}= ver
+          = submit_tag "version fix"

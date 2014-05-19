@@ -30,6 +30,11 @@ class PluginsController < ApplicationController
     redirect_to plugins_path
   end
 
+  def upgrade
+    GemInstaller.new.async.perform(params[:plugins][:name], params[:plugins][:version])
+    redirect_to plugins_path
+  end
+
   private
 
   def recommended_plugins

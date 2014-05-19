@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get :updated
       patch :install
       patch :uninstall
+      patch :upgrade
     end
   end
 
