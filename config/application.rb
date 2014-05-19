@@ -15,6 +15,7 @@ Bundler.require(*Rails.groups)
 # these gems are not required by Bundler.require
 require "haml-rails"
 require "jquery-rails"
+require "sucker_punch"
 
 module FluentdUi
   class Application < Rails::Application
@@ -29,5 +30,6 @@ module FluentdUi
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = 'ja'
+    config.autoload_paths += %W(#{config.root}/app/workers)
   end
 end
