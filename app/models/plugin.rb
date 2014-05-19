@@ -111,7 +111,7 @@ class Plugin
 
   def gem_versions
     url = "https://rubygems.org/api/v1/versions/#{gem_name}.json"
-    Rails.cache.fetch(url, expires_in: 10.minutes) do  # NOTE: 10.minutes could be changed if it doesn't fit
+    Rails.cache.fetch(url, expires_in: 60.minutes) do  # NOTE: 60.minutes could be changed if it doesn't fit
       res = HTTPClient.get(url)
       res.body if res.code == 200
     end
