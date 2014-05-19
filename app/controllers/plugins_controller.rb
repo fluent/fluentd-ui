@@ -1,39 +1,50 @@
 class PluginsController < ApplicationController
-  before_action :find_plugin, except: [:index]
-
   def index
-    @plugins = plugins
+    redirect_to updated_plugins_path
+  end
+
+  def installed
+    @plugins = Plugin.installed
+  end
+
+  def recommended
+    @plugins = recommended_plugins
+  end
+
+  def updated
+    @plugins = Plugin.installed.reject{|plugin| plugin.latest_version? }
   end
 
   def install
-    @plugin.install!
+    params[:plugins].each do |gem_name|
+      GemInstaller.new.async.perform(gem_name)
+    end
     redirect_to plugins_path
   end
 
   def uninstall
-    @plugin.uninstall!
-    redirect_to plugins_path
-  end
-
-  def upgrade
-    @plugin.upgrade!(@plugin.latest_version)
+    params[:plugins].each do |gem_name|
+      pl = Plugin.new(gem_name: gem_name)
+      pl.uninstall!
+    end
     redirect_to plugins_path
   end
 
   private
 
-  def plugins
+  def recommended_plugins
     # TODO
     [
-      Plugin.new(gem_name: "fluent-plugin-mongo", version: "0.7.3"),
+      Plugin.new(gem_name: "fluent-plugin-mongo"),
       Plugin.new(gem_name: "fluent-plugin-s3"),
-      Plugin.new(gem_name: "fluent-plugin-secure-forward", version: "0.1.7"),
+      Plugin.new(gem_name: "fluent-plugin-secure-forward"),
+      Plugin.new(gem_name: "fluent-plugin-forest"),
+      Plugin.new(gem_name: "fluent-plugin-couch"),
+      Plugin.new(gem_name: "fluent-plugin-dstat"),
+      Plugin.new(gem_name: "fluent-plugin-parser"),
+      Plugin.new(gem_name: "fluent-plugin-map"),
+      Plugin.new(gem_name: "fluent-plugin-grep"),
+      Plugin.new(gem_name: "fluent-plugin-webhdfs"),
     ]
-  end
-
-  def find_plugin
-    @plugin ||= plugins.find do |plugin|
-      plugin.to_param == params[:plugin_id]
-    end
   end
 end

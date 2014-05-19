@@ -1,0 +1,7 @@
+- if installing_gem?
+  %p.alert
+    installing plugins...
+    %ol
+      - GemInstaller::WORKING.each do |plugin|
+        %li= plugin.gem_name
+

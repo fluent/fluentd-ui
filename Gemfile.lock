@@ -49,9 +49,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
-    aws-sdk (1.40.3)
-      json (~> 1.4)
-      nokogiri (>= 1.4.4)
     bcrypt (3.1.7)
     builder (3.2.2)
     capybara (2.2.1)
@@ -84,14 +81,6 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    fluent-mixin-config-placeholders (0.2.4)
-      fluentd
-      uuidtools
-    fluent-plugin-s3 (0.3.7)
-      aws-sdk (>= 1.8.2)
-      fluent-mixin-config-placeholders (~> 0.2.0)
-      fluentd (~> 0.10.0)
-      yajl-ruby (~> 1.0)
     fluentd (0.10.46)
       cool.io (>= 1.1.1, < 2.0.0, != 1.2.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
@@ -223,7 +212,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.6)
-    uuidtools (2.1.4)
     webmock (1.18.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -239,7 +227,6 @@ DEPENDENCIES
   capybara (~> 2.2.1)
   database_cleaner (~> 1.2.0)
   factory_girl_rails
-  fluent-plugin-s3 (= 0.3.7)
   fluentd-ui!
   pry
   rake

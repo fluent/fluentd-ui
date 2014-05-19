@@ -17,9 +17,13 @@ Rails.application.routes.draw do
   resource :sessions
 
   resources :plugins do
-    put :install
-    put :uninstall
-    put :upgrade
+    collection do
+      get :installed
+      get :recommended
+      get :updated
+      patch :install
+      patch :uninstall
+    end
   end
 
 

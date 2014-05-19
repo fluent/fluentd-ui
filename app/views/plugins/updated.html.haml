@@ -1,0 +1,7 @@
+= render partial: "installing"
+= render partial: "nav"
+
+- if @plugins.present?
+  = render partial: "list"
+- else
+  = t('terms.plugin.no_updates')
