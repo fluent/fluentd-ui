@@ -2,6 +2,25 @@ ja:
   terms:
     sign_in: ログイン
     sign_out: ログアウト
+    install: インストール
+    uninstall: アンインストール
+    upgrade: アップグレード
+    installed: インストール済み
+    not_installed: 未インストール
+    new_version: "%{version}があります"
+    plugin:
+      name: プラグイン名
+      status: 状態
+      installed_version: インストール済み
+      latest_version: 最新バージョン
+      no_updates: 更新はありません
+      pages:
+        installed: インストール済み
+        recommended: おすすめプラグイン
+        updated: 更新あり
+
+  messages:
+    need_restart: fluentd-uiの再起動が必要です
 
   error:
     login_failed: ログインに失敗しました。

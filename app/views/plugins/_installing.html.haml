@@ -1,0 +1,8 @@
+- if installing_gem?
+  %p.alert
+    / TODO: i18n
+    installing plugins...
+    %ol
+      - GemInstaller::WORKING.each do |plugin|
+        %li= "#{plugin.gem_name} (#{plugin.version})"
+

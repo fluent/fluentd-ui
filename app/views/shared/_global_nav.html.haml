@@ -1,0 +1,4 @@
+= link_to_other "plugins", plugins_path
+= link_to_other "system information", information_misc_path
+
+= current_user ? link_to(t("terms.sign_out"), sessions_path, method: :delete) : link_to(t("terms.sign_in"), new_sessions_path)

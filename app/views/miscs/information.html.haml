@@ -1,0 +1,26 @@
+%h2
+  information
+
+%h3= "fluent version #{Fluent::VERSION}"
+
+%h3
+  plugins
+%table
+  %tr
+    %th name
+    %th version
+  - @plugins.each do |plugin|
+    %tr
+      %td= plugin.gem_name
+      %td= plugin.installed_version
+
+%h3
+  ENV
+%table
+  %tr
+    %th name
+    %th value
+  - @env.each_pair do |key, value|
+    %tr
+      %td= key
+      %td= value
