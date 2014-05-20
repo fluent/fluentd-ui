@@ -9,9 +9,12 @@ class GemInstaller
     pl = Plugin.new(gem_name: gem_name, version: version)
     unless WORKING.find{|p| p.gem_name == pl.gem_name}
       WORKING.push(pl)
-      pl.uninstall! if pl.installed?
-      pl.install!
-      WORKING.delete(pl)
+      begin
+        pl.uninstall! if pl.installed?
+        pl.install!
+      ensure
+        WORKING.delete(pl)
+      end
     end
     SuckerPunch.logger.info "installed #{gem_name} #{version}"
   end

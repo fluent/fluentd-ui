@@ -24,8 +24,7 @@ class PluginsController < ApplicationController
 
   def uninstall
     params[:plugins].each do |gem_name|
-      pl = Plugin.new(gem_name: gem_name)
-      pl.uninstall!
+      GemUninstaller.new.async.perform(gem_name)
     end
     redirect_to plugins_path
   end

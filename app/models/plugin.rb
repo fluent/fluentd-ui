@@ -31,12 +31,14 @@ class Plugin
 
     # NOTE: do not uninstall gem actually for now. because it is not necessary, and slow job
     # NOTE: should uninstall that situation: installed verions is A, self.version is NOT A. only check gem_name.
-    new_gemfile = ""
-    File.open(gemfile_path).each_line do |line|
-      next if line.include?(%Q|gem "#{gem_name}"|)
-      new_gemfile << line
+    if gem_uninstall
+      new_gemfile = ""
+      File.open(gemfile_path).each_line do |line|
+        next if line.include?(%Q|gem "#{gem_name}"|)
+        new_gemfile << line
+      end
+      File.open(gemfile_path, "w"){|f| f.write new_gemfile }
     end
-    File.open(gemfile_path, "w"){|f| f.write new_gemfile }
   end
 
   def upgrade!(new_version)
@@ -121,10 +123,17 @@ class Plugin
     fluent_gem("install", gem_name, "-v", version)
   end
 
+  def gem_uninstall
+    fluent_gem("uninstall", gem_name, "-x", "-a")
+  end
+
   def fluent_gem(*commands)
     # NOTE: use `fluent-gem` instead of `gem`
-    unless system(*%W(bundle exec fluent-gem) + commands) # TODO: should grab stdout/stderr
-      raise GemError, "failed command #{commands.join(" ")}"
+    Bundler.with_clean_env do
+      # NOTE: this app is under the Bundler, so call `system` in with_clean_env is Bundler jail breaking
+      unless system(*%W(fluent-gem) + commands) # TODO: should grab stdout/stderr
+        raise GemError, "failed command #{commands.join(" ")}"
+      end
     end
     true
   end
