@@ -7,8 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= render partial: "shared/global_nav" %>
 
-  <%= current_user ? link_to(t("terms.sign_out"), sessions_path, method: :delete) : link_to(t("terms.sign_in"), new_sessions_path) %>
 <%= yield %>
 
 </body>
