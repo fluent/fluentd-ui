@@ -12,6 +12,7 @@ ja:
     plugins: &plugins プラグイン
     misc: &misc その他
     fluent_version: "fluentd %{version}"
+    no_alert: なし
 
   plugins:
     common: &common

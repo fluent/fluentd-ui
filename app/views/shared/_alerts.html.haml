@@ -6,8 +6,12 @@
       - if installing_gem?
         %span{class: "badge pull-right"}= installing_gems.length
 
-- installing_gems.each do |plugin|
-  = alert_line 'fa-refresh fa-spin', "#{plugin.gem_name} (#{plugin.version})"
+
+- if installing_gem?
+  - installing_gems.each do |plugin|
+    = alert_line 'fa-refresh fa-spin', "#{plugin.gem_name} (#{plugin.version})"
+- else
+  = alert_line "fa-check text-muted", t('terms.no_alert')
 
 %li{class: "divider"}
 
@@ -19,5 +23,8 @@
       - if uninstalling_gem?
         %span{class: "badge pull-right"}= uninstalling_gems.length
 
-- uninstalling_gems.each do |plugin|
-  = alert_line 'fa-spinner fa-spin', plugin.gem_name
+- if uninstalling_gem?
+  - uninstalling_gems.each do |plugin|
+    = alert_line 'fa-spinner fa-spin', plugin.gem_name
+- else
+  = alert_line "fa-check text-muted", t('terms.no_alert')
