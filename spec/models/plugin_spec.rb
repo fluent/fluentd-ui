@@ -4,6 +4,7 @@ describe Plugin do
   let(:plugin) { FactoryGirl.build(:plugin) }
 
   before do
+    system('sync') if ENV["CIRCLECI"] # file operations are unstable on Circle CI
     Plugin.stub(:gemfile_path).and_return { Rails.root + "tmp/fluentd-ui-test-gemfile.plugins" }
   end
 
