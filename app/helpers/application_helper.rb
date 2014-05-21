@@ -23,22 +23,6 @@ module ApplicationHelper
     installing_gem? || uninstalling_gem?
   end
 
-  def alerts
-    alerts = []
-    if installing_gem?
-      #GemInstaller::WORKING.each do |plugin|
-      Plugin.installed.each do |plugin|
-        # TODO: i18n
-        alerts << alert_line("fa-spinner fa-spin", "Installing #{plugin.gem_name} (#{plugin.version})")
-      end
-    end
-      Plugin.installed.each do |plugin|
-        # TODO: i18n
-        alerts << alert_line("fa-spinner fa-spin", "Installing #{plugin.gem_name} (#{plugin.version})")
-      end
-    alerts
-  end
-
   def alert_line(icon_class, text)
     %Q|<li><a><div>#{icon icon_class} <span>#{text}</span></div></a></li>|.html_safe
   end
