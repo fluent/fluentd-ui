@@ -4,6 +4,15 @@ table {
     word-break: break-all;
   }
   td:first-child {
+    // mainly for /misc/information page
     white-space: nowrap;
+  }
+}
+
+// mainly for sidebar navigation
+.nav {
+  .current {
+    color: #000;
+    font-weight: bold;
   }
 }
