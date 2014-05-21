@@ -1,39 +1,38 @@
-= render partial: "installing"
-= render partial: "nav"
-
-%table
-  %tr
-    %th= t('terms.uninstall')
-    %th= t('terms.plugin.name')
-    %th= t('terms.plugin.status')
-    %th= t('terms.plugin.installed_version')
-    %th= t('terms.plugin.latest_version')
-    %th
-  - @plugins.each do |plugin|
+%table{class: "table table-striped table-hover"}
+  %thead
     %tr
-      %td
-        = form_tag(uninstall_plugins_path, method: :patch) do
-          = hidden_field_tag("plugins[]", plugin.gem_name)
-          = submit_tag t('terms.uninstall')
-      %td
-        %label{for: "plugin_#{plugin.gem_name}"}
-          = plugin.gem_name
-      %td
-        - if plugin.installed?
-          - if plugin.latest_version?
-            = t("terms.installed")
+      %th{width: "32"}
+      %th= t('terms.plugin.name')
+      %th= t('terms.plugin.status')
+      %th= t('terms.plugin.installed_version')
+      %th= t('terms.plugin.latest_version')
+      %th
+  %tbody
+    - @plugins.each do |plugin|
+      %tr
+        %td
+          = form_tag(uninstall_plugins_path, method: :patch) do
+            = hidden_field_tag("plugins[]", plugin.gem_name)
+            = submit_tag t('terms.uninstall'), class: "btn btn-default"
+        %td
+          %label{for: "plugin_#{plugin.gem_name}"}
+            = plugin.gem_name
+        %td
+          - if plugin.installed?
+            - if plugin.latest_version?
+              = t("terms.installed")
+            - else
+              = t("terms.new_version", version: plugin.latest_version)
           - else
-            = t("terms.new_version", version: plugin.latest_version)
-        - else
-          = t("terms.not_installed")
-      %td
-        = plugin.installed_version
-      %td
-        = plugin.latest_version
-      %td
-        = form_tag(upgrade_plugins_path, method: :patch) do
-          = hidden_field_tag("plugins[name]", plugin.gem_name)
-          %select{name: "plugins[version]"}
-            - plugin.released_versions.each do |ver|
-              %option{value: ver, disabled: (ver == plugin.installed_version)}= ver
-          = submit_tag "version fix"
+            = t("terms.not_installed")
+        %td
+          = plugin.installed_version
+        %td
+          = plugin.latest_version
+        %td
+          = form_tag(upgrade_plugins_path, method: :patch) do
+            = hidden_field_tag("plugins[name]", plugin.gem_name)
+            %select{name: "plugins[version]"}
+              - plugin.released_versions.each do |ver|
+                %option{value: ver, disabled: (ver == plugin.installed_version)}= ver
+            = submit_tag "version fix", class: "btn btn-sm btn-info"

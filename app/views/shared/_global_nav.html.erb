@@ -1,0 +1,44 @@
+<ul class="nav" id="side-menu">
+  <li class="sidebar-search">
+    <div class="input-group custom-search-form">
+      <input type="text" class="form-control" placeholder="(dummy)Search...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+          <i class="fa fa-search"></i>
+        </button>
+      </span>
+    </div>
+    <!-- /input-group -->
+  </li>
+  <li>
+    <%= link_to icon("fa-dashboard fa-fw") << " Dashboard", root_path %>
+  </li>
+  <li>
+    <%= link_to icon("fa-cogs fa-fw") << ' Plugins<span class="fa arrow"></span>'.html_safe, plugins_path %>
+    <ul class="nav nav-second-level">
+      <li>
+        <% # TODO: i18n %>
+        <%= link_to "installed", installed_plugins_path %>
+      </li>
+      <li>
+        <%= link_to "recommended", recommended_plugins_path %>
+      </li>
+      <li>
+        <%= link_to "updated", updated_plugins_path %>
+      </li>
+    </ul>
+    <!-- /.nav-second-level -->
+  </li>
+  <li>
+    <%= link_to icon('fa-coffee fa-fw') << ' Misc<span class="fa arrow"></span>'.html_safe, misc_path %>
+    <ul class="nav nav-second-level">
+      <li>
+        <%= link_to "system information", information_misc_path %>
+      </li>
+      <li>
+        <%= link_to "users", misc_users_path %>
+      </li>
+    </ul>
+    <!-- /.nav-second-level -->
+  </li>
+</ul>

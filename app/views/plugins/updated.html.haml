@@ -1,11 +1,8 @@
-= render partial: "installing"
-= render partial: "nav"
-
 - unless @plugins.present?
   = t('terms.plugin.no_updates')
 - else
   = form_tag(install_plugins_path, method: :patch) do
-    %table
+    %table{class: "table table-striped table-hover"}
       %tr
         %th
         %th= t('terms.plugin.name')
@@ -31,5 +28,5 @@
             = plugin.installed_version
           %td
             = plugin.latest_version
-    = submit_tag t("terms.install")
+    = submit_tag t("terms.install"), class: "btn btn-primary"
 

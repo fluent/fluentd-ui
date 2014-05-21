@@ -1,0 +1,21 @@
+%li
+  %a
+    %div
+      = icon "fa-cog fa-fw fa-lg"
+      Installing Plugins
+      %span{class: "pull-right text-muted small"}= "(#{installing_gems.length})"
+
+- installing_gems.each do |plugin|
+  = alert_line 'fa-refresh fa-spin', "#{plugin.gem_name} (#{plugin.version})"
+
+%li{class: "divider"}
+
+%li
+  %a
+    %div
+      = icon "fa-cog fa-fw fa-lg"
+      Uninstalling Plugins
+      %span{class: "pull-right text-muted small"}= "(#{uninstalling_gems.length})"
+
+- uninstalling_gems.each do |plugin|
+  = alert_line 'fa-spinner fa-spin', plugin.gem_name

@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  layout "sign_in"
+
   def create
     user = User.find_by(name: session_params[:name]).try(:authenticate, session_params[:password])
     unless user

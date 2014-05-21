@@ -19,8 +19,17 @@ ja:
         recommended: おすすめプラグイン
         updated: 更新あり
 
+  sidebar:
+    dashboard: ダッシュボード
+    plugins: プラグイン
+    plugin_installed: インストール済み
+    plugin_recommended: おすすめプラグイン
+    plugin_updated: アップデート
+
+
   messages:
     need_restart: fluentd-uiの再起動が必要です
+    please_sign_in: ログイン
 
   error:
     login_failed: ログインに失敗しました。

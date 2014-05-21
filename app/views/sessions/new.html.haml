@@ -1,8 +1,8 @@
 = render partial: "shared/error"
 = form_for(:session, url: sessions_path) do |f|
-  = f.label :name
-  = f.text_field :name
-  = f.label :password
-  = f.text_field :password
-  = submit_tag t("terms.sign_in")
-
+  %div.form-group
+    = f.text_field :name, placeholder: "Name"
+  %div.form-group
+    = f.password_field :password, placeholder: "Password"
+    
+  = submit_tag t("terms.sign_in"), class: "btn btn-success"

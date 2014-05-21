@@ -4,7 +4,43 @@ module ApplicationHelper
   end
 
   def installing_gem?
-    GemInstaller::WORKING.present?
+    installing_gems.length > 0
+  end
+
+  def installing_gems
+    GemInstaller::WORKING || []
+  end
+
+  def uninstalling_gem?
+    uninstalling_gems.length > 0
+  end
+
+  def uninstalling_gems
+    GemUninstaller::WORKING || []
+  end
+
+  def has_alert?
+    installing_gem? || uninstalling_gem?
+  end
+
+  def alerts
+    alerts = []
+    if installing_gem?
+      #GemInstaller::WORKING.each do |plugin|
+      Plugin.installed.each do |plugin|
+        # TODO: i18n
+        alerts << alert_line("fa-spinner fa-spin", "Installing #{plugin.gem_name} (#{plugin.version})")
+      end
+    end
+      Plugin.installed.each do |plugin|
+        # TODO: i18n
+        alerts << alert_line("fa-spinner fa-spin", "Installing #{plugin.gem_name} (#{plugin.version})")
+      end
+    alerts
+  end
+
+  def alert_line(icon_class, text)
+    %Q|<li><a><div>#{icon icon_class} <span>#{text}</span></div></a></li>|.html_safe
   end
 
   def link_to_other(text, path)
@@ -13,5 +49,9 @@ module ApplicationHelper
     else
       link_to text, path
     end
+  end
+
+  def icon(classes, inner=nil)
+    %Q!<i class="fa #{classes}">#{inner}</i>!.html_safe
   end
 end
