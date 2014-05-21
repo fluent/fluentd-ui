@@ -1,10 +1,10 @@
 table {
+  // mainly for /misc/information page
   td {
     word-wrap: break-word;
     word-break: break-all;
   }
   td:first-child {
-    // mainly for /misc/information page
     white-space: nowrap;
   }
 }
@@ -15,4 +15,10 @@ table {
     color: #000;
     font-weight: bold;
   }
+}
+
+
+// visualize clickable area
+label {
+  cursor: pointer;
 }
