@@ -3,19 +3,14 @@
 %table{class: "table table-striped table-hover"}
   %thead
     %tr
-      %th{width: "32"}
       %th= t('.name')
       %th= t('.status')
       %th= t('.installed_version')
-      %th= t('.latest_version')
       %th
+      %th{width: "32"}
   %tbody
     - @plugins.each do |plugin|
       %tr
-        %td
-          = form_tag(uninstall_plugins_path, method: :patch) do
-            = hidden_field_tag("plugins[]", plugin.gem_name)
-            = submit_tag t('.uninstall'), class: "btn btn-default"
         %td
           %label{for: "plugin_#{plugin.gem_name}"}
             = plugin.gem_name
@@ -30,11 +25,13 @@
         %td
           = plugin.installed_version
         %td
-          = plugin.latest_version
-        %td
           = form_tag(upgrade_plugins_path, method: :patch) do
             = hidden_field_tag("plugins[name]", plugin.gem_name)
             %select{name: "plugins[version]"}
               - plugin.released_versions.each do |ver|
                 %option{value: ver, disabled: (ver == plugin.installed_version)}= ver
-            = submit_tag "version fix", class: "btn btn-sm btn-info"
+            = submit_tag t('.install_specific_version'), class: "btn btn-info"
+        %td
+          = form_tag(uninstall_plugins_path, method: :patch) do
+            = hidden_field_tag("plugins[]", plugin.gem_name)
+            = submit_tag t('.uninstall'), class: "btn btn-danger"

@@ -1,6 +1,6 @@
 class PluginsController < ApplicationController
   def index
-    redirect_to updated_plugins_path
+    redirect_to installed_plugins_path
   end
 
   def installed

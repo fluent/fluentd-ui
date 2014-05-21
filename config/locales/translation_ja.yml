@@ -4,6 +4,7 @@ ja:
     sign_out: ログアウト
     uninstall: アンインストール
     install: インストール
+    install_latest: 最新版をインストール
     upgrade: アップグレード
     installed: インストール済み
     not_installed: 未インストール
@@ -20,10 +21,11 @@ ja:
       version: バージョン
       installed_version: インストール済みバージョン
       latest_version: 最新バージョン
-      no_updates: 更新はありません
-      installed: &installed インストール済み
+      install_specific_version: このバージョンをインストール
+      no_updates: 更新されたプラグインはありません
+      installed: &installed インストール済みプラグイン
       recommended: &recommended おすすめプラグイン
-      updated: &updated 更新あり
+      updated: &updated 更新のあったプラグイン
     installed:
       <<: *common
       page_title: *installed
