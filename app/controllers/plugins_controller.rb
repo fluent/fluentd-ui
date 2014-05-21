@@ -37,7 +37,7 @@ class PluginsController < ApplicationController
   private
 
   def recommended_plugins
-    # TODO
+    # TODO: how to manage recommended plugins?
     [
       Plugin.new(gem_name: "fluent-plugin-mongo"),
       Plugin.new(gem_name: "fluent-plugin-s3"),
