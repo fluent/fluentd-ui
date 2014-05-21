@@ -1,31 +1,51 @@
 ja:
-  terms:
+  terms: &terms
     sign_in: ログイン
     sign_out: ログアウト
-    install: インストール
     uninstall: アンインストール
+    install: インストール
     upgrade: アップグレード
     installed: インストール済み
     not_installed: 未インストール
     new_version: "%{version}があります"
-    plugin:
+    plugins: &plugins プラグイン
+    misc: &misc その他
+    fluent_version: "fluentd %{version}"
+
+  plugins:
+    common: &common
+      <<: *terms
       name: プラグイン名
       status: 状態
-      installed_version: インストール済み
+      version: バージョン
+      installed_version: インストール済みバージョン
       latest_version: 最新バージョン
       no_updates: 更新はありません
-      pages:
-        installed: インストール済み
-        recommended: おすすめプラグイン
-        updated: 更新あり
+      installed: &installed インストール済み
+      recommended: &recommended おすすめプラグイン
+      updated: &updated 更新あり
+    installed:
+      <<: *common
+      page_title: *installed
+    recommended:
+      <<: *common
+      page_title: *recommended
+    updated:
+      <<: *common
+      page_title: *updated
 
-  sidebar:
-    dashboard: ダッシュボード
-    plugins: プラグイン
-    plugin_installed: インストール済み
-    plugin_recommended: おすすめプラグイン
-    plugin_updated: アップデート
-
+  miscs:
+    common: &common
+      <<: *terms
+    users:
+      <<: *common
+      page_title: ユーザー管理
+    information:
+      <<: *common
+      env: 環境変数
+      env_key: キー
+      env_value: 値
+      page_title: システム情報
 
   messages:
     need_restart: fluentd-uiの再起動が必要です

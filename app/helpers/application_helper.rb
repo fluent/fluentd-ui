@@ -54,4 +54,13 @@ module ApplicationHelper
   def icon(classes, inner=nil)
     %Q!<i class="fa #{classes}">#{inner}</i>!.html_safe
   end
+
+  def page_title(title)
+    content_for(:page_title) { title }
+    page_head(title) unless content_for?(:page_head)
+  end
+
+  def page_head(head)
+    content_for(:page_head) { head }
+  end
 end

@@ -1,0 +1,9 @@
+table {
+  td {
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  td:first-child {
+    white-space: nowrap;
+  }
+}
