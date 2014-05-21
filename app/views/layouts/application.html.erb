@@ -46,24 +46,9 @@
                 </ul>
                 <!-- /.dropdown-alerts -->
               </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                          <%= link_to(t("terms.sign_out"), sessions_path, method: :delete) %>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
+              <li class="dropdown">
+                <%= link_to(t("terms.sign_out"), sessions_path, method: :delete) %>
+              </li>
             </ul>
             <!-- /.navbar-top-links -->
 
@@ -98,6 +83,21 @@
 
     </div>
     <!-- /#wrapper -->
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Page-Level Plugin Scripts - Dashboard -->
+    <script src="js/plugins/morris/raphael-2.1.0.min.js"></script>
+    <script src="js/plugins/morris/morris.js"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="js/sb-admin.js"></script>
+
+    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
+    <script src="js/demo/dashboard-demo.js"></script>
 
 </body>
 
