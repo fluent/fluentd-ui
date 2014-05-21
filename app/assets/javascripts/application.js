@@ -12,4 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require sb-admin-v2/bootstrap
+//= require sb-admin-v2/plugins/dataTables/jquery.dataTables
+//= require sb-admin-v2/plugins/dataTables/dataTables.bootstrap
 //= require_tree .

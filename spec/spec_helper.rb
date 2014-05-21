@@ -63,4 +63,12 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  config.before(:each) do
+    system('sync') if ENV["CIRCLECI"] # file operations are unstable on Circle CI
+  end
+
+  config.after(:each) do
+    system('sync') if ENV["CIRCLECI"] # file operations are unstable on Circle CI
+  end
 end

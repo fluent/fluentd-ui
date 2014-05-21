@@ -1,6 +1,6 @@
 class PluginsController < ApplicationController
   def index
-    redirect_to updated_plugins_path
+    redirect_to installed_plugins_path
   end
 
   def installed
@@ -37,7 +37,7 @@ class PluginsController < ApplicationController
   private
 
   def recommended_plugins
-    # TODO
+    # TODO: how to manage recommended plugins?
     [
       Plugin.new(gem_name: "fluent-plugin-mongo"),
       Plugin.new(gem_name: "fluent-plugin-s3"),

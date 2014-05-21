@@ -1,15 +1,88 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>FluentdUi</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+      Fluentd-UI
+      <% if content_for?(:page_title) %>
+        |
+        <%= content_for(:page_title)  %>
+      <% end %>
+    </title>
   <%= stylesheet_link_tag    'application', media: 'all'%>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+
 </head>
+
 <body>
-  <%= render partial: "shared/global_nav" %>
 
-<%= yield %>
 
+    <div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <%= link_to "fluentd-ui", root_path, class: "navbar-brand" %>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle <%= "btn-info" if has_alert? %>" data-toggle="dropdown" href="#">
+                  <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="nav dropdown-menu dropdown-alerts">
+                  <%= render partial: "shared/alerts" %> 
+                </ul>
+                <!-- /.dropdown-alerts -->
+              </li>
+              <li class="dropdown">
+                <%= link_to(t("terms.sign_out"), sessions_path, method: :delete) %>
+              </li>
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                   <%= render partial: "shared/global_nav" %> 
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+          <% if content_for?(:page_head) %>
+            <div class="row">
+                <div class="col-lg-12">
+                  <h1 class="page-header"><%= content_for(:page_head) %></h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+          <% end %>
+              <div class="row">
+                <div class="col-lg-12">
+                  <%= yield %>
+                </div>
+              </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
 </body>
+
 </html>

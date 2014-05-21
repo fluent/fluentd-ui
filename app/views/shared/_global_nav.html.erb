@@ -1,0 +1,32 @@
+<ul class="nav" id="side-menu">
+  <li>
+    <%= link_to_other icon("fa-dashboard fa-fw") << " Dashboard", root_path %>
+  </li>
+  <li>
+    <%= link_to_other icon("fa-cogs fa-fw") << " " << t('terms.plugins') << icon('fa pull-right fa-caret-down'), plugins_path %>
+    <ul class="nav nav-second-level">
+      <li>
+        <%= link_to_other t("plugins.installed.page_title"), installed_plugins_path %>
+      </li>
+      <li>
+        <%= link_to_other t("plugins.recommended.page_title"), recommended_plugins_path %>
+      </li>
+      <li>
+        <%= link_to_other t("plugins.updated.page_title"), updated_plugins_path %>
+      </li>
+    </ul>
+    <!-- /.nav-second-level -->
+  </li>
+  <li>
+    <%= link_to_other icon('fa-coffee fa-fw') << " " << t('terms.misc') << icon('fa pull-right fa-caret-down'), misc_path %>
+    <ul class="nav nav-second-level">
+      <li>
+        <%= link_to_other t("miscs.information.page_title"), information_misc_path %>
+      </li>
+      <li>
+        <%= link_to_other t('miscs.users.page_title'), misc_users_path %>
+      </li>
+    </ul>
+    <!-- /.nav-second-level -->
+  </li>
+</ul>

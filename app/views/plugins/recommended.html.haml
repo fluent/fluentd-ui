@@ -1,33 +1,34 @@
-= render partial: "installing"
-= render partial: "nav"
+- page_title t('.page_title')
 
 = form_tag(install_plugins_path, method: :patch) do
-  %table
-    %tr
-      %th
-      %th= t('terms.plugin.name')
-      %th= t('terms.plugin.status')
-      %th= t('terms.plugin.installed_version')
-      %th= t('terms.plugin.latest_version')
-    - @plugins.each do |plugin|
+  %table{class: "table table-striped table-hover"}
+    %thead
       %tr
-        %td
-          - unless plugin.installed?
-            = check_box_tag("plugins[]", plugin.gem_name, false, id: "plugin_#{plugin.gem_name}")
-        %td
-          %label{for: "plugin_#{plugin.gem_name}"}
-            = plugin.gem_name
-        %td
-          - if plugin.installed?
-            - if plugin.latest_version?
-              = t("terms.installed")
+        %th{width: "24"}
+        %th= t('.name')
+        %th= t('.status')
+        %th{width: "100"}= t('.installed_version')
+        %th{width: "100"}= t('.latest_version')
+    %tbody
+      - @plugins.each do |plugin|
+        %tr
+          %td
+            - unless plugin.installed?
+              = check_box_tag("plugins[]", plugin.gem_name, false, id: "plugin_#{plugin.gem_name}")
+          %td
+            %label{for: "plugin_#{plugin.gem_name}"}
+              = plugin.gem_name
+          %td
+            - if plugin.installed?
+              - if plugin.latest_version?
+                = t(".installed")
+              - else
+                = t(".new_version", version: plugin.latest_version)
             - else
-              = t("terms.new_version", version: plugin.latest_version)
-          - else
-            = t("terms.not_installed")
-        %td
-          = plugin.installed_version
-        %td
-          = plugin.latest_version
-  = submit_tag t("terms.install")
+              = t(".not_installed")
+          %td
+            = plugin.installed_version
+          %td
+            = plugin.latest_version
+  = submit_tag t(".install"), class: "btn btn-primary"
 

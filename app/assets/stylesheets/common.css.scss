@@ -1,0 +1,24 @@
+table {
+  // mainly for /misc/information page
+  td {
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  td:first-child {
+    white-space: nowrap;
+  }
+}
+
+// mainly for sidebar navigation
+.nav {
+  .current {
+    color: #000;
+    font-weight: bold;
+  }
+}
+
+
+// visualize clickable area
+label {
+  cursor: pointer;
+}

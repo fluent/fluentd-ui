@@ -1,26 +1,58 @@
-%h2
-  information
+- page_title t('.page_title')
 
-%h3= "fluent version #{Fluent::VERSION}"
+%div.col-lg-6
+  %div.panel.panel-info
+    %div.panel-heading
+      %h4= t ".version"
+    %div.panel-body
+      %dl{class: "dl-horizontal"}
+        %dt fluentd
+        %dd= Fluent::VERSION
+        %dt fluentd-ui
+        %dd= FluentdUI::VERSION
 
-%h3
-  plugins
-%table
-  %tr
-    %th name
-    %th version
-  - @plugins.each do |plugin|
-    %tr
-      %td= plugin.gem_name
-      %td= plugin.installed_version
 
-%h3
-  ENV
-%table
-  %tr
-    %th name
-    %th value
-  - @env.each_pair do |key, value|
-    %tr
-      %td= key
-      %td= value
+%div.col-lg-6
+  %div.panel.panel-default
+    %div.panel-heading
+      %h4= t('.installed_plugins')
+    %div.panel-body
+      - if @plugins.present?
+        %table{class: "table table-hover", id: "plugins-table"}
+          %thead
+            %tr
+              %th= t('plugins.common.name')
+              %th= t('plugins.common.version')
+          %tbody
+            - @plugins.each do |plugin|
+              %tr
+                %td= plugin.gem_name
+                %td= plugin.installed_version
+      - else
+        = t "plugins.common.no_installed"
+
+%div.col-lg-12
+  %div.panel.panel-default
+    %div.panel-heading
+      %h4= t('.env')
+    %div.panel-body
+      %table{class: "table table-hover", id: "env-table"}
+        %thead
+          %tr
+            %th= t('.env_key')
+            %th= t('.env_value')
+        %tbody
+          - @env.each_pair do |key, value|
+            %tr
+              %td= key
+              %td= value
+
+:javascript
+  $(document).ready(function() {
+    $('#env-table').dataTable({
+      "ordering": true,
+      "paging": false,
+      "info": false,
+      "searching": false
+    });
+  });

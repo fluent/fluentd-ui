@@ -10,6 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require sb-admin-v2/bootstrap
+ *= require "sb-admin-v2/sb-admin"
+ *= require "sb-admin-v2/font-awesome/scss/font-awesome.scss"
  *= require_tree .
  *= require_self
  */
