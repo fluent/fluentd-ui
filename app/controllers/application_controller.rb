@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return unless session[:remember_token]
-    @current_user ||= User.find_by(remember_token: session[:remember_token])
+    @current_user ||= LoginToken.active.find_by(token_id: session[:remember_token]).try(:user)
   end
 
   def login_required
