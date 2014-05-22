@@ -4,7 +4,7 @@
 
 %div.col-lg-6
   - @user.errors.full_messages.each do |e|
-    = e
+    %div.alert.alert-danger= e
 
   = form_for(:user, url: misc_user_path, method: :patch) do |f|
     %div.form-group
@@ -19,4 +19,4 @@
     %div.form-group
       = f.label :password_confirmation
       = f.password_field :password_confirmation, class: "form-control"
-    = f.submit
+    = f.submit t(".update_password"), class: "btn btn-primary"

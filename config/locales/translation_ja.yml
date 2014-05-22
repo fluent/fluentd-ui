@@ -15,6 +15,7 @@ ja:
     version: バージョン
     fluent_version: "fluentd %{version}"
     no_alert: なし
+    update_password: パスワード更新
 
   plugins:
     common: &plugin_common
@@ -40,8 +41,8 @@ ja:
       page_title: *updated
 
   users: &users
-    <<: *terms
     show:
+      <<: *terms
       page_title: ユーザー管理
 
   miscs:
@@ -71,7 +72,7 @@ ja:
 
     attributes:
       user:
-        name: name  #g
+        name: 名前
         password_digest: password_digest  #g
         remember_token: remember_token  #g
         current_password: 現在のパスワード
