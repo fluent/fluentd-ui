@@ -21,6 +21,10 @@ class Fluentd
         pid && system("/bin/kill -0 #{pid}", :out => File::NULL, :err => File::NULL)
       end
 
+      def log
+        File.read(log_file) # TODO
+      end
+
       %w(pid_file log_file config_file start stop reload).each do |method|
         define_method(method) do
           raise NotImplementedError

@@ -6,22 +6,22 @@ class Fluentd::DaemonsController < ApplicationController
   end
 
   def start
-    fluentd.start
+    fluentd.agent.start
     render :show
   end
 
   def stop
-    fluentd.stop
+    fluentd.agent.stop
     render :show
   end
 
   def reload
-    fluentd.reload
+    fluentd.agent.reload
     render :show
   end
 
   def log
-    render text: fluentd.log, content_type: "text/plain"
+    render text: fluentd.agent.log, content_type: "text/plain"
   end
 
   private

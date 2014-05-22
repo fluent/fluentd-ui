@@ -9,25 +9,8 @@ class Fluentd < ActiveRecord::Base
     variant == "td-agent"
   end
 
-  def start
-    agent.start
-  end
-
-  def stop
-    agent.stop
-  end
-  
-  def reload
-    agent.reload
-  end
-
   def running?
     agent.running?
-  end
-
-  def log
-    # File.read log_file # TODO: large log file
-    "log log"
   end
 
   def agent
