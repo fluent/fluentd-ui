@@ -5,7 +5,7 @@ PATH
       bcrypt (~> 3.1.5)
       bundler (~> 1.5)
       coffee-rails (~> 4.0.0)
-      fluentd (= 0.10.46)
+      fluentd (~> 0.10.48)
       font-awesome-rails
       haml-rails (~> 0.5.3)
       httpclient
@@ -81,14 +81,14 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    fluentd (0.10.46)
+    fluentd (0.10.48)
       cool.io (>= 1.1.1, < 2.0.0, != 1.2.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
       json (>= 1.4.3)
       msgpack (>= 0.4.4, < 0.6.0, != 0.5.3, != 0.5.2, != 0.5.1, != 0.5.0)
       sigdump (~> 0.2.2)
       yajl-ruby (~> 1.0)
-    font-awesome-rails (4.0.3.1)
+    font-awesome-rails (4.1.0.0)
       railties (>= 3.2, < 5.0)
     haml (4.0.5)
       tilt
