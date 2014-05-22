@@ -59,6 +59,7 @@ ja:
       log: ログ
       stopped: 停止中
       running: 稼働中
+      operation: プロセス詳細
     form:
       <<: *fluentd_common
     index:
@@ -73,6 +74,7 @@ ja:
     daemons:
       show:
         <<: *fluentd_common
+        page_title: "fluentd %{label}"
 
   misc:
     common: &misc_common

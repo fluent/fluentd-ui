@@ -1,13 +1,14 @@
 - page_title t('.page_title')
 
-%p= link_to t(".new"), new_fluentd_path
+%p= link_to icon('fa-plus') << " " << t(".new"), new_fluentd_path
 
 - @fluentds.each do |d|
   %div.col-lg-6
     %div.panel.panel-default
       %div.panel-heading
-        %h4= d.inspect
+        %h4
+          = "fluentd ##{d.id}"
+          = link_to t(".edit"), edit_fluentd_path(d)
+          = link_to t(".destroy"), fluentd_path(d), method: :delete
       %div.panel-body
-        = link_to d, fluentd_daemon_path(d) # TODO
-        = link_to t(".edit"), edit_fluentd_path(d)
-        = link_to t(".destroy"), fluentd_path(d), method: :delete
+        = link_to t(".operation"), fluentd_daemon_path(d) # TODO

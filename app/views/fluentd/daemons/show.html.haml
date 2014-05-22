@@ -1,5 +1,6 @@
-%h1
-  = @fluentd.inspect
+- page_title t('.page_title', label: "##{@fluentd.id}")
+
+%h4
   = @fluentd.running? ? t(".running") : t(".stopped")
 
 = link_to t(".start"), start_fluentd_daemon_path(@fluentd), method: :put, remote: true
