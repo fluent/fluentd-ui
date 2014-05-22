@@ -1,32 +1,31 @@
 class Fluentd::DaemonsController < ApplicationController
-  before_action :login_required
-  before_action :fluentd
+  before_action :find_fluentd
 
   def show
   end
 
   def start
-    fluentd.agent.start
+    @fluentd.agent.start
     render :show
   end
 
   def stop
-    fluentd.agent.stop
+    @fluentd.agent.stop
     render :show
   end
 
   def reload
-    fluentd.agent.reload
+    @fluentd.agent.reload
     render :show
   end
 
   def log
-    render text: fluentd.agent.log, content_type: "text/plain"
+    render text: @fluentd.agent.log, content_type: "text/plain"
   end
 
   private
 
-  def fluentd
+  def find_fluentd
     @fluentd = Fluentd.find(params[:fluentd_id])
   end
 end
