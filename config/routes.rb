@@ -25,8 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :misc, only: :show do
-    get "information"
-    resource :user, only: [:show, :edit, :update]
-  end
+  get "misc" => "misc#show"
+  get "misc/information"
+  resource :user, only: [:show, :edit, :update]
 end

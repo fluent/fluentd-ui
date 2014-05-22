@@ -6,7 +6,7 @@
   - @user.errors.full_messages.each do |e|
     %div.alert.alert-danger= e
 
-  = form_for(:user, url: misc_user_path, method: :patch) do |f|
+  = form_for(:user, url: user_path, method: :patch) do |f|
     %div.form-group
       = f.label :name
       = f.text_field :name, class: "form-control", disabled: true

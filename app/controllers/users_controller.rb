@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     unless @user.update_attributes(user_params)
       return render :show
     end
-    redirect_to misc_user_path
+    redirect_to user_path
   end
 
   private

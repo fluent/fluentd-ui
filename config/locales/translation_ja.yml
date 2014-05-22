@@ -45,7 +45,7 @@ ja:
       <<: *terms
       page_title: ユーザー管理
 
-  miscs:
+  misc:
     common: &misc_common
       <<: *terms
     information:
