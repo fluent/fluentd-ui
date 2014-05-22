@@ -53,6 +53,12 @@ ja:
   fluentd: &fluentd
     common: &fluentd_common
       <<: *terms
+      start: 開始
+      stop: 停止
+      reload: リロード
+      log: ログ
+      stopped: 停止中
+      running: 稼働中
     form:
       <<: *fluentd_common
     index:
@@ -64,6 +70,9 @@ ja:
     edit:
       <<: *fluentd_common
       page_title: fluentd | 編集
+    daemons:
+      show:
+        <<: *fluentd_common
 
   misc:
     common: &misc_common
