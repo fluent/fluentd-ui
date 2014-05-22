@@ -1,2 +1,2 @@
-- @daemons.each do |d|
-  = link_to d, fluentd_daemon_path(fluentd_id: 1) # TODO
+- @fluentds.each do |d|
+  = link_to d, fluentd_daemon_path(d) # TODO

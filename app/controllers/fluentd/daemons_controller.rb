@@ -27,6 +27,6 @@ class Fluentd::DaemonsController < ApplicationController
   private
 
   def fluentd
-    @fluentd ||= Fluentd.new(Rails.root + "tmp" + "fluentd") # TODO
+    @fluentd = Fluentd.find(params[:fluentd_id])
   end
 end

@@ -1,7 +1,7 @@
 %h1
   = @fluentd.running? ? "running" : "stopped"
 
-  = link_to "start", start_fluentd_daemon_path(id: 1), method: :put, remote: true
-  = link_to "stop", stop_fluentd_daemon_path(id: 1), method: :put, remote: true
-  = link_to "reload", reload_fluentd_daemon_path(id: 1), method: :put, remote: true
-  = link_to "log", log_fluentd_daemon_path(id: 1)
+  = link_to "start", start_fluentd_daemon_path(@fluentd), method: :put, remote: true
+  = link_to "stop", stop_fluentd_daemon_path(@fluentd), method: :put, remote: true
+  = link_to "reload", reload_fluentd_daemon_path(@fluentd), method: :put, remote: true
+  = link_to "log", log_fluentd_daemon_path(@fluentd)
