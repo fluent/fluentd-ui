@@ -1,13 +1,10 @@
 class User < ActiveRecord::Base
   has_secure_password
 
-  validates :name, uniqueness: true, presence: true
-  validates :remember_token, uniqueness: true, allow_nil: true
+  attr_accessor :current_password
 
-  def generate_remember_token
-    begin
-      token = SecureRandom.base64(32)
-    end while User.where(remember_token: token).exists?
-    token
-  end
+  has_many :login_tokens
+
+  validates :name, uniqueness: true, presence: true
+  validates :password, length: { minimum: 8 }
 end

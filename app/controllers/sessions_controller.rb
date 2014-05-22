@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   layout "sign_in"
+  skip_before_action :login_required, only: [:new, :create]
 
   def create
     user = User.find_by(name: session_params[:name]).try(:authenticate, session_params[:password])
@@ -12,7 +13,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.update_attribute(:remember_token, nil)
+    LoginToken.where(token_id: session[:remember_token]).delete_all
+    LoginToken.inactive.delete_all # GC
     session.delete :remember_token
     redirect_to new_sessions_path
   end
@@ -24,9 +26,8 @@ class SessionsController < ApplicationController
   end
 
   def sign_in(user)
-    token = user.generate_remember_token
-    session[:remember_token] = token
-    user.update_attribute(:remember_token, token)
+    token = user.login_tokens.create(expired_at: 10.hours.from_now) # TODO: decide lifetime
+    session[:remember_token] = token.token_id
     user
   end
 end

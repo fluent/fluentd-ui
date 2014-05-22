@@ -1,6 +1,6 @@
-class MiscsController < ApplicationController
+class MiscController < ApplicationController
   def show
-    redirect_to information_misc_path
+    redirect_to misc_information_path
   end
 
   def information

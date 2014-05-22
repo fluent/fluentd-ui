@@ -11,12 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513053102) do
+ActiveRecord::Schema.define(version: 20140522023140) do
+
+  create_table "login_tokens", force: true do |t|
+    t.string   "token_id",   null: false
+    t.integer  "user_id",    null: false
+    t.datetime "expired_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "login_tokens", ["token_id"], name: "index_login_tokens_on_token_id"
 
   create_table "users", force: true do |t|
     t.string   "name",            null: false
     t.string   "password_digest", null: false
-    t.string   "remember_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -15,9 +15,10 @@ ja:
     version: バージョン
     fluent_version: "fluentd %{version}"
     no_alert: なし
+    update_password: パスワード更新
 
   plugins:
-    common: &common
+    common: &plugin_common
       <<: *terms
       name: プラグイン名
       status: 状態
@@ -30,23 +31,25 @@ ja:
       recommended: &recommended おすすめプラグイン
       updated: &updated 更新のあったプラグイン
     installed:
-      <<: *common
+      <<: *plugin_common
       page_title: *installed
     recommended:
-      <<: *common
+      <<: *plugin_common
       page_title: *recommended
     updated:
-      <<: *common
+      <<: *plugin_common
       page_title: *updated
 
-  miscs:
-    common: &common
+  users: &users
+    show:
       <<: *terms
-    users:
-      <<: *common
       page_title: ユーザー管理
+
+  misc:
+    common: &misc_common
+      <<: *terms
     information:
-      <<: *common
+      <<: *misc_common
       env: 環境変数
       env_key: キー
       env_value: 値
@@ -60,11 +63,18 @@ ja:
     login_failed: ログインに失敗しました。
 
   activerecord:
+    errors:
+      messages:
+          wrong_password: が違います
+
     models:
       user: user  #g
 
     attributes:
       user:
-        name: name  #g
+        name: 名前
         password_digest: password_digest  #g
         remember_token: remember_token  #g
+        current_password: 現在のパスワード
+        password: パスワード
+        password_confirmation: パスワード(確認)

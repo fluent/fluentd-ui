@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
   resource :sessions
 
   resources :plugins do
@@ -26,10 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-
-  resource :misc do
-    get "information"
-    resources :users do
-    end
-  end
+  get "misc" => "misc#show"
+  get "misc/information"
+  resource :user, only: [:show, :edit, :update]
 end

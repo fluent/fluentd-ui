@@ -53,8 +53,7 @@ describe "sessions" do
     end
 
     it "remember_token was destroyed" do
-      exists_user.reload
-      exists_user.remember_token.should be_nil
+      LoginToken.where(user_id: exists_user.id).should_not be_exists
     end
   end
 end
