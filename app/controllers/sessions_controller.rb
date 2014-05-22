@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   layout "sign_in"
+  skip_before_action :login_required, only: [:new, :create]
 
   def create
     user = User.find_by(name: session_params[:name]).try(:authenticate, session_params[:password])
