@@ -1,2 +1,13 @@
+- page_title t('.page_title')
+
+%p= link_to t(".new"), new_fluentd_path
+
 - @fluentds.each do |d|
-  = link_to d, fluentd_daemon_path(d) # TODO
+  %div.col-lg-6
+    %div.panel.panel-default
+      %div.panel-heading
+        %h4= d.inspect
+      %div.panel-body
+        = link_to d, fluentd_daemon_path(d) # TODO
+        = link_to t(".edit"), edit_fluentd_path(d)
+        = link_to t(".destroy"), fluentd_path(d), method: :delete

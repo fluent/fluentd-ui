@@ -22,10 +22,22 @@ class Fluentd
       end
 
       def log
-        File.read(log_file) # TODO
+        File.read(log_file) # TODO: large log file
       end
 
-      %w(pid_file log_file config_file start stop reload).each do |method|
+      def pid_file
+        extra_options[:pid_file] || DEFAULT_OPTIONS[:pid_file]
+      end
+
+      def log_file
+        extra_options[:log_file] || DEFAULT_OPTIONS[:pid_file]
+      end
+
+      def config_file
+        extra_options[:config_file] || DEFAULT_OPTIONS[:pid_file]
+      end
+
+      %w(start stop reload).each do |method|
         define_method(method) do
           raise NotImplementedError
         end
@@ -49,17 +61,11 @@ class Fluentd
     end
 
     class Fluentd < Base
-      def pid_file
-        extra_options[:pid_file] || "/var/run/fluent.pid"
-      end
-
-      def log_file
-        extra_options[:log_file] || "/var/log/fluent.log"
-      end
-
-      def config_file
-        extra_options[:config_file] || "/etc/fluent/fluent.conf"
-      end
+      DEFAULT_OPTIONS = {
+        :pid_file => "/var/run/fluent.pid",
+        :log_file => "/var/log/fluent.log",
+        :config_file => "/etc/fluent/fluent.conf",
+      }
 
       def options_to_argv
         argv = ""
@@ -88,17 +94,11 @@ class Fluentd
     end
 
     class TdAgent < Base
-      def pid_file
-        "/var/run/td-agent/td-agent.pid"
-      end
-
-      def log_file
-        "/var/log/td-agent/td-agent.log"
-      end
-
-      def config_file
-        "/etc/td-agent/td-agent.conf"
-      end
+      DEFAULT_OPTIONS = {
+        :pid_file => "/var/run/td-agent/td-agent.pid",
+        :log_file => "/var/log/td-agent/td-agent.log",
+        :config_file => "/etc/td-agent/td-agent.conf",
+      }
 
       def start
         system('/etc/init.d/td-agent start')

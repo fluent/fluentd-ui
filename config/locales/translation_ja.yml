@@ -16,6 +16,11 @@ ja:
     fluent_version: "fluentd %{version}"
     no_alert: なし
     update_password: パスワード更新
+    create: 作成
+    update: 更新
+    edit: 編集
+    destroy: 削除
+    new: 新規作成
 
   plugins:
     common: &plugin_common
@@ -45,6 +50,21 @@ ja:
       <<: *terms
       page_title: ユーザー管理
 
+  fluentd: &fluentd
+    common: &fluentd_common
+      <<: *terms
+    form:
+      <<: *fluentd_common
+    index:
+      <<: *fluentd_common
+      page_title: fluentd
+    new:
+      <<: *fluentd_common
+      page_title: fluentd | 追加
+    edit:
+      <<: *fluentd_common
+      page_title: fluentd | 編集
+
   misc:
     common: &misc_common
       <<: *terms
@@ -68,6 +88,7 @@ ja:
           wrong_password: が違います
           lack_read_permission: の読み込み権限がありません
           lack_write_permission: の書き込み権限がありません
+          is_a_directory: はディレクトリです。ファイルを指定してください
 
     models:
       user: user  #g
@@ -84,3 +105,4 @@ ja:
         log_file: ログファイル
         pid_file: PIDファイル
         config_file: 設定ファイル
+        variant: タイプ
