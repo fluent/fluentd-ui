@@ -27,11 +27,14 @@ class Fluentd < ActiveRecord::Base
       path = send(column)
       if File.exist?(path)
         unless File.writable?(path)
-          errors.add(column, "#{path} fa")
+          errors.add(column, :lack_write_permission)
+        end
+        unless File.readable?(path)
+          errors.add(column, :lack_read_permission)
         end
       else
         unless File.world_writable?(File.dirname(path))
-          errors.add(column, "#{path} fa")
+          errors.add(column, :lack_write_permission)
         end
       end
     end

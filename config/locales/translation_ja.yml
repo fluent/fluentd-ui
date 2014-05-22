@@ -66,6 +66,8 @@ ja:
     errors:
       messages:
           wrong_password: が違います
+          lack_read_permission: の読み込み権限がありません
+          lack_write_permission: の書き込み権限がありません
 
     models:
       user: user  #g
@@ -78,3 +80,7 @@ ja:
         current_password: 現在のパスワード
         password: パスワード
         password_confirmation: パスワード(確認)
+      fluentd:
+        log_file: ログファイル
+        pid_file: PIDファイル
+        config_file: 設定ファイル
