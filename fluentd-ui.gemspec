@@ -5,7 +5,7 @@ require 'fluentd-ui/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "fluentd-ui"
-  spec.version       = "0.0.1"
+  spec.version       = FluentdUI::VERSION
   spec.authors       = ["Treasure Data"]
   spec.email         = ["fixme@example.com"]
   spec.summary       = %q{ Write a short summary. Required.}

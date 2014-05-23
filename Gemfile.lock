@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fluentd-ui (0.0.1)
+    fluentd-ui (0.0.1.pre)
       bcrypt (~> 3.1.5)
       bundler (~> 1.5)
       coffee-rails (~> 4.0.0)
