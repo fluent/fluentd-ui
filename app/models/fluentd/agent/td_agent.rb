@@ -2,6 +2,7 @@ class Fluentd
   class Agent
     class TdAgent
       include Common
+
       def self.default_options
         {
           :pid_file => "/var/run/td-agent/td-agent.pid",

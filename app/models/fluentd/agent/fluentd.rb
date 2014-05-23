@@ -2,6 +2,7 @@ class Fluentd
   class Agent
     class Fluentd
       include Common
+
       def self.default_options
         {
           :pid_file => "/var/run/fluent.pid",
@@ -21,7 +22,38 @@ class Fluentd
 
       def start
         return true if running?
+        actual_start
+      end
+
+      def stop
+        return true unless running?
+        actual_stop
+      end
+
+      def restart
+        return false unless running?
+        actual_restart
+      end
+
+      private
+
+      def actual_start
         spawn("bundle exec fluentd #{options_to_argv}")
+        wait_starting
+      end
+
+      def actual_stop
+        if Process.kill(:TERM, pid)
+          File.unlink(pid_file)
+          true
+        end
+      end
+
+      def actual_restart
+        Process.kill(:HUP, pid)
+      end
+
+      def wait_starting
         begin
           timeout(wait_process_starting_seconds) do
             loop do
@@ -33,19 +65,6 @@ class Fluentd
         rescue TimeoutError
           false
         end
-      end
-
-      def stop
-        return true unless running?
-        if Process.kill(:TERM, pid)
-          File.unlink(pid_file)
-          true
-        end
-      end
-
-      def restart
-        return false unless running?
-        Process.kill(:HUP, pid)
       end
     end
   end

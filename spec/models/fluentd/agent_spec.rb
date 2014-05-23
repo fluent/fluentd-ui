@@ -44,6 +44,60 @@ describe Fluentd::Agent do
       it { should include("-o #{instance.log_file}") }
       it { should include("--use-v1-config") }
     end
+
+    describe "#start" do
+      before { instance.stub(:running?).and_return { running } }
+
+      context "running" do
+        let(:running) { true }
+        after { instance.start }
+
+        it { instance.should_not_receive(:actual_start) }
+      end
+
+      context "not running" do
+        let(:running) { false }
+        after { instance.start }
+
+        it { instance.should_receive(:actual_start) }
+      end
+    end
+
+    describe "#stop" do
+      before { instance.stub(:running?).and_return { running } }
+
+      context "running" do
+        let(:running) { true }
+        after { instance.stop }
+
+        it { instance.should_receive(:actual_stop) }
+      end
+
+      context "not running" do
+        let(:running) { false }
+        after { instance.stop }
+
+        it { instance.should_not_receive(:actual_stop) }
+      end
+    end
+
+    describe "#restart" do
+      before { instance.stub(:running?).and_return { running } }
+
+      context "running" do
+        let(:running) { true }
+        after { instance.restart }
+
+        it { instance.should_receive(:actual_restart) }
+      end
+
+      context "not running" do
+        let(:running) { false }
+        after { instance.restart }
+
+        it { instance.should_not_receive(:actual_restart) }
+      end
+    end
   end
 
   describe "TdAgent" do
