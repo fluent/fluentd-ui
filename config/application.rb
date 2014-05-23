@@ -13,6 +13,7 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 # these gems are not required by Bundler.require
+require "sass"
 require "haml-rails"
 require "jquery-rails"
 require "sucker_punch"

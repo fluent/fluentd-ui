@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "fluentd", "0.10.46"
+  spec.add_dependency "fluentd", "~> 0.10.48"
   spec.add_dependency 'rails', '4.1.1'
   spec.add_dependency 'sucker_punch', "~> 1.0.5"
   spec.add_dependency 'i18n_generators', '1.2.1'

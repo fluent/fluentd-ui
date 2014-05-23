@@ -16,6 +16,11 @@ ja:
     fluent_version: "fluentd %{version}"
     no_alert: なし
     update_password: パスワード更新
+    create: 作成
+    update: 更新
+    edit: 編集
+    destroy: 削除
+    new: 新規作成
 
   plugins:
     common: &plugin_common
@@ -45,6 +50,32 @@ ja:
       <<: *terms
       page_title: ユーザー管理
 
+  fluentd: &fluentd
+    common: &fluentd_common
+      <<: *terms
+      start: 開始
+      stop: 停止
+      restart: 再起動
+      log: ログ
+      stopped: 停止中
+      running: 稼働中
+      operation: プロセス詳細
+    form:
+      <<: *fluentd_common
+    index:
+      <<: *fluentd_common
+      page_title: fluentd
+    new:
+      <<: *fluentd_common
+      page_title: fluentd | 追加
+    edit:
+      <<: *fluentd_common
+      page_title: fluentd | 編集
+    agents:
+      show:
+        <<: *fluentd_common
+        page_title: "fluentd %{label}"
+
   misc:
     common: &misc_common
       <<: *terms
@@ -61,11 +92,17 @@ ja:
 
   error:
     login_failed: ログインに失敗しました。
+    fluentd_start_failed: fluentdの起動に失敗しました。
+    fluentd_stop_failed: fluentdの停止に失敗しました。
+    fluentd_restart_failed: fluentdの再起動に失敗しました。
 
   activerecord:
     errors:
       messages:
           wrong_password: が違います
+          lack_read_permission: の読み込み権限がありません
+          lack_write_permission: の書き込み権限がありません
+          is_a_directory: はディレクトリです。ファイルを指定してください
 
     models:
       user: user  #g
@@ -78,3 +115,8 @@ ja:
         current_password: 現在のパスワード
         password: パスワード
         password_confirmation: パスワード(確認)
+      fluentd:
+        log_file: ログファイル
+        pid_file: PIDファイル
+        config_file: 設定ファイル
+        variant: タイプ

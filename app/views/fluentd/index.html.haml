@@ -1,2 +1,14 @@
-- @daemons.each do |d|
-  = link_to d, fluentd_daemon_path(fluentd_id: 1) # TODO
+- page_title t('.page_title')
+
+%p= link_to icon('fa-plus') << " " << t(".new"), new_fluentd_path
+
+- @fluentds.each do |d|
+  %div.col-lg-6
+    %div.panel.panel-default
+      %div.panel-heading
+        %h4
+          = "fluentd ##{d.id}"
+          = link_to t(".edit"), edit_fluentd_path(d)
+          = link_to t(".destroy"), fluentd_path(d), method: :delete
+      %div.panel-body
+        = link_to t(".operation"), fluentd_agent_path(d) # TODO

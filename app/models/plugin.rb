@@ -86,6 +86,7 @@ class Plugin
   end
 
   def self.installed
+    return [] unless File.exist?(gemfile_path)
     File.read(gemfile_path).scan(/"(.*?)", "(.*?)"/).map do |plugin|
       new(gem_name: plugin[0], version: plugin[1])
     end
