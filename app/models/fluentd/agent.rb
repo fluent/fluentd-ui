@@ -26,15 +26,15 @@ class Fluentd
       end
 
       def pid_file
-        extra_options[:pid_file] || DEFAULT_OPTIONS[:pid_file]
+        extra_options[:pid_file] || self.class.default_options[:pid_file]
       end
 
       def log_file
-        extra_options[:log_file] || DEFAULT_OPTIONS[:pid_file]
+        extra_options[:log_file] || self.class.default_options[:log_file]
       end
 
       def config_file
-        extra_options[:config_file] || DEFAULT_OPTIONS[:pid_file]
+        extra_options[:config_file] || self.class.default_options[:config_file]
       end
 
       %w(start stop reload).each do |method|
@@ -61,11 +61,13 @@ class Fluentd
     end
 
     class Fluentd < Base
-      DEFAULT_OPTIONS = {
-        :pid_file => "/var/run/fluent.pid",
-        :log_file => "/var/log/fluent.log",
-        :config_file => "/etc/fluent/fluent.conf",
-      }
+      def self.default_options
+        {
+          :pid_file => "/var/run/fluent.pid",
+          :log_file => "/var/log/fluent.log",
+          :config_file => "/etc/fluent/fluent.conf",
+        }
+      end
 
       def options_to_argv
         argv = ""
@@ -94,11 +96,13 @@ class Fluentd
     end
 
     class TdAgent < Base
-      DEFAULT_OPTIONS = {
-        :pid_file => "/var/run/td-agent/td-agent.pid",
-        :log_file => "/var/log/td-agent/td-agent.log",
-        :config_file => "/etc/td-agent/td-agent.conf",
-      }
+      def self.default_options
+        {
+          :pid_file => "/var/run/td-agent/td-agent.pid",
+          :log_file => "/var/log/td-agent/td-agent.log",
+          :config_file => "/etc/td-agent/td-agent.conf",
+        }
+      end
 
       def start
         system('/etc/init.d/td-agent start')

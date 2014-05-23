@@ -18,10 +18,6 @@ class Fluentd < ActiveRecord::Base
     variant == "td-agent"
   end
 
-  def running?
-    agent.running?
-  end
-
   def agent
     klass = variant.underscore.camelize
     @agent ||= Agent.const_get(klass).new({
@@ -33,30 +29,35 @@ class Fluentd < ActiveRecord::Base
 
   def expand_paths
     %w(pid_file log_file config_file).each do |column|
-      self.send("#{column}=", File.expand_path(send(column)))
+      path = send(column)
+      next if path.blank?
+      self.send("#{column}=", File.expand_path(path))
     end
   end
 
   def validate_permissions
     %w(pid_file log_file config_file).each do |column|
-      path = send(column)
-      next if path.empty? # if empty, presence: true will catch it
+      check_permission(column)
+    end
+  end
 
-      if File.exist?(path)
-        if File.directory?(path)
-          errors.add(column, :is_a_directory)
-        end
+  def check_permission(column)
+    path = send(column)
+    return if path.blank? # if empty, presence: true will catch it
+    if File.exist?(path)
+      if File.directory?(path)
+        errors.add(column, :is_a_directory)
+      end
 
-        unless File.writable?(path)
-          errors.add(column, :lack_write_permission)
-        end
-        unless File.readable?(path)
-          errors.add(column, :lack_read_permission)
-        end
-      else
-        unless File.world_writable?(File.dirname(path))
-          errors.add(column, :lack_write_permission)
-        end
+      unless File.writable?(path)
+        errors.add(column, :lack_write_permission)
+      end
+      unless File.readable?(path)
+        errors.add(column, :lack_read_permission)
+      end
+    else
+      unless File.writable?(File.dirname(path))
+        errors.add(column, :lack_write_permission)
       end
     end
   end
