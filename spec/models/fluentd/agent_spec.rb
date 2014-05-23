@@ -52,14 +52,24 @@ describe Fluentd::Agent do
         let(:running) { true }
         after { instance.start }
 
-        it { instance.should_not_receive(:actual_start) }
+        it { instance.should_not_receive(:validate_fluentd_options) }
       end
 
       context "not running" do
         let(:running) { false }
         after { instance.start }
 
-        it { instance.should_receive(:actual_start) }
+        it { instance.should_receive(:validate_fluentd_options) }
+
+        context "validate_fluentd_options success" do
+          before { instance.stub(:validate_fluentd_options).and_return { true } }
+          it { instance.should_receive(:actual_start) }
+        end
+
+        context "validate_fluentd_options fail" do
+          before { instance.stub(:validate_fluentd_options).and_return { false } }
+          it { instance.should_not_receive(:actual_start) }
+        end
       end
     end
 
