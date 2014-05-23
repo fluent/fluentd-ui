@@ -14,7 +14,7 @@ class Fluentd
 
       def pid
         return unless File.exists?(pid_file)
-        File.read(pid_file)
+        File.read(pid_file).to_i rescue nil
       end
 
       def running?
@@ -80,7 +80,13 @@ class Fluentd
 
       def start
         return if running?
-        spawn("bundle exec fluentd #{options_to_argv}") # TODO
+        spawn("bundle exec fluentd #{options_to_argv}")
+        timeout(5) do # TODO: decide how long wait
+          loop do
+            break if pid && Process.kill(0, pid)
+            sleep 0.01
+          end
+        end
       end
 
       def stop
