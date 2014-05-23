@@ -5,7 +5,7 @@ require 'fluent/supervisor'
 
 class Fluentd
   class Agent
-    class Base
+    module Common
       attr_reader :extra_options
 
       def initialize(options = {})
@@ -64,7 +64,8 @@ class Fluentd
       #   fluentd: /etc/fluent/fluent.conf (by fluentd -s)
     end
 
-    class Fluentd < Base
+    class Fluentd
+      include Common
       def self.default_options
         {
           :pid_file => "/var/run/fluent.pid",
@@ -112,7 +113,8 @@ class Fluentd
       end
     end
 
-    class TdAgent < Base
+    class TdAgent
+      include Common
       def self.default_options
         {
           :pid_file => "/var/run/td-agent/td-agent.pid",
@@ -136,7 +138,8 @@ class Fluentd
       end
     end
 
-    class Remote < Base # TODO
+    class Remote # TODO
+      include Common
     end
   end
 end
