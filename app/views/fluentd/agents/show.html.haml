@@ -1,5 +1,8 @@
 - page_title t('.page_title', label: "##{@fluentd.id}")
 
+- if flash[:error]
+  %div.alert.alert-danger= flash[:error]
+
 %h4
   = @fluentd.agent.running? ? t(".running") : t(".stopped")
 

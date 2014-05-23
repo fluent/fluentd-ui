@@ -92,6 +92,9 @@ ja:
 
   error:
     login_failed: ログインに失敗しました。
+    fluentd_start_failed: fluentdの起動に失敗しました。
+    fluentd_stop_failed: fluentdの停止に失敗しました。
+    fluentd_restart_failed: fluentdの再起動に失敗しました。
 
   activerecord:
     errors:

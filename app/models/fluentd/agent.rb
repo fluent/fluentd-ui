@@ -17,6 +17,10 @@ class Fluentd
         File.read(pid_file).to_i rescue nil
       end
 
+      def wait_process_starting_seconds
+        5 # TODO: how long wait?
+      end
+
       def running?
         pid && Process.kill(0, pid)
       end
@@ -79,24 +83,31 @@ class Fluentd
       end
 
       def start
-        return if running?
+        return true if running?
         spawn("bundle exec fluentd #{options_to_argv}")
-        timeout(5) do # TODO: decide how long wait
-          loop do
-            break if pid && Process.kill(0, pid)
-            sleep 0.01
+        begin
+          timeout(wait_process_starting_seconds) do
+            loop do
+              break if pid && Process.kill(0, pid)
+              sleep 0.01
+            end
           end
+          true
+        rescue TimeoutError
+          false
         end
       end
 
       def stop
-        return unless running?
-        Process.kill(:TERM, pid)
-        File.unlink(pid_file)
+        return true unless running?
+        if Process.kill(:TERM, pid)
+          File.unlink(pid_file)
+          true
+        end
       end
 
       def restart
-        return unless running?
+        return false unless running?
         Process.kill(:HUP, pid)
       end
     end
