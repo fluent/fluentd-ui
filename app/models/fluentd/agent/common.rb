@@ -29,7 +29,7 @@ class Fluentd
       end
 
       def wait_process_starting_seconds
-        5 # TODO: how long wait?
+        10.seconds # wait time for fluentd pidfile created
       end
 
       def running?

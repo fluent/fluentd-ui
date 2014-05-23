@@ -22,7 +22,9 @@ class Fluentd
 
       def start
         return true if running?
-        actual_start
+        if validate_fluentd_options
+          actual_start
+        end
       end
 
       def stop
@@ -36,6 +38,10 @@ class Fluentd
       end
 
       private
+
+      def validate_fluentd_options
+        system("bundle exec fluentd --dry-run #{options_to_argv}")
+      end
 
       def actual_start
         spawn("bundle exec fluentd #{options_to_argv}")
