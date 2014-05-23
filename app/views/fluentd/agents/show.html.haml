@@ -3,7 +3,8 @@
 %h4
   = @fluentd.agent.running? ? t(".running") : t(".stopped")
 
-= link_to t(".start"), start_fluentd_agent_path(@fluentd), method: :put, remote: true
-= link_to t(".stop"), stop_fluentd_agent_path(@fluentd), method: :put, remote: true
-= link_to t(".reload"), reload_fluentd_agent_path(@fluentd), method: :put, remote: true
+= link_to t(".start"), start_fluentd_agent_path(@fluentd), method: :put
+= link_to t(".stop"), stop_fluentd_agent_path(@fluentd), method: :put
+= link_to t(".reload"), reload_fluentd_agent_path(@fluentd), method: :put
 = link_to t(".log"), log_fluentd_agent_path(@fluentd)
+TODO: config

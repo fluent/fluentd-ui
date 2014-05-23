@@ -6,17 +6,17 @@ class Fluentd::AgentsController < ApplicationController
 
   def start
     @fluentd.agent.start
-    render :show
+    redirect_to fluentd_agent_path(@fluentd), status: 303 # 303 is change HTTP Verb GET
   end
 
   def stop
     @fluentd.agent.stop
-    render :show
+    redirect_to fluentd_agent_path(@fluentd), status: 303 # 303 is change HTTP Verb GET
   end
 
   def reload
     @fluentd.agent.reload
-    render :show
+    redirect_to fluentd_agent_path(@fluentd), status: 303 # 303 is change HTTP Verb GET
   end
 
   def log
