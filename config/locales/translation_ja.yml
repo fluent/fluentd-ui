@@ -71,7 +71,7 @@ ja:
     edit:
       <<: *fluentd_common
       page_title: fluentd | 編集
-    daemons:
+    agents:
       show:
         <<: *fluentd_common
         page_title: "fluentd %{label}"

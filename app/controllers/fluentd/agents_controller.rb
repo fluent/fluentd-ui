@@ -1,4 +1,4 @@
-class Fluentd::DaemonsController < ApplicationController
+class Fluentd::AgentsController < ApplicationController
   before_action :find_fluentd
 
   def show
