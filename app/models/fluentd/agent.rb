@@ -18,7 +18,7 @@ class Fluentd
       end
 
       def running?
-        pid && system("/bin/kill -0 #{pid}", :out => File::NULL, :err => File::NULL)
+        pid && Process.kill(0, pid)
       end
 
       def log
@@ -91,13 +91,13 @@ class Fluentd
 
       def stop
         return unless running?
-        system("/bin/kill -TERM #{pid}")
+        Process.kill(:TERM, pid)
         File.unlink(pid_file)
       end
 
       def reload
         return unless running?
-        system("/bin/kill -HUP #{pid}")
+        Process.kill(:HUP, pid)
       end
     end
 
