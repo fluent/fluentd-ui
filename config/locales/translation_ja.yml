@@ -55,7 +55,7 @@ ja:
       <<: *terms
       start: 開始
       stop: 停止
-      reload: リロード
+      restart: 再起動
       log: ログ
       stopped: 停止中
       running: 稼働中

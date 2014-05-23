@@ -37,7 +37,7 @@ class Fluentd
         extra_options[:config_file] || self.class.default_options[:config_file]
       end
 
-      %w(start stop reload).each do |method|
+      %w(start stop restart).each do |method|
         define_method(method) do
           raise NotImplementedError
         end
@@ -95,7 +95,7 @@ class Fluentd
         File.unlink(pid_file)
       end
 
-      def reload
+      def restart
         return unless running?
         Process.kill(:HUP, pid)
       end
@@ -118,7 +118,7 @@ class Fluentd
         system('/etc/init.d/td-agent stop')
       end
 
-      def reload
+      def restart
         # NOTE: td-agent has no reload command
         # https://github.com/treasure-data/td-agent/blob/master/debian/td-agent.init#L156
         system('/etc/init.d/td-agent restart')

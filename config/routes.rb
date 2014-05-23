@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resource :agent, only: [:show], module: :fluentd do
       put "start"
       put "stop"
-      put "reload"
+      put "restart"
       get "log"
     end
     resource :setting, only: [:show, :edit, :update], module: :fluentd do

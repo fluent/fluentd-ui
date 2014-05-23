@@ -5,6 +5,6 @@
 
 = link_to t(".start"), start_fluentd_agent_path(@fluentd), method: :put
 = link_to t(".stop"), stop_fluentd_agent_path(@fluentd), method: :put
-= link_to t(".reload"), reload_fluentd_agent_path(@fluentd), method: :put
+= link_to t(".restart"), restart_fluentd_agent_path(@fluentd), method: :put
 = link_to t(".log"), log_fluentd_agent_path(@fluentd)
 TODO: config
