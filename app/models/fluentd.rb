@@ -27,6 +27,10 @@ class Fluentd < ActiveRecord::Base
     })
   end
 
+  def api
+    @api ||= Api::Http.new(api_endpoint)
+  end
+
   def label
     "#{variant} ##{id}"
   end

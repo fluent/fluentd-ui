@@ -42,6 +42,6 @@ class FluentdController < ApplicationController
   end
 
   def fluentd_params
-    params.require(:fluentd).permit(:log_file, :pid_file, :config_file, :variant)
+    params.require(:fluentd).permit(:log_file, :pid_file, :config_file, :variant, :api_endpoint)
   end
 end

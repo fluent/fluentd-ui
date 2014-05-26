@@ -126,3 +126,4 @@ ja:
         pid_file: PIDファイル
         config_file: 設定ファイル
         variant: タイプ
+        api_endpoint: APIエンドポイント
