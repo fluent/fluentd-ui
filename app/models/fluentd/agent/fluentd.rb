@@ -20,18 +20,19 @@ class Fluentd
         argv
       end
 
+      # return value is status_after_this_method_called == started
       def start
         return true if running?
-        if validate_fluentd_options
-          actual_start
-        end
+        actual_start
       end
 
+      # return value is status_after_this_method_called == stopped
       def stop
         return true unless running?
         actual_stop
       end
 
+      # return value is status_after_this_method_called == started
       def restart
         return false unless running?
         actual_restart
@@ -44,6 +45,7 @@ class Fluentd
       end
 
       def actual_start
+        return unless validate_fluentd_options
         spawn("bundle exec fluentd #{options_to_argv}")
         wait_starting
       end

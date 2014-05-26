@@ -50,25 +50,29 @@ describe Fluentd::Agent do
 
       context "running" do
         let(:running) { true }
-        after { instance.start }
 
-        it { instance.should_not_receive(:validate_fluentd_options) }
+        subject { instance.start }
+
+        it { should be_true }
       end
 
       context "not running" do
         let(:running) { false }
-        after { instance.start }
 
-        it { instance.should_receive(:validate_fluentd_options) }
+        subject { instance.start }
 
-        context "validate_fluentd_options success" do
-          before { instance.stub(:validate_fluentd_options).and_return { true } }
-          it { instance.should_receive(:actual_start) }
+        before do
+          instance.stub(:actual_start).and_return { start_result }
         end
 
-        context "validate_fluentd_options fail" do
-          before { instance.stub(:validate_fluentd_options).and_return { false } }
-          it { instance.should_not_receive(:actual_start) }
+        context "actual start success" do
+          let(:start_result) { true }
+          it { should be_true }
+        end
+
+        context "actual start failed" do
+          let(:start_result) { false }
+          it { should be_false }
         end
       end
     end
@@ -76,36 +80,56 @@ describe Fluentd::Agent do
     describe "#stop" do
       before { instance.stub(:running?).and_return { running } }
 
+      subject { instance.stop }
+
       context "running" do
         let(:running) { true }
-        after { instance.stop }
 
-        it { instance.should_receive(:actual_stop) }
+        before { instance.stub(:actual_stop).and_return { stop_result } }
+
+        context "actual stop success" do
+          let(:stop_result) { true }
+          it { should be_true }
+        end
+
+        context "actual stop failed" do
+          let(:stop_result) { false }
+          it { should be_false }
+        end
       end
 
       context "not running" do
         let(:running) { false }
-        after { instance.stop }
 
-        it { instance.should_not_receive(:actual_stop) }
+        it { should be_true }
       end
     end
 
     describe "#restart" do
       before { instance.stub(:running?).and_return { running } }
 
+      subject { instance.restart }
+
       context "running" do
         let(:running) { true }
-        after { instance.restart }
 
-        it { instance.should_receive(:actual_restart) }
+        before { instance.stub(:actual_restart).and_return { restart_result } }
+
+        context "actual restart success" do
+          let(:restart_result) { true }
+          it { should be_true }
+        end
+
+        context "actual restart failed" do
+          let(:restart_result) { false }
+          it { should be_false }
+        end
       end
 
       context "not running" do
         let(:running) { false }
-        after { instance.restart }
 
-        it { instance.should_not_receive(:actual_restart) }
+        it { should be_false }
       end
     end
   end
