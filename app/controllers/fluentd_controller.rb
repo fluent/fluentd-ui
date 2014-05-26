@@ -6,7 +6,7 @@ class FluentdController < ApplicationController
   end
 
   def new
-    @fluentd = Fluentd.new(Fluentd::Agent::Fluentd.default_options) # TODO: not fluentd type
+    @fluentd = Fluentd.new(Fluentd::Agent::Fluentd.default_options.merge(:api_endpoint => "http://localhost:24220/")) # TODO: not fluentd type
   end
 
   def create
