@@ -28,10 +28,4 @@ class Fluentd::AgentsController < ApplicationController
   def log
     render text: @fluentd.agent.log, content_type: "text/plain"
   end
-
-  private
-
-  def find_fluentd
-    @fluentd = Fluentd.find(params[:fluentd_id])
-  end
 end

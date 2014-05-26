@@ -1,4 +1,4 @@
-- page_title t('.page_title', label: "##{@fluentd.id}")
+- page_title t('.page_title', label: @fluentd.label)
 
 - if flash[:error]
   %div.alert.alert-danger= flash[:error]
@@ -10,4 +10,4 @@
 = link_to t(".stop"), stop_fluentd_agent_path(@fluentd), method: :put
 = link_to t(".restart"), restart_fluentd_agent_path(@fluentd), method: :put
 = link_to t(".log"), log_fluentd_agent_path(@fluentd)
-TODO: config
+= link_to t(".setting"), fluentd_setting_path(@fluentd)

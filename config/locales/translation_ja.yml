@@ -60,6 +60,8 @@ ja:
       stopped: 停止中
       running: 稼働中
       operation: プロセス詳細
+      setting: 設定
+      page_title: "%{label}"
     form:
       <<: *fluentd_common
     index:
@@ -74,7 +76,11 @@ ja:
     agents:
       show:
         <<: *fluentd_common
-        page_title: "fluentd %{label}"
+    settings:
+      show:
+        <<: *fluentd_common
+      edit:
+        <<: *fluentd_common
 
   misc:
     common: &misc_common

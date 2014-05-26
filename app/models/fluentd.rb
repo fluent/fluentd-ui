@@ -27,6 +27,10 @@ class Fluentd < ActiveRecord::Base
     })
   end
 
+  def label
+    "#{variant} ##{id}"
+  end
+
   def expand_paths
     %w(pid_file log_file config_file).each do |column|
       path = send(column)

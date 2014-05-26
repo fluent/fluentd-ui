@@ -14,4 +14,10 @@ class ApplicationController < ActionController::Base
     return true if current_user
     redirect_to new_sessions_path
   end
+
+  private
+
+  def find_fluentd
+    @fluentd = Fluentd.find(params[:fluentd_id])
+  end
 end
