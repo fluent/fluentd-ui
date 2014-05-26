@@ -9,7 +9,7 @@
 
 - if installing_gem?
   - installing_gems.each do |plugin|
-    = alert_line 'fa-refresh fa-spin', "#{plugin.gem_name} (#{plugin.version})"
+    = alert_line 'fa-refresh fa-spin', "#{plugin.gem_name} (#{plugin.version || plugin.latest_version})"
 - else
   = alert_line "fa-check text-muted", t('terms.no_alert')
 
