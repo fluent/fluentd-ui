@@ -1,13 +1,21 @@
 - page_title t('.page_title', label: @fluentd.label)
 
+%h4
+  - if @fluentd.agent.running?
+    %span.text.text-success= icon("fa-check")
+    = t("fluentd.common.running")
+  - else
+    %span.text.text-info= icon("fa-circle-o")
+    = t("fluentd.common.stopped")
+
 - if flash[:error]
   %div.alert.alert-danger= flash[:error]
 
-%h4
-  = @fluentd.agent.running? ? t(".running") : t(".stopped")
+%p.operations
+  = link_to icon("fa-play") << t("fluentd.common.start"), start_fluentd_agent_path(@fluentd),     method: :put, class: "btn #{@fluentd.agent.running? ? "disabled btn-default" : "btn-primary"}"
+  = link_to icon("fa-pause") << t("fluentd.common.stop"), stop_fluentd_agent_path(@fluentd),       method: :put, class: "btn #{@fluentd.agent.running? ? "btn-danger" : "disabled btn-default"}"
+  = link_to icon("fa-refresh") << t("fluentd.common.restart"), restart_fluentd_agent_path(@fluentd), method: :put, class: "btn #{@fluentd.agent.running? ? "btn-warning" : "disabled btn-default"}"
 
-= link_to t(".start"), start_fluentd_agent_path(@fluentd), method: :put
-= link_to t(".stop"), stop_fluentd_agent_path(@fluentd), method: :put
-= link_to t(".restart"), restart_fluentd_agent_path(@fluentd), method: :put
-= link_to t(".log"), log_fluentd_agent_path(@fluentd)
-= link_to t(".setting"), fluentd_setting_path(@fluentd)
+%p
+  = link_to t("fluentd.common.log"), log_fluentd_agent_path(@fluentd)
+  = link_to t("fluentd.common.config_file"), fluentd_setting_path(@fluentd)

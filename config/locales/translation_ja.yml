@@ -16,6 +16,7 @@ ja:
     fluent_version: "fluentd %{version}"
     no_alert: なし
     update_password: パスワード更新
+    detail: 詳細
     create: 作成
     update: 更新
     edit: 編集
@@ -61,6 +62,7 @@ ja:
       running: 稼働中
       operation: プロセス詳細
       setting: 設定
+      config_file: 設定ファイル
       page_title: "%{label}"
     form:
       <<: *fluentd_common

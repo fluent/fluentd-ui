@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def icon(classes, inner=nil)
-    %Q!<i class="fa #{classes}">#{inner}</i>!.html_safe
+    %Q!<i class="fa #{classes}">#{inner}</i> !.html_safe
   end
 
   def page_title(title)
