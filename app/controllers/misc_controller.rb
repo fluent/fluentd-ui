@@ -1,3 +1,5 @@
+require "fluent/version"
+
 class MiscController < ApplicationController
   def show
     redirect_to misc_information_path
