@@ -1,13 +1,15 @@
 - page_title t('.page_title')
 
+TODO:
+= link_to "is this better?", "/plugins/recommended?v=2"
+
 = form_tag(install_plugins_path, method: :patch) do
-  %table{class: "table table-striped table-hover"}
+  %table{class: "table table-striped table-hover", id: "plugins-table"}
     %thead
       %tr
         %th{width: "24"}
         %th= t('.name')
         %th= t('.status')
-        %th{width: "100"}= t('.installed_version')
     %tbody
       - @plugins.each do |plugin|
         %tr
@@ -22,7 +24,15 @@
               = t(".installed")
             - else
               = t(".not_installed")
-          %td
-            = plugin.installed_version
   = submit_tag t(".install"), class: "btn btn-primary"
 
+
+:javascript
+  $(document).ready(function() {
+    $('#plugins-table').dataTable({
+      "ordering": true,
+      "paging": false,
+      "info": false,
+      "searching": false
+    });
+  });

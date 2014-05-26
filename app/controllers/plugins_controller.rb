@@ -9,6 +9,11 @@ class PluginsController < ApplicationController
 
   def recommended
     @plugins = Plugin.recommended
+    if params[:v] == "2"
+      render :recommended2
+    else
+      render :recommended
+    end
   end
 
   def updated
