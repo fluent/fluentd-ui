@@ -1,13 +1,19 @@
 class Fluentd::SettingsController < ApplicationController
   before_action :login_required
+  before_action :find_fluentd
 
   def show
-    render text: fluentd.config.to_s, content_type: "text/plain"
+    @config = File.read(@fluentd.agent.config_file) # TODO
   end
 
-  private
+  def edit
+    @config = File.read(@fluentd.agent.config_file) # TODO
+  end
 
-  def fluentd # TODO
-    @fluentd ||= Fluentd.new(Rails.root + "tmp" + "fluentd")
+  def  update
+    File.open(@fluentd.agent.config_file, "w") do |f| # TODO: should update by agent class
+      f.write params[:config]
+    end
+    redirect_to fluentd_setting_path(@fluentd)
   end
 end

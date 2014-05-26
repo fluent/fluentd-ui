@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'i18n_generators', '1.2.1'
   spec.add_dependency 'bcrypt', '~> 3.1.5'
   spec.add_dependency 'sqlite3'
+  spec.add_dependency 'addressable'
   spec.add_dependency "font-awesome-rails"
   spec.add_dependency 'sass-rails', '~> 4.0.3'
   spec.add_dependency 'uglifier', '>= 1.3.0'

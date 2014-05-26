@@ -34,6 +34,10 @@ class Fluentd
 
       # return value is status_after_this_method_called == started
       def restart
+        stop && start
+      end
+
+      def reload # NOTE: does not used currently, and td-agent has no restart command
         return false unless running?
         actual_restart
       end

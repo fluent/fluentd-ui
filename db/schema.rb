@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522055753) do
+ActiveRecord::Schema.define(version: 20140526042609) do
 
   create_table "fluentds", force: true do |t|
-    t.string   "variant",     null: false
+    t.string   "variant",                                          null: false
     t.string   "pid_file"
     t.string   "log_file"
     t.string   "config_file"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "api_endpoint", default: "http://localhost:24220/"
   end
 
   create_table "login_tokens", force: true do |t|

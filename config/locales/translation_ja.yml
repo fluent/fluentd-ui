@@ -16,6 +16,7 @@ ja:
     fluent_version: "fluentd %{version}"
     no_alert: なし
     update_password: パスワード更新
+    detail: 詳細
     create: 作成
     update: 更新
     edit: 編集
@@ -60,6 +61,9 @@ ja:
       stopped: 停止中
       running: 稼働中
       operation: プロセス詳細
+      setting: 設定
+      config_file: 設定ファイル
+      page_title: "%{label}"
     form:
       <<: *fluentd_common
     index:
@@ -74,7 +78,11 @@ ja:
     agents:
       show:
         <<: *fluentd_common
-        page_title: "fluentd %{label}"
+    settings:
+      show:
+        <<: *fluentd_common
+      edit:
+        <<: *fluentd_common
 
   misc:
     common: &misc_common
@@ -120,3 +128,4 @@ ja:
         pid_file: PIDファイル
         config_file: 設定ファイル
         variant: タイプ
+        api_endpoint: APIエンドポイント

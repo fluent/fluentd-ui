@@ -1,0 +1,8 @@
+- page_title t('.page_title', label: @fluentd.label)
+
+%h2= t(".setting")
+%pre
+  = @config
+
+= link_to t(".edit"), edit_fluentd_setting_path(@fluentd)
+

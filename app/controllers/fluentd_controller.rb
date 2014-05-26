@@ -6,7 +6,7 @@ class FluentdController < ApplicationController
   end
 
   def new
-    @fluentd = Fluentd.new(Fluentd::Agent::Fluentd.default_options) # TODO: not fluentd type
+    @fluentd = Fluentd.new(Fluentd::Agent::Fluentd.default_options.merge(:api_endpoint => "http://localhost:24220/")) # TODO: not fluentd type
   end
 
   def create
@@ -42,6 +42,6 @@ class FluentdController < ApplicationController
   end
 
   def fluentd_params
-    params.require(:fluentd).permit(:log_file, :pid_file, :config_file, :variant)
+    params.require(:fluentd).permit(:log_file, :pid_file, :config_file, :variant, :api_endpoint)
   end
 end

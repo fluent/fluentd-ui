@@ -106,30 +106,38 @@ describe Fluentd::Agent do
     end
 
     describe "#restart" do
-      before { instance.stub(:running?).and_return { running } }
-
+      before { instance.stub(:stop).and_return { stop_result } }
+      before { instance.stub(:start).and_return { start_result } }
       subject { instance.restart }
 
-      context "running" do
-        let(:running) { true }
+      describe "return true only if #stop and #start success" do
+        context "#stop success" do
+          let(:stop_result) { true } 
 
-        before { instance.stub(:actual_restart).and_return { restart_result } }
+          context" #start success" do
+            let(:start_result) { true } 
+            it { should be_true }
+          end
 
-        context "actual restart success" do
-          let(:restart_result) { true }
-          it { should be_true }
+          context" #start fail" do
+            let(:start_result) { false } 
+            it { should be_false }
+          end
         end
 
-        context "actual restart failed" do
-          let(:restart_result) { false }
-          it { should be_false }
+        context "#stop fail" do
+          let(:stop_result) { false } 
+
+          context" #start success" do
+            let(:start_result) { true } 
+            it { should be_false }
+          end
+
+          context" #start fail" do
+            let(:start_result) { false } 
+            it { should be_false }
+          end
         end
-      end
-
-      context "not running" do
-        let(:running) { false }
-
-        it { should be_false }
       end
     end
   end
