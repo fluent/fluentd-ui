@@ -8,7 +8,6 @@
         %th= t('.name')
         %th= t('.status')
         %th{width: "100"}= t('.installed_version')
-        %th{width: "100"}= t('.latest_version')
     %tbody
       - @plugins.each do |plugin|
         %tr
@@ -20,15 +19,10 @@
               = plugin.gem_name
           %td
             - if plugin.installed?
-              - if plugin.latest_version?
-                = t(".installed")
-              - else
-                = t(".new_version", version: plugin.latest_version)
+              = t(".installed")
             - else
               = t(".not_installed")
           %td
             = plugin.installed_version
-          %td
-            = plugin.latest_version
   = submit_tag t(".install"), class: "btn btn-primary"
 
