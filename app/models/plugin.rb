@@ -5,6 +5,8 @@ require "httpclient"
 class Plugin
   class GemError < StandardError; end
 
+  WORKING = []
+
   include ActiveModel::Model
 
   attr_accessor :gem_name, :version

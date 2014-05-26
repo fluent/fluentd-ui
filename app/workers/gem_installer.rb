@@ -2,18 +2,17 @@ class GemInstaller
   include SuckerPunch::Job
   workers 16
 
-  WORKING = []
-
   def perform(gem_name, version = nil)
     SuckerPunch.logger.info "install #{gem_name} #{version}"
     pl = Plugin.new(gem_name: gem_name, version: version)
-    unless WORKING.find{|p| p.gem_name == pl.gem_name}
-      WORKING.push(pl)
+    data = { plugin: pl, type: :install, state: :running }
+    if Plugin::WORKING.grep(data).blank?
+      Plugin::WORKING.push(data)
       begin
         pl.uninstall! if pl.installed?
         pl.install!
       ensure
-        WORKING.delete(pl)
+        Plugin::WORKING.delete(data)
       end
     end
     SuckerPunch.logger.info "installed #{gem_name} #{version}"

@@ -8,7 +8,9 @@ module ApplicationHelper
   end
 
   def installing_gems
-    GemInstaller::WORKING || []
+    Plugin::WORKING.find_all do |data|
+      data[:type] == :install && data[:state] == :running
+    end.map{|data| data[:plugin]} || []
   end
 
   def uninstalling_gem?
@@ -16,7 +18,9 @@ module ApplicationHelper
   end
 
   def uninstalling_gems
-    GemUninstaller::WORKING || []
+    Plugin::WORKING.find_all do |data|
+      data[:type] == :uninstall && data[:state] == :running
+    end.map{|data| data[:plugin]} || []
   end
 
   def has_alert?
