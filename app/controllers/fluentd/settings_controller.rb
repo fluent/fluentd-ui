@@ -14,6 +14,7 @@ class Fluentd::SettingsController < ApplicationController
     File.open(@fluentd.agent.config_file, "w") do |f| # TODO: should update by agent class
       f.write params[:config]
     end
+    @fluentd.agent.restart if @fluentd.agent.running?
     redirect_to fluentd_setting_path(@fluentd)
   end
 end
