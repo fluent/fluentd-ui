@@ -27,6 +27,48 @@ describe Fluentd::Agent do
         it { instance.config_file.should == config_file }
       end
     end
+
+    describe "#recent_errors" do
+      before { instance.stub(:log_file).and_return { logfile } }
+
+      context "have 0 error log" do
+        let(:logfile) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
+        subject { instance.recent_errors(2) }
+
+        it "empty array" do
+          should be_empty
+        end
+      end
+
+      context "have 2 error log" do
+        let(:logfile) { File.expand_path("./spec/support/fixtures/error2.log", Rails.root) }
+        subject { instance.recent_errors(2) }
+
+        describe "limit" do
+          subject { instance.recent_errors(limit).length }
+
+          context "=1" do
+            let(:limit) { 1 }
+            it { should == limit }
+          end
+
+          context "=2" do
+            let(:limit) { 2 }
+            it { should == limit }
+          end
+        end
+
+        it "contain stack trace" do
+          subject[0].join.should include("<top (required)>")
+        end
+
+        it "newer(bottom) is first" do
+          one = Time.parse(subject[0].first)
+          two = Time.parse(subject[1].first)
+          one.should >= two
+        end
+      end
+    end
   end
 
   let(:instance) { described_class.new(options) }

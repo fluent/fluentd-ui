@@ -45,6 +45,28 @@ class Fluentd
         File.read(log_file) # TODO: large log file
       end
 
+      def recent_errors(limit = 3)
+        return [] unless File.exist?(log_file)
+        errors = []
+        buf = []
+        io = File.open(log_file)
+        reader = ::FileReverseReader.new(io)
+        reader.each_line do |line|
+          break if errors.length >= limit
+          unless line["error"]
+            if buf.present?
+              errors << buf.reverse
+            end
+            buf = []
+            next
+          end
+          buf << line
+        end
+        errors
+      ensure
+        io && io.close
+      end
+
       def pid_file
         extra_options[:pid_file] || self.class.default_options[:pid_file]
       end

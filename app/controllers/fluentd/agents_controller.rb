@@ -2,6 +2,8 @@ class Fluentd::AgentsController < ApplicationController
   before_action :find_fluentd
 
   def show
+    @error_count = 10
+    @errors = @fluentd.agent.recent_errors(@error_count)
   end
 
   def start
