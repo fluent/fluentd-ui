@@ -5,7 +5,7 @@ describe Fluentd do
     let(:path) { fluentd.send(column) }
 
     subject do
-      fluentd.check_permission(column) 
+      fluentd.check_permission(column)
       fluentd.errors
     end
 
@@ -55,7 +55,7 @@ describe Fluentd do
     end
   end
 
-  let(:fluentd) { FactoryGirl.build(:fluentd) }
+  let(:fluentd) { build(:fluentd) }
 
   describe "#valid?" do
     before do

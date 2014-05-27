@@ -1,5 +1,5 @@
 describe "users" do
-  let(:exists_user) { FactoryGirl.create(:user) }
+  let(:exists_user) { create(:user) }
 
   describe "edit" do
     let(:url) { user_path }

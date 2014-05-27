@@ -7,10 +7,10 @@ describe LoginToken do
 
     before do
       active.times do |n|
-        FactoryGirl.create(:login_token, expired_at: (n + 1).day.from_now)
+        create(:login_token, expired_at: (n + 1).day.from_now)
       end
       inactive.times do |n|
-        FactoryGirl.create(:login_token, expired_at: (n + 1).day.ago)
+        create(:login_token, expired_at: (n + 1).day.ago)
       end
     end
 

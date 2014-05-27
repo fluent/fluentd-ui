@@ -1,5 +1,5 @@
 describe "sessions" do
-  let(:exists_user) { FactoryGirl.create(:user) }
+  let(:exists_user) { create(:user) }
 
   describe "the sign in process" do
     let(:submit_label) { I18n.t("terms.sign_in") }
@@ -20,7 +20,7 @@ describe "sessions" do
     end
 
     context "sign in with non-exists user" do
-      let(:user) { FactoryGirl.build(:user) }
+      let(:user) { build(:user) }
 
       it "current location is not root_path" do
         current_path.should_not == root_path
