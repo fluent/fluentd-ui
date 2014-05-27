@@ -78,6 +78,7 @@ ja:
     agents:
       show:
         <<: *fluentd_common
+        recent_errors: "最新 %{count}件のエラー"
     settings:
       show:
         <<: *fluentd_common

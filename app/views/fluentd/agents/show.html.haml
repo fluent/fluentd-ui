@@ -19,3 +19,20 @@
 %p
   = link_to t("fluentd.common.log"), log_fluentd_agent_path(@fluentd)
   = link_to t("fluentd.common.config_file"), fluentd_setting_path(@fluentd)
+
+
+- if @errors.present?
+
+  %h2= t('.recent_errors', count: @error_count)
+
+  %div.row
+    - @errors.each do |errors|
+      %div.panel.panel-default
+        %div.panel-heading
+          %h4= errors.shift
+        - if errors.present?
+          %div.panel-body
+            %ul
+              - errors.each do |stack|
+                %li= stack
+
