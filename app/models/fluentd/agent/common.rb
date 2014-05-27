@@ -33,7 +33,12 @@ class Fluentd
       end
 
       def running?
-        pid && Process.kill(0, pid)
+        begin
+          pid && Process.kill(0, pid)
+        rescue Errno::ESRCH
+          File.unlink(pid_file) # no needed any more
+          false
+        end
       end
 
       def log
