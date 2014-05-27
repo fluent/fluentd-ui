@@ -1,0 +1,43 @@
+- page_title t('.page_title')
+
+%table{class: "table table-striped table-hover", id: "plugins-table"}
+  %thead
+    %tr
+      %th{width: "24"}
+      %th= t('.name')
+      %th= t('.status')
+  %tbody
+    - @plugins.each do |plugin|
+      %tr
+        %td
+          - unless plugin.installed?
+            = link_to t("terms.install"), install_plugins_path, class: "js-install", data: { url: install_plugins_path, name: plugin.gem_name}
+        %td
+          %label{for: "plugin_#{plugin.gem_name}"}
+            = plugin.gem_name
+        %td
+          - if plugin.installed?
+            = t(".installed")
+          - else
+            = t(".not_installed")
+
+
+:javascript
+  $(document).ready(function() {
+    $('#plugins-table').on('click', '.js-install', function(ev){
+      ev.preventDefault();
+      var $anchor = $(ev.target);
+      var url = $anchor.attr('href');
+      $anchor.removeClass('js-install');
+      $anchor.attr("href", "#");
+      $anchor.css({color: "green"});
+      var name = $anchor.attr('data-name');
+      $.ajax({
+        url: url,
+        data: {"plugins[]": name, "_method": "PATCH"},
+        method: "POST"
+      }).done(function(){
+        $anchor.fadeOut();
+      });;
+    });
+  });
