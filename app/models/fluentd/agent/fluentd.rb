@@ -74,6 +74,11 @@ class Fluentd
             end
           end
           true
+        rescue Errno::ESRCH
+          # successful to create pidfile, but process not exists.
+          # any error occured at booting process that after create pidfile. such as readling config, loading plugins, etc
+          # https://github.com/fluent/fluentd/blob/master/lib/fluent/supervisor.rb#L106
+          false
         rescue TimeoutError
           false
         end
