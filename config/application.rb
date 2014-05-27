@@ -30,7 +30,7 @@ module FluentdUi
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    config.i18n.default_locale = 'ja'
+    config.i18n.default_locale = 'en'
     config.autoload_paths += %W(#{config.root}/app/workers #{config.root}/lib)
     config.after_initialize do
       # http://qiita.com/tanaka51/items/c8873319689217bb81a9
