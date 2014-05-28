@@ -24,6 +24,7 @@ en:
     new: New
     setup: "Setup %{target}"
     install_it: "Install %{target}"
+    switch_language: Switch Language
 
   plugins:
     common: &plugin_common

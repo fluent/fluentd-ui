@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module ApplicationHelper
   def need_restart?
     Plugin.gemfile_changed?
@@ -33,6 +35,14 @@ module ApplicationHelper
 
   def alert_line(icon_class, text)
     %Q|<li><a><div>#{icon icon_class} <span>#{text}</span></div></a></li>|.html_safe
+  end
+
+  def language_name(locale)
+    # NOTE: these are fixed terms, not i18n-ed
+    {
+      en: "English",
+      ja: "日本語",
+    }[locale] || locale
   end
 
   def link_to_other(text, path)
