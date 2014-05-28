@@ -23,6 +23,10 @@ module ApplicationHelper
     end.map{|data| data[:plugin]} || []
   end
 
+  def has_td_agent_system?
+    File.exist?("/etc/init.d/td-agent")
+  end
+
   def has_alert?
     installing_gem? || uninstalling_gem?
   end

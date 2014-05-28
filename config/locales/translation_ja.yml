@@ -22,6 +22,8 @@ ja:
     edit: 編集
     destroy: 削除
     new: 新規作成
+    setup: "%{target}をセットアップ"
+    install_it: "%{target}をインストール"
 
   plugins:
     common: &plugin_common

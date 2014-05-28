@@ -5,7 +5,8 @@
   = form_for(:fluentd, url: url, method: method) do |f|
     %div.form-group
       = f.label :variant
-      = f.select :variant, Fluentd.variants
+      = f.hidden_field :variant
+      = @fluentd.variant
     %div.form-group
       = f.label :pid_file
       = f.text_field :pid_file, class: "form-control"

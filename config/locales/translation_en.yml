@@ -22,6 +22,8 @@ en:
     edit: Edit
     destroy: Destroy
     new: New
+    setup: "Setup %{target}"
+    install_it: "Install %{target}"
 
   plugins:
     common: &plugin_common
