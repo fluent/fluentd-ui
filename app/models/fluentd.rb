@@ -22,7 +22,7 @@ class Fluentd < ActiveRecord::Base
 
   def agent
     klass = variant.underscore.camelize
-    @agent = Agent.const_get(klass).new({
+    Agent.const_get(klass).new({
       :pid_file => pid_file,
       :log_file => log_file,
       :config_file => config_file,
