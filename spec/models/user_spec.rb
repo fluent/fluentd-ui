@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  let(:user) { FactoryGirl.build(:user) }
+  let(:user) { build(:user) }
 
   describe "#valid?" do
     it { user.should be_valid }
@@ -13,7 +13,7 @@ describe User do
       end
 
       it "taken name is invalid" do
-        another_user = FactoryGirl.create(:user)
+        another_user = create(:user)
         user.name = another_user.name
         user.should_not be_valid
       end

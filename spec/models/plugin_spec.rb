@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Plugin do
-  let(:plugin) { FactoryGirl.build(:plugin) }
+  let(:plugin) { build(:plugin) }
 
   before do
     Plugin.stub(:gemfile_path).and_return { Rails.root + "tmp/fluentd-ui-test-gemfile.plugins" }
@@ -110,7 +110,7 @@ describe Plugin do
   end
 
   describe "#uninstall!" do
-    let(:installed_plugin) { FactoryGirl.build(:plugin, gem_name: "fluent-plugin-foobar") }
+    let(:installed_plugin) { build(:plugin, gem_name: "fluent-plugin-foobar") }
 
     before do
       installed_plugin.stub(:fluent_gem).and_return { true }
@@ -127,7 +127,7 @@ describe Plugin do
   end
 
   describe "#upgrade!" do
-    let(:installed_plugin) { FactoryGirl.build(:plugin, gem_name: "fluent-plugin-foobar", version: current_version) }
+    let(:installed_plugin) { build(:plugin, gem_name: "fluent-plugin-foobar", version: current_version) }
     let(:current_version) { "1.0.0" }
     let(:target_version) { "1.2.0" }
 
@@ -155,7 +155,7 @@ describe Plugin do
   end
 
   describe "#latest_version?" do
-    let(:plugin) { FactoryGirl.build(:plugin, version: gem_version.to_s) }
+    let(:plugin) { build(:plugin, version: gem_version.to_s) }
     let(:gem_version) { Gem::Version.new("1.0.0") }
 
     before do
