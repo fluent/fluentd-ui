@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   helper_method :current_user
+  helper_method :current_locale
   before_action :login_required
   before_action :set_locale
 
@@ -14,6 +15,10 @@ class ApplicationController < ActionController::Base
   def login_required
     return true if current_user
     redirect_to new_sessions_path
+  end
+
+  def current_locale
+    I18n.locale
   end
 
   private

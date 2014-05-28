@@ -39,13 +39,11 @@
             <ul class="nav navbar-top-links navbar-right">
               <li class="dropdown">
                 <a class="dropdown-toggle " data-toggle="dropdown" href="#">
-                  <%= t("terms.switch_language") %>
+                  <%= icon("fa-font") %>
                   <%= icon("fa-caret-down") %>
                 </a>
                 <ul class="nav dropdown-menu dropdown-alerts">
-                  <% I18n.available_locales.each do |locale| %>
-                    <li><a href="?lang=<%= locale %>"><%= language_name locale %></a></li>
-                  <% end %>
+                  <%= language_menu %>
                 </ul>
                 <!-- /.dropdown-alerts -->
               </li>

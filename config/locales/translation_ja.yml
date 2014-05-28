@@ -24,7 +24,6 @@ ja:
     new: 新規作成
     setup: "%{target}をセットアップ"
     install_it: "%{target}をインストール"
-    switch_language: 言語切り替え
 
   plugins:
     common: &plugin_common
