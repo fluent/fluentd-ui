@@ -34,5 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'jbuilder', '~> 2.0'
   spec.add_dependency "bundler"
   spec.add_dependency "httpclient"
-
+  spec.add_dependency "settingslogic"
 end

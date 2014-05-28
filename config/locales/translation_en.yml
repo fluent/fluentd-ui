@@ -30,6 +30,7 @@ en:
       <<: *terms
       name: Plugin Name
       status: Status
+      category: Category
       installed_version: Installed Version
       latest_version: Latest Version
       install_specific_version: Install this version

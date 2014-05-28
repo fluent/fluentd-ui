@@ -30,6 +30,7 @@ ja:
       <<: *terms
       name: プラグイン名
       status: 状態
+      category: カテゴリ
       installed_version: インストール済みバージョン
       latest_version: 最新バージョン
       install_specific_version: このバージョンをインストール

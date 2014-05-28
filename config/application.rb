@@ -17,6 +17,7 @@ require "sass"
 require "haml-rails"
 require "jquery-rails"
 require "sucker_punch"
+require "settingslogic"
 
 module FluentdUi
   class Application < Rails::Application

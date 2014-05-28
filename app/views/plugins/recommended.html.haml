@@ -9,6 +9,7 @@ TODO:
       %tr
         %th{width: "24"}
         %th= t('.name')
+        %th= t('.category')
         %th= t('.status')
     %tbody
       - @plugins.each do |plugin|
@@ -19,6 +20,8 @@ TODO:
           %td
             %label{for: "plugin_#{plugin.gem_name}"}
               = plugin.gem_name
+          %td
+            = plugin.category
           %td
             - if plugin.installed?
               = t(".installed")
