@@ -101,12 +101,28 @@ describe Fluentd do
       let(:variant) { "fluentd" }
       it { fluentd.should be_fluentd }
       it { fluentd.should_not be_td_agent }
+
+      describe "#load_settings_from_agent_default" do
+        before { fluentd.load_settings_from_agent_default }
+
+        it { fluentd.pid_file == fluentd.agent.class.default_options[:pid_file] }
+        it { fluentd.log_file == fluentd.agent.class.default_options[:log_file] }
+        it { fluentd.config_file == fluentd.agent.class.default_options[:config_file] }
+      end
     end
 
     context "= td-agent" do
       let(:variant) { "td-agent" }
       it { fluentd.should_not be_fluentd }
       it { fluentd.should be_td_agent }
+
+      describe "#load_settings_from_agent_default" do
+        before { fluentd.load_settings_from_agent_default }
+
+        it { fluentd.pid_file == fluentd.agent.class.default_options[:pid_file] }
+        it { fluentd.log_file == fluentd.agent.class.default_options[:log_file] }
+        it { fluentd.config_file == fluentd.agent.class.default_options[:config_file] }
+      end
     end
   end
 
@@ -122,6 +138,26 @@ describe Fluentd do
     context "td-agent" do
       let(:variant) { "td-agent" }
       it { should be_instance_of(Fluentd::Agent::TdAgent) }
+    end
+  end
+
+  describe "#ensure_default_config_file" do
+    subject do
+      fluentd.config_file = config_file
+      fluentd.save
+      fluentd.config_file
+    end
+
+    let(:config_file) { Rails.root + "tmp/test.conf" }
+
+    context "doesn't exists" do
+      before { File.unlink(config_file) }
+      it { File.exist?(subject).should be_true }
+    end
+
+    context "already exists" do
+      before { FileUtils.touch(config_file) }
+      it { File.exist?(subject).should be_true }
     end
   end
 end
