@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "haml-rails", "~> 0.5.3"
   spec.add_dependency 'jquery-rails', "~> 3.1.0"
   spec.add_dependency 'jbuilder', '~> 2.0'
-  spec.add_dependency "bundler", "~> 1.5"
+  spec.add_dependency "bundler"
   spec.add_dependency "httpclient"
 
 end
