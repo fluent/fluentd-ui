@@ -1,20 +1,8 @@
 # coding: utf-8
 
 module ApplicationHelper
-  def need_restart?
-    Plugin.gemfile_changed?
-  end
-
   def has_td_agent_system?
     File.exist?("/etc/init.d/td-agent")
-  end
-
-  def has_alert?
-    installing_gem? || uninstalling_gem?
-  end
-
-  def alert_line(icon_class, text)
-    %Q|<li><a><div>#{icon icon_class} <span>#{text}</span></div></a></li>|.html_safe
   end
 
   def language_name(locale)
