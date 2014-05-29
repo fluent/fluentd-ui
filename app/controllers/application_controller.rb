@@ -23,23 +23,23 @@ class ApplicationController < ActionController::Base
   end
 
   def installing_gem?
-    installing_gems.length > 0
+    installing_gems.present?
   end
 
   def installing_gems
     Plugin::WORKING.find_all do |data|
       data[:type] == :install && data[:state] == :running
-    end.map{|data| data[:plugin]} || []
+    end.map{|data| data[:plugin]}
   end
 
   def uninstalling_gem?
-    uninstalling_gems.length > 0
+    uninstalling_gems.present?
   end
 
   def uninstalling_gems
     Plugin::WORKING.find_all do |data|
       data[:type] == :uninstall && data[:state] == :running
-    end.map{|data| data[:plugin]} || []
+    end.map{|data| data[:plugin]}
   end
 
   private

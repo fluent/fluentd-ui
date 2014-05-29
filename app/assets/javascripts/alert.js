@@ -33,9 +33,7 @@
       methods: {
         fetchAlertsData: function() {
           return new Promise(function(resolve, reject) {
-            $.getJSON(POLLING_URL, function(data){
-              resolve(data);
-            }).fail(reject);
+            $.getJSON(POLLING_URL, resolve).fail(reject);
           });
         }
       }
