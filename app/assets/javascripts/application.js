@@ -15,4 +15,6 @@
 //= require sb-admin-v2/bootstrap
 //= require sb-admin-v2/plugins/dataTables/jquery.dataTables
 //= require sb-admin-v2/plugins/dataTables/dataTables.bootstrap
+//= require vue-0.10.4
+//= require promise-1.0.0
 //= require_tree .

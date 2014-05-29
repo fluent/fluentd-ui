@@ -47,15 +47,31 @@
                 </ul>
                 <!-- /.dropdown-alerts -->
               </li>
-              <li class="dropdown">
-                <a class="dropdown-toggle <%= "btn-info" if has_alert? %>" data-toggle="dropdown" href="#">
-                  <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+
+              <!-- vue.js -->
+              <li class="dropdown" id="alert">
+                <a
+                  class="dropdown-toggle"
+                  v-class="
+                    btn-info: hasAlerts
+                  "
+                  data-toggle="dropdown" href="#"
+                  >
+                  <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="nav dropdown-menu dropdown-alerts">
-                  <%= render partial: "shared/alerts" %> 
+                  <li v-repeat="alerts">
+                    <a>
+                      <div>
+                        <%= icon("fa-cog fa-fw fa-lg fa-spin") %>
+                        {{ text }}
+                      </div>
+                    </a>
+                  </li>
                 </ul>
-                <!-- /.dropdown-alerts -->
               </li>
+              <!-- /vue.js -->
+
               <li class="dropdown">
                 <%= link_to(t("terms.sign_out"), sessions_path, method: :delete) %>
               </li>
