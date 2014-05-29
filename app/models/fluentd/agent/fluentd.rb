@@ -4,6 +4,8 @@ class Fluentd
       include Common
 
       def self.default_options
+        # TODO: current default options from fluentd --setup, but root permission required for them.
+        #       It could be more user friendly values
         {
           :pid_file => "/var/run/fluent.pid",
           :log_file => "/var/log/fluent.log",

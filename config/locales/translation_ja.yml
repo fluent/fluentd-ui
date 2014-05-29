@@ -22,12 +22,15 @@ ja:
     edit: 編集
     destroy: 削除
     new: 新規作成
+    setup: "%{target}をセットアップ"
+    install_it: "%{target}をインストール"
 
   plugins:
     common: &plugin_common
       <<: *terms
       name: プラグイン名
       status: 状態
+      category: カテゴリ
       installed_version: インストール済みバージョン
       latest_version: 最新バージョン
       install_specific_version: このバージョンをインストール

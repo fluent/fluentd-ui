@@ -5,6 +5,7 @@
     %tr
       %th{width: "24"}
       %th= t('.name')
+      %th= t('.category')
       %th= t('.status')
   %tbody
     - @plugins.each do |plugin|
@@ -16,6 +17,8 @@
           %label{for: "plugin_#{plugin.gem_name}"}
             = plugin.gem_name
         %td
+          = plugin.category
+        %td
           - if plugin.installed?
             = t(".installed")
           - else
@@ -24,6 +27,12 @@
 
 :javascript
   $(document).ready(function() {
+    $('#plugins-table').dataTable({
+      "ordering": true,
+      "paging": false,
+      "info": false,
+      "searching": false
+    });
     $('#plugins-table').on('click', '.js-install', function(ev){
       ev.preventDefault();
       var $anchor = $(ev.target);

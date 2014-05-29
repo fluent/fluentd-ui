@@ -18,5 +18,3 @@ group :test do
   gem "simplecov", "~> 0.7.1", require: false
   gem "webmock", "~> 1.18.0"
 end
-
-eval File.read "Gemfile.plugins" if File.exist?("Gemfile.plugins")

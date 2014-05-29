@@ -9,7 +9,7 @@ class Fluentd < ActiveRecord::Base
   after_save :ensure_default_config_file
 
   def self.variants
-    %w(fluentd) # TODO:
+    %w(fluentd td-agent)
   end
 
   def fluentd?
@@ -22,11 +22,17 @@ class Fluentd < ActiveRecord::Base
 
   def agent
     klass = variant.underscore.camelize
-    @agent = Agent.const_get(klass).new({
+    Agent.const_get(klass).new({
       :pid_file => pid_file,
       :log_file => log_file,
       :config_file => config_file,
     })
+  end
+
+  def load_settings_from_agent_default
+    agent.class.default_options.each_pair do |key, value|
+      send("#{key}=", value)
+    end
   end
 
   def api

@@ -1,5 +1,3 @@
 source 'https://rubygems.org'
 
 gemspec
-
-eval File.read "Gemfile.plugins" if File.exist?("Gemfile.plugins")

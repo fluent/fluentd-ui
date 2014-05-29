@@ -1,5 +1,5 @@
 en:
-  terms:
+  terms: &terms
     sign_in: Sign in
     sign_out: Sign out
     install: Install
@@ -8,19 +8,132 @@ en:
     installed: Installed
     not_installed: Not Installed
     new_version: "%{version} is available"
+    install_latest: Install latest
+    installed_plugins: Installed Plugins
+    plugins: &plugins Plugins
+    misc: &misc Miscellaneous
+    version: Version
+    fluent_version: "fluentd %{version}"
+    no_alert: Nothing
+    update_password: Update Password
+    detail: Detail
+    create: Create
+    update: Update
+    edit: Edit
+    destroy: Destroy
+    new: New
+    setup: "Setup %{target}"
+    install_it: "Install %{target}"
+
+  plugins:
+    common: &plugin_common
+      <<: *terms
+      name: Plugin Name
+      status: Status
+      category: Category
+      installed_version: Installed Version
+      latest_version: Latest Version
+      install_specific_version: Install this version
+      no_updates: No updates available
+      no_installed: No installed plugins
+      installed: &installed Installed Plugins
+      recommended: &recommended Recommened Plugins
+      updated: &updated Updated Plugins
+    installed:
+      <<: *plugin_common
+      page_title: *installed
+    recommended:
+      <<: *plugin_common
+      page_title: *recommended
+    updated:
+      <<: *plugin_common
+      page_title: *updated
+
+  users: &users
+    show:
+      <<: *terms
+      page_title: Password
+
+  fluentd: &fluentd
+    common: &fluentd_common
+      <<: *terms
+      start: Start
+      stop: Stop
+      restart: Restart
+      log: Log
+      stopped: Stopped
+      running: Running
+      operation: Detail
+      setting: Setting
+      config_file: Config file
+      page_title: "%{label}"
+    form:
+      <<: *fluentd_common
+    index:
+      <<: *fluentd_common
+      page_title: fluentd
+    new:
+      <<: *fluentd_common
+      page_title: fluentd | New
+    edit:
+      <<: *fluentd_common
+      page_title: fluentd | Edit
+    agents:
+      show:
+        <<: *fluentd_common
+        recent_errors: "Recent %{count} Errors"
+    settings:
+      show:
+        <<: *fluentd_common
+      edit:
+        <<: *fluentd_common
+
+  misc:
+    common: &misc_common
+      <<: *terms
+    information:
+      <<: *misc_common
+      env: Environment Variable
+      env_key: Key
+      env_value: Value
+      page_title: System Information
+
+  messages:
+    need_restart: need to restart fluentd-ui
+    please_sign_in: Sign in
+
 
   messages:
     need_restart: Need to restart fluentd-ui
 
   error:
-    login_failed: Login failed.
+    login_failed: Login failed
+    fluentd_start_failed: Failed to start fluentd
+    fluentd_stop_failed: Failed to stop fluentd
+    fluentd_restart_failed: Failed to restart fluentd
 
   activerecord:
+    errors:
+      messages:
+          wrong_password: is wrong
+          lack_read_permission: doesn't readable
+          lack_write_permission: doesn't writable
+          is_a_directory: is a directory. should be a file
+
     models:
       user: user  #g
 
     attributes:
       user:
-        name: name  #g
+        name: Name
         password_digest: password_digest  #g
         remember_token: remember_token  #g
+        current_password: Current Password
+        password: New Password
+        password_confirmation: New Password (confirmation)
+      fluentd:
+        log_file: Log file
+        pid_file: PID file
+        config_file: Config file
+        variant: type
+        api_endpoint: API Endpoint

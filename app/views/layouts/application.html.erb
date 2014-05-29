@@ -38,6 +38,16 @@
 
             <ul class="nav navbar-top-links navbar-right">
               <li class="dropdown">
+                <a class="dropdown-toggle " data-toggle="dropdown" href="#">
+                  <%= icon("fa-font") %>
+                  <%= icon("fa-caret-down") %>
+                </a>
+                <ul class="nav dropdown-menu dropdown-alerts">
+                  <%= language_menu %>
+                </ul>
+                <!-- /.dropdown-alerts -->
+              </li>
+              <li class="dropdown">
                 <a class="dropdown-toggle <%= "btn-info" if has_alert? %>" data-toggle="dropdown" href="#">
                   <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
                 </a>
