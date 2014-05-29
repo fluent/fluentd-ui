@@ -5,26 +5,6 @@ module ApplicationHelper
     Plugin.gemfile_changed?
   end
 
-  def installing_gem?
-    installing_gems.length > 0
-  end
-
-  def installing_gems
-    Plugin::WORKING.find_all do |data|
-      data[:type] == :install && data[:state] == :running
-    end.map{|data| data[:plugin]} || []
-  end
-
-  def uninstalling_gem?
-    uninstalling_gems.length > 0
-  end
-
-  def uninstalling_gems
-    Plugin::WORKING.find_all do |data|
-      data[:type] == :uninstall && data[:state] == :running
-    end.map{|data| data[:plugin]} || []
-  end
-
   def has_td_agent_system?
     File.exist?("/etc/init.d/td-agent")
   end

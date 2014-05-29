@@ -24,6 +24,8 @@ ja:
     new: 新規作成
     setup: "%{target}をセットアップ"
     install_it: "%{target}をインストール"
+    installing: "インストール中: %{target}"
+    uninstalling: "アンインストール中: %{target}"
 
   plugins:
     common: &plugin_common

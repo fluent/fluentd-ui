@@ -1,6 +1,7 @@
 (function(){
   "use strict";
-  var POLLING_INTERVAL = 1 * 1000;
+  var POLLING_INTERVAL = 3 * 1000;
+  var POLLING_URL = "/polling/alerts";
 
   $(function(){
     var alert = new Vue({
@@ -11,33 +12,30 @@
 
       created: function(){
         var self = this;
-        setInterval(function(){
-          self.fetchData().then(function(alerts){
+        var fetch = function(){
+          self.fetchAlertsData().then(function(alerts){
             self.alerts = alerts;
           });
-        }, POLLING_INTERVAL);
+        };
+        fetch();
+        setInterval(fetch, POLLING_INTERVAL);
       },
 
       computed: {
+        alertsCount: {
+          $get: function(){ return this.alerts.length; }
+        },
         hasAlerts: {
-          $get: function(){
-            return this.alerts.length > 0;
-          }
+          $get: function(){ return this.alertsCount > 0; }
         }
       },
 
       methods: {
-        fetchData: function() {
-          // TODO: fetch from Rails app
+        fetchAlertsData: function() {
           return new Promise(function(resolve, reject) {
-            resolve([
-              {
-                "text": "dummy: " + (new Date).toString(),
-              },
-              {
-                "text": "dummy: " + (Math.random()).toString(),
-              },
-            ]);
+            $.getJSON(POLLING_URL, function(data){
+              resolve(data);
+            }).fail(reject);
           });
         }
       }

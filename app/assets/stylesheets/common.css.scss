@@ -27,3 +27,13 @@ label {
 #page-wrapper {
   padding-bottom: 2em;
 }
+
+
+// expand alert area width
+.navbar-top-links .dropdown-messages,
+.navbar-top-links .dropdown-tasks,
+.navbar-top-links .dropdown-alerts {
+    // width: 310px;
+    width: 400px;
+    min-width: 0;
+}
