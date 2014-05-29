@@ -14,7 +14,7 @@ ja:
     misc: &misc その他
     version: バージョン
     fluent_version: "fluentd %{version}"
-    no_alert: なし
+    no_alert: 通知なし
     update_password: パスワード更新
     detail: 詳細
     create: 作成

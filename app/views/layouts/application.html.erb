@@ -52,14 +52,21 @@
               <li class="dropdown" id="alert">
                 <a
                   class="dropdown-toggle"
-                  v-class="
-                    btn-info: hasAlerts
-                  "
                   data-toggle="dropdown" href="#"
                   >
-                  <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                  <i class="fa fa-bell fa-fw"></i>
+                  <span class="badge" v-if="hasAlerts">{{ alertsCount }}</span>
+                  <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="nav dropdown-menu dropdown-alerts">
+                  <li v-if="!hasAlerts">
+                    <a>
+                      <div class="nothing text text-success">
+                        <%= icon "fa-check" %>
+                        <%= t "terms.no_alert" %>
+                      </div>
+                    </a>
+                  </li>
                   <li v-repeat="alerts">
                     <a>
                       <div>
