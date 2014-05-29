@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user
   helper_method :current_locale
+  helper_method :installing_gem?, :installing_gems, :uninstalling_gem?, :uninstalling_gems
   before_action :login_required
   before_action :set_locale
 
@@ -19,6 +20,26 @@ class ApplicationController < ActionController::Base
 
   def current_locale
     I18n.locale
+  end
+
+  def installing_gem?
+    installing_gems.present?
+  end
+
+  def installing_gems
+    Plugin::WORKING.find_all do |data|
+      data[:type] == :install && data[:state] == :running
+    end.map{|data| data[:plugin]}
+  end
+
+  def uninstalling_gem?
+    uninstalling_gems.present?
+  end
+
+  def uninstalling_gems
+    Plugin::WORKING.find_all do |data|
+      data[:type] == :uninstall && data[:state] == :running
+    end.map{|data| data[:plugin]}
   end
 
   private

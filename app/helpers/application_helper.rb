@@ -1,40 +1,8 @@
 # coding: utf-8
 
 module ApplicationHelper
-  def need_restart?
-    Plugin.gemfile_changed?
-  end
-
-  def installing_gem?
-    installing_gems.length > 0
-  end
-
-  def installing_gems
-    Plugin::WORKING.find_all do |data|
-      data[:type] == :install && data[:state] == :running
-    end.map{|data| data[:plugin]} || []
-  end
-
-  def uninstalling_gem?
-    uninstalling_gems.length > 0
-  end
-
-  def uninstalling_gems
-    Plugin::WORKING.find_all do |data|
-      data[:type] == :uninstall && data[:state] == :running
-    end.map{|data| data[:plugin]} || []
-  end
-
   def has_td_agent_system?
     File.exist?("/etc/init.d/td-agent")
-  end
-
-  def has_alert?
-    installing_gem? || uninstalling_gem?
-  end
-
-  def alert_line(icon_class, text)
-    %Q|<li><a><div>#{icon icon_class} <span>#{text}</span></div></a></li>|.html_safe
   end
 
   def language_name(locale)

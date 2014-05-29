@@ -25,7 +25,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :user, only: [:show, :edit, :update]
+
   get "misc" => "misc#show"
   get "misc/information"
-  resource :user, only: [:show, :edit, :update]
+
+  namespace :polling do
+    get "alerts"
+  end
 end

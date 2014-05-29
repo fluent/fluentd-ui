@@ -39,7 +39,7 @@ class Fluentd
         stop && start
       end
 
-      def reload # NOTE: does not used currently, and td-agent has no restart command
+      def reload # NOTE: does not used currently, and td-agent has no reload command
         return false unless running?
         actual_restart
       end
