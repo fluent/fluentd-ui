@@ -100,6 +100,20 @@ class Plugin
     end
   end
 
+  def self.processing
+    WORKING.find_all do |data|
+      data[:state] == :running
+    end
+  end
+
+  def self.installing
+    processing.find_all{|data| data[:type] == :install }.map{|data| data[:plugin] }
+  end
+
+  def self.uninstalling
+    processing.find_all{|data| data[:type] == :uninstall }.map{|data| data[:plugin] }
+  end
+
   def self.gemfile_path
     Rails.root + "Gemfile.plugins"
   end
@@ -129,11 +143,21 @@ class Plugin
   end
 
   def gem_install
+    data = { plugin: self, state: :running, type: :install }
+    return if WORKING.grep(data).present?
+    WORKING.push(data)
     fluent_gem("install", gem_name, "-v", version)
+  ensure
+    WORKING.delete(data)
   end
 
   def gem_uninstall
+    data = { plugin: self, state: :running, type: :uninstall }
+    return if WORKING.grep(data).present?
+    WORKING.push(data)
     fluent_gem("uninstall", gem_name, "-x", "-a")
+  ensure
+    WORKING.delete(data)
   end
 
   def fluent_gem(*commands)
