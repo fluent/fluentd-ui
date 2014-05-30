@@ -13,13 +13,20 @@
             = link_to t('.install_it', target: "td-agent"), "http://docs.treasuredata.com/articles/td-agent"
 
 - @fluentds.each do |d|
-  %div.col-lg-3
-    %div{class: "panel panel-#{d.agent.running? ? "success":"default"}"}
-      %div.panel-heading
-        %h4
-          = "fluentd ##{d.id}"
-          - unless d.agent.running?
-            = link_to t(".edit"), edit_fluentd_path(d)
-            = link_to t(".destroy"), fluentd_path(d), method: :delete
-      %div.panel-body
+  %div{class: "panel panel-#{d.agent.running? ? "success":"default"}"}
+    %div.panel-heading
+      %h4
+        = "fluentd ##{d.id}"
+        - unless d.agent.running?
+          = link_to t(".edit"), edit_fluentd_path(d)
+          = link_to t(".destroy"), fluentd_path(d), method: :delete
+    %div.panel-body
+      %h4
+        - if d.agent.running?
+          = icon("fa-play")
+          = t("fluentd.common.running")
+        - else
+          = icon("fa-pause")
+          = t("fluentd.common.stopped")
+      %p
         = link_to t(".operation"), fluentd_agent_path(d) # TODO
