@@ -26,6 +26,7 @@ en:
     install_it: "Install %{target}"
     installing: "Installing: %{target}"
     uninstalling: "Uninstalling: %{target}"
+    search: Search
 
   plugins:
     common: &plugin_common

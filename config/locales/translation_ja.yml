@@ -26,6 +26,7 @@ ja:
     install_it: "%{target}をインストール"
     installing: "インストール中: %{target}"
     uninstalling: "アンインストール中: %{target}"
+    search: 検索
 
   plugins:
     common: &plugin_common
