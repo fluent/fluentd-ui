@@ -28,7 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "font-awesome-rails"
   spec.add_dependency 'sass-rails', '~> 4.0.3'
   spec.add_dependency 'uglifier', '>= 1.3.0'
-  spec.add_dependency 'coffee-rails', '~> 4.0.0'
   spec.add_dependency "haml-rails", "~> 0.5.3"
   spec.add_dependency 'jquery-rails', "~> 3.1.0"
   spec.add_dependency 'jbuilder', '~> 2.0'
