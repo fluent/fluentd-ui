@@ -21,3 +21,12 @@ Or, for developers.
     $ bundle install
     $ bundle exec rails s
 
+# Building fluentd-ui.gem
+
+It has the same tasks of `bundle gem foobar; cd foobar; rake -T`.
+
+    $ bundle exec rake build
+    fluentd-ui 0.0.1.pre built to pkg/fluentd-ui-0.0.1.pre.gem.
+
+    $ bundle exec rake release
+    # Push to rubygems.org
