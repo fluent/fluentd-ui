@@ -27,6 +27,9 @@ en:
     installing: "Installing: %{target}"
     uninstalling: "Uninstalling: %{target}"
     search: Search
+    destroy_confirm_title: "%{target} Deletion"
+    destroy_confirm_body: |
+      Really delete?
 
   plugins:
     common: &plugin_common

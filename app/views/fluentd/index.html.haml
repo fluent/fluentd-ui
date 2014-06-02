@@ -19,8 +19,17 @@
         = "fluentd ##{d.id}"
         - unless d.agent.running?
           = link_to t(".edit"), edit_fluentd_path(d)
-          = link_to t(".destroy"), fluentd_path(d), method: :delete
+          %button{class: "btn btn-danger", data: {toggle: "modal", target:" #modal-destroy"}}
+            = t ".destroy"
     %div.panel-body
+      :ruby
+        locals = {
+          head: t('.destroy_confirm_title', target: d.label),
+          body: t('.destroy_confirm_body'),
+          primary_button: link_to(t(".destroy"), fluentd_path(d), method: :delete, class: "btn btn-danger")
+        }
+      = render partial: "shared/modal", locals: locals
+
       %h4
         - if d.agent.running?
           = icon("fa-play")
