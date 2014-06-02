@@ -29,7 +29,7 @@ describe Fluentd::Agent do
     end
 
     describe "#recent_errors" do
-      before { instance.stub(:log_file).and_return { logfile } }
+      before { instance.stub(:log_file).and_return(logfile) }
 
       context "have 0 error log" do
         let(:logfile) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
@@ -88,14 +88,14 @@ describe Fluentd::Agent do
     end
 
     describe "#start" do
-      before { instance.stub(:running?).and_return { running } }
+      before { instance.stub(:running?).and_return(running) }
 
       context "running" do
         let(:running) { true }
 
         subject { instance.start }
 
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context "not running" do
@@ -104,52 +104,52 @@ describe Fluentd::Agent do
         subject { instance.start }
 
         before do
-          instance.stub(:actual_start).and_return { start_result }
+          instance.stub(:actual_start).and_return(start_result)
         end
 
         context "actual start success" do
           let(:start_result) { true }
-          it { should be_true }
+          it { should be_truthy }
         end
 
         context "actual start failed" do
           let(:start_result) { false }
-          it { should be_false }
+          it { should be_falsy }
         end
       end
     end
 
     describe "#stop" do
-      before { instance.stub(:running?).and_return { running } }
+      before { instance.stub(:running?).and_return(running) }
 
       subject { instance.stop }
 
       context "running" do
         let(:running) { true }
 
-        before { instance.stub(:actual_stop).and_return { stop_result } }
+        before { instance.stub(:actual_stop).and_return(stop_result) }
 
         context "actual stop success" do
           let(:stop_result) { true }
-          it { should be_true }
+          it { should be_truthy }
         end
 
         context "actual stop failed" do
           let(:stop_result) { false }
-          it { should be_false }
+          it { should be_falsy }
         end
       end
 
       context "not running" do
         let(:running) { false }
 
-        it { should be_true }
+        it { should be_truthy }
       end
     end
 
     describe "#restart" do
-      before { instance.stub(:stop).and_return { stop_result } }
-      before { instance.stub(:start).and_return { start_result } }
+      before { instance.stub(:stop).and_return(stop_result) }
+      before { instance.stub(:start).and_return(start_result) }
       subject { instance.restart }
 
       describe "return true only if #stop and #start success" do
@@ -158,12 +158,12 @@ describe Fluentd::Agent do
 
           context" #start success" do
             let(:start_result) { true } 
-            it { should be_true }
+            it { should be_truthy }
           end
 
           context" #start fail" do
             let(:start_result) { false } 
-            it { should be_false }
+            it { should be_falsy }
           end
         end
 
@@ -172,12 +172,12 @@ describe Fluentd::Agent do
 
           context" #start success" do
             let(:start_result) { true } 
-            it { should be_false }
+            it { should be_falsy }
           end
 
           context" #start fail" do
             let(:start_result) { false } 
-            it { should be_false }
+            it { should be_falsy }
           end
         end
       end

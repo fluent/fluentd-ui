@@ -154,12 +154,12 @@ describe Fluentd do
 
     context "doesn't exists" do
       before { File.unlink(config_file) if File.exist?(config_file) }
-      it { File.exist?(subject).should be_true }
+      it { File.exist?(subject).should be_truthy }
     end
 
     context "already exists" do
       before { FileUtils.touch(config_file) }
-      it { File.exist?(subject).should be_true }
+      it { File.exist?(subject).should be_truthy }
     end
   end
 end

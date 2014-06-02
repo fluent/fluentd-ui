@@ -4,7 +4,7 @@ describe Plugin do
   let(:plugin) { build(:plugin) }
 
   before do
-    Plugin.stub(:gemfile_path).and_return { Rails.root + "tmp/fluentd-ui-test-gemfile.plugins" }
+    Plugin.stub(:gemfile_path).and_return(Rails.root + "tmp/fluentd-ui-test-gemfile.plugins" )
   end
 
   after do
@@ -51,8 +51,8 @@ describe Plugin do
   describe "#install!" do
     describe "invoke fluent_gem" do
       after do
-        plugin.stub(:valid?).and_return { valid }
-        plugin.stub(:installed?).and_return { installed }
+        plugin.stub(:valid?).and_return(valid)
+        plugin.stub(:installed?).and_return(installed)
         plugin.install!
       end
 
@@ -86,7 +86,7 @@ describe Plugin do
     end
 
     context "system command error" do
-      before { plugin.should_receive(:system).and_return { false } }
+      before { plugin.should_receive(:system).and_return(false) }
       subject { expect { plugin.install! } }
 
       it "raise GemError" do
@@ -100,7 +100,7 @@ describe Plugin do
 
     describe "after install succeed" do
       before do
-        plugin.stub(:fluent_gem).and_return { true }
+        plugin.stub(:fluent_gem).and_return(true)
         plugin.install!
       end
 
@@ -113,7 +113,7 @@ describe Plugin do
     let(:installed_plugin) { build(:plugin, gem_name: "fluent-plugin-foobar") }
 
     before do
-      installed_plugin.stub(:fluent_gem).and_return { true }
+      installed_plugin.stub(:fluent_gem).and_return(true)
       installed_plugin.install!
       Plugin.pristine!
     end
@@ -132,7 +132,7 @@ describe Plugin do
     let(:target_version) { "1.2.0" }
 
     before do
-      Plugin.any_instance.stub(:fluent_gem).and_return { true } # NOTE: not `plugin.stub` because upgrade! creates new Plugin instance internally
+      Plugin.any_instance.stub(:fluent_gem).and_return(true) # NOTE: not `plugin.stub` because upgrade! creates new Plugin instance internally
       installed_plugin.install!
       Plugin.pristine!
       installed_plugin.upgrade!(target_version)
@@ -145,7 +145,7 @@ describe Plugin do
 
   describe ".installed" do
     before do
-      plugin.stub(:fluent_gem).and_return { true }
+      plugin.stub(:fluent_gem).and_return(true)
       plugin.install!
     end
 
@@ -159,7 +159,7 @@ describe Plugin do
     let(:gem_version) { Gem::Version.new("1.0.0") }
 
     before do
-      plugin.stub(:installed_version).and_return { gem_version.to_s }
+      plugin.stub(:installed_version).and_return(gem_version.to_s)
       stub_request(:get, /rubygems.org/).to_return(body: JSON.dump(api_response))
     end
 
@@ -170,7 +170,7 @@ describe Plugin do
         [{number: gem_version.bump}, {number: gem_version}]
       end
 
-      it { subject.should be_false }
+      it { subject.should be_falsy }
     end
 
     context "unavailable updates" do
@@ -178,13 +178,13 @@ describe Plugin do
         [{number: gem_version}]
       end
 
-      it { subject.should be_true }
+      it { subject.should be_truthy }
     end
   end
 
   describe "#installed_version" do
     before do
-      Plugin.any_instance.stub(:fluent_gem).and_return { true } # NOTE: not `plugin.stub` because upgrade! creates new Plugin instance internally
+      Plugin.any_instance.stub(:fluent_gem).and_return(true) # NOTE: not `plugin.stub` because upgrade! creates new Plugin instance internally
       plugin.install!
     end
 

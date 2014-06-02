@@ -17,13 +17,13 @@ describe LoginToken do
     describe "#active" do
       subject { LoginToken.active }
       it { subject.count.should == active }
-      it { subject.all?{|t| t.expired_at > Time.now}.should be_true }
+      it { subject.all?{|t| t.expired_at > Time.now}.should be_truthy }
     end
 
     describe "#inactive" do
       subject { LoginToken.inactive }
       it { subject.count.should == inactive }
-      it { subject.all?{|t| t.expired_at <= Time.now}.should be_true }
+      it { subject.all?{|t| t.expired_at <= Time.now}.should be_truthy }
     end
   end
 end
