@@ -27,12 +27,13 @@
   %h2= t('.recent_errors', count: @error_count)
 
   %div.row
-    - @errors.each do |errors|
-      %div.panel.panel-default
-        %div.panel-heading
-          %h4= errors.shift
-        - if errors.present?
-          %div.panel-body
-            %ul
-              - errors.each do |stack|
-                %li= stack
+    %div.col-lg-12
+      - @errors.each do |errors|
+        %div.panel.panel-default
+          %div.panel-heading
+            %h4= errors.shift
+          - if errors.present?
+            %div.panel-body
+              %ul
+                - errors.each do |stack|
+                  %li= stack
