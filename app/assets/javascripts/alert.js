@@ -15,10 +15,14 @@
         var fetch = function(){
           self.fetchAlertsData().then(function(alerts){
             self.alerts = alerts;
+          })["catch"](function(xhr){
+            if(xhr.status === 401) {
+              clearInterval(timer);
+            }
           });
         };
         fetch();
-        setInterval(fetch, POLLING_INTERVAL);
+        var timer = setInterval(fetch, POLLING_INTERVAL);
       },
 
       computed: {
