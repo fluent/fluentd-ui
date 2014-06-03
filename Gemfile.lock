@@ -12,6 +12,7 @@ PATH
       i18n_generators (= 1.2.1)
       jbuilder (~> 2.0)
       jquery-rails (~> 3.1.0)
+      puma
       rails (= 4.1.1)
       sass-rails (~> 4.0.3)
       settingslogic
@@ -225,7 +226,6 @@ DEPENDENCIES
   factory_girl_rails
   fluentd-ui!
   pry
-  puma
   rake
   rspec-rails (~> 3.0)
   simplecov (~> 0.7.1)
