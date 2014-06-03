@@ -18,6 +18,7 @@ PATH
       settingslogic
       sqlite3
       sucker_punch (~> 1.0.5)
+      thor
 
 GEM
   remote: https://rubygems.org/
