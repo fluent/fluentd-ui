@@ -9,6 +9,9 @@ class SessionsController < ApplicationController
       return render :new
     end
     sign_in user
+    if session_params[:password] == Settings.default_password
+      flash[:warning] = t('terms.changeme_password')
+    end
     redirect_to root_path
   end
 
