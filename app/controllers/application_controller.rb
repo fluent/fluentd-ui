@@ -15,7 +15,11 @@ class ApplicationController < ActionController::Base
 
   def login_required
     return true if current_user
-    redirect_to new_sessions_path
+    if request.xhr?
+      render nothing: true, status: 401
+    else
+      redirect_to new_sessions_path
+    end
   end
 
   def current_locale
