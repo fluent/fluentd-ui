@@ -143,7 +143,7 @@ describe Fluentd do
 
   describe "#ensure_default_config_file" do
     subject do
-      pending "Circle CI file operations are unstable :(" if ENV["CIRCLECI"]
+      skip "Circle CI file operations are unstable :(" if ENV["CIRCLECI"]
 
       fluentd.config_file = config_file
       fluentd.save
