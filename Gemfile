@@ -7,7 +7,7 @@ gemspec
 group :development, :test do
   gem "rake"
   gem "pry"
-  gem "rspec-rails", "~> 2.0"
+  gem "rspec-rails", "~> 3.0"
   gem "puma"
 end
 
