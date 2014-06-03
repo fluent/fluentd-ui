@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 unless User.exists?
-  User.create!(name: "admin", password: "changeme")
+  User.create!(name: "admin", password: Settings.default_password)
 end

@@ -1,4 +1,5 @@
 defaults: &defaults
+  default_password: changeme
   recommended_plugins:
     - category: filter
       name: "rewrite-tag-filter"
