@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "httpclient"
   spec.add_dependency "settingslogic"
   spec.add_dependency "puma"
+  spec.add_dependency "thor"
 end
