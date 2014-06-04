@@ -9,7 +9,7 @@
       <%= icon('fa-check text text-success') %>
       <%= t('.step1') %>
     <% else %>
-      <%= icon('fa-warning text text-warning') %>
+      <%= icon('fa-warning text text-danger') %>
       <%= link_to t('.step1'), fluentd_index_path %>
     <% end %>
   </li>
@@ -18,7 +18,7 @@
       <%= icon('fa-check text text-success') %>
       <%= t('.step2') %>
     <% else %>
-      <%= icon('fa-warning text text-warning') %>
+      <%= icon('fa-warning text text-danger') %>
       <% if @fluentd %>
         <%= link_to t('.step2'), fluentd_agent_path(@fluentd) %>
       <% else %>
