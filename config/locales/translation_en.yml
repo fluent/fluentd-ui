@@ -108,6 +108,8 @@ en:
   tutorials:
     common: &tutorials_common
       <<: *terms
+      step1: "Setup fluentd"
+      step2: "Start fluentd"
     index:
       <<: *tutorials_common
       page_title: Tutorial

@@ -108,6 +108,8 @@ ja:
   tutorials:
     common: &tutorials_common
       <<: *terms
+      step1: "fluentdをセットアップ"
+      step2: "fluentdを起動"
     index:
       <<: *tutorials_common
       page_title: チュートリアル
