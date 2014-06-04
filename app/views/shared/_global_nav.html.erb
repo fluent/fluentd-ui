@@ -4,6 +4,11 @@
   </li>
   <li>
     <%= link_to_other icon("fa-puzzle-piece fa-fw") << " fluentd", fluentd_index_path %>
+    <ul class="nav nav-second-level">
+      <li>
+        <%= link_to_other t('tutorials.index.page_title'), tutorials_path %>
+      </li>
+    </ul>
   </li>
   <li>
     <%= link_to_other icon("fa-cogs fa-fw") << " " << t('terms.plugins') << icon('fa pull-right fa-caret-down'), plugins_path %>

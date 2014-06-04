@@ -33,4 +33,9 @@ Rails.application.routes.draw do
   namespace :polling do
     get "alerts"
   end
+
+  namespace :tutorials do
+    get "/" => :index
+    get "step1"
+  end
 end

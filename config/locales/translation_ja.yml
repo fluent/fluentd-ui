@@ -105,6 +105,13 @@ ja:
       env_value: 値
       page_title: システム情報
 
+  tutorials:
+    common: &tutorials_common
+      <<: *terms
+    index:
+      <<: *tutorials_common
+      page_title: チュートリアル
+
   messages:
     need_restart: fluentd-uiの再起動が必要です
     please_sign_in: ログイン

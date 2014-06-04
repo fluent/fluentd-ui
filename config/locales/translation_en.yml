@@ -105,6 +105,13 @@ en:
       env_value: Value
       page_title: System Information
 
+  tutorials:
+    common: &tutorials_common
+      <<: *terms
+    index:
+      <<: *tutorials_common
+      page_title: Tutorial
+
   messages:
     need_restart: need to restart fluentd-ui
     please_sign_in: Sign in
