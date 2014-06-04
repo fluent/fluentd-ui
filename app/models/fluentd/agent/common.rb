@@ -67,6 +67,17 @@ class Fluentd
         io && io.close
       end
 
+      def log_tail(limit = 30)
+        buf = []
+        io = File.open(log_file)
+        reader = ::FileReverseReader.new(io)
+        reader.each_line do |line|
+          buf << line
+          break if buf.length >= 30
+        end
+        buf
+      end
+
       def pid_file
         extra_options[:pid_file] || self.class.default_options[:pid_file]
       end
