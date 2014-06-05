@@ -6,6 +6,7 @@
 <%= t ".description" %>
 </p>
 
+<!-- vue.js -->
 <div id="chapter1">
   <form>
     <p v-repeat="payloads">
@@ -17,8 +18,9 @@
   </form>
 
   <pre>
-<button class="btn btn-primary" v-on="click:fetchLogs"><%= t ".reload_log" %></button>
+<button class="btn btn-primary" v-on="click: fetchLogs"><%= t ".reload_log" %></button>
 
 <span v-repeat="logs">{{ $value }}
 </span></pre>
 </div>
+<!-- /vue.js -->
