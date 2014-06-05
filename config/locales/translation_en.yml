@@ -108,11 +108,18 @@ en:
   tutorials:
     common: &tutorials_common
       <<: *terms
-      step1: "Setup fluentd"
-      step2: "Start fluentd"
     index:
       <<: *tutorials_common
+      step1: "Setup fluentd"
+      step2: "Start fluentd"
       page_title: Tutorial
+      start_tutorial: Start tutorial
+    chapter1:
+      <<: *tutorials_common
+      page_title: "Tutorial | Receive data via in_http"
+      reload_log: Reload fluend log
+      description: You can send an arbitrary JSON data via HTTP. URL path will be tag name.
+      send: Send
 
   messages:
     need_restart: need to restart fluentd-ui

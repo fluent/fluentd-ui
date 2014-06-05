@@ -99,6 +99,10 @@ class Fluentd < ActiveRecord::Base
           type debug_agent
           port 24230
         </source>
+
+        <match debug.*>
+          type stdout
+        </match>
       XML
     end
   end

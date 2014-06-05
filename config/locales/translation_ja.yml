@@ -108,11 +108,18 @@ ja:
   tutorials:
     common: &tutorials_common
       <<: *terms
-      step1: "fluentdをセットアップ"
-      step2: "fluentdを起動"
     index:
       <<: *tutorials_common
       page_title: チュートリアル
+      step1: "fluentdをセットアップ"
+      step2: "fluentdを起動"
+      start_tutorial: "チュートリアルを始める"
+    chapter1:
+      <<: *tutorials_common
+      page_title: "チュートリアル | in_httpでデータを受け取る"
+      reload_log: fluentdのログを更新
+      description: fluentdに任意のデータをJSONで送ることができます。URLのパスがタグの名前になります。
+      send: 送信
 
   messages:
     need_restart: fluentd-uiの再起動が必要です
