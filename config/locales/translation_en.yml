@@ -119,6 +119,9 @@ en:
       page_title: "Tutorial | Receive data via in_http"
       reload_log: Reload fluend log
       description: You can send an arbitrary JSON data via HTTP. URL path will be tag name.
+      learn_more: |
+        Other input plugins are available such as in_syslog, in_tail, etc.
+        <a href="http://docs.fluentd.org/articles/input-plugin-overview">Learn More</a>
       send: Send
 
   messages:

@@ -119,6 +119,9 @@ ja:
       page_title: "チュートリアル | in_httpでデータを受け取る"
       reload_log: fluentdのログを更新
       description: fluentdに任意のデータをJSONで送ることができます。URLのパスがタグの名前になります。
+      learn_more: |
+        他にもin_tail, in_syslogなどのinputプラグインがあります。
+        <a href="http://docs.fluentd.org/ja/articles/input-plugin-overview">Learn More</a>
       send: 送信
 
   messages:
