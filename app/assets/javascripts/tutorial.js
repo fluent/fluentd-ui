@@ -1,11 +1,6 @@
 (function(){
   "use strict";
 
-  // NOTE: should move to common space if this filter used another place
-  Vue.filter('to_json', function (value) {
-      return JSON.stringify(value);
-  })
-
   $(function(){
     if($('#chapter1').length === 0) return;
 
