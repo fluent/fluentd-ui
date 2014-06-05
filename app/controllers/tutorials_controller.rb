@@ -7,6 +7,7 @@ class TutorialsController < ApplicationController
   end
 
   def chapter1
+    return redirect_to tutorials_url unless tutorial_ready?
   end
 
   def log_tail
