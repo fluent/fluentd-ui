@@ -8,6 +8,29 @@ class Fluentd < ActiveRecord::Base
   before_validation :expand_paths
   after_save :ensure_default_config_file
 
+  DEFAULT_CONF = <<-CONF.strip_heredoc
+    <source>
+      type forward
+      port 24224
+    </source>
+    <source>
+      type monitor_agent
+      port 24220
+    </source>
+    <source>
+      type http
+      port 8888
+    </source>
+    <source>
+      type debug_agent
+      port 24230
+    </source>
+
+    <match debug.*>
+      type stdout
+    </match>
+  CONF
+
   def self.variants
     %w(fluentd td-agent)
   end
@@ -82,24 +105,7 @@ class Fluentd < ActiveRecord::Base
     return true if File.size?(config_file)
 
     File.open(config_file, "w") do |f|
-      f.write <<-XML.strip_heredoc
-        <source>
-          type forward
-          port 24224
-        </source>
-        <source>
-          type monitor_agent
-          port 24220
-        </source>
-        <source>
-          type http
-          port 9880
-        </source>
-        <source>
-          type debug_agent
-          port 24230
-        </source>
-      XML
+      f.write DEFAULT_CONF
     end
   end
 end

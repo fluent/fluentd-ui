@@ -18,6 +18,7 @@ require "haml-rails"
 require "jquery-rails"
 require "sucker_punch"
 require "settingslogic"
+require "kramdown-haml"
 
 module FluentdUi
   class Application < Rails::Application

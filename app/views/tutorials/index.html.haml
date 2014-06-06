@@ -1,0 +1,26 @@
+- page_title t(".page_title")
+
+%h2 
+  Hello, world!
+
+%ol
+  %li
+    - if @fluentd
+      = icon('fa-check text text-success')
+      = t('.step1')
+    - else
+      = icon('fa-warning text text-danger')
+      = link_to t('.step1'), fluentd_index_path
+  %li
+    - if @fluentd && @fluentd.agent.running?
+      = icon('fa-check text text-success')
+      = t('.step2')
+    - else
+      = icon('fa-warning text text-danger')
+      - if @fluentd
+        = link_to t('.step2'), fluentd_agent_path(@fluentd)
+      - else
+        = t('.step2')
+
+- if tutorial_ready?
+  = link_to t('.start_tutorial'), tutorials_chapter1_path
