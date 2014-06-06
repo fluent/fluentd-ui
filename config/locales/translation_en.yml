@@ -116,13 +116,24 @@ en:
       start_tutorial: Start tutorial
     chapter1:
       <<: *tutorials_common
-      page_title: "Tutorial | Receive data via in_http"
+      page_title: "Chapter 1 | Receive data via in_http"
       reload_log: Reload fluend log
       description: You can send an arbitrary JSON data via HTTP. URL path will be tag name.
       learn_more: |
         Other input plugins are available such as in_syslog, in_tail, etc.
         <a href="http://docs.fluentd.org/articles/input-plugin-overview">Learn More</a>
       send: Send
+    chapter2:
+      <<: *tutorials_common
+      page_title: "Chapter 2 | in_http and out_stdout"
+      lesson_markdown: |
+        You can see the log as above when fluentd started.
+
+        Line 1 enable http plugin that allows to receive HTTP requests.
+
+        Line 2 enable stdout plugin that process the data with matched `debug.*` tag.
+
+        These settings are defined as following fluent.conf:
 
   messages:
     need_restart: need to restart fluentd-ui

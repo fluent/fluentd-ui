@@ -116,13 +116,24 @@ ja:
       start_tutorial: "チュートリアルを始める"
     chapter1:
       <<: *tutorials_common
-      page_title: "チュートリアル | in_httpでデータを受け取る"
+      page_title: "Chapter 1 | in_httpでデータを受け取る"
       reload_log: fluentdのログを更新
       description: fluentdに任意のデータをJSONで送ることができます。URLのパスがタグの名前になります。
       learn_more: |
         他にもin_tail, in_syslogなどのinputプラグインがあります。
         <a href="http://docs.fluentd.org/ja/articles/input-plugin-overview">Learn More</a>
       send: 送信
+    chapter2:
+      <<: *tutorials_common
+      page_title: "Chapter 2 | in_httpとout_stdout"
+      lesson_markdown: |
+        fluentdの起動時にこのようなログがあるかと思います。
+
+        この1行目でhttpが有効化されています。これでHTTPリクエストを受け付けるようになります。
+
+        2行目でstdoutが有効化されています。受け取ったデータのうち、タグが`debug.*`にマッチするものはstdoutへと渡されます。
+
+        この2つはfluent.confでそれぞれ次のように設定されています。
 
   messages:
     need_restart: fluentd-uiの再起動が必要です

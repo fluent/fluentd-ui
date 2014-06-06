@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   namespace :tutorials do
     get "/" => :index
     get "chapter1"
+    get "chapter2"
     get "log_tail"
     post "request_fluentd"
   end

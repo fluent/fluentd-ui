@@ -1,5 +1,6 @@
 class TutorialsController < ApplicationController
   before_action :find_fluentd
+  before_action :check_ready, only: [:chapter1, :chapter2]
   helper_method :tutorial_ready?
 
   def index
@@ -7,7 +8,10 @@ class TutorialsController < ApplicationController
   end
 
   def chapter1
-    return redirect_to tutorials_url unless tutorial_ready?
+  end
+
+  def chapter2
+    @default_conf = Fluentd::DEFAULT_CONF
   end
 
   def log_tail
@@ -25,6 +29,10 @@ class TutorialsController < ApplicationController
   def find_fluentd
     # NOTE: use first fluentd for tutorial
     @fluentd = Fluentd.first
+  end
+
+  def check_ready
+    return redirect_to tutorials_url unless tutorial_ready?
   end
 
   def tutorial_ready?
