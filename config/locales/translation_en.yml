@@ -116,12 +116,9 @@ en:
       start_tutorial: Start tutorial
     chapter1:
       <<: *tutorials_common
-      page_title: "Chapter 1 | Receive data via in_http"
+      page_title: "Chapter 1 | Try to send data"
       reload_log: Reload fluend log
       description: You can send an arbitrary JSON data via HTTP. URL path will be tag name.
-      learn_more: |
-        Other input plugins are available such as in_syslog, in_tail, etc.
-        <a href="http://docs.fluentd.org/articles/input-plugin-overview">Learn More</a>
       send: Send
     chapter2:
       <<: *tutorials_common
@@ -146,6 +143,93 @@ en:
             <match debug.*>
               type stdout
             </match>
+    chapter3:
+      <<: *tutorials_common
+      page_title: "Chapter 3 | Build your fluentd!"
+      lesson_markdown: |
+        fluentd can receive from [syslog protocol](http://docs.fluentd.org/articles/in_syslog), [file](http://docs.fluentd.org/articles/in_tail), etc.
+
+        Also fluentd can output to [MongoDB](http://docs.fluentd.org/articles/out_mongo), [AWS S3](http://docs.fluentd.org/articles/out_s3), etc.
+
+        ![fluentd](/fluentd.png)
+
+        These input/output are provided as plugin. Install them and write a setting, then restart fluentd, you can get the power!
+
+        [Many plugins](/plugins/recommended) are available. And you can [edit config file from here](%{edit_config_url}).
+    chapter4:
+      <<: *tutorials_common
+      page_title: "Chapter 4 | Use case"
+      lesson_markdown: |
+        ### Monitoring Apache 5xx response and email it
+
+        **Required plugins**
+
+        - fluent-plugin-grepcounter
+        - fluent-plugin-mail
+
+        **config file example**
+
+            <source>
+              type tail
+              format apache2
+              path /var/log/apache2/access.log #This is the location of your Apache log
+              tag apache.access
+            </source>
+
+            <match apache.access>
+              type grepcounter
+              count_interval 3         # Time window to grep and count the # of events
+              input_key code           # We look at the (http status) "code" field
+              regexp ^5\d\d$           # This regexp matches 5xx status codes
+              threshold 1              # The # of events to trigger emitting an output
+              add_tag_prefix error_5xx # The output event's tag will be error_5xx.apache.access
+            </match>
+        
+            <match error_5xx.apache.access>
+              # The event that comes here looks like
+              # {
+              #   "count":1,
+              #   "input_tag":"error_5xx.apache.access",
+              #   "input_tag_last":"access",
+              #   "message":[500]
+              # }
+
+              type mail
+              host smtp.gmail.com       # This is for Gmail and Google Apps. Any SMTP server should work
+              port 587                  # port for smtp.gmail.com
+              user example@gmail.com    # your Gmail here for login
+              password XXXXXX           # Gmail password
+              enable_starttls_auto true # Gmail required this
+
+              from YOUR_SENDER_EMAIL_HERE
+              to   YOUR_RECIPIENT_EMAIL_HERE
+              subject [URGENT] APACHE 5XX ERROR
+              message Total 5xx error count: %s\n\nPlease check your Apache webserver ASAP
+              message_out_keys count # The value of 'count' will be substituted into %s above.
+            </match>
+
+        **process flow**
+
+            [log file] -> 
+              (in_tail) ->
+                Capturing file content with tagged as apache.access ->
+              (match apache.access) ->
+                "grepcounter" re-send data with appending prefix ->
+              (match error_5xx.apache.access) ->
+                "mail" send a mail
+    chapter5:
+      <<: *tutorials_common
+      page_title: "Chapter 5 | Finish!"
+      lesson_markdown: |
+        Tutorial is over. congratulation!
+
+        Other resources:
+
+        - [Quick start](http://docs.fluentd.org/articles/quickstart)
+        - [Forum](https://groups.google.com/forum/?fromgroups#!forum/fluentd)
+        - [Source code(GitHub)](https://github.com/fluent/fluentd)
+        - [Twitter @fluentd](https://twitter.com/fluentd)
+
 
   messages:
     need_restart: need to restart fluentd-ui

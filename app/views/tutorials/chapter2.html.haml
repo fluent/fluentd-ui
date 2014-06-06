@@ -2,9 +2,11 @@
 
 %p.clearfix
   = link_to "<< " << t('tutorials.chapter1.page_title'), tutorials_chapter1_path, class: "pull-left"
+  = link_to t('tutorials.chapter3.page_title') << " >>", tutorials_chapter3_path, class: "pull-right"
 
 :markdown
   #{t('.lesson_markdown')}
 
 %p.clearfix
   = link_to "<< " << t('tutorials.chapter1.page_title'), tutorials_chapter1_path, class: "pull-left"
+  = link_to t('tutorials.chapter3.page_title') << " >>", tutorials_chapter3_path, class: "pull-right"

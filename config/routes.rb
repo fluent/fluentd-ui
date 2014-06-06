@@ -38,6 +38,9 @@ Rails.application.routes.draw do
     get "/" => :index
     get "chapter1"
     get "chapter2"
+    get "chapter3"
+    get "chapter4"
+    get "chapter5"
     get "log_tail"
     post "request_fluentd"
   end
