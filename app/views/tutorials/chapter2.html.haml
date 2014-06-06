@@ -3,24 +3,8 @@
 %p.clearfix
   = link_to "<< " << t('tutorials.chapter1.page_title'), tutorials_chapter1_path, class: "pull-left"
 
-%pre
-  2014-06-05 14:43:14 +0900 [info]: adding source type="http"
-  2014-06-05 14:43:14 +0900 [info]: adding match pattern="debug.*" type="stdout"
-
 :markdown
   #{t('.lesson_markdown')}
-
-%pre
-  :escaped
-    <source>
-      type http
-      port 8888
-    </source>
-
-    <match debug.*>
-      type stdout
-    </match>
-
 
 %p.clearfix
   = link_to "<< " << t('tutorials.chapter1.page_title'), tutorials_chapter1_path, class: "pull-left"

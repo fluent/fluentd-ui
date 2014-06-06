@@ -127,13 +127,25 @@ en:
       <<: *tutorials_common
       page_title: "Chapter 2 | in_http and out_stdout"
       lesson_markdown: |
-        You can see the log as above when fluentd started.
+        You can see the log when fluentd started.
+
+            2014-06-05 14:43:14 +0900 [info]: adding source type="http"
+            2014-06-05 14:43:14 +0900 [info]: adding match pattern="debug.*" type="stdout"
 
         Line 1 enable http plugin that allows to receive HTTP requests.
 
         Line 2 enable stdout plugin that process the data with matched `debug.*` tag.
 
         These settings are defined as following fluent.conf:
+
+            <source>
+              type http
+              port 8888
+            </source>
+
+            <match debug.*>
+              type stdout
+            </match>
 
   messages:
     need_restart: need to restart fluentd-ui

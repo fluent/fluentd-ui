@@ -129,11 +129,23 @@ ja:
       lesson_markdown: |
         fluentdの起動時にこのようなログがあるかと思います。
 
+            2014-06-05 14:43:14 +0900 [info]: adding source type="http"
+            2014-06-05 14:43:14 +0900 [info]: adding match pattern="debug.*" type="stdout"
+
         この1行目でhttpが有効化されています。これでHTTPリクエストを受け付けるようになります。
 
         2行目でstdoutが有効化されています。受け取ったデータのうち、タグが`debug.*`にマッチするものはstdoutへと渡されます。
 
         この2つはfluent.confでそれぞれ次のように設定されています。
+
+            <source>
+              type http
+              port 8888
+            </source>
+
+            <match debug.*>
+              type stdout
+            </match>
 
   messages:
     need_restart: fluentd-uiの再起動が必要です
