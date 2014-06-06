@@ -1,5 +1,8 @@
 - page_title t(".page_title")
 
+%p.clearfix
+  = link_to "<< " << t('tutorials.chapter1.page_title'), tutorials_chapter1_path, class: "pull-left"
+
 %pre
   2014-06-05 14:43:14 +0900 [info]: adding source type="http"
   2014-06-05 14:43:14 +0900 [info]: adding match pattern="debug.*" type="stdout"
@@ -19,5 +22,5 @@
     </match>
 
 
-%p
+%p.clearfix
   = link_to "<< " << t('tutorials.chapter1.page_title'), tutorials_chapter1_path, class: "pull-left"
