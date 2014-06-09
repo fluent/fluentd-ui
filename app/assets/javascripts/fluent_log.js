@@ -9,6 +9,7 @@
       paramAttributes: ["logUrl"],
       data: {
         "logs": [],
+        // limit: 30 (with v-model="limit" on shared/vue/_fluent_log)
       },
 
       created: function(){
@@ -19,7 +20,7 @@
         fetchLogs: function() {
           var self = this;
           new Promise(function(resolve, reject) {
-            $.getJSON(self.logUrl, resolve).fail(reject);
+            $.getJSON(self.logUrl + "?limit=" + self.limit, resolve).fail(reject);
           }).then(function(logs){
             self.logs = logs;
           });

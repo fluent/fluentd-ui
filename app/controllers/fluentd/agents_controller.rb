@@ -32,7 +32,7 @@ class Fluentd::AgentsController < ApplicationController
   end
 
   def log_tail
-    @logs = @fluentd.agent.log_tail.reverse if @fluentd
+    @logs = @fluentd.agent.log_tail(params[:limit]).reverse if @fluentd
     render json: @logs
   end
 end

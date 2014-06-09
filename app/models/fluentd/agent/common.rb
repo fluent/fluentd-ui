@@ -67,13 +67,15 @@ class Fluentd
         io && io.close
       end
 
-      def log_tail(limit = 30)
-        buf = []
+      def log_tail(limit = nil)
+        limit = limit.to_i rescue 0
+        limit = limit.zero? ? Settings.default_log_tail_count : limit
         io = File.open(log_file)
+        buf = []
         reader = ::FileReverseReader.new(io)
         reader.each_line do |line|
           buf << line
-          break if buf.length >= 30
+          break if buf.length >= limit
         end
         buf
       end
