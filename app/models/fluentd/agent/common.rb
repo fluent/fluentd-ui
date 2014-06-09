@@ -90,6 +90,12 @@ class Fluentd
         extra_options[:config_file] || self.class.default_options[:config_file]
       end
 
+      def configuration
+        if File.exists? config_file
+          ::Fluentd::Agent::Configuration.new(config_file)
+        end
+      end
+
       %w(start stop restart).each do |method|
         define_method(method) do
           raise NotImplementedError
