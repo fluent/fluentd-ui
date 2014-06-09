@@ -145,6 +145,7 @@ class Plugin
   def gem_install
     data = { plugin: self, state: :running, type: :install }
     return if WORKING.grep(data).present?
+    return if installed?
     WORKING.push(data)
     fluent_gem("install", gem_name, "-v", version)
   ensure
@@ -154,6 +155,7 @@ class Plugin
   def gem_uninstall
     data = { plugin: self, state: :running, type: :uninstall }
     return if WORKING.grep(data).present?
+    return unless installed?
     WORKING.push(data)
     fluent_gem("uninstall", gem_name, "-x", "-a")
   ensure
