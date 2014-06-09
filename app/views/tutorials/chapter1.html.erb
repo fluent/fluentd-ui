@@ -23,15 +23,7 @@
 </div>
 <!-- /vue.js -->
 
-<!-- vue.js -->
-<div id="fluent-log">
-  <pre>
-<button class="btn btn-primary" v-on="click: fetchLogs"><%= t ".reload_log" %></button>
-
-<span v-repeat="logs">{{ $value }}
-</span></pre>
-</div>
-<!-- /vue.js -->
+<%= render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd } %>
 
 <p class="clearfix">
   <%= link_to t('tutorials.chapter2.page_title') << " >>", tutorials_chapter2_path, class: "pull-right" %>

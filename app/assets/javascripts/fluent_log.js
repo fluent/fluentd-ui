@@ -6,6 +6,7 @@
 
     new Vue({
       el: "#fluent-log",
+      paramAttributes: ["logUrl"],
       data: {
         "logs": [],
       },
@@ -18,7 +19,7 @@
         fetchLogs: function() {
           var self = this;
           new Promise(function(resolve, reject) {
-            $.getJSON("/tutorials/log_tail", resolve).fail(reject);
+            $.getJSON(self.logUrl, resolve).fail(reject);
           }).then(function(logs){
             self.logs = logs;
           });

@@ -31,6 +31,7 @@ ja:
     destroy_confirm_title: "%{target}を削除"
     destroy_confirm_body: |
       削除しますか？
+    reload_log: fluentdのログを更新
 
   plugins:
     common: &plugin_common
@@ -117,7 +118,6 @@ ja:
     chapter1:
       <<: *tutorials_common
       page_title: "Chapter 1 | データを渡してみる"
-      reload_log: fluentdのログを更新
       description: fluentdに任意のデータをJSONで送ることができます。URLのパスがタグの名前になります。
       learn_more: |
         他にもin_tail, in_syslogなどのinputプラグインがあります。

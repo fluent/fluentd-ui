@@ -31,6 +31,7 @@ en:
     destroy_confirm_title: "%{target} Deletion"
     destroy_confirm_body: |
       Really delete?
+    reload_log: Reload fluend log
 
   plugins:
     common: &plugin_common
@@ -117,7 +118,6 @@ en:
     chapter1:
       <<: *tutorials_common
       page_title: "Chapter 1 | Try to send data"
-      reload_log: Reload fluend log
       description: You can send an arbitrary JSON data via HTTP. URL path will be tag name.
       send: Send
     chapter2:

@@ -1,0 +1,10 @@
+<!-- vue.js -->
+<div id="fluent-log" logUrl="/tutorials/log_tail">
+  <pre>
+<button class="btn btn-primary" v-on="click: fetchLogs"><%= t "terms.reload_log" %></button>
+
+<span v-repeat="logs">{{ $value }}
+</span></pre>
+</div>
+<!-- /vue.js -->
+
