@@ -2,12 +2,13 @@
   "use strict";
 
   $(function(){
+    // At tutorial chapter1, sending request to fluentd
+
     if($('#chapter1').length === 0) return;
 
     new Vue({
       el: "#chapter1",
       data: {
-        "logs": [],
         "payloads": [
           {
             "path": "/debug.foo",
@@ -37,19 +38,7 @@
         ]
       },
 
-      created: function(){
-        this.fetchLogs();
-      },
-
       methods: {
-        fetchLogs: function() {
-          var self = this;
-          new Promise(function(resolve, reject) {
-            $.getJSON("/tutorials/log_tail", resolve).fail(reject);
-          }).then(function(logs){
-            self.logs = logs;
-          });
-        },
         sendRequest: function(payload){
           new Promise(function(resolve, reject) {
             $.ajax({
