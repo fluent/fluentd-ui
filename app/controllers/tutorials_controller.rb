@@ -20,7 +20,7 @@ class TutorialsController < ApplicationController
   end
 
   def request_fluentd
-    HTTPClient.post("http://localhost:8888#{params[:path]}", json: params[:data].to_json)
+    HTTPClient.post("http://localhost:9880#{params[:path]}", json: params[:data].to_json)
     render nothing: true, status: 204
   end
 

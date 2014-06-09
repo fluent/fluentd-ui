@@ -16,7 +16,7 @@
     <p v-repeat="payloads">
       <input type="button" class="btn btn-default" v-on="click: sendRequest($data)" value="<%= t ".send" %>" />
       <code>
-        $ curl -X POST http://localhost:8888{{ path }} -F 'json={{ data | to_json }}'
+        $ curl -X POST http://localhost:9880{{ path }} -F 'json={{ data | to_json }}'
       </code>
     </p>
   </form>

@@ -137,7 +137,7 @@ en:
 
             <source>
               type http
-              port 8888
+              port 9880
             </source>
 
             <match debug.*>

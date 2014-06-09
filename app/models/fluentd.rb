@@ -19,7 +19,7 @@ class Fluentd < ActiveRecord::Base
     </source>
     <source>
       type http
-      port 8888
+      port 9880
     </source>
     <source>
       type debug_agent
