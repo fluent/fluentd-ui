@@ -30,4 +30,9 @@ class Fluentd::AgentsController < ApplicationController
   def log
     render text: @fluentd.agent.log, content_type: "text/plain"
   end
+
+  def log_tail
+    @logs = @fluentd.agent.log_tail.reverse if @fluentd
+    render json: @logs
+  end
 end

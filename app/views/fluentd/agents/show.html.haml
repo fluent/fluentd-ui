@@ -22,6 +22,8 @@
         = link_to icon("fa-pause") << t("fluentd.common.stop"), stop_fluentd_agent_path(@fluentd),       method: :put, class: "btn #{@fluentd.agent.running? ? "btn-danger" : "disabled btn-default"}"
         = link_to icon("fa-refresh") << t("fluentd.common.restart"), restart_fluentd_agent_path(@fluentd), method: :put, class: "btn #{@fluentd.agent.running? ? "btn-warning" : "disabled btn-default"}"
 
+= render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd }
+
 - if @errors.present?
 
   %h2= t('.recent_errors', count: @error_count)
