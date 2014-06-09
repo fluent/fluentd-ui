@@ -1,7 +1,7 @@
 class TutorialsController < ApplicationController
   before_action :find_fluentd
   before_action :check_ready, only: [:chapter1, :chapter2]
-  before_action :set_in_http, only: [:chapter1, :request_fluentd]
+  before_action :set_in_http, only: [:chapter1, :chapter2, :request_fluentd]
   helper_method :tutorial_ready?
 
   def index
