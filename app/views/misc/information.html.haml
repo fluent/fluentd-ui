@@ -36,18 +36,20 @@
 %div.col-lg-12
   %div.panel.panel-default
     %div.panel-heading
-      %h4= t('.env')
-    %div.panel-body
-      %table{class: "table table-hover", id: "env-table"}
-        %thead
+      %h4
+        %a{"data-toggle" => "collapse", "href" => "#env-table"}
+          = icon('fa-caret-down')
+        = t('.env')
+    %table{class: "table table-hover collapse", id: "env-table"}
+      %thead
+        %tr
+          %th= t('.env_key')
+          %th= t('.env_value')
+      %tbody
+        - @env.each_pair do |key, value|
           %tr
-            %th= t('.env_key')
-            %th= t('.env_value')
-        %tbody
-          - @env.each_pair do |key, value|
-            %tr
-              %td= key
-              %td= value
+            %td= key
+            %td= value
 
 :javascript
   $(document).ready(function() {
