@@ -34,6 +34,7 @@ en:
     reload_log: Reload fluend log
 
   plugins:
+    notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
     common: &plugin_common
       <<: *terms
       name: Plugin Name
