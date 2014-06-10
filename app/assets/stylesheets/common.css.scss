@@ -50,3 +50,13 @@ label {
 .dataTables_filter {
   float: right;
 }
+
+
+
+
+#fluent-log {
+  pre .log {
+    max-height: 43em; // 30em * 1.42(line-height) = 42.6
+    overflow: auto;
+  }
+}

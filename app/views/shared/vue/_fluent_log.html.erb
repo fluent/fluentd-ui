@@ -3,8 +3,8 @@
   <pre>
 <button class="btn btn-primary" v-on="click: fetchLogs"><%= t "terms.reload_log" %></button> <input type="text" v-model="limit" size="4" v-on="keyup: fetchLogs | key enter" value="<%= Settings.default_log_tail_count %>" />
 
-<span v-repeat="logs">{{ $value }}
-</span></pre>
+<div class="log"><span v-repeat="logs">{{ $value }}
+</span></div></pre>
 </div>
 <!-- /vue.js -->
 
