@@ -35,6 +35,7 @@ en:
 
   plugins:
     notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
+    view_on_rubygems_org: View on rubygems.org
     common: &plugin_common
       <<: *terms
       name: Plugin Name

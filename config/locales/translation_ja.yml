@@ -35,6 +35,7 @@ ja:
 
   plugins:
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
+    view_on_rubygems_org: rubygems.orgで見る
     common: &plugin_common
       <<: *terms
       name: プラグイン名

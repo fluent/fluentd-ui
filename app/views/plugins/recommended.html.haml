@@ -7,6 +7,7 @@
       %th= t('.name')
       %th= t('.category')
       %th= t('.status')
+      %th
   %tbody
     - @plugins.each do |plugin|
       %tr
@@ -23,6 +24,8 @@
             = t(".installed")
           - else
             = t(".not_installed")
+        %td
+          = link_to t('plugins.view_on_rubygems_org'), plugin.rubygems_org_page, target: "_blank"
 
 
 :javascript

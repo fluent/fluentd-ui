@@ -96,6 +96,10 @@ class Plugin
     JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }.try(:[], "authors")
   end
 
+  def rubygems_org_page
+    "https://rubygems.org/gems/#{gem_name}"
+  end
+
   def self.gemfile_changed?
     # if true, rails server needs to restart. new installed/removed gems are.
     @initial_gemfile_content != File.read(gemfile_path)
