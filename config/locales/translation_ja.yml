@@ -34,6 +34,7 @@ ja:
     reload_log: fluentdのログを更新
 
   plugins:
+    notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
     common: &plugin_common
       <<: *terms
       name: プラグイン名

@@ -1,7 +1,7 @@
 - page_title t('.page_title', label: @fluentd.label)
 
-%div.col-lg-6
-  = form_tag(fluentd_setting_path(@fluentd), method: :patch) do
-    %div.form-group
-      = text_area_tag "config", @config, class: "form-control", rows: 40
-    = submit_tag t(".update"), class: "btn btn-primary"
+= form_tag(fluentd_setting_path(@fluentd), method: :patch) do
+  %div.form-group
+    = text_area_tag "config", @config, class: "form-control", rows: 40
+  %p.text.text-danger= t('plugins.notice_restart_for_config_edit')
+  = submit_tag t(".update"), class: "btn btn-primary"
