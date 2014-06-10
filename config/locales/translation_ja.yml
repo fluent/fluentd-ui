@@ -94,6 +94,7 @@ ja:
     agents:
       show:
         <<: *fluentd_common
+        fluentd_info: 設定情報
         recent_errors: "最新 %{count}件のエラー"
     settings:
       show:

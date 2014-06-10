@@ -94,6 +94,7 @@ en:
     agents:
       show:
         <<: *fluentd_common
+        fluentd_info: Setting info
         recent_errors: "Recent %{count} Errors"
     settings:
       show:

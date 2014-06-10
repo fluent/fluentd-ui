@@ -5,7 +5,7 @@
   = link_to t("fluentd.common.config_file"), fluentd_setting_path(@fluentd)
 
 %div.row
-  %div.col-lg-3
+  %div.col-lg-6
     %div{class: "panel panel-#{@fluentd.agent.running? ? "success":"default"}"}
       %div.panel-heading
         %h4
@@ -21,6 +21,21 @@
         = link_to icon("fa-play") << t("fluentd.common.start"), start_fluentd_agent_path(@fluentd),     method: :put, class: "btn #{@fluentd.agent.running? ? "disabled btn-default" : "btn-primary"}"
         = link_to icon("fa-pause") << t("fluentd.common.stop"), stop_fluentd_agent_path(@fluentd),       method: :put, class: "btn #{@fluentd.agent.running? ? "btn-danger" : "disabled btn-default"}"
         = link_to icon("fa-refresh") << t("fluentd.common.restart"), restart_fluentd_agent_path(@fluentd), method: :put, class: "btn #{@fluentd.agent.running? ? "btn-warning" : "disabled btn-default"}"
+  %div.col-lg-6
+    %div.panel.panel-default
+      %div.panel-heading
+        %h4= t('.fluentd_info')
+      %table.table.table-hover
+        %tbody
+          %tr
+            %th= @fluentd.class.human_attribute_name(:pid_file)
+            %td= @fluentd.agent.pid_file
+          %tr
+            %th= @fluentd.class.human_attribute_name(:log_file)
+            %td= @fluentd.agent.log_file
+          %tr
+            %th= @fluentd.class.human_attribute_name(:config_file)
+            %td= @fluentd.agent.config_file
 
 = render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd }
 
