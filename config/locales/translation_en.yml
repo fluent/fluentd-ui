@@ -29,8 +29,8 @@ en:
     search: Search
     changeme_password: '<a href="/user">Change the password</a> from default for your security'
     destroy_confirm_title: "%{target} Deletion"
-    destroy_confirm_body: |
-      Really delete?
+    confirm_body: |
+      Really %{action}?
     reload_log: Reload fluend log
 
   plugins:

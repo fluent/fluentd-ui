@@ -29,8 +29,8 @@ ja:
     search: 検索
     changeme_password: 'パスワードを初期設定から<a href="/user">変更</a>してください'
     destroy_confirm_title: "%{target}を削除"
-    destroy_confirm_body: |
-      削除しますか？
+    confirm_body: |
+      %{action}しますか？
     reload_log: fluentdのログを更新
 
   plugins:

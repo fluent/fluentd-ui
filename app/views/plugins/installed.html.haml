@@ -35,9 +35,24 @@
               = hidden_field_tag("plugins[version]", plugin.latest_version)
               = submit_tag t('.install_latest_version'), class: "btn btn-primary"
         %td
-          = form_tag(uninstall_plugins_path, method: :patch) do
-            = hidden_field_tag("plugins[]", plugin.gem_name)
-            = submit_tag t('.uninstall'), class: "btn btn-danger"
+          %button{class: "btn btn-danger", data: {toggle: "modal", target:" #plugin-modal-#{plugin.gem_name}"}}
+            = t ".uninstall"
+          .modal.fade{id: "plugin-modal-#{plugin.gem_name}"}
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  %button.close{"data-dismiss" => "modal"}
+                    = raw "&times;"
+                  %h4.modal-title
+                    = plugin.gem_name
+                .modal-body
+                  = t('.confirm_body', action: t('.uninstall'))
+                .modal-footer
+                  = form_tag(uninstall_plugins_path, method: :patch) do
+                    %button.btn.btn-default{"data-dismiss" => "modal"}
+                      Close
+                    = hidden_field_tag("plugins[]", plugin.gem_name)
+                    = submit_tag t('.uninstall'), class: "btn btn-danger"
 
 :javascript
   $(document).ready(function() {
