@@ -30,6 +30,8 @@ class PluginsController < ApplicationController
   end
 
   def upgrade
+    pl = Plugin.new(gem_name: params[:plugins][:name])
+    pl.uninstall! if pl.installed?
     GemInstaller.new.async.perform(params[:plugins][:name], params[:plugins][:version])
     redirect_to plugins_path
   end
