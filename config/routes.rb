@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       put "stop"
       put "restart"
       get "log"
+      get "log_tail"
     end
     resource :setting, only: [:show, :edit, :update], module: :fluentd do
     end

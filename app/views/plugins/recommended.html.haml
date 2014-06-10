@@ -1,33 +1,31 @@
 - page_title t('.page_title')
 
-TODO:
-= link_to "is this better?", "/plugins/recommended?v=2"
-
-= form_tag(install_plugins_path, method: :patch) do
-  %table{class: "table table-striped table-hover", id: "plugins-table"}
-    %thead
+%table{class: "table table-striped table-hover", id: "plugins-table"}
+  %thead
+    %tr
+      %th{width: "24"}
+      %th= t('.name')
+      %th= t('.category')
+      %th= t('.status')
+      %th
+  %tbody
+    - @plugins.each do |plugin|
       %tr
-        %th{width: "24"}
-        %th= t('.name')
-        %th= t('.category')
-        %th= t('.status')
-    %tbody
-      - @plugins.each do |plugin|
-        %tr
-          %td
-            - unless plugin.installed?
-              = check_box_tag("plugins[]", plugin.gem_name, false, id: "plugin_#{plugin.gem_name}")
-          %td
-            %label{for: "plugin_#{plugin.gem_name}"}
-              = plugin.gem_name
-          %td
-            = plugin.category
-          %td
-            - if plugin.installed?
-              = t(".installed")
-            - else
-              = t(".not_installed")
-  = submit_tag t(".install"), class: "btn btn-primary"
+        %td
+          - unless plugin.installed?
+            = link_to t("terms.install"), install_plugins_path, class: "js-install btn btn-primary", data: { url: install_plugins_path, name: plugin.gem_name}
+        %td
+          %label{for: "plugin_#{plugin.gem_name}"}
+            = plugin.gem_name
+        %td
+          = plugin.category
+        %td
+          - if plugin.installed?
+            = t(".installed")
+          - else
+            = t(".not_installed")
+        %td
+          = link_to t('plugins.view_on_rubygems_org'), plugin.rubygems_org_page, target: "_blank"
 
 
 :javascript
@@ -40,5 +38,21 @@ TODO:
       "language": {
         "search": "#{t("terms.search")} "
       }
+    });
+    $('#plugins-table').on('click', '.js-install', function(ev){
+      ev.preventDefault();
+      var $anchor = $(ev.target);
+      var url = $anchor.attr('href');
+      $anchor.removeClass('js-install');
+      $anchor.attr("href", "#");
+      $anchor.css({color: "green"});
+      var name = $anchor.attr('data-name');
+      $.ajax({
+        url: url,
+        data: {"plugins[]": name, "_method": "PATCH"},
+        method: "POST"
+      }).done(function(){
+        $anchor.fadeOut();
+      });;
     });
   });

@@ -15,11 +15,6 @@ class TutorialsController < ApplicationController
     @default_conf = Fluentd::DEFAULT_CONF
   end
 
-  def log_tail
-    @logs = @fluentd.agent.log_tail.reverse if @fluentd
-    render json: @logs
-  end
-
   def request_fluentd
     HTTPClient.post("http://localhost:#{@in_http["port"]}#{params[:path]}", json: params[:data].to_json)
     render nothing: true, status: 204

@@ -60,6 +60,10 @@ class Plugin
     end
   end
 
+  def processing?
+    !!WORKING.find{|data| data[:plugin].gem_name == gem_name}
+  end
+
   def format_gemfile
     self.version ||= latest_version
     %Q|gem "#{gem_name}", "#{version}"|
@@ -80,6 +84,20 @@ class Plugin
 
   def released_versions
     @released_versions ||= JSON.parse(gem_versions).map {|ver| ver["number"]}.sort_by{|ver| Gem::Version.new ver}.reverse
+  end
+
+  def summary
+    target_version = self.version || latest_version
+    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }.try(:[], "summary")
+  end
+
+  def authors
+    target_version = self.version || latest_version
+    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }.try(:[], "authors")
+  end
+
+  def rubygems_org_page
+    "https://rubygems.org/gems/#{gem_name}"
   end
 
   def self.gemfile_changed?
@@ -144,7 +162,8 @@ class Plugin
 
   def gem_install
     data = { plugin: self, state: :running, type: :install }
-    return if WORKING.grep(data).present?
+    return if processing?
+    return if installed?
     WORKING.push(data)
     fluent_gem("install", gem_name, "-v", version)
   ensure
@@ -153,7 +172,8 @@ class Plugin
 
   def gem_uninstall
     data = { plugin: self, state: :running, type: :uninstall }
-    return if WORKING.grep(data).present?
+    return if processing?
+    return unless installed?
     WORKING.push(data)
     fluent_gem("uninstall", gem_name, "-x", "-a")
   ensure

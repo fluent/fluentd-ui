@@ -29,18 +29,24 @@ ja:
     search: 検索
     changeme_password: 'パスワードを初期設定から<a href="/user">変更</a>してください'
     destroy_confirm_title: "%{target}を削除"
-    destroy_confirm_body: |
-      削除しますか？
+    confirm_body: |
+      %{action}しますか？
+    reload_log: fluentdのログを更新
 
   plugins:
+    notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
+    view_on_rubygems_org: rubygems.orgで見る
     common: &plugin_common
       <<: *terms
       name: プラグイン名
       status: 状態
+      authors: 作者
+      summary: 概要
       category: カテゴリ
       installed_version: インストール済みバージョン
       latest_version: 最新バージョン
       install_specific_version: このバージョンをインストール
+      install_latest_version: 最新バージョンをインストール
       no_updates: 更新されたプラグインはありません
       no_installed: インストールされたプラグインはありません
       installed: &installed インストール済みプラグイン
@@ -117,7 +123,6 @@ ja:
     chapter1:
       <<: *tutorials_common
       page_title: "Chapter 1 | データを渡してみる"
-      reload_log: fluentdのログを更新
       description: fluentdに任意のデータをJSONで送ることができます。URLのパスがタグの名前になります。
       learn_more: |
         他にもin_tail, in_syslogなどのinputプラグインがあります。

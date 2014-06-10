@@ -17,7 +17,10 @@
             self.alerts = alerts;
           })["catch"](function(xhr){
             if(xhr.status === 401) {
-              clearInterval(timer);
+              clearInterval(timer); // signed out
+            }
+            if(xhr.status === 0) {
+              clearInterval(timer); // server unreachable (maybe down)
             }
           });
         };

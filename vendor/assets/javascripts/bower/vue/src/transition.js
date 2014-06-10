@@ -69,8 +69,6 @@ var transition = module.exports = function (el, stage, cb, compiler) {
 
 }
 
-transition.codes = codes
-
 /**
  *  Togggle a CSS class to trigger transition
  */
@@ -208,9 +206,9 @@ function sniffEndEvents () {
     var el = document.createElement('vue'),
         defaultEvent = 'transitionend',
         events = {
+            'webkitTransition' : 'webkitTransitionEnd',
             'transition'       : defaultEvent,
-            'mozTransition'    : defaultEvent,
-            'webkitTransition' : 'webkitTransitionEnd'
+            'mozTransition'    : defaultEvent
         },
         ret = {}
     for (var name in events) {
@@ -224,3 +222,7 @@ function sniffEndEvents () {
         : 'webkitAnimationEnd'
     return ret
 }
+
+// Expose some stuff for testing purposes
+transition.codes = codes
+transition.sniff = sniffEndEvents

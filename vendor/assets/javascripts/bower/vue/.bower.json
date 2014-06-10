@@ -1,6 +1,6 @@
 {
   "name": "vue",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "main": "dist/vue.js",
   "description": "Simple, Fast & Composable MVVM for building interative interfaces",
   "authors": [
@@ -17,11 +17,11 @@
     "*.md"
   ],
   "homepage": "https://github.com/yyx990803/vue",
-  "_release": "0.10.4",
+  "_release": "0.10.5",
   "_resolution": {
     "type": "version",
-    "tag": "v0.10.4",
-    "commit": "d3758fc7e17a0e115092c5fc89264ec7fff7ea39"
+    "tag": "v0.10.5",
+    "commit": "fe996b388971b014279b1f90df26ef95d8b00f05"
   },
   "_source": "git://github.com/yyx990803/vue.git",
   "_target": "~0.10.0",

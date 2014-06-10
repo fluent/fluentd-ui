@@ -29,18 +29,24 @@ en:
     search: Search
     changeme_password: '<a href="/user">Change the password</a> from default for your security'
     destroy_confirm_title: "%{target} Deletion"
-    destroy_confirm_body: |
-      Really delete?
+    confirm_body: |
+      Really %{action}?
+    reload_log: Reload fluend log
 
   plugins:
+    notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
+    view_on_rubygems_org: View on rubygems.org
     common: &plugin_common
       <<: *terms
       name: Plugin Name
       status: Status
+      authors: Authors
+      summary: Summary
       category: Category
       installed_version: Installed Version
       latest_version: Latest Version
       install_specific_version: Install this version
+      install_latest_version: Install latest version
       no_updates: No updates available
       no_installed: No installed plugins
       installed: &installed Installed Plugins
@@ -117,7 +123,6 @@ en:
     chapter1:
       <<: *tutorials_common
       page_title: "Chapter 1 | Try to send data"
-      reload_log: Reload fluend log
       description: You can send an arbitrary JSON data via HTTP. URL path will be tag name.
       send: Send
     chapter2:
