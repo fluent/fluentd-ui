@@ -9,7 +9,7 @@
       paramAttributes: ["logUrl"],
       data: {
         "logs": [],
-        // limit: 30 (with v-model="limit" on shared/vue/_fluent_log)
+        "limit": 30
       },
 
       created: function(){
