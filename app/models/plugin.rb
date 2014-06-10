@@ -60,6 +60,10 @@ class Plugin
     end
   end
 
+  def processing?
+    !!WORKING.find{|data| data[:plugin].gem_name == gem_name}
+  end
+
   def format_gemfile
     self.version ||= latest_version
     %Q|gem "#{gem_name}", "#{version}"|
@@ -154,7 +158,7 @@ class Plugin
 
   def gem_install
     data = { plugin: self, state: :running, type: :install }
-    return if WORKING.grep(data).present?
+    return if processing?
     return if installed?
     WORKING.push(data)
     fluent_gem("install", gem_name, "-v", version)
@@ -164,7 +168,7 @@ class Plugin
 
   def gem_uninstall
     data = { plugin: self, state: :running, type: :uninstall }
-    return if WORKING.grep(data).present?
+    return if processing?
     return unless installed?
     WORKING.push(data)
     fluent_gem("uninstall", gem_name, "-x", "-a")
