@@ -88,12 +88,12 @@ class Plugin
 
   def summary
     target_version = self.version || latest_version
-    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }["summary"]
+    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }.try(:[], "summary")
   end
 
   def authors
     target_version = self.version || latest_version
-    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }["authors"]
+    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }.try(:[], "authors")
   end
 
   def self.gemfile_changed?
