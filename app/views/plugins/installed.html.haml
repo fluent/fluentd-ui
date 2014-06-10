@@ -6,8 +6,10 @@
   %thead
     %tr
       %th= t('.name')
-      %th= t('.status')
+      %th= t('.authors')
+      %th= t('.summary')
       %th= t('.installed_version')
+      %th= t('.latest_version')
       %th
       %th{width: "32"}
   %tbody
@@ -17,22 +19,19 @@
           %label{for: "plugin_#{plugin.gem_name}"}
             = plugin.gem_name
         %td
-          - if plugin.installed?
-            - if plugin.latest_version?
-              = t(".installed")
-            - else
-              = t(".new_version", version: plugin.latest_version)
-          - else
-            = t(".not_installed")
+          = plugin.authors
+        %td
+          = plugin.summary
         %td
           = plugin.installed_version
         %td
-          = form_tag(upgrade_plugins_path, method: :patch) do
-            = hidden_field_tag("plugins[name]", plugin.gem_name)
-            %select{name: "plugins[version]"}
-              - plugin.released_versions.each do |ver|
-                %option{value: ver, disabled: (ver == plugin.installed_version)}= ver
-            = submit_tag t('.install_specific_version'), class: "btn btn-info"
+          = plugin.latest_version
+        %td
+          - unless plugin.latest_version?
+            = form_tag(upgrade_plugins_path, method: :patch) do
+              = hidden_field_tag("plugins[name]", plugin.gem_name)
+              = hidden_field_tag("plugins[version]", plugin.latest_version)
+              = submit_tag t('.install_latest_version'), class: "btn btn-primary"
         %td
           = form_tag(uninstall_plugins_path, method: :patch) do
             = hidden_field_tag("plugins[]", plugin.gem_name)

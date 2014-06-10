@@ -38,10 +38,13 @@ ja:
       <<: *terms
       name: プラグイン名
       status: 状態
+      authors: 作者
+      summary: 概要
       category: カテゴリ
       installed_version: インストール済みバージョン
       latest_version: 最新バージョン
       install_specific_version: このバージョンをインストール
+      install_latest_version: 最新バージョンをインストール
       no_updates: 更新されたプラグインはありません
       no_installed: インストールされたプラグインはありません
       installed: &installed インストール済みプラグイン

@@ -82,6 +82,16 @@ class Plugin
     @released_versions ||= JSON.parse(gem_versions).map {|ver| ver["number"]}.sort_by{|ver| Gem::Version.new ver}.reverse
   end
 
+  def summary
+    target_version = self.version || latest_version
+    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }["summary"]
+  end
+
+  def authors
+    target_version = self.version || latest_version
+    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }["authors"]
+  end
+
   def self.gemfile_changed?
     # if true, rails server needs to restart. new installed/removed gems are.
     @initial_gemfile_content != File.read(gemfile_path)

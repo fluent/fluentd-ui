@@ -38,10 +38,13 @@ en:
       <<: *terms
       name: Plugin Name
       status: Status
+      authors: Authors
+      summary: Summary
       category: Category
       installed_version: Installed Version
       latest_version: Latest Version
       install_specific_version: Install this version
+      install_latest_version: Install latest version
       no_updates: No updates available
       no_installed: No installed plugins
       installed: &installed Installed Plugins
