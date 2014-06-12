@@ -8,12 +8,27 @@
       el: "#fluent-log",
       paramAttributes: ["logUrl"],
       data: {
+        "autoFetch": false,
         "logs": [],
-        // limit: 30 (with v-model="limit" on shared/vue/_fluent_log)
+        "limit": 30
       },
 
       created: function(){
         this.fetchLogs();
+
+        var self = this;
+        var timer;
+        this.$watch("autoFetch", function(newValue){
+          if(newValue === true) {
+            timer = setInterval(function(){
+              self.fetchLogs();
+              var $log = $(".log", self.$el);
+              $log.scrollTop($log[0].scrollHeight);
+            }, 3000);
+          } else {
+            clearInterval(timer);
+          }
+        });
       },
 
       methods: {

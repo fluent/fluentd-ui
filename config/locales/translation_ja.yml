@@ -32,6 +32,7 @@ ja:
     confirm_body: |
       %{action}しますか？
     reload_log: fluentdのログを更新
+    auto_reload: "自動更新(%{seconds}秒ごと)"
 
   plugins:
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
