@@ -2,7 +2,7 @@
 <div id="fluent-log" logUrl="<%= log_tail_fluentd_agent_path(fluentd) %>">
   <pre>
 <button class="btn btn-primary" v-on="click: fetchLogs"><%= t "terms.reload_log" %></button> <input type="text" v-model="limit" size="4" v-on="keyup: fetchLogs | key enter" />
-<input type="checkbox" v-model="autoFetch" /> 自動更新
+<label><input type="checkbox" v-model="autoFetch" /> <%= t "terms.auto_reload", seconds: 3 %> </label>
 
 <div class="log"><span v-repeat="logs">{{ $value }}
 </span></div></pre>

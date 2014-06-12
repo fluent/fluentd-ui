@@ -32,6 +32,7 @@ en:
     confirm_body: |
       Really %{action}?
     reload_log: Reload fluend log
+    auto_reload: "Auto Reload(every %{seconds} seconds)"
 
   plugins:
     notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
