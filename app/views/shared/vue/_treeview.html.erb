@@ -1,0 +1,8 @@
+<div id="treeview">
+  <input type="text" name="<%= try(:name) %>" size="48" v-model="path" />
+  <div class="tree">
+    <pre>
+<span v-on="click: selectPath(path)" class="vue-path" v-class="selected: isSelected(path)" v-repeat="paths">{{ path }}<span v-if="isSuffixRequired($data)">/</span>
+</span></pre>
+  </div>
+</div>

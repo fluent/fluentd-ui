@@ -45,4 +45,8 @@ Rails.application.routes.draw do
     get "log_tail"
     post "request_fluentd"
   end
+
+  namespace :api do
+    get "tree"
+  end
 end

@@ -60,3 +60,15 @@ label {
     overflow: auto;
   }
 }
+
+
+
+#treeview {
+  .vue-path {
+    cursor: pointer;
+
+    &.selected {
+      background-color: #cfc;
+    }
+  }
+}
