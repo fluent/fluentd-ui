@@ -64,6 +64,13 @@ label {
 
 
 #treeview {
+  .tree {
+    height: 20em;
+    overflow-y: auto;
+  }
+  .preview {
+    margin-top: 1em;
+  }
   .vue-path {
     cursor: pointer;
 

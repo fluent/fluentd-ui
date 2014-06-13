@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       get "log_tail"
     end
     resource :setting, only: [:show, :edit, :update], module: :fluentd do
+      get "in_tail"
+      post "in_tail"
     end
   end
 
@@ -48,5 +50,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     get "tree"
+    get "file_preview"
   end
 end
