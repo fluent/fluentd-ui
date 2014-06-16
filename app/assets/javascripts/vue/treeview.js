@@ -14,6 +14,7 @@
       },
 
       created: function(){
+        var self = this;
         this.fetchTree();
         this.$watch("path", this.fetchTree);
         this.$watch("path", this.fetchPreview);
@@ -25,6 +26,10 @@
           return _.find(this.paths, function(path){
             return self.path == path.path;
           });
+        },
+        selectedIsDir: function() {
+          if(!this.selected) return true;
+          return this.selected.is_dir;
         },
         currentDirs: function() {
           if(this.path === "/") {
@@ -57,7 +62,7 @@
         },
         fetchTree: function() {
           var self = this;
-          new Promise(function(resolve, reject) {
+          return new Promise(function(resolve, reject) {
             $.getJSON("/api/tree?path=" + self.path, resolve).fail(reject);
           }).then(function(paths){
             self.paths = paths;

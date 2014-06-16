@@ -17,4 +17,11 @@ class Fluentd::SettingsController < ApplicationController
     @fluentd.agent.restart if @fluentd.agent.running?
     redirect_to fluentd_setting_path(@fluentd)
   end
+
+  def in_tail_after_file_choose
+    @file = params[:file]
+  end
+
+  def in_tail_confirm
+  end
 end

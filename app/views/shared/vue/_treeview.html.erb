@@ -1,22 +1,30 @@
-<div id="treeview">
-  <input type="text" name="<%= try(:name) %>" size="48" v-model="path" disabled />
-  <div class="dirs">
-    <span v-repeat="currentDirs">
-      <span v-if="$index > 0">
-        <%= icon('fa-caret-right') %>
-      </span>
-      <span v-on="click: selectPath($value)" class="dir">
-        {{ basename($value) }}
-      </span>
-    </span>
-  </div>
-  <div class="tree">
-    <pre>
-<span v-on="click: selectPath(path)" class="vue-path" v-class="selected: isSelected(path)" v-repeat="paths"><span
-  v-if="is_dir"><%= icon("fa-folder") %></span><span
-  v-if="!is_dir"><%= icon("fa-file-o") %></span>{{ basename(path) }}
-</span></pre>
-  </div>
+<% name ||= "" %>
+<% action ||= "" %>
+<% submit_button ||= "" %>
+<%= form_tag(action, method: :post) do %>
+  <div id="treeview">
+    <%= submit_tag submit_button, class: "pull-right btn btn-primary", "v-attr" => "disabled: selectedIsDir", "v-class" => "btn-disable: selectedIsDir" %>
+    <input type="text" size="48" v-model="path" disabled />
+    <input type="hidden" name="<%= name %>" v-model="path" />
+    <div class="dirs">
+      <span v-repeat="currentDirs">
+        <span v-if="$index > 0">
+          <%= icon('fa-caret-right') %>
+        </span>
+        <span v-on="click: selectPath($value)" class="dir">
+          {{ basename($value) }}
+        </span>
+     </span>
+   </div>
+   <div class="tree">
+     <span v-on="click: selectPath(path)" class="vue-path" v-class="selected: isSelected(path)" v-repeat="paths">
+       <span v-if="is_dir"><%= icon("fa-folder") %></span>
+       <span v-if="!is_dir"><%= icon("fa-file-o") %></span>
+       {{ basename(path) }}
+       <br />
+     </span>
+   </div>
 
-  <pre v-if="preview" class="preview">{{ preview }}</pre>
-</div>
+   <pre v-if="preview" class="preview">{{ preview }}</pre>
+  </div>
+<% end %>

@@ -65,6 +65,9 @@ label {
 
 #treeview {
   .tree {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 1ex;
     height: 40em;
     overflow-y: auto;
   }
@@ -74,12 +77,16 @@ label {
   .vue-path {
     cursor: pointer;
     display: block;
+    height: 1.4em;
 
     &:hover {
       background-color: #d9d9d9;
     }
     &.selected {
       background-color: #9cf;
+    }
+    .fa-folder, .fa-folder-open {
+      color: #6af;
     }
   }
   .dirs {
@@ -92,9 +99,6 @@ label {
     }
     .fa-caret-right {
       color: #bbb;
-
-    .fa-folder, .fa-folder-open {
-      color: #6af;
     }
   }
 }
