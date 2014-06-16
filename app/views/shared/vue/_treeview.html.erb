@@ -1,9 +1,20 @@
 <div id="treeview">
   <input type="text" name="<%= try(:name) %>" size="48" v-model="path" />
+  <div class="dirs">
+    <span v-repeat="currentDirs">
+      <span v-if="$index > 0">
+        <%= icon('fa-caret-right') %>
+      </span>
+      <span v-on="click: selectPath($value)" class="dir">
+        {{ basename($value) }}
+      </span>
+    </span>
+  </div>
   <div class="tree">
     <pre>
 <span v-on="click: selectPath(path)" class="vue-path" v-class="selected: isSelected(path)" v-repeat="paths"><span
-  v-if="is_dir"><span v-if="!isAncestor(path)"><%= icon("fa-folder") %></span><span v-if="isAncestor(path)"><%= icon("fa-folder-open") %></span></span>{{ path }}<span v-if="isSuffixRequired($data)">/</span>
+  v-if="is_dir"><%= icon("fa-folder") %></span><span
+  v-if="!is_dir"><%= icon("fa-file-o") %></span>{{ basename(path) }}
 </span></pre>
   </div>
 

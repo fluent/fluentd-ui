@@ -25,12 +25,35 @@
           return _.find(this.paths, function(path){
             return self.path == path.path;
           });
+        },
+        currentDirs: function() {
+          if(this.path === "/") {
+            return ["/"];
+          }
+
+          var path = this.path;
+          if(this.selected && !this.selected.is_dir) {
+            path = path.replace(/\/[^/]+$/, "");
+          }
+          var root = "/";
+          var dirs = [];
+          path.split("/").forEach(function(dir) {
+            dirs.push(root + dir);
+            if(dir) {
+              root = root + dir + "/";
+            }
+          });
+          return dirs;
         }
       },
 
       methods: {
         isAncestor: function(target) {
           return this.path.indexOf(target) === 0;
+        },
+        basename: function(path) {
+          if (path === "/") return "/";
+          return path.match(/[^/]+$/)[0];
         },
         fetchTree: function() {
           var self = this;
@@ -42,6 +65,7 @@
         },
         fetchPreview: function(){
           var self = this;
+          this.preview = "";
           new Promise(function(resolve, reject) {
             $.getJSON("/api/file_preview?file=" + self.selected.path, resolve).fail(reject);
           }).then(function(lines){

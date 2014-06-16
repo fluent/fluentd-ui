@@ -15,7 +15,7 @@ class Treeview
   end
 
   def tree
-    parents + Dir.glob("#{root_dir == "/" ? "/" : "#{root_dir}/"}*").map do |file|
+    Dir.glob("#{root_dir == "/" ? "/" : "#{root_dir}/"}*").map do |file|
       {
         :path => file,
         :is_dir => File.directory?(file),
