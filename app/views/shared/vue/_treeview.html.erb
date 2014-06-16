@@ -1,5 +1,5 @@
 <div id="treeview">
-  <input type="text" name="<%= try(:name) %>" size="48" v-model="path" />
+  <input type="text" name="<%= try(:name) %>" size="48" v-model="path" disabled />
   <div class="dirs">
     <span v-repeat="currentDirs">
       <span v-if="$index > 0">
