@@ -2,7 +2,8 @@
   <input type="text" name="<%= try(:name) %>" size="48" v-model="path" />
   <div class="tree">
     <pre>
-<span v-on="click: selectPath(path)" class="vue-path" v-class="selected: isSelected(path)" v-repeat="paths">{{ path }}<span v-if="isSuffixRequired($data)">/</span>
+<span v-on="click: selectPath(path)" class="vue-path" v-class="selected: isSelected(path)" v-repeat="paths"><span
+  v-if="is_dir"><span v-if="!isAncestor(path)"><%= icon("fa-folder") %></span><span v-if="isAncestor(path)"><%= icon("fa-folder-open") %></span></span>{{ path }}<span v-if="isSuffixRequired($data)">/</span>
 </span></pre>
   </div>
 

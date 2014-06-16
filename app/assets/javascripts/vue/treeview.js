@@ -25,10 +25,13 @@
           return _.find(this.paths, function(path){
             return self.path == path.path;
           });
-        },
+        }
       },
 
       methods: {
+        isAncestor: function(target) {
+          return this.path.indexOf(target) === 0;
+        },
         fetchTree: function() {
           var self = this;
           new Promise(function(resolve, reject) {
