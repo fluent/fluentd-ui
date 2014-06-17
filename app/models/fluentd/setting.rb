@@ -8,6 +8,46 @@ class Fluentd
       validates :tag, presence: true
       #validates :format, presence: true
 
+      def self.known_formats
+        {
+          :regexp => [],
+          :apache2 => [:time_format],
+          :nginx => [:time_format],
+          :syslog => [:time_format],
+          :tsv => [:keys, :time_key],
+          :csv => [:keys, :time_key],
+          :ltsv => [:delimiter, :time_key],
+          :json => [:time_key],
+          :multiline => [:format_firstline, *(1..20).map{|n| "format#{n}".to_sym}],
+        }
+      end
+      attr_accessor *known_formats.values.flatten.compact
+
+      def known_formats
+        self.class.known_formats
+      end
+
+      def guess_format
+        case path
+        when /\.json$/
+          :json
+        when /\.csv$/
+          :csv
+        when /\.tsv$/
+          :tsv
+        when /\.ltsv$/
+          :ltsv
+        when /nginx/
+          :nginx
+        when /apache/
+          :apache2
+        when %r|/var/log|
+          :syslog
+        else
+          :regexp
+        end
+      end
+
       def to_conf
         <<-XML.strip_heredoc.gsub(/^[ ]+\n/m, "")
           <source>

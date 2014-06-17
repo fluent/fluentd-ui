@@ -1,0 +1,38 @@
+
+- @setting.errors.full_messages.each do |e|
+  %div.alert.alert-danger= e
+
+%div.form-group
+  = f.label :path
+  = f.hidden_field :path
+  = f.text_field :path, class: "form-control", disabled: true
+%div.form-group
+  = f.label :format
+  = f.hidden_field :format
+  = f.text_field :format, class: "form-control", disabled: true
+- @setting.known_formats[@setting.format.to_sym].each do |key|
+  %label= key
+  = f.hidden_field key
+  = @setting.send(key)
+  %br
+%div.form-group
+  = f.label :tag
+  = f.text_field :tag, class: "form-control"
+.well.well-sm
+  %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
+    = icon('fa-caret-down')
+    = t('terms.advanced_setting')
+  #advanced-setting.collapse
+    %div.form-group
+      = f.label :rotate_wait
+      = f.text_field :rotate_wait, class: "form-control"
+    %div.form-group
+      = f.label :pos_file
+      = f.text_field :pos_file, class: "form-control"
+    %div.form-group
+      = f.label :read_from_head
+      = f.check_box :read_from_head, class: "form-control"
+    %div.form-group
+      = f.label :refresh_interval
+      = f.text_field :refresh_interval, class: "form-control"
+

@@ -84,6 +84,8 @@ ja:
       setting: 設定
       config_file: 設定ファイル
       page_title: "%{label}"
+      setup_in_tail: in_tailセットアップ
+      finish: 設定する
     form:
       <<: *fluentd_common
     index:
@@ -102,6 +104,9 @@ ja:
         recent_errors: "最新 %{count}件のエラー"
     settings:
       restart_from_first: 最初からやり直す
+      in_tail_option_guide: |
+        <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_tail">in_tailプラグインの解説ページ</a>や
+        <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。
       show:
         <<: *fluentd_common
       edit:
@@ -112,10 +117,11 @@ ja:
       in_tail_after_file_choose:
         <<: *fluentd_common
         page_title: "in_tailセットアップ | その他の設定"
+      in_tail_after_format:
+        <<: *fluentd_common
       in_tail_confirm:
         <<: *fluentd_common
         page_title: "in_tailセットアップ | 確認"
-        finish: 設定する
 
   misc:
     common: &misc_common

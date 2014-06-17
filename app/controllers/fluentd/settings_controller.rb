@@ -25,17 +25,18 @@ class Fluentd::SettingsController < ApplicationController
     })
   end
 
+  def in_tail_after_format
+    @setting = Fluentd::Setting::InTail.new(setting_params)
+  end
+
   def in_tail_confirm
     @setting = Fluentd::Setting::InTail.new(setting_params)
-    unless @setting.valid?
-      return render "in_tail_after_file_choose"
-    end
   end
 
   def in_tail_finish
     @setting = Fluentd::Setting::InTail.new(setting_params)
     unless @setting.valid?
-      return render "in_tail_after_file_choose"
+      return render "in_tail_after_format"
     end
     File.open(@fluentd.agent.config_file, "a") do |f| # TODO: should update by agent class
       f.write "\n"
@@ -48,6 +49,6 @@ class Fluentd::SettingsController < ApplicationController
   private
 
   def setting_params
-    params.require(:setting).permit(:path, :tag, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
+    params.require(:setting).permit(:path, :format, *Fluentd::Setting::InTail.known_formats, :tag, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
   end
 end

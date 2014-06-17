@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resource :setting, only: [:show, :edit, :update], module: :fluentd do
       get "in_tail"
       post "in_tail_after_file_choose"
+      post "in_tail_after_format"
       post "in_tail_confirm"
       post "in_tail_finish"
     end
