@@ -20,7 +20,7 @@ class Fluentd::SettingsController < ApplicationController
 
   def in_tail_after_file_choose
     @setting = Fluentd::Setting::InTail.new({
-      :file => params[:file],
+      :path => params[:path],
       :tag => nil,
     })
   end
@@ -48,6 +48,6 @@ class Fluentd::SettingsController < ApplicationController
   private
 
   def setting_params
-    params.require(:setting).permit(:file, :tag, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
+    params.require(:setting).permit(:path, :tag, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
   end
 end

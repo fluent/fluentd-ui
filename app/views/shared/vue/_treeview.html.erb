@@ -3,7 +3,6 @@
 <% submit_button ||= "" %>
 <%= form_tag(action, method: :post) do %>
   <div id="treeview">
-    <%= submit_tag submit_button, class: "pull-right btn btn-primary", "v-attr" => "disabled: selectedIsDir", "v-class" => "btn-disable: selectedIsDir" %>
     <input type="text" size="48" v-model="path" disabled />
     <input type="hidden" name="<%= name %>" v-model="path" />
     <div class="dirs">
@@ -26,5 +25,8 @@
    </div>
 
    <pre v-if="preview" class="preview">{{ preview }}</pre>
+   <p>
+     <%= submit_tag submit_button, class: "btn btn-primary", "v-attr" => "disabled: selectedIsDir", "v-class" => "btn-disable: selectedIsDir" %>
+   </p>
   </div>
 <% end %>
