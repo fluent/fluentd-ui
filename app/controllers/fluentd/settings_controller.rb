@@ -34,6 +34,9 @@ class Fluentd::SettingsController < ApplicationController
     if params[:back]
       return render :in_tail_after_file_choose
     end
+    unless @setting.valid?
+      return render :in_tail_after_format
+    end
   end
 
   def in_tail_finish
