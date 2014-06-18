@@ -63,7 +63,7 @@ class Fluentd::SettingsController < ApplicationController
 
   def setting_params
     {
-      :pos_file => "/tmp/fluentd-#{@fluentd.id}.pos",
+      :pos_file => "/tmp/fluentd-#{@fluentd.id}-#{Time.now.to_i}.pos",
     }.merge params.require(:setting).permit(:path, :format, *Fluentd::Setting::InTail.known_formats, :tag, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
   end
 end
