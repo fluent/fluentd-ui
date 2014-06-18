@@ -274,13 +274,18 @@ ja:
     fluentd_stop_failed: fluentdの停止に失敗しました。
     fluentd_restart_failed: fluentdの再起動に失敗しました。
 
+  errors:
+    messages: &error_messages
+      wrong_password: が違います
+      lack_read_permission: の読み込み権限がありません
+      lack_write_permission: の書き込み権限がありません
+      is_a_directory: はディレクトリです。ファイルを指定してください
+      duplicated_conf: 同じ内容の設定がすでに存在しています
+
   activerecord:
     errors:
       messages:
-          wrong_password: が違います
-          lack_read_permission: の読み込み権限がありません
-          lack_write_permission: の書き込み権限がありません
-          is_a_directory: はディレクトリです。ファイルを指定してください
+        <<: *error_messages
 
     models:
       user: user  #g

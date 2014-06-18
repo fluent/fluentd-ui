@@ -41,9 +41,16 @@ class Fluentd::SettingsController < ApplicationController
     if params[:back]
       return render :in_tail_after_format
     end
+
     unless @setting.valid?
       return render "in_tail_after_format"
     end
+
+    if @fluentd.agent.configuration.to_s.include?(@setting.to_conf.strip)
+      @setting.errors.add(:base, :duplicated_conf)
+      return render "in_tail_after_format"
+    end
+
     File.open(@fluentd.agent.config_file, "a") do |f| # TODO: should update by agent class
       f.write "\n"
       f.write @setting.to_conf

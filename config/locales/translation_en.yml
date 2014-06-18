@@ -274,13 +274,18 @@ en:
     fluentd_stop_failed: Failed to stop fluentd
     fluentd_restart_failed: Failed to restart fluentd
 
+  errors:
+    messages: &error_messages
+      wrong_password: is wrong
+      lack_read_permission: doesn't readable
+      lack_write_permission: doesn't writable
+      is_a_directory: is a directory. should be a file
+      duplicated_conf: Configurations is duplicated
+
   activerecord:
     errors:
       messages:
-          wrong_password: is wrong
-          lack_read_permission: doesn't readable
-          lack_write_permission: doesn't writable
-          is_a_directory: is a directory. should be a file
+        <<: *error_messages
 
     models:
       user: user  #g
