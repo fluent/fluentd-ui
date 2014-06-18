@@ -8,5 +8,6 @@
   %pre= @setting.to_conf
 
   %p
+    = f.submit t('terms.prev'), class: "btn btn-default", name: "back"
     = f.submit t('.finish'), class: "btn btn-primary"
     = t('.notice_restart_for_config_edit')

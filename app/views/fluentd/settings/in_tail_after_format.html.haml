@@ -6,4 +6,5 @@
   = render partial: "form", locals: { f: f }
 
   %p
+    = f.submit t('terms.prev'), class: "btn btn-default", name: "back"
     = f.submit t('terms.next'), class: "btn btn-primary"

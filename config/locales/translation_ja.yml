@@ -34,6 +34,7 @@ ja:
     reload_log: fluentdのログを更新
     auto_reload: "自動更新(%{seconds}秒ごと)"
     next: 次へ
+    prev: 前へ
     advanced_setting: 高度な設定
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
 
@@ -116,9 +117,10 @@ ja:
         page_title: "in_tailセットアップ | ファイルの選択"
       in_tail_after_file_choose:
         <<: *fluentd_common
-        page_title: "in_tailセットアップ | その他の設定"
+        page_title: "in_tailセットアップ | フォーマットの設定"
       in_tail_after_format:
         <<: *fluentd_common
+        page_title: "in_tailセットアップ | その他の設定"
       in_tail_confirm:
         <<: *fluentd_common
         page_title: "in_tailセットアップ | 確認"

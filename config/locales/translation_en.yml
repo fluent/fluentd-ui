@@ -34,6 +34,7 @@ en:
     reload_log: Reload fluend log
     auto_reload: "Auto Reload(every %{seconds} seconds)"
     next: Next
+    prev: Prev
     advanced_setting: Advanced Setting
     notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
 
@@ -116,9 +117,10 @@ en:
         page_title: "Setup in_tail | Choosing File"
       in_tail_after_file_choose:
         <<: *fluentd_common
-        page_title: "Setup in_tail | Other config"
+        page_title: "Setup in_tail | Setting format"
       in_tail_after_format:
         <<: *fluentd_common
+        page_title: "Setup in_tail | Other config"
       in_tail_confirm:
         <<: *fluentd_common
         page_title: "Setup in_tail | Confirmation"

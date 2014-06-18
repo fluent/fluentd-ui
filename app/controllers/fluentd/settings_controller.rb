@@ -31,10 +31,16 @@ class Fluentd::SettingsController < ApplicationController
 
   def in_tail_confirm
     @setting = Fluentd::Setting::InTail.new(setting_params)
+    if params[:back]
+      return render :in_tail_after_file_choose
+    end
   end
 
   def in_tail_finish
     @setting = Fluentd::Setting::InTail.new(setting_params)
+    if params[:back]
+      return render :in_tail_after_format
+    end
     unless @setting.valid?
       return render "in_tail_after_format"
     end
