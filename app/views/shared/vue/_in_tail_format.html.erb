@@ -1,6 +1,6 @@
 <div id="in_tail_format" class="form-group" formatOptions="<%= formats.to_json %>" initialSelected="<%= initialSelected %>">
   <div class="form-group">
-    <label>format</label>
+    <label>format(TODO: use Glok?)</label>
     <select name="setting[format]" v-model="format" class="form-control">
       <option v-repeat="formats" value="{{ $value }}" v-attr="selected: format==$value">{{ $value }}</option>
     </select>
