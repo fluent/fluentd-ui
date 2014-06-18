@@ -15,5 +15,5 @@
   %pre= file_tail(@setting.path).join("\n")
 
   %p
-    = link_to t('terms.prev'), in_tail_fluentd_setting_path, class: "btn btn-default"
-    = f.submit t('terms.next'), class: "btn btn-primary"
+    = f.submit t('terms.next'), class: "btn btn-lg btn-primary pull-right"
+    = link_to t('terms.prev'), in_tail_fluentd_setting_path, class: "btn btn-lg btn-default"
