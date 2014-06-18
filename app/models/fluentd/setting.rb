@@ -18,7 +18,6 @@ class Fluentd
           :csv => [:keys, :time_key],
           :ltsv => [:delimiter, :time_key],
           :json => [:time_key],
-          :multiline => [:format_firstline, *(1..20).map{|n| "format#{n}".to_sym}],
         }
       end
       attr_accessor *known_formats.values.flatten.compact
