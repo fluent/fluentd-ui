@@ -18,6 +18,9 @@
 %div.form-group
   = f.label :tag
   = f.text_field :tag, class: "form-control"
+%div.form-group
+  = f.label :pos_file
+  = f.text_field :pos_file, class: "form-control"
 .well.well-sm
   %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
     = icon('fa-caret-down')
@@ -26,9 +29,6 @@
     %div.form-group
       = f.label :rotate_wait
       = f.text_field :rotate_wait, class: "form-control"
-    %div.form-group
-      = f.label :pos_file
-      = f.text_field :pos_file, class: "form-control"
     %div.form-group
       = f.label :read_from_head
       = f.check_box :read_from_head, class: "form-control"
