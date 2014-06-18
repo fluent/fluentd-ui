@@ -33,6 +33,10 @@ en:
       Really %{action}?
     reload_log: Reload fluend log
     auto_reload: "Auto Reload(every %{seconds} seconds)"
+    next: Next
+    prev: Prev
+    advanced_setting: Advanced Setting
+    notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
 
   plugins:
     notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
@@ -81,6 +85,8 @@ en:
       setting: Setting
       config_file: Config file
       page_title: "%{label}"
+      setup_in_tail: Setup in_tail
+      finish: Update config
     form:
       <<: *fluentd_common
     index:
@@ -98,10 +104,26 @@ en:
         fluentd_info: Setting info
         recent_errors: "Recent %{count} Errors"
     settings:
+      restart_from_first: Restart from first
+      in_tail_option_guide: |
+        See <a target="_blank" href="http://docs.fluentd.org/articles/in_tail">in_tail Plugin</a> or 
+        <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a> for more details.
       show:
         <<: *fluentd_common
       edit:
         <<: *fluentd_common
+      in_tail:
+        <<: *fluentd_common
+        page_title: "Setup in_tail | Choosing File"
+      in_tail_after_file_choose:
+        <<: *fluentd_common
+        page_title: "Setup in_tail | Setting format"
+      in_tail_after_format:
+        <<: *fluentd_common
+        page_title: "Setup in_tail | Other config"
+      in_tail_confirm:
+        <<: *fluentd_common
+        page_title: "Setup in_tail | Confirmation"
 
   misc:
     common: &misc_common
@@ -252,13 +274,18 @@ en:
     fluentd_stop_failed: Failed to stop fluentd
     fluentd_restart_failed: Failed to restart fluentd
 
+  errors:
+    messages: &error_messages
+      wrong_password: is wrong
+      lack_read_permission: doesn't readable
+      lack_write_permission: doesn't writable
+      is_a_directory: is a directory. should be a file
+      duplicated_conf: Configurations is duplicated
+
   activerecord:
     errors:
       messages:
-          wrong_password: is wrong
-          lack_read_permission: doesn't readable
-          lack_write_permission: doesn't writable
-          is_a_directory: is a directory. should be a file
+        <<: *error_messages
 
     models:
       user: user  #g

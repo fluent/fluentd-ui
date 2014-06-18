@@ -17,5 +17,6 @@
 //= require sb-admin-v2/plugins/dataTables/dataTables.bootstrap
 //= require bower/vue/dist/vue
 //= require bower/es6-promise/promise
+//= require bower/lodash/dist/lodash.compat
 //= require vue_common
 //= require_tree .

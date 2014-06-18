@@ -33,6 +33,10 @@ ja:
       %{action}しますか？
     reload_log: fluentdのログを更新
     auto_reload: "自動更新(%{seconds}秒ごと)"
+    next: 次へ
+    prev: 前へ
+    advanced_setting: 高度な設定
+    notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
 
   plugins:
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
@@ -81,6 +85,8 @@ ja:
       setting: 設定
       config_file: 設定ファイル
       page_title: "%{label}"
+      setup_in_tail: in_tailセットアップ
+      finish: 設定する
     form:
       <<: *fluentd_common
     index:
@@ -98,10 +104,26 @@ ja:
         fluentd_info: 設定情報
         recent_errors: "最新 %{count}件のエラー"
     settings:
+      restart_from_first: 最初からやり直す
+      in_tail_option_guide: |
+        <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_tail">in_tailプラグインの解説ページ</a>や
+        <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。
       show:
         <<: *fluentd_common
       edit:
         <<: *fluentd_common
+      in_tail:
+        <<: *fluentd_common
+        page_title: "in_tailセットアップ | ファイルの選択"
+      in_tail_after_file_choose:
+        <<: *fluentd_common
+        page_title: "in_tailセットアップ | フォーマットの設定"
+      in_tail_after_format:
+        <<: *fluentd_common
+        page_title: "in_tailセットアップ | その他の設定"
+      in_tail_confirm:
+        <<: *fluentd_common
+        page_title: "in_tailセットアップ | 確認"
 
   misc:
     common: &misc_common
@@ -252,13 +274,18 @@ ja:
     fluentd_stop_failed: fluentdの停止に失敗しました。
     fluentd_restart_failed: fluentdの再起動に失敗しました。
 
+  errors:
+    messages: &error_messages
+      wrong_password: が違います
+      lack_read_permission: の読み込み権限がありません
+      lack_write_permission: の書き込み権限がありません
+      is_a_directory: はディレクトリです。ファイルを指定してください
+      duplicated_conf: 同じ内容の設定がすでに存在しています
+
   activerecord:
     errors:
       messages:
-          wrong_password: が違います
-          lack_read_permission: の読み込み権限がありません
-          lack_write_permission: の書き込み権限がありません
-          is_a_directory: はディレクトリです。ファイルを指定してください
+        <<: *error_messages
 
     models:
       user: user  #g

@@ -60,3 +60,49 @@ label {
     overflow: auto;
   }
 }
+
+
+
+#treeview {
+  .tree {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 1ex;
+    height: 40em;
+    overflow-y: auto;
+  }
+  .preview {
+    margin-top: 1em;
+  }
+  .vue-path {
+    cursor: pointer;
+    display: block;
+    height: 1.4em;
+
+    &:hover {
+      background-color: #d9d9d9;
+    }
+    &.selected {
+      background-color: #9cf;
+    }
+    .fa-folder, .fa-folder-open {
+      color: #6af;
+    }
+  }
+  .dirs {
+    padding: 1ex 0;
+    .dir {
+      background: #e0e9f9;
+      padding: 0 1ex;
+      margin: 0 1ex 0 0;
+      cursor: pointer;
+    }
+    .fa-caret-right {
+      color: #bbb;
+    }
+  }
+}
+
+*[data-toggle] {
+  cursor: pointer;
+}

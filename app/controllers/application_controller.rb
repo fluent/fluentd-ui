@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :current_locale
   helper_method :installing_gem?, :installing_gems, :uninstalling_gem?, :uninstalling_gems
+  helper_method :file_tail
   before_action :login_required
   before_action :set_locale
 
@@ -71,5 +72,16 @@ class ApplicationController < ActionController::Base
       end
     end
     I18n.locale = prefer
+  end
+
+  def file_tail(path, limit = 10)
+    return unless path
+    return unless File.exists? path
+    sample = File.read(path, 1024) || ""
+    sample2 = sample.force_encoding('ascii-8bit').encode('us-ascii', :undef => :replace, :invalid => :replace, :replace => "")
+    return if sample != sample2 # maybe binary file
+
+    reader = FileReverseReader.new(File.open(path))
+    reader.enum_for(:each_line).to_a.first(limit).reverse
   end
 end

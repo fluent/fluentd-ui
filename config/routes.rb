@@ -10,6 +10,11 @@ Rails.application.routes.draw do
       get "log_tail"
     end
     resource :setting, only: [:show, :edit, :update], module: :fluentd do
+      get "in_tail"
+      post "in_tail_after_file_choose"
+      post "in_tail_after_format"
+      post "in_tail_confirm"
+      post "in_tail_finish"
     end
   end
 
@@ -44,5 +49,10 @@ Rails.application.routes.draw do
     get "chapter5"
     get "log_tail"
     post "request_fluentd"
+  end
+
+  namespace :api do
+    get "tree"
+    get "file_preview"
   end
 end

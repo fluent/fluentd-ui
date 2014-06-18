@@ -1,0 +1,10 @@
+- page_title t(".page_title")
+
+= link_to t('fluentd.settings.restart_from_first'), in_tail_fluentd_setting_path
+
+= form_for(@setting, as: "setting", url: in_tail_confirm_fluentd_setting_path(@fluentd)) do |f|
+  = render partial: "form", locals: { f: f }
+
+  %p
+    = f.submit t('terms.next'), class: "btn btn-lg btn-primary pull-right"
+    = f.submit t('terms.prev'), class: "btn btn-lg btn-default", name: "back"
