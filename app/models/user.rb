@@ -1,3 +1,9 @@
+# NOTE: Application has "admin" user only
+#       admin's password can be changed from browser, but user name "admin" can't be changed.
+#       many clients can login at the same time (App has multiple active sessions)
+#       raw password shouldn't be compromised (except default password)
+#       you may find detail at https://github.com/treasure-data/fluentd-ui/pull/34
+
 class User
   include ActiveModel::Model
   include ActiveModel::SecurePassword
