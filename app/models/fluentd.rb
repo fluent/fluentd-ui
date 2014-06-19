@@ -1,4 +1,7 @@
-class Fluentd < ActiveRecord::Base
+class Fluentd
+  include ActiveModel::Model
+  include ActiveModel::Validations::Callbacks
+
   validates :variant, inclusion: { in: proc { Fluentd.variants } }
   validates :log_file, presence: true
   validates :pid_file, presence: true
@@ -6,8 +9,9 @@ class Fluentd < ActiveRecord::Base
   validate :validate_permissions
 
   before_validation :expand_paths
-  after_save :ensure_default_config_file
 
+  COLUMNS = [:id, :variant, :log_file, :pid_file, :config_file, :api_endpoint]
+  JSON_PATH = Rails.root + "db/fluentd.json"
   DEFAULT_CONF = <<-CONF.strip_heredoc
     <source>
       type forward
@@ -30,6 +34,8 @@ class Fluentd < ActiveRecord::Base
       type stdout
     </match>
   CONF
+
+  attr_accessor(*COLUMNS)
 
   def self.variants
     %w(fluentd td-agent)
@@ -63,7 +69,7 @@ class Fluentd < ActiveRecord::Base
   end
 
   def label
-    "#{variant} ##{id}"
+    "#{variant}"
   end
 
   def expand_paths
@@ -107,5 +113,46 @@ class Fluentd < ActiveRecord::Base
     File.open(config_file, "w") do |f|
       f.write DEFAULT_CONF
     end
+  end
+
+
+  def self.exists?
+    File.exists?(JSON_PATH)
+  end
+
+  def self.all
+    [factory].compact
+  end
+
+  def self.find(id)
+    factory
+  end
+
+  def self.factory
+    return unless exists?
+    attr = JSON.parse(File.read(JSON_PATH))
+    Fluentd.new(attr)
+  end
+
+  def update_attributes(params)
+    params.each_pair do |k, v|
+      send("#{k}=", v)
+    end
+  end
+
+  def save
+    return false unless valid?
+    self.id = 1
+    json = COLUMNS.inject({}) do |result, col|
+      result[col] = send(col)
+      result
+    end.to_json
+    File.open(JSON_PATH, "w") do |f|
+      f.write json
+    end && ensure_default_config_file
+  end
+
+  def destroy
+    File.unlink(JSON_PATH)
   end
 end

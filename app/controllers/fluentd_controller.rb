@@ -5,6 +5,11 @@ class FluentdController < ApplicationController
     @fluentds = Fluentd.all
   end
 
+  def show
+    @fluentds = Fluentd.all
+    render "index"
+  end
+
   def new
     @fluentd = Fluentd.new(variant: params[:variant] || "fluentd")
     @fluentd.load_settings_from_agent_default
@@ -15,7 +20,7 @@ class FluentdController < ApplicationController
     unless @fluentd.save
       return render :new
     end
-    redirect_to fluentd_index_path
+    redirect_to root_path
   end
 
   def edit
@@ -27,13 +32,13 @@ class FluentdController < ApplicationController
     unless @fluentd.save
       return render :edit
     end
-    redirect_to fluentd_index_path
+    redirect_to root_path
   end
   
   def destroy
     @fluentd.agent.stop if @fluentd.agent.running?
     @fluentd.destroy
-    redirect_to fluentd_index_path
+    redirect_to root_path
   end
 
   private

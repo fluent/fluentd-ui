@@ -1,6 +1,6 @@
 - page_title t('.page_title')
 
-- unless @fluentds.exists?
+- unless @fluentds.present?
   %div.row
     %div.col-lg-6
       %div.well
@@ -16,9 +16,9 @@
   %div{class: "panel panel-#{d.agent.running? ? "success":"default"}"}
     %div.panel-heading
       %h4
-        = "fluentd ##{d.id}"
+        = d.label
         - unless d.agent.running?
-          = link_to t(".edit"), edit_fluentd_path(d)
+          = link_to t(".edit"), edit_fluentd_path
           %button{class: "btn btn-danger", data: {toggle: "modal", target:" #modal-destroy"}}
             = t ".destroy"
     %div.panel-body
@@ -26,7 +26,7 @@
         locals = {
           head: t('.destroy_confirm_title', target: d.label),
           body: t('.confirm_body', action: t('.destroy')),
-          primary_button: link_to(t(".destroy"), fluentd_path(d), method: :delete, class: "btn btn-danger")
+          primary_button: link_to(t(".destroy"), fluentd_path, method: :delete, class: "btn btn-danger")
         }
       = render partial: "shared/modal", locals: locals
 
@@ -38,4 +38,4 @@
           = icon("fa-pause")
           = t("fluentd.common.stopped")
       %p
-        = link_to t(".operation"), fluentd_agent_path(d) # TODO
+        = link_to t(".operation"), fluentd_agent_path # TODO

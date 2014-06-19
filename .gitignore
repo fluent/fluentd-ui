@@ -27,3 +27,4 @@
 /Gemfile.plugins
 
 /db/user.txt
+/db/fluentd.json
