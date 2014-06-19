@@ -63,9 +63,6 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
-
 
   # Don't concat assets for font-awesome path resolving, instead of changing url in css files
   config.assets.debug = true
