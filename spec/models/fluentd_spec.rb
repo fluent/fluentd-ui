@@ -71,7 +71,7 @@ describe Fluentd do
       before { fluentd.variant = variant }
 
       context "fluentd" do
-        let(:variant) { "fluentd" }
+        let(:variant) { "fluentd_gem" }
         it { should be_valid }
       end
 
@@ -97,9 +97,9 @@ describe Fluentd do
   describe "variant" do
     before { fluentd.variant = variant }
 
-    context "= fluentd" do
-      let(:variant) { "fluentd" }
-      it { fluentd.should be_fluentd }
+    context "= fluentd_gem" do
+      let(:variant) { "fluentd_gem" }
+      it { fluentd.should be_fluentd_gem }
       it { fluentd.should_not be_td_agent }
 
       describe "#load_settings_from_agent_default" do
@@ -113,7 +113,7 @@ describe Fluentd do
 
     context "= td-agent" do
       let(:variant) { "td-agent" }
-      it { fluentd.should_not be_fluentd }
+      it { fluentd.should_not be_fluentd_gem }
       it { fluentd.should be_td_agent }
 
       describe "#load_settings_from_agent_default" do
@@ -130,9 +130,9 @@ describe Fluentd do
     before { fluentd.variant = variant }
     subject { fluentd.agent }
 
-    context "fluentd" do
-      let(:variant) { "fluentd" }
-      it { should be_instance_of(Fluentd::Agent::Fluentd) }
+    context "fluentd_gem" do
+      let(:variant) { "fluentd_gem" }
+      it { should be_instance_of(Fluentd::Agent::FluentdGem) }
     end
 
     context "td-agent" do

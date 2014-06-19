@@ -3,7 +3,7 @@ require 'fluent/env'
 require 'fluent/version'
 require 'fluent/supervisor'
 require "fluentd/agent/common"
-require "fluentd/agent/fluentd"
+require "fluentd/agent/fluentd_gem"
 require "fluentd/agent/td_agent"
 require "fluentd/agent/remote"
 

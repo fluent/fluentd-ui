@@ -1,6 +1,6 @@
 class Fluentd
   class Agent
-    class Fluentd
+    class FluentdGem
       include Common
 
       def self.default_options

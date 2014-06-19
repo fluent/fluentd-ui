@@ -33,10 +33,5 @@ module FluentdUi
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = 'en'
     config.autoload_paths += %W(#{config.root}/app/workers #{config.root}/lib)
-    config.after_initialize do
-      # http://qiita.com/tanaka51/items/c8873319689217bb81a9
-      require File.join(Rails.root, "app", "models", "fluentd")
-      require File.join(Rails.root, "app", "models", "fluentd", "agent", "fluentd")
-    end
   end
 end

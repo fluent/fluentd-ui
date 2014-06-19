@@ -11,7 +11,7 @@ class Fluentd
   before_validation :expand_paths
 
   COLUMNS = [:id, :variant, :log_file, :pid_file, :config_file, :api_endpoint]
-  JSON_PATH = Rails.root + "db/fluentd.json"
+  JSON_PATH = Rails.root + "db/#{Rails.env}-fluentd.json"
   DEFAULT_CONF = <<-CONF.strip_heredoc
     <source>
       type forward
@@ -38,12 +38,13 @@ class Fluentd
   attr_accessor(*COLUMNS)
 
   def self.variants
-    %w(fluentd td-agent)
+    %w(fluentd_gem td-agent)
   end
 
   def fluentd?
-    variant == "fluentd"
+    variant == "fluentd_gem"
   end
+  alias :fluentd_gem? :fluentd?
 
   def td_agent?
     variant == "td-agent"
