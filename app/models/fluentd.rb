@@ -10,7 +10,7 @@ class Fluentd
 
   before_validation :expand_paths
 
-  COLUMNS = [:id, :variant, :log_file, :pid_file, :config_file, :api_endpoint]
+  COLUMNS = [:id, :variant, :log_file, :pid_file, :config_file]
   JSON_PATH = Rails.root + "db/#{Rails.env}-fluentd.json"
   DEFAULT_CONF = <<-CONF.strip_heredoc
     <source>
@@ -67,6 +67,10 @@ class Fluentd
 
   def api
     Api::Http.new(api_endpoint)
+  end
+
+  def api_endpoint
+    # TODO: autodetect from parsed configuration, but unused for now
   end
 
   def label
