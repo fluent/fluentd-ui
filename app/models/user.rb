@@ -21,8 +21,9 @@ class User
   def password_digest
     @password_digest ||
       begin
-        File.read(ENCRYPTED_PASSWORD_FILE).rstrip
-      rescue Errno::ENOENT
+        hash = File.read(ENCRYPTED_PASSWORD_FILE).rstrip
+        BCrypt::Password.new(hash) # raise BCrypt::Errors::InvalidHash if hash is invalid
+      rescue Errno::ENOENT, BCrypt::Errors::InvalidHash
         BCrypt::Password.create(Settings.default_password, cost: cost)
       end
   end
