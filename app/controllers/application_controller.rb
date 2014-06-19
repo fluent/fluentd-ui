@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   private
 
   def find_fluentd
-    @fluentd = Fluentd.find(params[:fluentd_id])
+    @fluentd = Fluentd.factory
   end
 
   def set_locale

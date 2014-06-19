@@ -89,7 +89,7 @@ en:
       finish: Update config
     form:
       <<: *fluentd_common
-    index:
+    show:
       <<: *fluentd_common
       page_title: fluentd
     new:

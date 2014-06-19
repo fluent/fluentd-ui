@@ -1,13 +1,8 @@
 class FluentdController < ApplicationController
   before_action :find_fluentd, only: [:edit, :update, :destroy]
 
-  def index
-    @fluentds = Fluentd.all
-  end
-
   def show
-    @fluentds = Fluentd.all
-    render "index"
+    @fluentds = [Fluentd.factory].compact
   end
 
   def new
@@ -44,7 +39,7 @@ class FluentdController < ApplicationController
   private
 
   def find_fluentd
-    @fluentd = Fluentd.find(params[:id])
+    @fluentd = Fluentd.factory
   end
 
   def fluentd_params

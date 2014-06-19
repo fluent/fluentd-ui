@@ -27,8 +27,7 @@ class TutorialsController < ApplicationController
   end
 
   def find_fluentd
-    # NOTE: use first fluentd for tutorial
-    @fluentd = Fluentd.first
+    @fluentd = Fluentd.factory
   end
 
   def check_ready

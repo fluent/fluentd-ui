@@ -26,5 +26,5 @@
 
 /Gemfile.plugins
 
-/db/user.txt
-/db/fluentd.json
+/db/*-user.txt
+/db/*-fluentd.json

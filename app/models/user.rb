@@ -10,7 +10,7 @@ class User
 
   has_secure_password
 
-  ENCRYPTED_PASSWORD_FILE = Rails.env.test? ? "tmp/test.txt" : Rails.root + "db/user.txt"
+  ENCRYPTED_PASSWORD_FILE = Rails.root + "db/#{Rails.env}-user.txt"
 
   attr_accessor :name, :password, :password_confirmation, :current_password
 

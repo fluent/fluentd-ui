@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "fluentd#index" # TODO: change to dashboard
+  root "fluentd#show" # TODO: change to dashboard
 
   resource :fluentd, controller: :fluentd do
     resource :agent, only: [:show], module: :fluentd do

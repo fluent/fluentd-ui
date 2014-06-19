@@ -116,22 +116,16 @@ class Fluentd
   end
 
 
-  def self.exists?
-    File.exists?(JSON_PATH)
-  end
-
-  def self.all
-    [factory].compact
-  end
-
-  def self.find(id)
-    factory
-  end
+  # ActiveRecord mimic
 
   def self.factory
     return unless exists?
     attr = JSON.parse(File.read(JSON_PATH))
     Fluentd.new(attr)
+  end
+
+  def self.exists?
+    File.exists?(JSON_PATH)
   end
 
   def update_attributes(params)
@@ -142,7 +136,6 @@ class Fluentd
 
   def save
     return false unless valid?
-    self.id = 1
     json = COLUMNS.inject({}) do |result, col|
       result[col] = send(col)
       result
