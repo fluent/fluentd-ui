@@ -25,3 +25,5 @@
 /.DS_Store
 
 /Gemfile.plugins
+
+/db/user.txt

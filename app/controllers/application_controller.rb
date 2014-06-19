@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   def current_user
-    return unless session[:remember_token]
-    @current_user ||= LoginToken.active.find_by(token_id: session[:remember_token]).try(:user)
+    return unless session[:succeed_password]
+    @current_user ||= User.new(name: "admin").authenticate(session[:succeed_password])
   end
 
   def login_required

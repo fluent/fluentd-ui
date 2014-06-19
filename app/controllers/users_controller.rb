@@ -12,13 +12,14 @@ class UsersController < ApplicationController
     unless @user.update_attributes(user_params)
       return render :show
     end
+    session[:succeed_password] = user_params[:password]
     redirect_to user_path
   end
 
   private
 
   def find_user
-    @user = User.first # user is only "admin"
+    @user = User.new(name: "admin") # user is only "admin"
   end
 
   def user_params

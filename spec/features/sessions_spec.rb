@@ -1,5 +1,5 @@
 describe "sessions" do
-  let(:exists_user) { create(:user) }
+  let(:exists_user) { build(:user) }
 
   describe "the sign in process" do
     let(:submit_label) { I18n.t("terms.sign_in") }
@@ -20,7 +20,7 @@ describe "sessions" do
     end
 
     context "sign in with non-exists user" do
-      let(:user) { build(:user) }
+      let(:user) { build(:user, password: "passw0rd") }
 
       it "current location is not root_path" do
         current_path.should_not == root_path
@@ -50,10 +50,6 @@ describe "sessions" do
 
     it "at sign in page after sign out" do
       current_path.should == new_sessions_path
-    end
-
-    it "remember_token was destroyed" do
-      LoginToken.where(user_id: exists_user.id).should_not be_exists
     end
   end
 end
