@@ -25,3 +25,6 @@
 /.DS_Store
 
 /Gemfile.plugins
+
+/db/*-user.txt
+/db/*-fluentd.json

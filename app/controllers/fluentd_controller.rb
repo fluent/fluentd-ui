@@ -1,8 +1,8 @@
 class FluentdController < ApplicationController
   before_action :find_fluentd, only: [:edit, :update, :destroy]
 
-  def index
-    @fluentds = Fluentd.all
+  def show
+    @fluentds = [Fluentd.factory].compact
   end
 
   def new
@@ -15,7 +15,7 @@ class FluentdController < ApplicationController
     unless @fluentd.save
       return render :new
     end
-    redirect_to fluentd_index_path
+    redirect_to root_path
   end
 
   def edit
@@ -27,19 +27,19 @@ class FluentdController < ApplicationController
     unless @fluentd.save
       return render :edit
     end
-    redirect_to fluentd_index_path
+    redirect_to root_path
   end
   
   def destroy
     @fluentd.agent.stop if @fluentd.agent.running?
     @fluentd.destroy
-    redirect_to fluentd_index_path
+    redirect_to root_path
   end
 
   private
 
   def find_fluentd
-    @fluentd = Fluentd.find(params[:id])
+    @fluentd = Fluentd.factory
   end
 
   def fluentd_params

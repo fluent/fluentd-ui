@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   def current_user
-    return unless session[:remember_token]
-    @current_user ||= LoginToken.active.find_by(token_id: session[:remember_token]).try(:user)
+    return unless session[:succeed_password]
+    @current_user ||= User.new(name: "admin").try(:authenticate, session[:succeed_password])
   end
 
   def login_required
@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   private
 
   def find_fluentd
-    @fluentd = Fluentd.find(params[:fluentd_id])
+    @fluentd = Fluentd.factory
   end
 
   def set_locale

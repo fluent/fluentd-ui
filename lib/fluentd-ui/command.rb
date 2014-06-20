@@ -8,9 +8,6 @@ module FluentdUI
     option :pidfile, type: :string, default: File.expand_path('tmp/fluentd-ui.pid', ROOT)
     option :daemonize, type: :boolean, default: false
     def start
-      # NOTE: When fluentd-ui gem updated, it may have new migrations.
-      #       do `setup` before `start` solve that, but currently don't. should decide later.
-      # setup
       system(*%W(bundle exec rackup #{options[:daemonize] ? "-D" : ""} --pid #{options[:pidfile]} -p #{options[:port]} -E production #{ROOT}/config.ru))
     end
 
@@ -40,15 +37,10 @@ module FluentdUI
 
     desc "setup", "setup fluentd-ui server"
     long_desc <<-DESC
-      1. install dependency gems
-
-      2. create DB
-
-      3. create initial user if no user registered
+      install dependency gems
     DESC
     def setup
       system(*%W(bundle install))
-      system(*%W(bundle exec rake db:create db:migrate db:seed))
     end
 
     private

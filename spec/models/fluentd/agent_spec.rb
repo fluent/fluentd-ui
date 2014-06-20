@@ -74,8 +74,8 @@ describe Fluentd::Agent do
   let(:instance) { described_class.new(options) }
   let(:options) { {} }
 
-  describe "Fluentd" do
-    let(:described_class) { Fluentd::Agent::Fluentd } # override nested described_class behavior as https://github.com/rspec/rspec-core/issues/1114
+  describe "FluentdGem" do
+    let(:described_class) { Fluentd::Agent::FluentdGem } # override nested described_class behavior as https://github.com/rspec/rspec-core/issues/1114
 
     it_should_behave_like "Agent has common behavior"
 

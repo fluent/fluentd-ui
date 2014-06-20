@@ -4,21 +4,6 @@ describe User do
   let(:user) { build(:user) }
 
   describe "#valid?" do
-    it { user.should be_valid }
-
-    describe "name" do
-      it "nil is invalid" do
-        user.name = nil
-        user.should_not be_valid
-      end
-
-      it "taken name is invalid" do
-        another_user = create(:user)
-        user.name = another_user.name
-        user.should_not be_valid
-      end
-    end
-
     describe "password" do
       it "password != password_confirmation is invalid" do
         user.password = "a"
