@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   before_action :set_user
 
   def create
-    if session_params[:name] != "admin"
+    if session_params[:name] != "admin" # NOTE: Application user is "admin" only, other user name is invalid for now.
       flash.now[:notice] = I18n.t("error.login_failed")
       return render :new
     end
