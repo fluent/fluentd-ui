@@ -103,6 +103,18 @@ label {
   }
 }
 
-*[data-toggle] {
+*[data-toggle="collapse"] {
   cursor: pointer;
+}
+
+#in_tail_format {
+  .regexp-preview {
+    font-family: monospace;
+    background: #f9f9f9;
+    margin:0 4px 0 0;
+
+    &:hover {
+      background: #ffa;
+    }
+  }
 }

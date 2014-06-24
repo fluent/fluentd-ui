@@ -54,5 +54,6 @@ Rails.application.routes.draw do
   namespace :api do
     get "tree"
     get "file_preview"
+    post "regexp_preview"
   end
 end

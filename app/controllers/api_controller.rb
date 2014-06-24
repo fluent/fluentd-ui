@@ -10,4 +10,20 @@ class ApiController < ApplicationController
   def empty_json
     render json: []
   end
+
+  def regexp_preview
+    matches = file_tail(params[:file]).map do |line|
+      result = {
+        :whole => line,
+        :matches => {},
+      }
+      m = line.match(params[:regexp])
+      m.names.each do |name|
+        result[:matches][name] = m[name]
+      end
+      result
+    end
+    render json: matches
+  end
 end
+
