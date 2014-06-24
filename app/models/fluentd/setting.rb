@@ -65,12 +65,21 @@ class Fluentd
       def certain_format_line
         case format
         when "grok"
-          "format #{grok_str} # grok: #{grok_str}" # TODO: convert to regexp
+          "format /#{grok.convert_to_regexp(grok_str).source.gsub("/", "\\/")}/ # grok: '#{grok_str}'" # TODO: convert to regexp
         when "regexp"
           "format #{regexp}"
         else
           "format #{format}"
         end
+      end
+
+      def grok
+        @grok ||=
+          begin
+            grok = GrokConverter.new
+            grok.load_patterns(Rails.root + "vendor/patterns")
+            grok
+          end
       end
 
       def to_conf
