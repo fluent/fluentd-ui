@@ -27,5 +27,11 @@ class ApiController < ApplicationController
     end
     render json: matches.compact
   end
+
+  def grok_to_regexp
+    grok = GrokConverter.new
+    grok.load_patterns(Rails.root + "vendor/patterns")
+    render text: grok.convert_to_regexp(params[:grok_str]).source
+  end
 end
 

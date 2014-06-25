@@ -21,9 +21,11 @@
     </div>
     <div class="form-group" v-repeat="options">
       <label>{{ $value }} </label>
-      <input type="text" name="setting[{{ $value }}]" size="100%" />
+      <input type="text" name="setting[{{ $value }}]" v-model="{{ $value }}" size="100%" />
     </div>
-    <div v-if="format == 'grok'" class="well well-sm">
+    <div v-if="format == 'grok'">
+      <span v-if="previewProcessing"><%= icon('fa-spin fa-spinner') %>previewProcessing</span>
+      <pre>{{{ highlightedLines }}}</pre>
       TODO: grok reference
     </div>
   </div>

@@ -9,7 +9,9 @@
       paramAttributes: ["formatOptions", "initialSelected", "targetFile"],
       data: {
         // v-model: format
-        regexp: ""
+        regexp: "",
+        grok_str: "",
+        previewProcessing: false
       },
 
       created: function(){
@@ -18,6 +20,9 @@
         this.format = this.initialSelected;
         this.$watch('regexp', function(ev){
           this.previewRegexp();
+        });
+        this.$watch('grok_str', function(ev){
+          this.generateRegexp();
         });
       },
 
@@ -64,8 +69,27 @@
 
         },
 
+        generateRegexp: function() {
+          var self = this;
+          this.previewProcessing = true;
+          new Promise(function(resolve, reject) {
+            $.ajax({
+              method: "POST",
+              url: "/api/grok_to_regexp",
+              data: {
+                grok_str: self.grok_str
+              }
+            }).done(resolve).fail(reject);
+          }).then(function(regexp){
+            self.regexp = regexp;
+          }).catch(function(e){
+            console.error(e);
+          });
+        },
+
         previewRegexp: function(){
           var self = this;
+          this.previewProcessing = true;
           new Promise(function(resolve, reject) {
             $.ajax({
               method: "POST",
@@ -78,6 +102,7 @@
           }).then(function(matches){
             self.regexpMatches = matches;
             self.updateHighlightedLines();
+            self.previewProcessing = false;
           })["catch"](function(error){
             console.error(error);
           });
