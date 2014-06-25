@@ -34,15 +34,7 @@
       <input type="hidden" name="setting[format]" value="regexp" />
       <input type="text" name="setting[regexp]" v-model="regexp" size="100%" />
     </div>
-    <div v-repeat="regexpMatches">
-      {{whole | highlight $index }}
-      <span v-repeat="matches">
-        <span v-on="hover: highlight(whole, $value)">
-          {{$value}}
-        </span>
-      </span>
-      <br />
-    </div>
+    <pre>{{{ highlightedLines }}}</pre>
   </div>
 
   <div class="well well-sm">

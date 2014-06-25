@@ -18,12 +18,14 @@ class ApiController < ApplicationController
         :matches => {},
       }
       m = line.match(params[:regexp])
+      next result unless m
+
       m.names.each do |name|
         result[:matches][name] = m[name]
       end
       result
     end
-    render json: matches
+    render json: matches.compact
   end
 end
 
