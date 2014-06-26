@@ -65,7 +65,7 @@ class Fluentd
       def certain_format_line
         case format
         when "grok"
-          "format /#{grok.convert_to_regexp(grok_str).source.gsub("/", "\\/")}/ # grok: '#{grok_str}'" # TODO: convert to regexp
+          "format /#{grok.convert_to_regexp(grok_str).source.gsub("/", "\\/")}/ # grok: '#{grok_str}'"
         when "regexp"
           "format /#{regexp}/"
         else
