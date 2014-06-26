@@ -27,7 +27,9 @@
     </div>
     <div v-if="format == 'grok'">
       <pre v-if="highlightedLines">{{{ highlightedLines }}}</pre>
-      TODO: grok reference
+      <div class="well well-sm">
+        <%= raw t('fluentd.settings.grok_manual') %>
+      </div>
     </div>
   </div>
 
