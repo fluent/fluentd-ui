@@ -2,6 +2,7 @@
   formatOptions="<%= formats.to_json %>"
   initialSelected="<%= initialSelected %>"
   targetFile="<%= file %>"
+  paramsJson="<%= params.to_json %>"
   >
   <div class="form-group">
     <label>
@@ -22,10 +23,10 @@
     <div class="form-group" v-repeat="options">
       <label>{{ $value }} </label>
       <input type="text" name="setting[{{ $value }}]" v-model="{{ $value }}" size="100%" />
+      <span v-if="format == 'grok' && previewProcessing"><%= icon('fa-spin fa-refresh fa-lg') %></span>
     </div>
     <div v-if="format == 'grok'">
-      <span v-if="previewProcessing"><%= icon('fa-spin fa-spinner') %>previewProcessing</span>
-      <pre>{{{ highlightedLines }}}</pre>
+      <pre v-if="highlightedLines">{{{ highlightedLines }}}</pre>
       TODO: grok reference
     </div>
   </div>

@@ -6,24 +6,27 @@
 
     new Vue({
       el: "#in_tail_format",
-      paramAttributes: ["formatOptions", "initialSelected", "targetFile"],
+      paramAttributes: ["formatOptions", "initialSelected", "targetFile", "paramsJson"],
       data: {
-        // v-model: format
         regexp: "",
         grok_str: "",
-        previewProcessing: false
+        previewProcessing: false,
+        highlightedLines: null
       },
 
       created: function(){
         this.formatOptions = JSON.parse(this.formatOptions);
         this.formats = Object.keys(this.formatOptions);
         this.format = this.initialSelected;
+        this.params = JSON.parse(this.paramsJson);
+        this.grok_str = this.params.setting.grok_str;
+        this.regexp = this.params.setting.regexp;
         this.$watch('regexp', function(ev){
           this.previewRegexp();
         });
-        this.$watch('grok_str', function(ev){
-          this.generateRegexp();
-        });
+
+        var updateGrokPreview = _.debounce(_.bind(this.generateRegexp, this), 256);
+        this.$watch('grok_str', updateGrokPreview);
       },
 
       computed: {
@@ -38,7 +41,7 @@
 
         updateHighlightedLines: function() {
           if(!this.regexpMatches) {
-            this.highlightedLines = "";
+            this.highlightedLines = null;
             return;
           }
 
@@ -88,6 +91,7 @@
         },
 
         previewRegexp: function(){
+          if(!this.regexp) return;
           var self = this;
           this.previewProcessing = true;
           new Promise(function(resolve, reject) {
