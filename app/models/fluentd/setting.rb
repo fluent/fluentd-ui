@@ -67,7 +67,7 @@ class Fluentd
         when "grok"
           "format /#{grok.convert_to_regexp(grok_str).source.gsub("/", "\\/")}/ # grok: '#{grok_str}'" # TODO: convert to regexp
         when "regexp"
-          "format #{regexp}"
+          "format /#{regexp}/"
         else
           "format #{format}"
         end
