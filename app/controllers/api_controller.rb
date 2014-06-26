@@ -15,13 +15,17 @@ class ApiController < ApplicationController
     matches = file_tail(params[:file]).map do |line|
       result = {
         :whole => line,
-        :matches => {},
+        :matches => [],
       }
       m = line.match(params[:regexp])
       next result unless m
 
-      m.names.each do |name|
-        result[:matches][name] = m[name]
+      m.names.each_with_index do |name, index|
+        result[:matches] << {
+          key: name,
+          matched: m[name],
+          pos: m.offset(index + 1),
+        }
       end
       result
     end

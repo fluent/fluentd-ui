@@ -45,24 +45,52 @@
             return;
           }
 
-          var html = jQuery('<div>');
-          jQuery.each(this.regexpMatches, function(_, match){
+          var $container = jQuery('<div>');
+          _.each(this.regexpMatches, function(match){
             var colors = [
               "#ff9", "#cff", "#fcf", "#dfd"
             ];
-            var ret = jQuery('<div>').text(match.whole).html(); // escape HTML tags
-            jQuery.each(match.matches, function(k, v) {
+            var whole = match.whole;
+            var html = "";
+            var matches = [];
+
+            var lastPos = 0;
+            _.each(match.matches, function(match) {
+              var matched = match.matched;
+              if(matched.length === 0) return; // Ignore empty matched with "foobar".match(/foo(.*?)bar/)[1] #=> ""
+
+              // rotated highlight color
               var currentColor = colors.shift();
               colors.push(currentColor);
-              var newChild = jQuery('<span class="regexp-preview" data-toggle="tooltip" data-placement="top" title="'+k+'">').text(v);
-              newChild.attr('style', 'background-color:' + currentColor);
-              var outerHtml = newChild.wrap('<div>').parent().html();
-              ret = ret.replace(jQuery('<div>').text(v).html(), outerHtml);
+
+              // create highlighted range HTML
+              var $highlighted = jQuery('<span>').text(matched);
+              $highlighted.attr({
+                "class": "regexp-preview",
+                "data-toggle": "tooltip",
+                "data-placement": "top",
+                "title": match.key,
+                'style': 'background-color:' + currentColor
+              });
+              var highlightedHtml = $highlighted.wrap('<div>').parent().html();
+
+              var pos = {
+                "start": match.pos[0],
+                "end": match.pos[1]
+              };
+              if(pos.start > 0) {
+                html += _.escape(whole.substring(lastPos, pos.start));
+              }
+              html += highlightedHtml;
+              lastPos = pos.end;
             });
-            html.append(ret);
-            html.append("<br />");
+            html += whole.substring(lastPos);
+
+            $container.append(html);
+            $container.append("<br />");
           });
-          this.highlightedLines = html.html();
+
+          this.highlightedLines = $container.html();
           setTimeout(function(){
             $('#in_tail_format').tooltip({
               selector: "[data-toggle=tooltip]",
@@ -108,7 +136,7 @@
             self.updateHighlightedLines();
             self.previewProcessing = false;
           })["catch"](function(error){
-            console.error(error);
+            console.error(error.stack);
           });
         }
       }
