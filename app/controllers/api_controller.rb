@@ -34,7 +34,7 @@ class ApiController < ApplicationController
 
   def grok_to_regexp
     grok = GrokConverter.new
-    grok.load_patterns(Rails.root + "vendor/patterns")
+    grok.load_patterns
     render text: grok.convert_to_regexp(params[:grok_str]).source
   end
 end

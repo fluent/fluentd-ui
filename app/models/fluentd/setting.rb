@@ -77,7 +77,7 @@ class Fluentd
         @grok ||=
           begin
             grok = GrokConverter.new
-            grok.load_patterns(Rails.root + "vendor/patterns")
+            grok.load_patterns
             grok
           end
       end

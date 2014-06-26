@@ -1,6 +1,7 @@
 class GrokConverter
-  def load_patterns(dir)
+  def load_patterns(dir = nil)
     @patterns = {}
+    dir ||= Rails.root.join("vendor/patterns")
     Dir.glob("#{dir}/*").each do |file|
       File.read(file).split("\n").each do |line|
         line.strip!
