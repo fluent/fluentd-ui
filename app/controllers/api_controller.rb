@@ -4,7 +4,14 @@ class ApiController < ApplicationController
   end
 
   def file_preview
-    render json: file_tail(params[:file]) || []
+    file = params[:file]
+    unless File.exists?(file)
+      return render json: [], status: 404
+    end
+    unless File.file?(file) && File.readable?(file)
+      return render json: [], status: 403
+    end
+    render json: file_tail(file) || []
   end
 
   def empty_json

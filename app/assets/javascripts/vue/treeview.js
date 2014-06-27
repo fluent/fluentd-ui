@@ -9,12 +9,12 @@
       paramAttributes: [],
       data: {
         preview: "",
-        path: "/var/log",
+        initialPath: "/var/log",
         paths: []
       },
 
       created: function(){
-        var self = this;
+        this.path = this.initialPath;
         this.fetchTree();
         this.$watch("path", this.fetchTree);
         this.$watch("path", this.fetchPreview);
@@ -69,13 +69,16 @@
           });
         },
         fetchPreview: function(){
+          if(!this.selected) return ;
           var self = this;
           this.preview = "";
           new Promise(function(resolve, reject) {
             $.getJSON("/api/file_preview?file=" + self.selected.path, resolve).fail(reject);
+          }).catch(function(e){
+            console.error(e);
           }).then(function(lines){
             self.preview = lines.join("\n");
-          }).catch(function(e){ console.error(e);});
+          });
         },
 
         selectPath: function(path){
