@@ -15,7 +15,7 @@ class FluentdController < ApplicationController
     unless @fluentd.save
       return render :new
     end
-    redirect_to root_path
+    redirect_to fluentd_path
   end
 
   def edit
@@ -27,7 +27,7 @@ class FluentdController < ApplicationController
     unless @fluentd.save
       return render :edit
     end
-    redirect_to root_path
+    redirect_to fluentd_path
   end
   
   def destroy
