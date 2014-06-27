@@ -10,8 +10,8 @@ en:
     new_version: "%{version} is available"
     install_latest: Install latest
     installed_plugins: Installed Plugins
-    plugins: &plugins Plugins
-    misc: &misc Miscellaneous
+    plugins: Plugins
+    misc: Miscellaneous
     version: Version
     fluent_version: "fluentd %{version}"
     no_alert: Nothing
@@ -82,10 +82,10 @@ en:
       stopped: Stopped
       running: Running
       operation: Detail
-      setting: Setting
+      edit_config: Edit Config
       config_file: Config file
       page_title: "%{label}"
-      setup_in_tail: Setup in_tail
+      setup_in_tail: Setting file reading
       finish: Update config
       fluentd_info: Setting info
       recent_errors: "Recent %{count} Errors"
@@ -150,16 +150,16 @@ en:
         <<: *fluentd_common
       in_tail:
         <<: *fluentd_common
-        page_title: "Setup in_tail | Choosing File"
+        page_title: "File readling | Choosing File"
       in_tail_after_file_choose:
         <<: *fluentd_common
-        page_title: "Setup in_tail | Setting format"
+        page_title: "File readling | Setting format"
       in_tail_after_format:
         <<: *fluentd_common
-        page_title: "Setup in_tail | Other config"
+        page_title: "File readling | Other config"
       in_tail_confirm:
         <<: *fluentd_common
-        page_title: "Setup in_tail | Confirmation"
+        page_title: "File readling | Confirmation"
 
   misc:
     common: &misc_common

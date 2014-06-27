@@ -10,8 +10,8 @@ ja:
     installed: インストール済み
     not_installed: 未インストール
     new_version: "%{version}があります"
-    plugins: &plugins プラグイン
-    misc: &misc その他
+    plugins: プラグイン
+    misc: その他
     version: バージョン
     fluent_version: "fluentd %{version}"
     no_alert: 通知なし
@@ -82,10 +82,10 @@ ja:
       stopped: 停止中
       running: 稼働中
       operation: プロセス詳細
-      setting: 設定
+      edit_config: 設定ファイルの編集
       config_file: 設定ファイル
       page_title: "%{label}"
-      setup_in_tail: in_tailセットアップ
+      setup_in_tail: ファイル読み込みの設定
       finish: 設定する
       fluentd_info: 設定情報
       recent_errors: "最新 %{count}件のエラー"
@@ -149,16 +149,16 @@ ja:
         <<: *fluentd_common
       in_tail:
         <<: *fluentd_common
-        page_title: "in_tailセットアップ | ファイルの選択"
+        page_title: "ファイル読み込み | ファイルの選択"
       in_tail_after_file_choose:
         <<: *fluentd_common
-        page_title: "in_tailセットアップ | フォーマットの設定"
+        page_title: "ファイル読み込み | フォーマットの設定"
       in_tail_after_format:
         <<: *fluentd_common
-        page_title: "in_tailセットアップ | その他の設定"
+        page_title: "ファイル読み込み | その他の設定"
       in_tail_confirm:
         <<: *fluentd_common
-        page_title: "in_tailセットアップ | 確認"
+        page_title: "ファイル読み込み | 確認"
 
   misc:
     common: &misc_common
