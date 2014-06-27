@@ -46,7 +46,7 @@ class FluentdController < ApplicationController
   private
 
   def find_fluentd
-    @fluentd = Fluentd.factory
+    @fluentd = Fluentd.instance
   end
 
   def fluentd_params
