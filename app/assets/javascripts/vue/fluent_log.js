@@ -45,7 +45,7 @@
               self.processing = false;
             }, 256); // delay to reduce flicking loading icon
           });
-        },
+        }
       }
     });
   });
