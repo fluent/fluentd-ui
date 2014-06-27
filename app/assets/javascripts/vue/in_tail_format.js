@@ -19,8 +19,10 @@
         this.formats = Object.keys(this.formatOptions);
         this.format = this.initialSelected;
         this.params = JSON.parse(this.paramsJson);
-        this.grok_str = this.params.setting.grok_str;
-        this.regexp = this.params.setting.regexp;
+        if(this.params && this.params.setting) {
+          this.grok_str = this.params.setting.grok_str;
+          this.regexp = this.params.setting.regexp;
+        }
         this.$watch('regexp', function(ev){
           this.previewRegexp();
         });
