@@ -318,7 +318,7 @@ en:
       is_a_directory: is a directory. should be a file
       duplicated_conf: Configurations is duplicated
 
-  activemodel:
+  activemodel: &activemodel
     errors:
       messages:
         <<: *error_messages
@@ -340,3 +340,6 @@ en:
         config_file: Config file
         variant: type
         api_endpoint: API Endpoint
+
+  activerecord: # for rspec
+    <<: *activemodel

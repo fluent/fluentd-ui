@@ -317,7 +317,7 @@ ja:
       is_a_directory: はディレクトリです。ファイルを指定してください
       duplicated_conf: 同じ内容の設定がすでに存在しています
 
-  activemodel:
+  activemodel: &activemodel
     errors:
       messages:
         <<: *error_messages
@@ -339,3 +339,6 @@ ja:
         config_file: 設定ファイル
         variant: タイプ
         api_endpoint: APIエンドポイント
+
+  activerecord: # for rspec
+    <<: *activemodel
