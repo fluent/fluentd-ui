@@ -1,9 +1,5 @@
 - page_title t('.page_title', label: @fluentd.label)
 
-%p
-  = link_to t("fluentd.common.log"), log_fluentd_agent_path(@fluentd)
-  = link_to t("fluentd.common.config_file"), fluentd_setting_path(@fluentd)
-
 %div.row
   %div.col-lg-6
     %div{class: "panel panel-#{@fluentd.agent.running? ? "success":"default"}"}
@@ -36,21 +32,3 @@
           %tr
             %th= @fluentd.class.human_attribute_name(:config_file)
             %td= @fluentd.agent.config_file
-
-= render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd }
-
-- if @errors.present?
-
-  %h2= t('.recent_errors', count: @error_count)
-
-  %div.row
-    %div.col-lg-12
-      - @errors.each do |errors|
-        %div.panel.panel-default
-          %div.panel-heading
-            %h4= errors.shift
-          - if errors.present?
-            %div.panel-body
-              %ul
-                - errors.each do |stack|
-                  %li= stack

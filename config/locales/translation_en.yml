@@ -98,6 +98,9 @@ en:
     edit:
       <<: *fluentd_common
       page_title: fluentd | Edit
+    log:
+      <<: *fluentd_common
+      page_title: fluentd | Log
     agents:
       show:
         <<: *fluentd_common

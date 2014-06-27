@@ -1,0 +1,19 @@
+
+- page_title t('.page_title', label: @fluentd.label)
+
+
+= render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd }
+
+%h2= t('.recent_errors', count: @error_count)
+
+%div.row
+  %div.col-lg-12
+    - @fluentd.agent.recent_errors(10).each do |errors|
+      %div.panel.panel-default
+        %div.panel-heading
+          %h4= errors.shift
+        - if errors.present?
+          %div.panel-body
+            %ul
+              - errors.each do |stack|
+                %li= stack

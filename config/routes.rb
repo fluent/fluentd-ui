@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "fluentd#show" # TODO: change to dashboard
 
   resource :fluentd, controller: :fluentd do
+    get "log"
     resource :agent, only: [:show], module: :fluentd do
       put "start"
       put "stop"

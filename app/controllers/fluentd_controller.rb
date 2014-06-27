@@ -1,5 +1,6 @@
 class FluentdController < ApplicationController
-  before_action :find_fluentd, only: [:edit, :update, :destroy]
+  before_action :find_fluentd, only: [:edit, :update, :destroy, :log]
+  before_action :check_fluentd_exists, only: [:edit, :log]
 
   def show
     @fluentds = [Fluentd.factory].compact
@@ -36,6 +37,9 @@ class FluentdController < ApplicationController
     redirect_to root_path
   end
 
+  def log
+  end
+
   private
 
   def find_fluentd
@@ -44,5 +48,11 @@ class FluentdController < ApplicationController
 
   def fluentd_params
     params.require(:fluentd).permit(:log_file, :pid_file, :config_file, :variant, :api_endpoint)
+  end
+
+  def check_fluentd_exists
+    unless find_fluentd
+      redirect_to root_path
+    end
   end
 end
