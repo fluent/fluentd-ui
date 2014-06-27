@@ -74,7 +74,7 @@ class Fluentd
   end
 
   def label
-    "#{variant}"
+    "fluentd" # NOTE: for multiple fluentd management, but only single fluentd manage now
   end
 
   def expand_paths
