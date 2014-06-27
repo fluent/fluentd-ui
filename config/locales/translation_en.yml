@@ -31,12 +31,13 @@ en:
     destroy_confirm_title: "%{target} Deletion"
     confirm_body: |
       Really %{action}?
-    reload_log: Reload fluend log
+    reload_log: Reload log
     auto_reload: "Auto Reload(every %{seconds} seconds)"
     next: Next
     prev: Prev
     advanced_setting: Advanced Setting
     notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
+    lines: Lines
 
   plugins:
     notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"

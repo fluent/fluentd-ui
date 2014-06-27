@@ -31,12 +31,13 @@ ja:
     destroy_confirm_title: "%{target}を削除"
     confirm_body: |
       %{action}しますか？
-    reload_log: fluentdのログを更新
+    reload_log: ログ更新
     auto_reload: "自動更新(%{seconds}秒ごと)"
     next: 次へ
     prev: 前へ
     advanced_setting: 高度な設定
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
+    lines: 行
 
   plugins:
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます

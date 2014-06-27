@@ -2,8 +2,6 @@
 - page_title t('.page_title', label: @fluentd.label)
 
 
-= render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd }
-
 %h2= t('.recent_errors', count: @error_count)
 
 %div.row
