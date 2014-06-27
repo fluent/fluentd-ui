@@ -318,7 +318,7 @@ en:
       is_a_directory: is a directory. should be a file
       duplicated_conf: Configurations is duplicated
 
-  activerecord:
+  activemodel:
     errors:
       messages:
         <<: *error_messages

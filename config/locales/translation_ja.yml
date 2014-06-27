@@ -70,7 +70,7 @@ ja:
   users: &users
     show:
       <<: *terms
-      page_title: ユーザー管理
+      page_title: パスワード管理
 
   fluentd: &fluentd
     common: &fluentd_common
@@ -317,7 +317,7 @@ ja:
       is_a_directory: はディレクトリです。ファイルを指定してください
       duplicated_conf: 同じ内容の設定がすでに存在しています
 
-  activerecord:
+  activemodel:
     errors:
       messages:
         <<: *error_messages
