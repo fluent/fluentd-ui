@@ -87,6 +87,8 @@ en:
       page_title: "%{label}"
       setup_in_tail: Setup in_tail
       finish: Update config
+      fluentd_info: Setting info
+      recent_errors: "Recent %{count} Errors"
     form:
       <<: *fluentd_common
     show:
@@ -101,11 +103,6 @@ en:
     log:
       <<: *fluentd_common
       page_title: fluentd | Log
-    agents:
-      show:
-        <<: *fluentd_common
-        fluentd_info: Setting info
-        recent_errors: "Recent %{count} Errors"
     settings:
       restart_from_first: Restart from first
       grok_manual: |

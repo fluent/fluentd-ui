@@ -87,11 +87,13 @@ ja:
       page_title: "%{label}"
       setup_in_tail: in_tailセットアップ
       finish: 設定する
+      fluentd_info: 設定情報
+      recent_errors: "最新 %{count}件のエラー"
     form:
       <<: *fluentd_common
     show:
       <<: *fluentd_common
-      page_title: fluentd
+      page_title: "%{label}"
     new:
       <<: *fluentd_common
       page_title: fluentd | 追加
@@ -101,11 +103,6 @@ ja:
     log:
       <<: *fluentd_common
       page_title: fluentd | ログ
-    agents:
-      show:
-        <<: *fluentd_common
-        fluentd_info: 設定情報
-        recent_errors: "最新 %{count}件のエラー"
     settings:
       restart_from_first: 最初からやり直す
       in_tail_option_guide: |

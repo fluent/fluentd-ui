@@ -18,7 +18,7 @@
     - else
       = icon('fa-warning text text-danger')
       - if @fluentd
-        = link_to t('.step2'), fluentd_agent_path(@fluentd)
+        = link_to t('.step2'), fluentd_path(@fluentd)
       - else
         = t('.step2')
 

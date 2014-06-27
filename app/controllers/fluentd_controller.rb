@@ -1,9 +1,8 @@
 class FluentdController < ApplicationController
-  before_action :find_fluentd, only: [:edit, :update, :destroy, :log]
+  before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log]
   before_action :check_fluentd_exists, only: [:edit, :log]
 
   def show
-    @fluentds = [Fluentd.factory].compact
   end
 
   def new
@@ -38,6 +37,10 @@ class FluentdController < ApplicationController
   end
 
   def log
+  end
+
+  def raw_log
+    render text: @fluentd.agent.log, content_type: "text/plain"
   end
 
   private

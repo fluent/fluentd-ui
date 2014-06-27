@@ -1,41 +1,35 @@
-- page_title t('.page_title')
+- page_title t('.page_title', label: @fluentd.label)
 
-- unless @fluentds.present?
-  %div.row
-    %div.col-lg-6
-      %div.well
-        %span= link_to icon("fa-cog") << t(".setup", target: "fluentd"), new_fluentd_path(variant: "fluentd_gem"), class: "btn btn-primary btn-lg"
-    %div.col-lg-6
-      %div.well
-        %span
-          = link_to icon("fa-cog") << t(".setup", target: "td-agent"), new_fluentd_path(variant: "td-agent"), class: "btn btn-lg #{has_td_agent_system? ? "btn-primary" : "btn-default disabled"}"
-          - unless has_td_agent_system?
-            = link_to t('.install_it', target: "td-agent"), "http://docs.treasuredata.com/articles/td-agent"
+%div.row
+  %div.col-lg-6
+    %div{class: "panel panel-#{@fluentd.agent.running? ? "success":"default"}"}
+      %div.panel-heading
+        %h4
+          - if @fluentd.agent.running?
+            = icon("fa-play")
+            = t("fluentd.common.running")
+          - else
+            = icon("fa-pause")
+            = t("fluentd.common.stopped")
+      %div.panel-body
+        - if flash[:error]
+          %div.alert.alert-danger= flash[:error]
+        = link_to icon("fa-play") << t("fluentd.common.start"), start_fluentd_agent_path(@fluentd),     method: :put, class: "btn #{@fluentd.agent.running? ? "disabled btn-default" : "btn-primary"}"
+        = link_to icon("fa-pause") << t("fluentd.common.stop"), stop_fluentd_agent_path(@fluentd),       method: :put, class: "btn #{@fluentd.agent.running? ? "btn-danger" : "disabled btn-default"}"
+        = link_to icon("fa-refresh") << t("fluentd.common.restart"), restart_fluentd_agent_path(@fluentd), method: :put, class: "btn #{@fluentd.agent.running? ? "btn-warning" : "disabled btn-default"}"
+  %div.col-lg-6
+    %div.panel.panel-default
+      %div.panel-heading
+        %h4= t('.fluentd_info')
+      %table.table.table-hover
+        %tbody
+          %tr
+            %th= @fluentd.class.human_attribute_name(:pid_file)
+            %td= @fluentd.agent.pid_file
+          %tr
+            %th= @fluentd.class.human_attribute_name(:log_file)
+            %td= @fluentd.agent.log_file
+          %tr
+            %th= @fluentd.class.human_attribute_name(:config_file)
+            %td= @fluentd.agent.config_file
 
-- @fluentds.each do |d|
-  %div{class: "panel panel-#{d.agent.running? ? "success":"default"}"}
-    %div.panel-heading
-      %h4
-        = d.label
-        - unless d.agent.running?
-          = link_to t(".edit"), edit_fluentd_path
-          %button{class: "btn btn-danger", data: {toggle: "modal", target:" #modal-destroy"}}
-            = t ".destroy"
-    %div.panel-body
-      :ruby
-        locals = {
-          head: t('.destroy_confirm_title', target: d.label),
-          body: t('.confirm_body', action: t('.destroy')),
-          primary_button: link_to(t(".destroy"), fluentd_path, method: :delete, class: "btn btn-danger")
-        }
-      = render partial: "shared/modal", locals: locals
-
-      %h4
-        - if d.agent.running?
-          = icon("fa-play")
-          = t("fluentd.common.running")
-        - else
-          = icon("fa-pause")
-          = t("fluentd.common.stopped")
-      %p
-        = link_to t(".operation"), fluentd_agent_path # TODO
