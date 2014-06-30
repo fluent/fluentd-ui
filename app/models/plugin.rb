@@ -150,15 +150,26 @@ class Plugin
     self.class.gemfile_path
   end
 
-  private
-
   def gem_versions
-    url = "https://rubygems.org/api/v1/versions/#{gem_name}.json"
-    Rails.cache.fetch(url, expires_in: 60.minutes) do  # NOTE: 60.minutes could be changed if it doesn't fit
-      res = HTTPClient.get(url)
-      res.body if res.code == 200
+    Rails.cache.fetch(gem_json_url, expires_in: 60.minutes) do  # NOTE: 60.minutes could be changed if it doesn't fit
+      gem_versions!
     end
   end
+
+  def gem_versions!
+    res = HTTPClient.get(gem_json_url)
+    if res.code == 200
+      json = res.body
+      Rails.cache.write(gem_json_url, json, expires_in: 60.minutes) # NOTE: 60.minutes could be changed if it doesn't fit
+      json
+    end
+  end
+
+  def gem_json_url
+    "https://rubygems.org/api/v1/versions/#{gem_name}.json"
+  end
+
+  private
 
   def gem_install
     data = { plugin: self, state: :running, type: :install }
