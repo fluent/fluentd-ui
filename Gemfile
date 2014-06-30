@@ -16,4 +16,5 @@ group :test do
   gem "capybara", "~> 2.2.1"
   gem "simplecov", "~> 0.7.1", require: false
   gem "webmock", "~> 1.18.0"
+  gem "timecop"
 end

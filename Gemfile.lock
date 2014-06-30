@@ -203,6 +203,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    timecop (0.7.1)
     timers (1.1.0)
     treetop (1.4.15)
       polyglot
@@ -232,4 +233,5 @@ DEPENDENCIES
   rake
   rspec-rails (~> 2.99)
   simplecov (~> 0.7.1)
+  timecop
   webmock (~> 1.18.0)

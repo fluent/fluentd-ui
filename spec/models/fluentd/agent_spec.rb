@@ -28,44 +28,88 @@ describe Fluentd::Agent do
       end
     end
 
-    describe "#recent_errors" do
+    describe "#logged_errors" do
       before { instance.stub(:log_file).and_return(logfile) }
 
-      context "have 0 error log" do
-        let(:logfile) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
-        subject { instance.recent_errors(2) }
+      describe "#errors_since" do
+        let(:logged_time) { Time.parse('2014-05-27') }
+        let(:now) { Time.parse('2014-05-29') }
 
-        it "empty array" do
-          should be_empty
+        before { Timecop.freeze(now) }
+        after { Timecop.return }
+
+        subject { instance.errors_since(days.days.ago) }
+
+        context "has no errors" do
+          let(:logfile) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
+          let(:days) { 100 }
+
+          it "empty array" do
+            should be_empty
+          end
+        end
+
+        context "has errors" do
+          let(:logfile) { File.expand_path("./spec/support/fixtures/error2.log", Rails.root) }
+
+          context "unreachable since" do
+            let(:days) { 0 }
+            it { should be_empty }
+          end
+
+          context "reachable since" do
+            let(:days) { 100 }
+
+            it "contain stack trace" do
+              subject[0][:subject].should include("Address already in use - bind(2)")
+            end
+
+            it "newer(bottom) is first" do
+              one = Time.parse(subject[0][:subject])
+              two = Time.parse(subject[1][:subject])
+              one.should >= two
+            end
+          end
         end
       end
 
-      context "have 2 error log" do
-        let(:logfile) { File.expand_path("./spec/support/fixtures/error2.log", Rails.root) }
-        subject { instance.recent_errors(2) }
+      describe "#recent_errors" do
+        context "have 0 error log" do
+          let(:logfile) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
+          subject { instance.recent_errors(2) }
 
-        describe "limit" do
-          subject { instance.recent_errors(limit).length }
-
-          context "=1" do
-            let(:limit) { 1 }
-            it { should == limit }
-          end
-
-          context "=2" do
-            let(:limit) { 2 }
-            it { should == limit }
+          it "empty array" do
+            should be_empty
           end
         end
 
-        it "contain stack trace" do
-          subject[0][:subject].should include("Address already in use - bind(2)")
-        end
+        context "have 2 error log" do
+          let(:logfile) { File.expand_path("./spec/support/fixtures/error2.log", Rails.root) }
+          subject { instance.recent_errors(2) }
 
-        it "newer(bottom) is first" do
-          one = Time.parse(subject[0][:subject])
-          two = Time.parse(subject[1][:subject])
-          one.should >= two
+          describe "limit" do
+            subject { instance.recent_errors(limit).length }
+
+            context "=1" do
+              let(:limit) { 1 }
+              it { should == limit }
+            end
+
+            context "=2" do
+              let(:limit) { 2 }
+              it { should == limit }
+            end
+          end
+
+          it "contain stack trace" do
+            subject[0][:subject].should include("Address already in use - bind(2)")
+          end
+
+          it "newer(bottom) is first" do
+            one = Time.parse(subject[0][:subject])
+            two = Time.parse(subject[1][:subject])
+            one.should >= two
+          end
         end
       end
     end
