@@ -11,11 +11,12 @@ Rails.application.routes.draw do
       get "log_tail"
     end
     resource :setting, only: [:show, :edit, :update], module: :fluentd do
-      get "in_tail"
-      post "in_tail_after_file_choose"
-      post "in_tail_after_format"
-      post "in_tail_confirm"
-      post "in_tail_finish"
+      resource :in_tail, only: ["show"], module: :settings, controller: :in_tail do
+        post "after_file_choose"
+        post "after_format"
+        post "confirm"
+        post "finish"
+      end
     end
   end
 

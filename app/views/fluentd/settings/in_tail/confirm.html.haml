@@ -1,0 +1,13 @@
+- page_title t(".page_title")
+
+= link_to t('fluentd.settings.in_tail.restart_from_first'), fluentd_setting_in_tail_path(@fluentd)
+
+= form_for(@setting, as: "setting", url: finish_fluentd_setting_in_tail_path(@fluentd)) do |f|
+  = render partial: "form", locals: { f: f }
+
+  %pre= @setting.to_conf
+
+  %p
+    = f.submit t('fluentd.common.finish')   , class: "btn btn-lg btn-primary pull-right"
+    = f.submit t('terms.prev'),   class: "btn btn-lg btn-default", name: "back"
+    .clearfix.pull-right= t('terms.notice_restart_for_config_edit')

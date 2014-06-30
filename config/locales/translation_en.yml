@@ -106,62 +106,64 @@ en:
       <<: *fluentd_common
       page_title: fluentd | Log
     settings:
-      restart_from_first: Restart from first
-      grok_manual: |
-        <p>
-        Grok syntax, for example, <code>%{INT:foo}</code> pattern given then translate to <code>/(?&lt;foo&gt;(?:[+-]?(?:[0-9]+)))/</code> regexp.
-        </p>
-        <p>
-        Available key/value are <a href="http://grokdebug.herokuapp.com/patterns" target="_blank">here</a>.
-        </p>
-
-        <h4>Example</h4>
-
-        <p>
-        <code>Nov 29 17:02:55 MacBook-Pro-2.local UserEventAgent[239] : cannot find fw daemon port 1102</code> the log you have,<br />
-        <code>%{MONTH:month}%{SPACE}%{MONTHDAY:day} %{TIME:time} %{DATA} \[%{INT:pid}\]</code> for matching that, you will gain following result.
-        </p>
-
-        <table class="table">
-        <thead>
-        <tr>
-        <th>Key</th>
-        <th>Value</th>
-        </tr>
-        </thead>
-
-          <tr>
-          <th>month</th><td>Nov</td>
-          </tr>
-          <tr>
-          <th>day</th><td>29</td>
-          </tr>
-          <tr>
-          <th>time</th><td>17:02:55</td>
-          </tr>
-          <tr>
-          <th>pid</th><td>239</td>
-          </tr>
-        </table>
-      in_tail_option_guide: |
-        See <a target="_blank" href="http://docs.fluentd.org/articles/in_tail">in_tail Plugin</a> or 
-        <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a> for more details.
       show:
         <<: *fluentd_common
       edit:
         <<: *fluentd_common
+      in_tail_option_guide: |
+        See <a target="_blank" href="http://docs.fluentd.org/articles/in_tail">in_tail Plugin</a> or 
+        <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a> for more details.
       in_tail:
         <<: *fluentd_common
-        page_title: "File readling | Choosing File"
-      in_tail_after_file_choose:
-        <<: *fluentd_common
-        page_title: "File readling | Setting format"
-      in_tail_after_format:
-        <<: *fluentd_common
-        page_title: "File readling | Other config"
-      in_tail_confirm:
-        <<: *fluentd_common
-        page_title: "File readling | Confirmation"
+        restart_from_first: Restart from first
+        grok_manual: |
+          <p>
+          Grok syntax, for example, <code>%{INT:foo}</code> pattern given then translate to <code>/(?&lt;foo&gt;(?:[+-]?(?:[0-9]+)))/</code> regexp.
+          </p>
+          <p>
+          Available key/value are <a href="http://grokdebug.herokuapp.com/patterns" target="_blank">here</a>.
+          </p>
+
+          <h4>Example</h4>
+
+          <p>
+          <code>Nov 29 17:02:55 MacBook-Pro-2.local UserEventAgent[239] : cannot find fw daemon port 1102</code> the log you have,<br />
+          <code>%{MONTH:month}%{SPACE}%{MONTHDAY:day} %{TIME:time} %{DATA} \[%{INT:pid}\]</code> for matching that, you will gain following result.
+          </p>
+
+          <table class="table">
+          <thead>
+          <tr>
+          <th>Key</th>
+          <th>Value</th>
+          </tr>
+          </thead>
+
+            <tr>
+            <th>month</th><td>Nov</td>
+            </tr>
+            <tr>
+            <th>day</th><td>29</td>
+            </tr>
+            <tr>
+            <th>time</th><td>17:02:55</td>
+            </tr>
+            <tr>
+            <th>pid</th><td>239</td>
+            </tr>
+          </table>
+        show:
+          <<: *fluentd_common
+          page_title: "File readling | Choosing File"
+        after_file_choose:
+          <<: *fluentd_common
+          page_title: "File readling | Setting format"
+        after_format:
+          <<: *fluentd_common
+          page_title: "File readling | Other config"
+        confirm:
+          <<: *fluentd_common
+          page_title: "File readling | Confirmation"
 
   misc:
     common: &misc_common
