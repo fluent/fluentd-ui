@@ -59,12 +59,12 @@ describe Fluentd::Agent do
         end
 
         it "contain stack trace" do
-          subject[0].join.should include("<top (required)>")
+          subject[0][:subject].should include("Address already in use - bind(2)")
         end
 
         it "newer(bottom) is first" do
-          one = Time.parse(subject[0].first)
-          two = Time.parse(subject[1].first)
+          one = Time.parse(subject[0][:subject])
+          two = Time.parse(subject[1][:subject])
           one.should >= two
         end
       end
