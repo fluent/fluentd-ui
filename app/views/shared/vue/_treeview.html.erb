@@ -10,9 +10,7 @@
         <span v-if="$index > 0">
           <%= icon('fa-caret-right') %>
         </span>
-        <span v-on="click: selectPath($value)" class="dir">
-          {{ basename($value) }}
-        </span>
+        <span v-on="click: selectPath($value)" class="dir">{{ basename($value) }}</span>
      </span>
    </div>
    <div class="tree">

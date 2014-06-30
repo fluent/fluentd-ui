@@ -45,24 +45,57 @@ class Fluentd
         File.read(log_file) # TODO: large log file
       end
 
-      def recent_errors(limit = 3)
-        return [] unless File.exist?(log_file)
+      def errors_since(since = 1.day.ago)
         errors = []
+        logged_errors do |error|
+          break if Time.parse(error[:subject]) < since
+          errors << error
+        end
+        errors
+      end
+
+      def recent_errors(limit = 3)
+        errors = []
+        logged_errors do |error|
+          errors << error
+          break if errors.length >= limit
+        end
+        errors
+      end
+
+      def logged_errors(&block)
+        return [] unless File.exist?(log_file)
         buf = []
         io = File.open(log_file)
         reader = ::FileReverseReader.new(io)
         reader.each_line do |line|
-          break if errors.length >= limit
           unless line["error"]
             if buf.present?
-              errors << buf.reverse
+              # NOTE: if a following log is given
+              #         2014-06-30 11:24:08 +0900 [error]: unexpected error error_class=Errno::EADDRINUSE error=#<Errno::EADDRINUSE: Address already in use - bind(2) for 0.0.0.0:24220>
+              #         2014-06-30 11:24:08 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.2/lib/ruby/2.1.0/socket.rb:206:in `bind'
+              #         2014-06-30 11:24:08 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.2/lib/ruby/2.1.0/socket.rb:206:in `listen'
+              #         2014-06-30 11:24:08 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.2/lib/ruby/2.1.0/socket.rb:461:in `block in tcp_server_sockets'
+              #       the first line become a "subject", trailing lines are "notes"
+              #       {
+              #         subject: "2014-06-30 11:24:08 +0900 [error]: unexpected error error_class=Errno::EADDRINUSE error=#<Errno::EADDRINUSE: Address already in use - bind(2) for 0.0.0.0:24220>",
+              #         notes: [
+              #           2014-06-30 11:24:08 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.2/lib/ruby/2.1.0/socket.rb:206:in `bind'
+              #           2014-06-30 11:24:08 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.2/lib/ruby/2.1.0/socket.rb:206:in `listen'
+              #           2014-06-30 11:24:08 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.2/lib/ruby/2.1.0/socket.rb:461:in `block in tcp_server_sockets'
+              #         ]
+              #       }
+              subject, *notes = *buf.reverse
+              block.call({
+                subject: subject,
+                notes: notes,
+              })
             end
             buf = []
             next
           end
           buf << line
         end
-        errors
       ensure
         io && io.close
       end

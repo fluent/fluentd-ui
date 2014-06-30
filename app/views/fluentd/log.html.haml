@@ -1,0 +1,19 @@
+
+- page_title t('.page_title', label: @fluentd.label)
+
+= link_to t('.raw_log_link'), raw_log_fluentd_path(@fluentd)
+
+
+%h3= t('.recent_errors', days: @error_duration_days)
+
+%div.row
+  %div.col-lg-12
+    - @errors.each do |error|
+      %div.panel.panel-default
+        %div.panel-heading
+          %h4= error[:subject]
+        - if error[:notes].present?
+          %div.panel-body
+            %ul
+              - error[:notes].each do |stack|
+                %li= stack

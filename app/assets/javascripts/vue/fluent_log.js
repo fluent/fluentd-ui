@@ -10,7 +10,8 @@
       data: {
         "autoFetch": false,
         "logs": [],
-        "limit": 30
+        "limit": 30,
+        "processing": false
       },
 
       created: function(){
@@ -24,7 +25,7 @@
               self.fetchLogs();
               var $log = $(".log", self.$el);
               $log.scrollTop($log[0].scrollHeight);
-            }, 3000);
+            }, 1000);
           } else {
             clearInterval(timer);
           }
@@ -33,13 +34,18 @@
 
       methods: {
         fetchLogs: function() {
+          if(this.processing) return;
+          this.processing = true;
           var self = this;
           new Promise(function(resolve, reject) {
             $.getJSON(self.logUrl + "?limit=" + self.limit, resolve).fail(reject);
           }).then(function(logs){
             self.logs = logs;
+            setTimeout(function(){
+              self.processing = false;
+            }, 256); // delay to reduce flicking loading icon
           });
-        },
+        }
       }
     });
   });

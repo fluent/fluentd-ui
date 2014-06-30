@@ -10,8 +10,8 @@ ja:
     installed: インストール済み
     not_installed: 未インストール
     new_version: "%{version}があります"
-    plugins: &plugins プラグイン
-    misc: &misc その他
+    plugins: プラグイン
+    misc: その他
     version: バージョン
     fluent_version: "fluentd %{version}"
     no_alert: 通知なし
@@ -31,12 +31,13 @@ ja:
     destroy_confirm_title: "%{target}を削除"
     confirm_body: |
       %{action}しますか？
-    reload_log: fluentdのログを更新
+    reload_log: ログ更新
     auto_reload: "自動更新(%{seconds}秒ごと)"
     next: 次へ
     prev: 前へ
     advanced_setting: 高度な設定
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
+    lines: 行
 
   plugins:
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
@@ -70,7 +71,7 @@ ja:
   users: &users
     show:
       <<: *terms
-      page_title: ユーザー管理
+      page_title: パスワード管理
 
   fluentd: &fluentd
     common: &fluentd_common
@@ -82,27 +83,28 @@ ja:
       stopped: 停止中
       running: 稼働中
       operation: プロセス詳細
-      setting: 設定
+      edit_config: 設定ファイルの編集
       config_file: 設定ファイル
       page_title: "%{label}"
-      setup_in_tail: in_tailセットアップ
+      setup_in_tail: ファイル読み込みの設定
       finish: 設定する
+      fluentd_info: 設定情報
+      recent_errors: "直近 %{days} 日内のエラー"
+      raw_log_link: ログファイルをダウンロード
     form:
       <<: *fluentd_common
     show:
       <<: *fluentd_common
-      page_title: fluentd
+      page_title: "%{label}"
     new:
       <<: *fluentd_common
       page_title: fluentd | 追加
     edit:
       <<: *fluentd_common
       page_title: fluentd | 編集
-    agents:
-      show:
-        <<: *fluentd_common
-        fluentd_info: 設定情報
-        recent_errors: "最新 %{count}件のエラー"
+    log:
+      <<: *fluentd_common
+      page_title: fluentd | ログ
     settings:
       restart_from_first: 最初からやり直す
       in_tail_option_guide: |
@@ -149,16 +151,16 @@ ja:
         <<: *fluentd_common
       in_tail:
         <<: *fluentd_common
-        page_title: "in_tailセットアップ | ファイルの選択"
+        page_title: "ファイル読み込み | ファイルの選択"
       in_tail_after_file_choose:
         <<: *fluentd_common
-        page_title: "in_tailセットアップ | フォーマットの設定"
+        page_title: "ファイル読み込み | フォーマットの設定"
       in_tail_after_format:
         <<: *fluentd_common
-        page_title: "in_tailセットアップ | その他の設定"
+        page_title: "ファイル読み込み | その他の設定"
       in_tail_confirm:
         <<: *fluentd_common
-        page_title: "in_tailセットアップ | 確認"
+        page_title: "ファイル読み込み | 確認"
 
   misc:
     common: &misc_common
@@ -317,7 +319,7 @@ ja:
       is_a_directory: はディレクトリです。ファイルを指定してください
       duplicated_conf: 同じ内容の設定がすでに存在しています
 
-  activerecord:
+  activemodel: &activemodel
     errors:
       messages:
         <<: *error_messages
@@ -339,3 +341,6 @@ ja:
         config_file: 設定ファイル
         variant: タイプ
         api_endpoint: APIエンドポイント
+
+  activerecord: # for rspec
+    <<: *activemodel

@@ -33,5 +33,10 @@ module FluentdUi
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = 'en'
     config.autoload_paths += %W(#{config.root}/app/workers #{config.root}/lib)
+
+    # NOTE: currently, fluentd-ui does not using ActiveRecord, and using Time.now instead of Time.zone.now for each different TZ for users.
+    #       If AR will be used, please comment in and check timezone.
+    # config.active_record.default_timezone = :local
+    # config.time_zone =
   end
 end

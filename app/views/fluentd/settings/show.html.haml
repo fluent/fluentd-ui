@@ -1,9 +1,14 @@
 - page_title t('.page_title', label: @fluentd.label)
 
-%h2= t(".setting")
-%pre
-  = @config
+.row
+  %h2
+    = t(".edit_config")
+  = link_to icon('fa-pencil') << t(".edit"), edit_fluentd_setting_path(@fluentd)
+  %pre
+    = preserve do
+      = @config
 
-= link_to t(".edit"), edit_fluentd_setting_path(@fluentd)
-
-= link_to t(".setup_in_tail"), in_tail_fluentd_setting_path(@fluentd)
+.row
+  .col-lg-4.well
+    = link_to icon('fa-file-text-o fa-lg'), in_tail_fluentd_setting_path(@fluentd)
+    = link_to t(".setup_in_tail"), in_tail_fluentd_setting_path(@fluentd)

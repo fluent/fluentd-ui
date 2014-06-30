@@ -86,16 +86,25 @@ label {
       background-color: #9cf;
     }
     .fa-folder, .fa-folder-open {
-      color: #6af;
+      color: #69f;
     }
   }
   .dirs {
     padding: 1ex 0;
     .dir {
-      background: #e0e9f9;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
       padding: 0 1ex;
-      margin: 0 1ex 0 0;
+      margin: 0 1ex;
       cursor: pointer;
+
+      &:hover {
+        background-color: #e0e0ff;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
     }
     .fa-caret-right {
       color: #bbb;

@@ -74,7 +74,7 @@ class Fluentd
   end
 
   def label
-    "#{variant}"
+    "fluentd" # NOTE: for multiple fluentd management, but only single fluentd manage now
   end
 
   def expand_paths
@@ -123,7 +123,7 @@ class Fluentd
 
   # ActiveRecord mimic
 
-  def self.factory
+  def self.instance
     return unless exists?
     attr = JSON.parse(File.read(JSON_PATH))
     Fluentd.new(attr)

@@ -27,7 +27,7 @@ class TutorialsController < ApplicationController
   end
 
   def find_fluentd
-    @fluentd = Fluentd.factory
+    @fluentd = Fluentd.instance
   end
 
   def check_ready

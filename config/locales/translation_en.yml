@@ -10,8 +10,8 @@ en:
     new_version: "%{version} is available"
     install_latest: Install latest
     installed_plugins: Installed Plugins
-    plugins: &plugins Plugins
-    misc: &misc Miscellaneous
+    plugins: Plugins
+    misc: Miscellaneous
     version: Version
     fluent_version: "fluentd %{version}"
     no_alert: Nothing
@@ -31,12 +31,13 @@ en:
     destroy_confirm_title: "%{target} Deletion"
     confirm_body: |
       Really %{action}?
-    reload_log: Reload fluend log
+    reload_log: Reload log
     auto_reload: "Auto Reload(every %{seconds} seconds)"
     next: Next
     prev: Prev
     advanced_setting: Advanced Setting
     notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
+    lines: Lines
 
   plugins:
     notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
@@ -82,11 +83,14 @@ en:
       stopped: Stopped
       running: Running
       operation: Detail
-      setting: Setting
+      edit_config: Edit Config
       config_file: Config file
       page_title: "%{label}"
-      setup_in_tail: Setup in_tail
+      setup_in_tail: Setting file reading
       finish: Update config
+      fluentd_info: Setting info
+      recent_errors: "Recently %{days} days errors"
+      raw_log_link: Download log file
     form:
       <<: *fluentd_common
     show:
@@ -98,11 +102,9 @@ en:
     edit:
       <<: *fluentd_common
       page_title: fluentd | Edit
-    agents:
-      show:
-        <<: *fluentd_common
-        fluentd_info: Setting info
-        recent_errors: "Recent %{count} Errors"
+    log:
+      <<: *fluentd_common
+      page_title: fluentd | Log
     settings:
       restart_from_first: Restart from first
       grok_manual: |
@@ -150,16 +152,16 @@ en:
         <<: *fluentd_common
       in_tail:
         <<: *fluentd_common
-        page_title: "Setup in_tail | Choosing File"
+        page_title: "File readling | Choosing File"
       in_tail_after_file_choose:
         <<: *fluentd_common
-        page_title: "Setup in_tail | Setting format"
+        page_title: "File readling | Setting format"
       in_tail_after_format:
         <<: *fluentd_common
-        page_title: "Setup in_tail | Other config"
+        page_title: "File readling | Other config"
       in_tail_confirm:
         <<: *fluentd_common
-        page_title: "Setup in_tail | Confirmation"
+        page_title: "File readling | Confirmation"
 
   misc:
     common: &misc_common
@@ -318,7 +320,7 @@ en:
       is_a_directory: is a directory. should be a file
       duplicated_conf: Configurations is duplicated
 
-  activerecord:
+  activemodel: &activemodel
     errors:
       messages:
         <<: *error_messages
@@ -340,3 +342,6 @@ en:
         config_file: Config file
         variant: type
         api_endpoint: API Endpoint
+
+  activerecord: # for rspec
+    <<: *activemodel

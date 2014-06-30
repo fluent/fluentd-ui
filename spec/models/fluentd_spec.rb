@@ -56,6 +56,7 @@ describe Fluentd do
   end
 
   let(:fluentd) { build(:fluentd) }
+  after { File.unlink(Fluentd::JSON_PATH) if File.exist?(Fluentd::JSON_PATH) }
 
   describe "#valid?" do
     before do
