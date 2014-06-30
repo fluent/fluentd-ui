@@ -1,6 +1,6 @@
 class FluentdController < ApplicationController
-  before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log]
-  before_action :check_fluentd_exists, only: [:edit, :log]
+  before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log, :raw_log]
+  before_action :check_fluentd_exists, only: [:edit, :log, :raw_log]
 
   def show
   end
@@ -37,10 +37,12 @@ class FluentdController < ApplicationController
   end
 
   def log
+    @error_duration_days = 5
+    @errors = @fluentd.agent.errors_since(@error_duration_days.days.ago)
   end
 
   def raw_log
-    render text: @fluentd.agent.log, content_type: "text/plain"
+    send_data @fluentd.agent.log, type: "application/octet-stream", filename: File.basename(@fluentd.log_file)
   end
 
   private

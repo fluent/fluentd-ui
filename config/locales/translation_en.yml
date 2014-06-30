@@ -89,7 +89,8 @@ en:
       setup_in_tail: Setting file reading
       finish: Update config
       fluentd_info: Setting info
-      recent_errors: "Recent %{count} Errors"
+      recent_errors: "Recently %{days} days errors"
+      raw_log_link: Download log file
     form:
       <<: *fluentd_common
     show:

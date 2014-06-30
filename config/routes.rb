@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resource :fluentd, controller: :fluentd do
     get "log"
+    get "raw_log"
     resource :agent, only: [], module: :fluentd do
       put "start"
       put "stop"

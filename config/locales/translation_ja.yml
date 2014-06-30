@@ -89,7 +89,8 @@ ja:
       setup_in_tail: ファイル読み込みの設定
       finish: 設定する
       fluentd_info: 設定情報
-      recent_errors: "最新 %{count}件のエラー"
+      recent_errors: "直近 %{days} 日内のエラー"
+      raw_log_link: ログファイルをダウンロード
     form:
       <<: *fluentd_common
     show:
