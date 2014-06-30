@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "fluentd#show" # TODO: change to dashboard
+  root "welcome#home"
 
   resource :fluentd, controller: :fluentd do
     get "log"
