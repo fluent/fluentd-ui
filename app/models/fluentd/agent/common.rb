@@ -46,23 +46,29 @@ class Fluentd
       end
 
       def recent_errors(limit = 3)
-        return [] unless File.exist?(log_file)
         errors = []
+        logged_errors do |error|
+          errors << error
+          break if errors.length >= limit
+        end
+        errors
+      end
+
+      def logged_errors(&block)
+        return [] unless File.exist?(log_file)
         buf = []
         io = File.open(log_file)
         reader = ::FileReverseReader.new(io)
         reader.each_line do |line|
-          break if errors.length >= limit
           unless line["error"]
             if buf.present?
-              errors << buf.reverse
+              block.call(buf.reverse)
             end
             buf = []
             next
           end
           buf << line
         end
-        errors
       ensure
         io && io.close
       end
