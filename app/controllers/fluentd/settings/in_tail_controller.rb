@@ -38,10 +38,7 @@ class Fluentd::Settings::InTailController < ApplicationController
       return render "after_format"
     end
 
-    File.open(@fluentd.agent.config_file, "a") do |f| # TODO: should update by agent class
-      f.write "\n"
-      f.write @setting.to_conf
-    end
+    @fluentd.agent.config_append @setting.to_conf
     @fluentd.agent.restart if @fluentd.agent.running?
     redirect_to fluentd_setting_path(@fluentd)
   end

@@ -45,6 +45,23 @@ class Fluentd
         File.read(log_file) # TODO: large log file
       end
 
+      def config
+        File.read(config_file)
+      end
+
+      def config_write(content)
+        File.open(config_file, "w") do |f|
+          f.write content
+        end
+      end
+
+      def config_append(content)
+        File.open(config_file, "a") do |f|
+          f.write "\n"
+          f.write content
+        end
+      end
+
       def errors_since(since = 1.day.ago)
         errors = []
         logged_errors do |error|
