@@ -1,4 +1,9 @@
 en:
+  messages:
+    need_restart: need to restart fluentd-ui
+    please_sign_in: Sign in
+    destroy_succeed_fluentd_setting: Deleted fluentd setting
+
   terms: &terms
     sign_in: Sign in
     sign_out: Sign out
@@ -91,6 +96,11 @@ en:
       fluentd_info: Setting info
       recent_errors: "Recently %{days} days errors"
       raw_log_link: Download log file
+      destroy_fluentd_setting: Delete fluentd setting
+      destroy_fluentd_setting_warning: |
+        Delete fluentd setting.
+        
+        <p>Running fluentd will be stopped, but log and config file are still exists.</p>
     form:
       <<: *fluentd_common
     show:
@@ -299,14 +309,6 @@ en:
         - [Source code(GitHub)](https://github.com/fluent/fluentd)
         - [Twitter @fluentd](https://twitter.com/fluentd)
 
-
-  messages:
-    need_restart: need to restart fluentd-ui
-    please_sign_in: Sign in
-
-
-  messages:
-    need_restart: Need to restart fluentd-ui
 
   error:
     login_failed: Login failed

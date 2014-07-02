@@ -2,4 +2,7 @@
   - if flash[:warning]
     %p.alert.alert-warning
       =raw flash[:warning]
+  - if flash[:success]
+    %p.alert.alert-success
+      =raw flash[:success]
 

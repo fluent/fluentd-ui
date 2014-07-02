@@ -20,8 +20,26 @@
     .col-lg-6
       .panel.panel-default
         .panel-heading
-          = link_to t('.edit'), edit_fluentd_path, class: "pull-right btn btn-default"
+          .pull-right
+            = link_to t('.edit'), edit_fluentd_path, class: "btn btn-default"
+            = link_to t('.destroy'), "#", class: "btn btn-danger", data: { toggle: "modal", target: "#setting-destroy-modal" }
           %h4= t('.fluentd_info')
+          .modal.fade{id: "setting-destroy-modal"}
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  %button.close{"data-dismiss" => "modal"}
+                    = raw "&times;"
+                  %h4.modal-title
+                    = t('.destroy_fluentd_setting')
+                .modal-body
+                  = raw t('.destroy_fluentd_setting_warning')
+                .modal-footer
+                  = form_tag(fluentd_path(@fluentd), method: :delete) do
+                    %button.btn.btn-default{"data-dismiss" => "modal"}
+                      Close
+                    = submit_tag t('.destroy'), class: "btn btn-danger"
+
         %table.table.table-hover
           %tbody
             %tr

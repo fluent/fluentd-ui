@@ -1,4 +1,9 @@
 ja:
+  messages:
+    need_restart: fluentd-uiの再起動が必要です
+    please_sign_in: ログイン
+    destroy_succeed_fluentd_setting: fluentdの設定を削除しました
+
   terms: &terms
     sign_in: ログイン
     sign_out: ログアウト
@@ -91,6 +96,11 @@ ja:
       fluentd_info: 設定情報
       recent_errors: "直近 %{days} 日内のエラー"
       raw_log_link: ログファイルをダウンロード
+      destroy_fluentd_setting: fluentdの設定情報を削除
+      destroy_fluentd_setting_warning: |
+        fluentdの設定を削除します。
+        
+        <p>起動中のfluentdは停止し、ログや設定ファイルはそのまま残存します。</p>
     form:
       <<: *fluentd_common
     show:
@@ -297,12 +307,6 @@ ja:
         - [メーリングリスト](https://groups.google.com/forum/?fromgroups#!forum/fluentd)
         - [ソースコード(GitHub)](https://github.com/fluent/fluentd)
         - [Twitter @fluentd](https://twitter.com/fluentd)
-
-
-
-  messages:
-    need_restart: fluentd-uiの再起動が必要です
-    please_sign_in: ログイン
 
   error:
     login_failed: ログインに失敗しました。
