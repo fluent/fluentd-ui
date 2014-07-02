@@ -2,6 +2,7 @@ class Fluentd
   class Agent
     class TdAgent
       include Common
+      include LocalCommon
 
       def self.default_options
         {

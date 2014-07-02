@@ -124,7 +124,7 @@ describe Fluentd::Agent do
     it_should_behave_like "Agent has common behavior"
 
     describe "#options_to_argv" do
-      subject { instance.options_to_argv }
+      subject { instance.send(:options_to_argv) }
       it { should include("-c #{instance.config_file}") }
       it { should include("-d #{instance.pid_file}") }
       it { should include("-o #{instance.log_file}") }

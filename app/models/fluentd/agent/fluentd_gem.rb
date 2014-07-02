@@ -2,6 +2,7 @@ class Fluentd
   class Agent
     class FluentdGem
       include Common
+      include LocalCommon
 
       def self.default_options
         # TODO: current default options from fluentd --setup, but root permission required for them.
@@ -11,15 +12,6 @@ class Fluentd
           :log_file => "/var/log/fluent.log",
           :config_file => "/etc/fluent/fluent.conf",
         }
-      end
-
-      def options_to_argv
-        argv = ""
-        argv << " --use-v1-config"
-        argv << " -c #{config_file}"
-        argv << " -d #{pid_file}"
-        argv << " -o #{log_file}"
-        argv
       end
 
       # return value is status_after_this_method_called == started
@@ -45,6 +37,15 @@ class Fluentd
       end
 
       private
+
+      def options_to_argv
+        argv = ""
+        argv << " --use-v1-config"
+        argv << " -c #{config_file}"
+        argv << " -d #{pid_file}"
+        argv << " -o #{log_file}"
+        argv
+      end
 
       def validate_fluentd_options
         system("bundle exec fluentd --dry-run #{options_to_argv}")
