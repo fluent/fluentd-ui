@@ -52,7 +52,7 @@ class FluentdController < ApplicationController
   end
 
   def check_fluentd_exists
-    unless find_fluentd
+    unless fluentd_exists?
       redirect_to root_path
     end
   end

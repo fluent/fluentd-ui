@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_locale
   helper_method :installing_gem?, :installing_gems, :uninstalling_gem?, :uninstalling_gems
   helper_method :file_tail
+  helper_method :fluentd_exists?
   before_action :login_required
   before_action :set_locale
 
@@ -41,6 +42,10 @@ class ApplicationController < ActionController::Base
 
   def uninstalling_gems
     Plugin.uninstalling
+  end
+
+  def fluentd_exists?
+    !!Fluentd.instance
   end
 
   private
