@@ -114,12 +114,13 @@ ja:
       page_title: fluentd | 編集
     log:
       <<: *fluentd_common
-      page_title: fluentd | ログ
+      page_title: fluentd ログ
       error_is_empty: エラーはありません
     settings:
       <<: *fluentd_common
       show:
         <<: *fluentd_common
+        page_title: fluentd 設定
       edit:
         <<: *fluentd_common
       in_tail_option_guide: |

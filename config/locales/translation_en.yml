@@ -114,11 +114,12 @@ en:
       page_title: fluentd | Edit
     log:
       <<: *fluentd_common
-      page_title: fluentd | Log
+      page_title: fluentd log
       error_is_empty: No errors
     settings:
       show:
         <<: *fluentd_common
+        page_title: fluentd config
       edit:
         <<: *fluentd_common
       in_tail_option_guide: |
