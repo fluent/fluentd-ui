@@ -14,16 +14,20 @@ class Fluentd
   JSON_PATH = Rails.root + "db/#{Rails.env}-fluentd.json"
   DEFAULT_CONF = <<-CONF.strip_heredoc
     <source>
+      # http://docs.fluentd.org/articles/in_forward
       type forward
       port 24224
     </source>
+
+    <source>
+      # http://docs.fluentd.org/articles/in_http
+      type http
+      port 9880
+    </source>
+
     <source>
       type monitor_agent
       port 24220
-    </source>
-    <source>
-      type http
-      port 9880
     </source>
     <source>
       type debug_agent
@@ -31,6 +35,7 @@ class Fluentd
     </source>
 
     <match debug.*>
+      # http://docs.fluentd.org/articles/out_stdout
       type stdout
     </match>
   CONF
