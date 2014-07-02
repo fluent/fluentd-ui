@@ -12,9 +12,12 @@
   </label>
 </p>
 
-<pre>
+<pre v-if="isPresentedLogs"><!-- be careful indent -->
 <div class="log"><span v-repeat="logs">{{ $value }}
 </span></div></pre>
+  <div v-if="!isPresentedLogs && !processing">
+    <p>[log is empty]</p>
+  </div>
 </div>
 <!-- /vue.js -->
 

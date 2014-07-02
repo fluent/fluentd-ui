@@ -32,6 +32,12 @@
         });
       },
 
+      computed: {
+        isPresentedLogs: function(){
+          return this.logs.length > 0;
+        }
+      },
+
       methods: {
         fetchLogs: function() {
           if(this.processing) return;
@@ -44,6 +50,8 @@
             setTimeout(function(){
               self.processing = false;
             }, 256); // delay to reduce flicking loading icon
+          })["catch"](function(error){
+            self.processing = false;
           });
         }
       }
