@@ -25,6 +25,8 @@ Or, for developers.
     $ bundle install
     $ bundle exec rails s
 
+fluentd-ui uses sqlite3. So, make sure you have `libsqlite3-dev` installed.
+
 # Building fluentd-ui.gem
 
 It has the same tasks of `bundle gem foobar; cd foobar; rake -T`.
