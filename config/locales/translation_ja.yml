@@ -115,6 +115,7 @@ ja:
     log:
       <<: *fluentd_common
       page_title: fluentd | ログ
+      error_is_empty: エラーはありません
     settings:
       <<: *fluentd_common
       show:

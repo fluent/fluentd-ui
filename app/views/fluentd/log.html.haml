@@ -17,3 +17,5 @@
             %ul
               - error[:notes].each do |stack|
                 %li= stack
+    - if @errors.empty?
+      %p= t('.error_is_empty')
