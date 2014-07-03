@@ -195,10 +195,21 @@ class Plugin
     # NOTE: use `fluent-gem` instead of `gem`
     Bundler.with_clean_env do
       # NOTE: this app is under the Bundler, so call `system` in with_clean_env is Bundler jail breaking
-      unless system(*%W(fluent-gem) + commands) # TODO: should grab stdout/stderr
+      unless system(* [fluent_gem_path, *commands])
         raise GemError, "failed command #{commands.join(" ")}"
       end
     end
     true
+  end
+
+  def fluent_gem_path
+    %W(
+      fluent-gem
+      /usr/lib/fluent/ruby/bin/fluent-gem
+      /usr/lib64/fluent/ruby/bin/fluent-gem
+      /opt/td-agent/embedded/bin/fluent-gem
+    ).find do |path|
+      system("which #{path}", out: File::NULL, err: File::NULL)
+    end
   end
 end
