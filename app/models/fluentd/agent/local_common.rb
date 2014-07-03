@@ -11,6 +11,7 @@ class Fluentd
       end
 
       def log
+        return "" unless File.exists?(log_file)
         File.read(log_file) # TODO: large log file
       end
 
@@ -32,6 +33,8 @@ class Fluentd
       end
 
       def log_tail(limit = nil)
+        return [] unless File.exists?(log_file)
+
         limit = limit.to_i rescue 0
         limit = limit.zero? ? Settings.default_log_tail_count : limit
         io = File.open(log_file)
