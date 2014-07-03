@@ -86,7 +86,7 @@ describe Plugin do
     end
 
     context "system command error" do
-      before { plugin.should_receive(:system).and_return(false) }
+      before { plugin.should_receive(:system).at_least(1).and_return(false) }
       subject { expect { plugin.install! } }
 
       it "raise GemError" do
