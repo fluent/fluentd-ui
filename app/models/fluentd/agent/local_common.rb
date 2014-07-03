@@ -1,11 +1,6 @@
 class Fluentd
   class Agent
     module LocalCommon
-      def pid
-        return unless File.exists?(pid_file)
-        File.read(pid_file).to_i rescue nil
-      end
-
       def running?
         begin
           pid && Process.kill(0, pid)
@@ -34,6 +29,31 @@ class Fluentd
           f.write "\n"
           f.write content
         end
+      end
+      def log_tail(limit = nil)
+        limit = limit.to_i rescue 0
+        limit = limit.zero? ? Settings.default_log_tail_count : limit
+        io = File.open(log_file)
+        buf = []
+        reader = ::FileReverseReader.new(io)
+        reader.each_line do |line|
+          buf << line
+          break if buf.length >= limit
+        end
+        buf
+      end
+
+      def configuration
+        if File.exists? config_file
+          ::Fluentd::Agent::Configuration.new(config_file)
+        end
+      end
+
+      private
+
+      def pid
+        return unless File.exists?(pid_file)
+        File.read(pid_file).to_i rescue nil
       end
 
       def logged_errors(&block)
@@ -71,25 +91,6 @@ class Fluentd
         end
       ensure
         io && io.close
-      end
-
-      def log_tail(limit = nil)
-        limit = limit.to_i rescue 0
-        limit = limit.zero? ? Settings.default_log_tail_count : limit
-        io = File.open(log_file)
-        buf = []
-        reader = ::FileReverseReader.new(io)
-        reader.each_line do |line|
-          buf << line
-          break if buf.length >= limit
-        end
-        buf
-      end
-
-      def configuration
-        if File.exists? config_file
-          ::Fluentd::Agent::Configuration.new(config_file)
-        end
       end
     end
   end

@@ -57,13 +57,16 @@ class Fluentd
         extra_options[:config_file] || self.class.default_options[:config_file]
       end
 
+
+      # define these methods on each Agent class
+
       %w(start stop restart).each do |method|
         define_method(method) do
           raise NotImplementedError
         end
       end
 
-      %w(running? log config config_write config_append logged_errors log_tail configuration).each do |method|
+      %w(running? log config config_write config_append log_tail configuration).each do |method|
         define_method(method) do
           raise NotImplementedError
         end
