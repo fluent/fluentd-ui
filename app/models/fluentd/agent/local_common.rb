@@ -30,6 +30,7 @@ class Fluentd
           f.write content
         end
       end
+
       def log_tail(limit = nil)
         limit = limit.to_i rescue 0
         limit = limit.zero? ? Settings.default_log_tail_count : limit
