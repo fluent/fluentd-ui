@@ -100,11 +100,6 @@ class Plugin
     "https://rubygems.org/gems/#{gem_name}"
   end
 
-  def self.gemfile_changed?
-    # if true, rails server needs to restart. new installed/removed gems are.
-    @initial_gemfile_content != File.read(gemfile_path)
-  end
-
   def self.installed
     return [] unless File.exist?(gemfile_path)
     File.read(gemfile_path).scan(/"(.*?)", "(.*?)"/).map do |plugin|
@@ -135,16 +130,6 @@ class Plugin
   def self.gemfile_path
     Rails.root + "Gemfile.plugins"
   end
-
-  def self.pristine!
-    unless File.exists?(gemfile_path)
-      File.open(gemfile_path, "w") do |f|
-        f.write "# USED BY fluentd-ui internally\n"
-      end
-    end
-    @initial_gemfile_content = File.read(gemfile_path)
-  end
-  pristine!
 
   def gemfile_path
     self.class.gemfile_path

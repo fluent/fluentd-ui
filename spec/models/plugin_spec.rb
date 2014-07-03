@@ -9,7 +9,6 @@ describe Plugin do
 
   after do
     File.unlink Plugin.gemfile_path if File.exist?(Plugin.gemfile_path)
-    Plugin.pristine!
   end
 
   describe "#valid?" do
@@ -104,7 +103,6 @@ describe Plugin do
         plugin.install!
       end
 
-      it { Plugin.should be_gemfile_changed }
       it { plugin.should be_installed }
     end
   end
@@ -115,7 +113,6 @@ describe Plugin do
     before do
       installed_plugin.stub(:fluent_gem).and_return(true)
       installed_plugin.install!
-      Plugin.pristine!
     end
 
     before do
@@ -123,7 +120,6 @@ describe Plugin do
     end
 
     it { installed_plugin.should_not be_installed }
-    it { Plugin.should be_gemfile_changed }
   end
 
   describe "#upgrade!" do
@@ -134,12 +130,10 @@ describe Plugin do
     before do
       Plugin.any_instance.stub(:fluent_gem).and_return(true) # NOTE: not `plugin.stub` because upgrade! creates new Plugin instance internally
       installed_plugin.install!
-      Plugin.pristine!
       installed_plugin.upgrade!(target_version)
     end
 
     it { installed_plugin.should be_installed }
-    it { Plugin.should be_gemfile_changed }
     it { installed_plugin.installed_version.should == target_version }
   end
 
