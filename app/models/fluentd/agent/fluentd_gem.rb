@@ -33,7 +33,7 @@ class Fluentd
 
       def reload # NOTE: does not used currently, and td-agent has no reload command
         return false unless running?
-        actual_restart
+        actual_reload
       end
 
       private
@@ -64,7 +64,7 @@ class Fluentd
         end
       end
 
-      def actual_restart
+      def actual_reload
         Process.kill(:HUP, pid)
       end
 
