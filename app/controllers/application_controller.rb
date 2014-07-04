@@ -52,7 +52,6 @@ class ApplicationController < ActionController::Base
   private
 
   def notice_new_fluentd_ui_available
-    FluentdUI.latest_version = "0.3.3" # TODO: for debug, remove it later
     if FluentdUI.update_available?
       flash[:info] = I18n.t("messages.available_new_fluentd_ui", version: FluentdUI.latest_version, update_url: misc_information_path)
     end
