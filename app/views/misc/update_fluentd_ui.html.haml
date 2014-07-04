@@ -1,0 +1,27 @@
+.panel.panel-default
+  .panel-heading
+    = t('.update_title')
+  .panel-body
+    #processing
+      = icon('fa-lg fa-gear fa-spin')
+      = t('.updating')
+    #finished{style: "display:none"}
+      = icon('fa-lg fa-check')
+      = t('.update_finish')
+      = link_to "Home", root_path
+
+:javascript
+  function ping() {
+    setTimeout(function(){
+      jQuery.ajax({
+        url: "/",
+        type: "HEAD"
+      })
+      .fail(ping)
+      .done(function(response, message, jqXhr){
+        jQuery('#processing').hide();
+        jQuery('#finished').show();
+      });
+    }, 512);
+  }
+  ping();

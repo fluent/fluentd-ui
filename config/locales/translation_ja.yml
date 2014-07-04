@@ -184,7 +184,12 @@ ja:
       env_value: 値
       page_title: システム情報
       update_fluentd_ui: fluentd-uiを更新
-      update_fluentd_ui_caution: TODO
+      update_fluentd_ui_caution: ※fluentdは再起動されません
+    update_fluentd_ui:
+      <<: *misc_common
+      update_title: fluentd-ui 更新
+      updating: 更新中
+      update_finish: 更新が完了しました
 
   tutorials:
     common: &tutorials_common

@@ -188,7 +188,12 @@ en:
       env_value: Value
       page_title: System Information
       update_fluentd_ui: Update fluentd-ui
-      update_fluentd_ui_caution: TODO
+      update_fluentd_ui_caution: "Note: fluentd will not restart"
+    update_fluentd_ui:
+      <<: *misc_common
+      update_title: Updating fluentd-ui
+      updating: Updating..
+      update_finish: Update finished!
 
   tutorials:
     common: &tutorials_common
