@@ -22,6 +22,8 @@ class Plugin
 
     self.version ||= latest_version
     if valid? && gem_install
+      # NOTE: also updating fluentd-ui gem is used this method, that shouldn't be recorded
+      return true unless gem_name.start_with?("fluent-plugin-")
       File.open(gemfile_path, "a") do |f|
         f.puts format_gemfile
       end
