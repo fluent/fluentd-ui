@@ -3,6 +3,7 @@ en:
     need_restart: need to restart fluentd-ui
     please_sign_in: Sign in
     destroy_succeed_fluentd_setting: Deleted fluentd setting
+    available_new_fluentd_ui: 'fluentd-ui %{version} is available. <a href="%{update_url}">Go to system information page</a>'
 
   terms: &terms
     sign_in: Sign in
@@ -186,6 +187,14 @@ en:
       env_key: Key
       env_value: Value
       page_title: System Information
+      update_fluentd_ui: Update fluentd-ui
+      update_fluentd_ui_caution: "Note: fluentd will not restart"
+    update_fluentd_ui:
+      <<: *misc_common
+      update_title: Updating fluentd-ui
+      updating: Updating..
+      update_finish: Update finished!
+      failed: Failed to update. Please see fluentd-ui log
 
   tutorials:
     common: &tutorials_common

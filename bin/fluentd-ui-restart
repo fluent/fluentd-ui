@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+pid = ARGV.shift
+begin
+  loop do
+    # wait old fluentd-ui process shutdown
+    Process.kill(0, pid.to_i)
+    sleep 0.1
+  end
+rescue Errno::ESRCH
+  exec(*ARGV)
+end

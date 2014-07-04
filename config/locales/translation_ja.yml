@@ -3,6 +3,7 @@ ja:
     need_restart: fluentd-uiの再起動が必要です
     please_sign_in: ログイン
     destroy_succeed_fluentd_setting: fluentdの設定を削除しました
+    available_new_fluentd_ui: 'fluentd-ui %{version}にアップデートできます。<a href="%{update_url}">システム情報ページへ</a>'
 
   terms: &terms
     sign_in: ログイン
@@ -182,6 +183,14 @@ ja:
       env_key: キー
       env_value: 値
       page_title: システム情報
+      update_fluentd_ui: fluentd-uiを更新
+      update_fluentd_ui_caution: ※fluentdは再起動されません
+    update_fluentd_ui:
+      <<: *misc_common
+      update_title: fluentd-ui 更新
+      updating: 更新中
+      update_finish: 更新が完了しました
+      failed: 更新に失敗しました。fluentd-uiのログをご確認ください
 
   tutorials:
     common: &tutorials_common

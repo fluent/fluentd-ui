@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   helper_method :fluentd_exists?
   before_action :login_required
   before_action :set_locale
+  before_action :notice_new_fluentd_ui_available
 
   def current_user
     return unless session[:succeed_password]
@@ -49,6 +50,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def notice_new_fluentd_ui_available
+    if FluentdUI.update_available?
+      flash[:info] = I18n.t("messages.available_new_fluentd_ui", version: FluentdUI.latest_version, update_url: misc_information_path)
+    end
+  end
 
   def find_fluentd
     @fluentd = Fluentd.instance

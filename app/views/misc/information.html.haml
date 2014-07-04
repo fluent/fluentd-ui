@@ -1,55 +1,64 @@
 - page_title t('.page_title')
 
-%div.col-lg-6
-  %div.panel.panel-info
-    %div.panel-heading
-      %h4= t ".version"
-    %div.panel-body
-      %dl{class: "dl-horizontal"}
-        %dt ruby
-        %dd= RUBY_DESCRIPTION
-        %dt fluentd
-        %dd= Fluent::VERSION
-        %dt fluentd-ui
-        %dd= FluentdUI::VERSION
+- if FluentdUI.update_available?
+  .row
+    .col-lg-12
+      %p
+        = link_to misc_update_fluentd_ui_path, class: "btn btn-primary btn-lg", method: :post do
+          = t('.update_fluentd_ui', version: FluentdUI.latest_version)
+        = t('.update_fluentd_ui_caution')
 
+.row
+  %div.col-lg-6
+    %div.panel.panel-default
+      %div.panel-heading
+        %h4= t ".version"
+      %div.panel-body
+        %dl{class: "dl-horizontal"}
+          %dt ruby
+          %dd= RUBY_DESCRIPTION
+          %dt fluentd
+          %dd= Fluent::VERSION
+          %dt fluentd-ui
+          %dd= FluentdUI::VERSION
 
-%div.col-lg-6
-  %div.panel.panel-default
-    %div.panel-heading
-      %h4= t('.installed_plugins')
-    %div.panel-body
-      - if @plugins.present?
-        %table{class: "table table-hover", id: "plugins-table"}
-          %thead
-            %tr
-              %th= t('plugins.common.name')
-              %th= t('plugins.common.version')
-          %tbody
-            - @plugins.each do |plugin|
+  %div.col-lg-6
+    %div.panel.panel-default
+      %div.panel-heading
+        %h4= t('.installed_plugins')
+      %div.panel-body
+        - if @plugins.present?
+          %table{class: "table table-hover", id: "plugins-table"}
+            %thead
               %tr
-                %td= plugin.gem_name
-                %td= plugin.installed_version
-      - else
-        = t "plugins.common.no_installed"
+                %th= t('plugins.common.name')
+                %th= t('plugins.common.version')
+            %tbody
+              - @plugins.each do |plugin|
+                %tr
+                  %td= plugin.gem_name
+                  %td= plugin.installed_version
+        - else
+          = t "plugins.common.no_installed"
 
-%div.col-lg-12
-  %div.panel.panel-default
-    %div.panel-heading
-      %h4
-        %a{"data-toggle" => "collapse", "href" => "#env-table"}
-          = icon('fa-caret-down')
-        = t('.env')
-    %table{class: "table table-hover collapse", id: "env-table"}
-      %thead
-        %tr
-          %th= t('.env_key')
-          %th= t('.env_value')
-      %tbody
-        - @env.each_pair do |key, value|
+.row
+  %div.col-lg-12
+    %div.panel.panel-default
+      %div.panel-heading
+        %h4
+          %a{"data-toggle" => "collapse", "href" => "#env-table"}
+            = icon('fa-caret-down')
+          = t('.env')
+      %table{class: "table table-hover collapse", id: "env-table"}
+        %thead
           %tr
-            %td= key
-            %td= value
+            %th= t('.env_key')
+            %th= t('.env_value')
+        %tbody
+          - @env.each_pair do |key, value|
+            %tr
+              %td= key
+              %td= value
 
 :javascript
   $(document).ready(function() {
