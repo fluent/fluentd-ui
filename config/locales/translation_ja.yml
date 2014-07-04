@@ -190,6 +190,7 @@ ja:
       update_title: fluentd-ui 更新
       updating: 更新中
       update_finish: 更新が完了しました
+      failed: 更新に失敗しました。fluentd-uiのログをご確認ください
 
   tutorials:
     common: &tutorials_common

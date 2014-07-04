@@ -194,6 +194,7 @@ en:
       update_title: Updating fluentd-ui
       updating: Updating..
       update_finish: Update finished!
+      failed: Failed to update. Please see fluentd-ui log
 
   tutorials:
     common: &tutorials_common

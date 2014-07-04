@@ -5,23 +5,41 @@
     #processing
       = icon('fa-lg fa-gear fa-spin')
       = t('.updating')
-    #finished{style: "display:none"}
+    #finished{style: "display: none"}
       = icon('fa-lg fa-check')
       = t('.update_finish')
-      = link_to "Home", root_path
+      %p= link_to t('misc.information.page_title'), misc_information_path
+    #failed{style: "display: none"}
+      = icon('fa-lg fa-fail')
+      = t('.failed')
+      %p= link_to t('misc.information.page_title'), misc_information_path
 
 :javascript
+  var CURRENT_PID = "#{@current_pid}";
+
   function ping() {
     setTimeout(function(){
       jQuery.ajax({
-        url: "/",
-        type: "HEAD"
+        url: "#{misc_upgrading_status_path}",
+        type: "GET",
+        data: { old_pid: CURRENT_PID }
       })
       .fail(ping)
-      .done(function(response, message, jqXhr){
-        jQuery('#processing').hide();
-        jQuery('#finished').show();
+      .done(function(status){
+        switch(status) {
+        case "updating":
+          ping();
+          break;
+        case "failed":
+          jQuery('#processing').hide();
+          jQuery('#failed').show();
+          break;
+        case "finished":
+          jQuery('#processing').hide();
+          jQuery('#finished').show();
+          break;
+        }
       });
-    }, 512);
+    }, 3000);
   }
   ping();
