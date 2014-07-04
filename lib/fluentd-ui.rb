@@ -3,6 +3,10 @@ module FluentdUI
     @latest = version
   end
 
+  def self.latest_version
+    @latest
+  end
+
   def self.update_available?
     return unless @latest
     latest = Gem::Version.new(@latest)

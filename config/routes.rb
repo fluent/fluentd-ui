@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
   get "misc" => "misc#show"
   get "misc/information"
+  post "misc/update_fluentd_ui"
 
   namespace :polling do
     get "alerts"

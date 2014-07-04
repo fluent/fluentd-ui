@@ -38,5 +38,7 @@ module FluentdUi
     #       If AR will be used, please comment in and check timezone.
     # config.active_record.default_timezone = :local
     # config.time_zone =
+
+    require Rails.root.join("lib", "fluentd-ui")
   end
 end
