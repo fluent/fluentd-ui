@@ -28,8 +28,11 @@ class Fluentd
 
       # return value is status_after_this_method_called == started
       def restart
-        if running? && validate_fluentd_options
-          stop && start
+        if running?
+          validate_fluentd_options && stop && start
+        else
+          # NOTE: no path to here from browser operations for now
+          start
         end
       end
 
