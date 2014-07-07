@@ -4,8 +4,12 @@ class FluentdUiRestart
   LOCK = []
 
   def lock!
-    raise "update process is still running" if LOCK.present?
-    LOCK << true
+    raise "update process is still running" if locked?
+    LOCK << true # dummy value
+  end
+
+  def locked?
+    LOCK.present?
   end
 
   def unlock!
@@ -14,7 +18,6 @@ class FluentdUiRestart
 
   def perform
     lock!
-    sleep 5 # delay for render updating HTML
 
     # NOTE: install will be failed before released fluentd-ui gem
     SuckerPunch.logger.info "[restart] install new fluentd-ui"

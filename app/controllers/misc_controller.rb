@@ -1,6 +1,8 @@
 require "fluent/version"
 
 class MiscController < ApplicationController
+  after_action :update!, only: [:update_fluentd_ui]
+
   def show
     redirect_to misc_information_path
   end
@@ -11,7 +13,6 @@ class MiscController < ApplicationController
   end
 
   def update_fluentd_ui
-    FluentdUiRestart.new.async.perform
     @current_pid = $$
     render "update_fluentd_ui", layout: "sign_in"
   end
@@ -28,5 +29,11 @@ class MiscController < ApplicationController
     else
       render text: "finished"
     end
+  end
+
+  private
+
+  def update!
+    FluentdUiRestart.new.async.perform
   end
 end
