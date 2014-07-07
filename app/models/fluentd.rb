@@ -99,6 +99,14 @@ class Fluentd
   def check_permission(column)
     path = send(column)
     return if path.blank? # if empty, presence: true will catch it
+
+    begin
+      FileUtils.mkdir_p(File.dirname(path))
+    rescue Errno::EACCES
+      errors.add(column, :lack_write_permission)
+      return
+    end
+
     if File.exist?(path)
       if File.directory?(path)
         errors.add(column, :is_a_directory)
