@@ -28,7 +28,12 @@ class Fluentd
 
       # return value is status_after_this_method_called == started
       def restart
-        stop && start
+        if running?
+          validate_fluentd_options && stop && start
+        else
+          # NOTE: no path to here from browser operations for now
+          start
+        end
       end
 
       def reload # NOTE: does not used currently, and td-agent has no reload command
