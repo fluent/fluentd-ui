@@ -39,8 +39,9 @@
       <input type="hidden" name="setting[format]" value="regexp" />
       <input type="text" name="setting[regexp]" v-model="regexp" size="100%" />
     </div>
-    <pre>{{{ highlightedLines }}}</pre>
   </div>
+
+  <pre>{{{ highlightedLines }}}</pre>
 
   <div class="well well-sm">
     <%= raw t('fluentd.settings.in_tail_option_guide') %>

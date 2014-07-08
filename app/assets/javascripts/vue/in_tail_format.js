@@ -26,6 +26,9 @@
         this.$watch('regexp', function(ev){
           this.previewRegexp();
         });
+        this.$watch('format', function(ev){
+          this.preview();
+        });
 
         var updateGrokPreview = _.debounce(_.bind(this.generateRegexp, this), 256);
         this.$watch('grok_str', updateGrokPreview);
@@ -59,6 +62,7 @@
             var lastPos = 0;
             _.each(match.matches, function(match) {
               var matched = match.matched;
+              if(!matched) return;
               if(matched.length === 0) return; // Ignore empty matched with "foobar".match(/foo(.*?)bar/)[1] #=> ""
 
               // rotated highlight color
@@ -120,8 +124,12 @@
           });
         },
 
+        preview: function() {
+          this.previewRegexp();
+        },
+
         previewRegexp: function(){
-          if(!this.regexp) return;
+          // if(!this.regexp) return;
           var self = this;
           this.previewProcessing = true;
           new Promise(function(resolve, reject) {
@@ -130,7 +138,7 @@
               url: "/api/regexp_preview",
               data: {
                 regexp: self.regexp,
-                format: "regexp",
+                format: self.format,
                 file: self.targetFile
               }
             }).done(resolve).fail(reject);

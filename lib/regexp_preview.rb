@@ -12,15 +12,18 @@ class RegexpPreview
     case format
     when "regexp"
       @regexp = Regexp.new(options[:regexp])
+    when "ltsv", "json", "csv", "tsv"
     else
-      definition = Fluent::TextParser::TEMPLATE_REGISTRY.lookup(format)
+      definition = Fluent::TextParser::TEMPLATE_REGISTRY.lookup(format).call
       raise "Unknown format '#{format}'" unless definition
+      definition.configure({}) # NOTE: SyslogParser define @regexp in configure method so call it to grab Regexp object
       @regexp = definition.patterns["format"]
       @time_format = options[:time_format] || definition.patterns["format"]
     end
   end
 
   def matches
+    return [] unless @regexp # such as ltsv, json, etc
     reader = FileReverseReader.new(File.open(file))
     matches = reader.tail.map do |line|
       result = {
