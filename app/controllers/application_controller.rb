@@ -89,11 +89,8 @@ class ApplicationController < ActionController::Base
   def file_tail(path, limit = 10)
     return unless path
     return unless File.exists? path
-    sample = File.read(path, 1024) || ""
-    sample2 = sample.force_encoding('ascii-8bit').encode('us-ascii', :undef => :replace, :invalid => :replace, :replace => "")
-    return if sample != sample2 # maybe binary file
-
     reader = FileReverseReader.new(File.open(path))
-    reader.enum_for(:each_line).to_a.first(limit).reverse
+    return if reader.binary_file?
+    reader.tail(limit)
   end
 end

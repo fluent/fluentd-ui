@@ -30,6 +30,18 @@ class FileReverseReader
     end
   end
 
+  def tail(limit = 10)
+    enum_for(:each_line).first(limit).reverse
+  end
+
+  def binary_file?
+    sample = io.read(1024) || ""
+    sample2 = sample.force_encoding('ascii-8bit').encode('us-ascii', :undef => :replace, :invalid => :replace, :replace => "")
+    sample != sample2 # maybe binary file
+  ensure
+    io.rewind
+  end
+
   private
 
   def split_each_line(buf, &block)

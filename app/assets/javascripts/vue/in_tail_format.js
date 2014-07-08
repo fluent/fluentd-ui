@@ -130,6 +130,7 @@
               url: "/api/regexp_preview",
               data: {
                 regexp: self.regexp,
+                format: "regexp",
                 file: self.targetFile
               }
             }).done(resolve).fail(reject);

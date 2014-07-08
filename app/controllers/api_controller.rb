@@ -19,23 +19,8 @@ class ApiController < ApplicationController
   end
 
   def regexp_preview
-    matches = file_tail(params[:file]).map do |line|
-      result = {
-        :whole => line,
-        :matches => [],
-      }
-      m = line.match(params[:regexp])
-      next result unless m
-
-      m.names.each_with_index do |name, index|
-        result[:matches] << {
-          key: name,
-          matched: m[name],
-          pos: m.offset(index + 1),
-        }
-      end
-      result
-    end
+    preview = RegexpPreview.new(params[:file], params[:format], regexp: params[:regexp])
+    matches = preview.matches
     render json: matches.compact
   end
 
