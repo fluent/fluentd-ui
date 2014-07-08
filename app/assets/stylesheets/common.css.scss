@@ -116,3 +116,10 @@ label {
   cursor: pointer;
 }
 
+
+
+.ignore-rails-error-div {
+  .field_with_errors {
+    display: inline;
+  }
+}

@@ -17,6 +17,10 @@ Rails.application.routes.draw do
         post "confirm"
         post "finish"
       end
+
+      resource :out_mongo, only: ["show"], module: :settings, controller: :out_mongo do
+        post "finish"
+      end
     end
   end
 
