@@ -53,12 +53,16 @@ class Fluentd
       end
 
       def validate_fluentd_options
-        system("bundle exec fluentd --dry-run #{options_to_argv}")
+        Bundler.with_clean_env do
+          system("fluentd --dry-run #{options_to_argv}")
+        end
       end
 
       def actual_start
         return unless validate_fluentd_options
-        spawn("bundle exec fluentd #{options_to_argv}")
+        Bundler.with_clean_env do
+          spawn("fluentd #{options_to_argv}")
+        end
         wait_starting
       end
 
