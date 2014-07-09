@@ -93,6 +93,7 @@ ja:
       config_file: 設定ファイル
       page_title: "%{label}"
       setup_in_tail: ファイル読み込みの設定
+      setup_out_mongo: MongoDBへの書き出し設定
       finish: 設定する
       fluentd_info: 設定情報
       recent_errors: "直近 %{days} 日内のエラー"
@@ -122,8 +123,16 @@ ja:
       show:
         <<: *fluentd_common
         page_title: fluentd 設定
+        in: 入力ソースの設定
+        out: 出力ソースの設定
       edit:
         <<: *fluentd_common
+      out_mongo:
+        option_guide: |
+          fluent-plugin-mongoプラグインのインストールが必要です。<br />
+          <a target="_blank" href="http://docs.fluentd.org/ja/articles/out_mongo">out_mongoプラグインの解説</a>もご参照ください。
+        show:
+          page_title: MongoDB書き出し設定
       in_tail_option_guide: |
         <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_tail">in_tailプラグインの解説ページ</a>や
         <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。

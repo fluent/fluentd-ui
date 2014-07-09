@@ -93,6 +93,7 @@ en:
       config_file: Config file
       page_title: "%{label}"
       setup_in_tail: Setting file reading
+      setup_out_mongo: Setting MongoDB writing
       finish: Update config
       fluentd_info: Setting info
       recent_errors: "Recently %{days} days errors"
@@ -121,8 +122,16 @@ en:
       show:
         <<: *fluentd_common
         page_title: fluentd config
+        in: Input source setting
+        out: Output source setting
       edit:
         <<: *fluentd_common
+      out_mongo:
+        option_guide: |
+          fluent-plugin-mongo install is required.<br />
+          See also <a target="_blank" href="http://docs.fluentd.org/articles/out_mongo">out_mongo plugin</a>.
+        show:
+          page_title: Write to MongoDB setting
       in_tail_option_guide: |
         See <a target="_blank" href="http://docs.fluentd.org/articles/in_tail">in_tail Plugin</a> or 
         <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a> for more details.

@@ -1,15 +1,30 @@
 - page_title t('.page_title', label: @fluentd.label)
 
 .row
-  %h2
-    = t(".edit_config")
-  = link_to icon('fa-pencil') << t(".edit"), edit_fluentd_setting_path(@fluentd)
-  %pre
-    = preserve do
-      = @config
+  .col-lg-12
+    %h2
+      = t(".edit_config")
+    = link_to icon('fa-pencil') << t(".edit"), edit_fluentd_setting_path(@fluentd)
+    %pre
+      = preserve do
+        = @config
 
 .row
-  .col-lg-4.well
-    = link_to(fluentd_setting_in_tail_path(@fluentd)) do
-      = icon('fa-file-text-o fa-lg')
-      = t("fluentd.common.setup_in_tail")
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading
+        %h2= t('.in')
+      .panel-body
+        %p
+          = link_to(fluentd_setting_in_tail_path(@fluentd)) do
+            = icon('fa-file-text-o fa-lg')
+            = t("fluentd.common.setup_in_tail")
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading
+        %h2= t('.out')
+      .panel-body
+        %p
+          = link_to(fluentd_setting_out_mongo_path(@fluentd)) do
+            = icon('fa-file-text-o fa-lg')
+            = t("fluentd.common.setup_out_mongo")
