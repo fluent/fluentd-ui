@@ -46,7 +46,7 @@ class Fluentd
         when %r|/var/log|
           :syslog
         else
-          :grok
+          :regexp
         end
       end
 
