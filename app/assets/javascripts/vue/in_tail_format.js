@@ -24,7 +24,7 @@
           this.regexp = this.params.setting.regexp;
         }
         this.$watch('regexp', function(ev){
-          this.previewRegexp();
+          this.preview();
         });
         this.$watch('format', function(ev){
           this.preview();
@@ -41,9 +41,6 @@
       },
 
       methods: {
-        highlight: function(target) {
-        },
-
         updateHighlightedLines: function() {
           if(!this.regexpMatches) {
             this.highlightedLines = null;
@@ -124,12 +121,7 @@
           });
         },
 
-        preview: function() {
-          this.previewRegexp();
-        },
-
-        previewRegexp: function(){
-          // if(!this.regexp) return;
+        preview: function(){
           var self = this;
           this.previewProcessing = true;
           new Promise(function(resolve, reject) {
