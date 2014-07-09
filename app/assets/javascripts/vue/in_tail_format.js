@@ -10,6 +10,7 @@
       data: {
         regexp: "",
         grok_str: "",
+        time_format: "",
         previewProcessing: false,
         highlightedLines: null
       },
@@ -24,7 +25,10 @@
           this.regexp = this.params.setting.regexp;
         }
         this.$watch('regexp', function(ev){
-          this.previewRegexp();
+          this.preview();
+        });
+        this.$watch('format', function(ev){
+          this.preview();
         });
 
         var updateGrokPreview = _.debounce(_.bind(this.generateRegexp, this), 256);
@@ -38,9 +42,6 @@
       },
 
       methods: {
-        highlight: function(target) {
-        },
-
         updateHighlightedLines: function() {
           if(!this.regexpMatches) {
             this.highlightedLines = null;
@@ -59,6 +60,7 @@
             var lastPos = 0;
             _.each(match.matches, function(match) {
               var matched = match.matched;
+              if(!matched) return;
               if(matched.length === 0) return; // Ignore empty matched with "foobar".match(/foo(.*?)bar/)[1] #=> ""
 
               // rotated highlight color
@@ -99,12 +101,33 @@
               container: "body"
             })
           },0);
+        },
 
+        preview: function(){
+          var self = this;
+          new Promise(function(resolve, reject) {
+            $.ajax({
+              method: "POST",
+              url: "/api/regexp_preview",
+              data: {
+                regexp: self.regexp,
+                format: self.formatType == "regexp" ? "regexp" : self.format,
+                time_format: self.time_format,
+                file: self.targetFile
+              }
+            }).done(resolve).fail(reject);
+          }).then(function(result){
+            self.time_format = result.time_format;
+            self.regexpMatches = result.matches;
+            self.updateHighlightedLines();
+          })["catch"](function(error){
+            console.error(error.stack);
+          });
         },
 
         generateRegexp: function() {
+          // for grok
           var self = this;
-          this.previewProcessing = true;
           new Promise(function(resolve, reject) {
             $.ajax({
               method: "POST",
@@ -119,28 +142,6 @@
             console.error(e);
           });
         },
-
-        previewRegexp: function(){
-          if(!this.regexp) return;
-          var self = this;
-          this.previewProcessing = true;
-          new Promise(function(resolve, reject) {
-            $.ajax({
-              method: "POST",
-              url: "/api/regexp_preview",
-              data: {
-                regexp: self.regexp,
-                file: self.targetFile
-              }
-            }).done(resolve).fail(reject);
-          }).then(function(matches){
-            self.regexpMatches = matches;
-            self.updateHighlightedLines();
-            self.previewProcessing = false;
-          })["catch"](function(error){
-            console.error(error.stack);
-          });
-        }
       }
     });
   });

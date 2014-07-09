@@ -12,7 +12,7 @@ class Fluentd
       end
 
       def config
-        @config ||= ::Fluent::Config::V1Parser.read(file)
+        @config ||= ::Fluent::Config::V1Parser.parse(File.read(file), File.basename(file), File.dirname(file))
       end
 
       def to_s
