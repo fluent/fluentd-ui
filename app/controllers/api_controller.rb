@@ -19,9 +19,13 @@ class ApiController < ApplicationController
   end
 
   def regexp_preview
-    preview = RegexpPreview.new(params[:file], params[:format], regexp: params[:regexp])
+    preview = RegexpPreview.new(params[:file], params[:format], regexp: params[:regexp], time_format: params[:time_format])
     matches = preview.matches
-    render json: matches.compact
+    render json: {
+      regexp: preview.regexp.try(:source),
+      time_format: preview.time_format,
+      matches: matches.compact,
+    }
   end
 
   def grok_to_regexp

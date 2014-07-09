@@ -10,6 +10,7 @@
       data: {
         regexp: "",
         grok_str: "",
+        time_format: "",
         previewProcessing: false,
         highlightedLines: null
       },
@@ -100,12 +101,33 @@
               container: "body"
             })
           },0);
+        },
 
+        preview: function(){
+          var self = this;
+          new Promise(function(resolve, reject) {
+            $.ajax({
+              method: "POST",
+              url: "/api/regexp_preview",
+              data: {
+                regexp: self.regexp,
+                format: self.formatType == "regexp" ? "regexp" : self.format,
+                time_format: self.time_format,
+                file: self.targetFile
+              }
+            }).done(resolve).fail(reject);
+          }).then(function(result){
+            self.time_format = result.time_format;
+            self.regexpMatches = result.matches;
+            self.updateHighlightedLines();
+          })["catch"](function(error){
+            console.error(error.stack);
+          });
         },
 
         generateRegexp: function() {
+          // for grok
           var self = this;
-          this.previewProcessing = true;
           new Promise(function(resolve, reject) {
             $.ajax({
               method: "POST",
@@ -120,28 +142,6 @@
             console.error(e);
           });
         },
-
-        preview: function(){
-          var self = this;
-          this.previewProcessing = true;
-          new Promise(function(resolve, reject) {
-            $.ajax({
-              method: "POST",
-              url: "/api/regexp_preview",
-              data: {
-                regexp: self.regexp,
-                format: self.format,
-                file: self.targetFile
-              }
-            }).done(resolve).fail(reject);
-          }).then(function(matches){
-            self.regexpMatches = matches;
-            self.updateHighlightedLines();
-            self.previewProcessing = false;
-          })["catch"](function(error){
-            console.error(error.stack);
-          });
-        }
       }
     });
   });

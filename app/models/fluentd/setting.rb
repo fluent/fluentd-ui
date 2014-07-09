@@ -17,6 +17,7 @@ class Fluentd
           :csv => [:keys, :time_key],
           :ltsv => [:delimiter, :time_key],
           :json => [:time_key],
+          :regexp => [:time_format],
           # TODO: Grok could generate Regexp including \d, \s, etc. fluentd config parser raise error with them for escape sequence check.
           #       TBD How to handle Grok/Regexp later, just comment out for hide
           # :grok => [:grok_str],
