@@ -25,6 +25,10 @@
         %h2= t('.out')
       .panel-body
         %p
+          = link_to(fluentd_setting_out_td_path(@fluentd)) do
+            = icon('fa-file-text-o fa-lg')
+            = t("fluentd.common.setup_out_td")
+        %p
           = link_to(fluentd_setting_out_mongo_path(@fluentd)) do
             = icon('fa-file-text-o fa-lg')
             = t("fluentd.common.setup_out_mongo")

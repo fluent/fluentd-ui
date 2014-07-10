@@ -1,0 +1,53 @@
+- @setting.errors.full_messages.each do |msg|
+  = msg
+
+= form_for(@setting, url: finish_fluentd_setting_out_td_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
+  .form-group
+    = f.label :match
+    = f.text_field :match
+  .form-group
+    = f.label :apikey
+    = f.text_field :apikey
+  .form-group
+    = f.label :auto_create_table
+    = f.check_box :auto_create_table, {}, "true", "false"
+  .form-group
+    = f.label :use_ssl
+    = f.check_box :use_ssl, {}, "true", "false"
+  .form-group
+    = f.label :database
+    = f.text_field :database
+  .form-group
+    = f.label :table
+    = f.text_field :table
+  .form-group
+    = f.label :endpoint
+    = f.text_field :endpoint
+
+  .well.well-sm
+    %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
+      = icon('fa-caret-down')
+      = t('terms.advanced_setting')
+    #advanced-setting.collapse
+      .form-group
+        = f.label :connect_timeout
+        = f.text_field :connect_timeout
+      .form-group
+        = f.label :read_timeout
+        = f.text_field :read_timeout
+      .form-group
+        = f.label :send_timeout
+        = f.text_field :send_timeout
+      .form-group
+        = f.label :flush_interval
+        = f.text_field :flush_interval
+      .form-group
+        = f.label :buffer_type
+        = f.text_field :buffer_type
+      .form-group
+        = f.label :buffer_path
+        = f.text_field :buffer_path
+  = f.submit t('fluentd.common.finish')   , class: "btn btn-lg btn-primary pull-right"
+  = f.submit t('terms.prev'),   class: "btn btn-lg btn-default", name: "back"
+
+

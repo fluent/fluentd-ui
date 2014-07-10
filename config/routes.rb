@@ -21,6 +21,10 @@ Rails.application.routes.draw do
       resource :out_mongo, only: ["show"], module: :settings, controller: :out_mongo do
         post "finish"
       end
+
+      resource :out_td, only: ["show"], module: :settings, controller: :out_td do
+        post "finish"
+      end
     end
   end
 

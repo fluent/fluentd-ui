@@ -93,6 +93,7 @@ ja:
       config_file: 設定ファイル
       page_title: "%{label}"
       setup_in_tail: ファイル読み込みの設定
+      setup_out_td: Treasure Dataへの書き出し設定
       setup_out_mongo: MongoDBへの書き出し設定
       finish: 設定する
       fluentd_info: 設定情報
@@ -127,6 +128,11 @@ ja:
         out: 出力ソースの設定
       edit:
         <<: *fluentd_common
+      out_td:
+        option_guide: |
+          fluent-plugin-tdプラグインのインストールが必要です。<br />
+        show:
+          page_title: Treasure Data書き出し設定
       out_mongo:
         option_guide: |
           fluent-plugin-mongoプラグインのインストールが必要です。<br />
