@@ -3,6 +3,9 @@
 
 = form_for(@setting, url: finish_fluentd_setting_out_mongo_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
   .form-group
+    = f.label :match
+    = f.text_field :match
+  .form-group
     = f.label :host
     = f.text_field :host
   .form-group

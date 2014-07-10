@@ -4,12 +4,14 @@ class Fluentd
       include ActiveModel::Model
 
       KEYS = [
+        :match,
         :host, :port, :database, :collection, :capped, :capped_size, :capped_max, :user, :password, :tag_mapped,
         :buffer_type, :buffer_queue_limit, :buffer_chunk_limit, :flush_interval,  :retry_wait, :retry_limit, :max_retry_wait, :num_threads,
       ].freeze
 
       attr_accessor(*KEYS)
 
+      validates :match, presence: true
       validates :host, presence: true
       validates :port, presence: true
       validates :database, presence: true
