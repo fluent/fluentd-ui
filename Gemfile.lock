@@ -16,7 +16,7 @@ PATH
       kramdown-haml
       puma
       rails (= 4.1.4)
-      rubyzip
+      rubyzip (~> 1.1)
       sass-rails (~> 4.0.3)
       settingslogic
       sucker_punch (~> 1.0.5)
