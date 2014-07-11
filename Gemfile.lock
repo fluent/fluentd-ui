@@ -16,6 +16,7 @@ PATH
       kramdown-haml
       puma
       rails (= 4.1.4)
+      rubyzip (~> 1.1)
       sass-rails (~> 4.0.3)
       settingslogic
       sucker_punch (~> 1.0.5)
@@ -175,6 +176,7 @@ GEM
       rspec-core (~> 2.99.0)
       rspec-expectations (~> 2.99.0)
       rspec-mocks (~> 2.99.0)
+    rubyzip (1.1.6)
     safe_yaml (1.0.3)
     sass (3.2.19)
     sass-rails (4.0.3)

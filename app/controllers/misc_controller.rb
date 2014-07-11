@@ -1,4 +1,5 @@
 require "fluent/version"
+require "zip"
 
 class MiscController < ApplicationController
   after_action :update!, only: [:update_fluentd_ui]
@@ -29,6 +30,28 @@ class MiscController < ApplicationController
     else
       render text: "finished"
     end
+  end
+
+  def download_info
+    fluentd = Fluentd.instance
+    path = Rails.root.join("tmp/system_info.zip")
+    File.unlink(path) if File.exists?(path)
+
+    Zip::File.open(path, Zip::File::CREATE) do |zip|
+      zip.get_output_stream('fluentd.log') {|f| f.puts fluentd.agent.log }
+      zip.add("fluentd-ui.log", Rails.root.join("log/#{Rails.env}.log"))
+      zip.get_output_stream('env.txt') do |f|
+        ENV.to_a.each do |(key, value)|
+          f.puts "#{key}=#{value}"
+        end
+      end
+      zip.get_output_stream('versions.txt') do |f|
+        f.puts "ruby: #{RUBY_DESCRIPTION}"
+        f.puts "fluentd: #{Fluent::VERSION}"
+        f.puts "fluentd-ui: #{FluentdUI::VERSION}"
+      end
+    end
+    send_file path
   end
 
   private

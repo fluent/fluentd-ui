@@ -185,6 +185,7 @@ ja:
       page_title: システム情報
       update_fluentd_ui: fluentd-uiを更新
       update_fluentd_ui_caution: ※fluentdは再起動されません
+      download_system_information: システム情報をダウンロード
     update_fluentd_ui:
       <<: *misc_common
       update_title: fluentd-ui 更新

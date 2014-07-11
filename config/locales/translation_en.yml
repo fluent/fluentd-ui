@@ -189,6 +189,7 @@ en:
       page_title: System Information
       update_fluentd_ui: Update fluentd-ui
       update_fluentd_ui_caution: "Note: fluentd will not restart"
+      download_system_information: Download system information
     update_fluentd_ui:
       <<: *misc_common
       update_title: Updating fluentd-ui
