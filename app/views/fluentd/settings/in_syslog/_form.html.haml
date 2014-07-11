@@ -1,0 +1,19 @@
+- @setting.errors.full_messages.each do |msg|
+  = msg
+
+= form_for(@setting, url: finish_fluentd_setting_in_syslog_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
+  .form-group
+    = f.label :tag
+    = f.text_field :tag
+  .form-group
+    = f.label :bind
+    = f.text_field :bind
+  .form-group
+    = f.label :port
+    = f.text_field :port
+  .form-group
+    = f.label :types
+    = f.text_field :types
+  = f.submit t('fluentd.common.finish')   , class: "btn btn-lg btn-primary pull-right"
+  = f.submit t('terms.prev'),   class: "btn btn-lg btn-default", name: "back"
+

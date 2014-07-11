@@ -93,6 +93,7 @@ ja:
       config_file: 設定ファイル
       page_title: "%{label}"
       setup_in_tail: ファイル読み込みの設定
+      setup_in_syslog: syslog読み込みの設定
       setup_out_td: Treasure Dataへの書き出し設定
       setup_out_mongo: MongoDBへの書き出し設定
       finish: 設定する
@@ -139,6 +140,11 @@ ja:
           <a target="_blank" href="http://docs.fluentd.org/ja/articles/out_mongo">out_mongoプラグインの解説</a>もご参照ください。
         show:
           page_title: MongoDB書き出し設定
+      in_syslog:
+        option_guide: |
+          <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_syslog">in_syslogプラグイン解説ページ</a>もご参照ください。
+        show:
+          page_title: Syslog読み込み設定
       in_tail_option_guide: |
         <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_tail">in_tailプラグインの解説ページ</a>や
         <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。

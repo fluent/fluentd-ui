@@ -19,6 +19,10 @@
           = link_to(fluentd_setting_in_tail_path(@fluentd)) do
             = icon('fa-file-text-o fa-lg')
             = t("fluentd.common.setup_in_tail")
+        %p
+          = link_to(fluentd_setting_in_syslog_path(@fluentd)) do
+            = icon('fa-file-text-o fa-lg')
+            = t("fluentd.common.setup_in_syslog")
   .col-lg-6
     .panel.panel-default
       .panel-heading
