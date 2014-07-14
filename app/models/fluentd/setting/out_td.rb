@@ -12,30 +12,20 @@ class Fluentd
 
       attr_accessor(*KEYS)
 
+      booleans :use_ssl
+      flags :auto_create_table
+
       validates :match, presence: true
-      validates :api_key, presence: true
+      validates :apikey, presence: true
       validates :auto_create_table, presence: true
       validates :use_ssl, presence: true
 
+      def plugin_name
+        "tdlog"
+      end
+
       def to_conf
-        <<-XML.strip_heredoc.gsub(/^[ ]*\n/m, "")
-        <match #{match}>
-          type tdlog
-          #{print_if_present :apikey}
-          #{auto_create_table.present? ? "auto_create_table" : ""}
-          use_ssl #{use_ssl.present? ? "true" : "false"}
-          #{print_if_present :database}
-          #{print_if_present :table}
-          #{print_if_present :endpoint}
-          
-          #{print_if_present :connect_timeout}
-          #{print_if_present :read_timeout}
-          #{print_if_present :send_timeout}
-          #{print_if_present :flush_interval}
-          #{print_if_present :buffer_type}
-          #{print_if_present :buffer_path}
-        </match>
-        XML
+        to_config
       end
     end
   end
