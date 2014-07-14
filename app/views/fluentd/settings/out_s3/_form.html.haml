@@ -1,0 +1,39 @@
+- @setting.errors.full_messages.each do |msg|
+  = msg
+
+= form_for(@setting, url: finish_fluentd_setting_out_s3_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
+  = field(f, :match)
+  = field(f, :aws_key_id)
+  = field(f, :aws_sec_key)
+  = field(f, :s3_bucket)
+  = field(f, :s3_endpoint)
+  = field(f, :path)
+  = field(f, :format, prompt: "--")
+  = field(f, :time_slice_format)
+  = field(f, :time_slice_wait)
+  = field(f, :include_time_key)
+  = field(f, :utc)
+  = field(f, :delimiter)
+  = field(f, :label_delimiter)
+  = field(f, :store_as)
+  = field(f, :proxy_uri)
+  = field(f, :use_ssl)
+
+  .well.well-sm
+    %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
+      = icon('fa-caret-down')
+      = t('terms.advanced_setting')
+    #advanced-setting.collapse
+      = field(f, :buffer_type)
+      = field(f, :buffer_path)
+      = field(f, :buffer_queue_limit)
+      = field(f, :buffer_chunk_limit)
+      = field(f, :flush_interval)
+      = field(f, :retry_wait)
+      = field(f, :retry_limit)
+      = field(f, :max_retry_wait)
+      = field(f, :num_threads)
+  = f.submit t('fluentd.common.finish')   , class: "btn btn-lg btn-primary pull-right"
+  = f.submit t('terms.prev'),   class: "btn btn-lg btn-default", name: "back"
+
+
