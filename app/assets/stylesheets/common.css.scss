@@ -123,3 +123,9 @@ label {
     display: inline;
   }
 }
+
+.form-group {
+  .form-group {
+    margin-left: 30px; // used at fluentd/settings/out_forward, nested config form
+  }
+}

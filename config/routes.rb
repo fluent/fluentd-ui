@@ -33,6 +33,10 @@ Rails.application.routes.draw do
       resource :out_s3, only: ["show"], module: :settings, controller: :out_s3 do
         post "finish"
       end
+
+      resource :out_forward, only: ["show"], module: :settings, controller: :out_forward do
+        post "finish"
+      end
     end
   end
 

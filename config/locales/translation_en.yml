@@ -96,6 +96,7 @@ en:
       setup_in_syslog: Setting Syslog readling
       setup_out_td: Setting Treasure Data writing
       setup_out_mongo: Setting MongoDB writing
+      setup_out_forward: forward(TODO)
       finish: Update config
       fluentd_info: Setting info
       recent_errors: "Recently %{days} days errors"
@@ -128,9 +129,12 @@ en:
         out: Output source setting
       edit:
         <<: *fluentd_common
+      out_forward:
+        option_guide: |
+        show:
+          page_title: out_forward(TODO)
       out_td:
         option_guide: |
-          fluent-plugin-td install is required.<br />
         show:
           page_title: Write to Treasure Data setting
       out_mongo:

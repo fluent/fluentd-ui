@@ -96,6 +96,7 @@ ja:
       setup_in_syslog: syslog読み込みの設定
       setup_out_td: Treasure Dataへの書き出し設定
       setup_out_mongo: MongoDBへの書き出し設定
+      setup_out_forward: forward(TODO)
       finish: 設定する
       fluentd_info: 設定情報
       recent_errors: "直近 %{days} 日内のエラー"
@@ -129,6 +130,10 @@ ja:
         out: 出力ソースの設定
       edit:
         <<: *fluentd_common
+      out_forward:
+        option_guide: |
+        show:
+          page_title: out_forward(TODO)
       out_td:
         option_guide: |
           fluent-plugin-tdプラグインのインストールが必要です。<br />

@@ -2,14 +2,31 @@ class Fluentd
   module Setting
     module Common
       extend ActiveSupport::Concern
+      include ActiveModel::Model
 
       module ClassMethods
-        attr_accessor :values, :types
+        attr_accessor :values, :types, :children
 
         def choice(key, values)
           @values ||= {}
           @values[key] = values
           set_type(:choice, [key])
+        end
+
+        def nested(key, klass, options = {})
+          # e.g.:
+          #  <match>
+          #    type forward
+          #    <server>
+          #      ..
+          #    </server>
+          #  </match>
+          @children ||= {}
+          @children[key] = {
+            class: klass,
+            options: options,
+          }
+          set_type(:nested, [key])
         end
 
         def booleans(*keys)
@@ -36,12 +53,16 @@ class Fluentd
         end
       end
 
+      def child_class(key)
+        self.class.children[key][:class]
+      end
+
       def values_of(key)
-        self.class.values[key] || []
+        self.class.values.try(:[], key) || []
       end
 
       def column_type(key)
-        self.class.types[key] || "string"
+        self.class.types.try(:[], key) || "string"
       end
 
       def conf(key)
@@ -50,6 +71,26 @@ class Fluentd
           boolenan(key)
         when :flag
           flag(key)
+        when :nested
+          klass = child_class(key)
+          send(key).map do |(_, child)|
+            # send("servers")
+            #
+            # "servers" => {
+            #   "0" => {
+            #     "name" => "foo",
+            #     "host" => "bar",
+            #     ..
+            #   },
+            #   "1" => {
+            #     ..
+            #   }
+            # }
+            child_instance = klass.new(child)
+            unless child_instance.empty_value?
+              "\n" + child_instance.to_config(key).gsub(/^/m, "  ")
+            end
+          end.join
         else
           print_if_present(key)
         end
@@ -77,17 +118,33 @@ class Fluentd
         send(key).presence == "true" ? key.to_s : ""
       end
 
-      def to_config
+      def empty_value?
+        config = ""
+        self.class.const_get(:KEYS).each do |key|
+          config << conf(key)
+        end
+        config.empty?
+      end
+
+      def to_config(elm_name = nil)
         indent = "  "
-        config = "<match #{match}>\n"
-        config << "#{indent}type #{plugin_type_name}\n"
+        if elm_name
+          config = "<#{elm_name}>\n"
+        else
+          config = "<match #{match}>\n"
+          config << "#{indent}type #{plugin_type_name}\n"
+        end
         self.class.const_get(:KEYS).each do |key|
           next if key == :match
           config << indent
           config << conf(key)
           config << "\n"
         end
-        config << "</match>\n"
+        if elm_name
+          config << "</#{elm_name}>\n"
+        else
+          config << "</match>\n"
+        end
         config.gsub(/^[ ]*\n/m, "")
       end
     end
