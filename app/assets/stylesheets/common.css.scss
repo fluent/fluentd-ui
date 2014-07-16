@@ -129,3 +129,11 @@ label {
     margin-left: 30px; // used at fluentd/settings/out_forward, nested config form
   }
 }
+
+.fluentd-setting-inout {
+  .arrow-right {
+    text-align: center;
+    font-size: 36px;
+    padding-top: 64px;
+  }
+}

@@ -92,11 +92,12 @@ ja:
       edit_config: 設定ファイルの編集
       config_file: 設定ファイル
       page_title: "%{label}"
-      setup_in_tail: ファイル読み込みの設定
-      setup_in_syslog: syslog読み込みの設定
-      setup_out_td: Treasure Dataへの書き出し設定
-      setup_out_mongo: MongoDBへの書き出し設定
-      setup_out_forward: forward(TODO)
+      setup_in_tail: ファイル
+      setup_in_syslog: syslogプロトコル
+      setup_out_td: Treasure Data
+      setup_out_mongo: MongoDB
+      setup_out_forward: 転送
+      setup_out_s3: AWS S3
       finish: 設定する
       fluentd_info: 設定情報
       recent_errors: "直近 %{days} 日内のエラー"
@@ -126,8 +127,9 @@ ja:
       show:
         <<: *fluentd_common
         page_title: fluentd 設定
-        in: 入力ソースの設定
-        out: 出力ソースの設定
+        in_out_head: 入力/出力設定
+        in: 入力
+        out: 出力
       edit:
         <<: *fluentd_common
       out_forward:

@@ -92,11 +92,12 @@ en:
       edit_config: Edit Config
       config_file: Config file
       page_title: "%{label}"
-      setup_in_tail: Setting file reading
-      setup_in_syslog: Setting Syslog readling
-      setup_out_td: Setting Treasure Data writing
-      setup_out_mongo: Setting MongoDB writing
-      setup_out_forward: forward(TODO)
+      setup_in_tail: File
+      setup_in_syslog: Syslog protocol
+      setup_out_td: Treasure Data
+      setup_out_mongo: MongoDB
+      setup_out_forward: forwarding
+      setup_out_s3: AWS S3
       finish: Update config
       fluentd_info: Setting info
       recent_errors: "Recently %{days} days errors"
@@ -125,8 +126,9 @@ en:
       show:
         <<: *fluentd_common
         page_title: fluentd config
-        in: Input source setting
-        out: Output source setting
+        in_out_head: In/Out setting
+        in: Input
+        out: Output
       edit:
         <<: *fluentd_common
       out_forward:
