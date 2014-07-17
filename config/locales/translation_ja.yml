@@ -89,6 +89,7 @@ ja:
       stopped: 停止中
       running: 稼働中
       operation: プロセス詳細
+      edit_config: 設定ファイルの編集
       raw_edit_config: 設定ファイルの直接編集
       config_file: 設定ファイル
       page_title: "%{label}"
