@@ -1,7 +1,7 @@
 class Fluentd
   module Setting
     class OutMongo
-      include ActiveModel::Model
+      include Common
 
       KEYS = [
         :match,
@@ -11,6 +11,8 @@ class Fluentd
 
       attr_accessor(*KEYS)
 
+      flags :capped, :tag_mapped
+
       validates :match, presence: true
       validates :host, presence: true
       validates :port, presence: true
@@ -19,35 +21,7 @@ class Fluentd
       validate :validate_collection
 
       def to_conf
-        <<-XML.strip_heredoc.gsub(/^[ ]*\n/m, "")
-        <match *.*>
-          type mongo
-          #{print_if_present :host}
-          #{print_if_present :port}
-          #{print_if_present :database}
-          #{print_if_present :collection}
-          #{print_if_present :user}
-          #{print_if_present :password}
-
-          #{self.capped.present? ? "capped" : ""}
-          #{print_if_present :capped_size}
-          #{print_if_present :capped_max}
-          
-          #{self.tag_mapped.present? ? "tag_mapped" : ""}
-          #{print_if_present :buffer_type}
-          #{print_if_present :buffer_queue_limit}
-          #{print_if_present :buffer_chunk_limit}
-          #{print_if_present :flush_interval}
-          #{print_if_present :retry_wait}
-          #{print_if_present :retry_limit}
-          #{print_if_present :max_retry_wait}
-          #{print_if_present :num_threads}
-        </match>
-        XML
-      end
-
-      def print_if_present(key)
-        send(key).present? ? "#{key} #{send(key)}" : ""
+        to_config
       end
 
       def validate_capped

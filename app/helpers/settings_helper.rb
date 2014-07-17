@@ -1,15 +1,18 @@
 module SettingsHelper
   def field(form, key, opts = {})
     html = '<div class="form-group">'
-    html << h(form.label(key))
-    html << " " # NOTE: Adding space for padding
 
     case form.object.column_type(key)
     when :boolean, :flag
       html << form.check_box(key, {}, "true", "false")
+      html << " " # NOTE: Adding space for padding
+      html << h(form.label(key))
     when :choice
+      html << h(form.label(key))
+      html << " " # NOTE: Adding space for padding
       html << form.select(key, form.object.values_of(key), opts)
     when :nested
+      html << h(form.label(key))
       child_data = form.object.class.children[key]
       klass = child_data[:class]
       children = form.object.send(key) || {"0" => {}}
@@ -22,7 +25,8 @@ module SettingsHelper
         end
       end
     else
-      html << form.text_field(key)
+      html << h(form.label(key))
+      html << form.text_field(key, class: "form-control")
     end
 
     html << "</div>"

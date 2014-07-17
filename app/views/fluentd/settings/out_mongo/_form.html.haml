@@ -2,69 +2,31 @@
   = msg
 
 = form_for(@setting, url: finish_fluentd_setting_out_mongo_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
-  .form-group
-    = f.label :match
-    = f.text_field :match
-  .form-group
-    = f.label :host
-    = f.text_field :host
-  .form-group
-    = f.label :port
-    = f.text_field :port
-  .form-group
-    = f.label :database
-    = f.text_field :database
-  .form-group
-    = f.label :collection
-    = f.text_field :collection
-  .form-group
-    = f.label :tag_mapped
-    = f.check_box :tag_mapped, {}, "checked", nil
-  .form-group
-    = f.label :user
-    = f.text_field :user
-  .form-group
-    = f.label :password
-    = f.text_field :password
+  = field(f, :match)
+  = field(f, :host)
+  = field(f, :port)
+  = field(f, :database)
+  = field(f, :collection)
+  = field(f, :tag_mapped)
+  = field(f, :user)
+  = field(f, :password)
 
   .well.well-sm
     %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
       = icon('fa-caret-down')
       = t('terms.advanced_setting')
     #advanced-setting.collapse
-      .form-group
-        = f.label :capped
-        = f.check_box :capped, {}, "checked", nil
-      .form-group
-        = f.label :capped_size
-        = f.text_field :capped_size
-      .form-group
-        = f.label :capped_max
-        = f.text_field :capped_max
-      .form-group
-        = f.label :buffer_type
-        = f.text_field :buffer_type
-      .form-group
-        = f.label :buffer_queue_limit
-        = f.text_field :buffer_queue_limit
-      .form-group
-        = f.label :buffer_chunk_limit
-        = f.text_field :buffer_chunk_limit
-      .form-group
-        = f.label :flush_interval
-        = f.text_field :flush_interval
-      .form-group
-        = f.label :retry_wait
-        = f.text_field :retry_wait
-      .form-group
-        = f.label :retry_limit
-        = f.text_field :retry_limit
-      .form-group
-        = f.label :max_retry_wait
-        = f.text_field :max_retry_wait
-      .form-group
-        = f.label :num_threads
-        = f.text_field :num_threads
+      = field(f, :capped)
+      = field(f, :capped_size)
+      = field(f, :capped_max)
+      = field(f, :buffer_type)
+      = field(f, :buffer_queue_limit)
+      = field(f, :buffer_chunk_limit)
+      = field(f, :flush_interval)
+      = field(f, :retry_wait)
+      = field(f, :retry_limit)
+      = field(f, :max_retry_wait)
+      = field(f, :num_threads)
   = f.submit t('fluentd.common.finish')   , class: "btn btn-lg btn-primary pull-right"
   = f.submit t('terms.prev'),   class: "btn btn-lg btn-default", name: "back"
 
