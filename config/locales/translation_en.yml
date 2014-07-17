@@ -92,7 +92,12 @@ en:
       edit_config: Edit Config
       config_file: Config file
       page_title: "%{label}"
-      setup_in_tail: Setting file reading
+      setup_in_tail: File
+      setup_in_syslog: Syslog protocol
+      setup_out_td: Treasure Data
+      setup_out_mongo: MongoDB
+      setup_out_forward: forwarding
+      setup_out_s3: AWS S3
       finish: Update config
       fluentd_info: Setting info
       recent_errors: "Recently %{days} days errors"
@@ -121,8 +126,36 @@ en:
       show:
         <<: *fluentd_common
         page_title: fluentd config
+        in_out_head: In/Out setting
+        in: Input
+        out: Output
       edit:
         <<: *fluentd_common
+      out_forward:
+        option_guide: |
+        show:
+          page_title: out_forward(TODO)
+      out_s3:
+        option_guide: |
+          fluent-plugin-s3 install is required.
+          See also <a target="_blank" href="http://docs.fluentd.org/articles/out_s3">out_s3 plugin</a>.
+        show:
+          page_title: Write to AWS S3
+      out_td:
+        option_guide: |
+        show:
+          page_title: Write to Treasure Data setting
+      out_mongo:
+        option_guide: |
+          fluent-plugin-mongo install is required.<br />
+          See also <a target="_blank" href="http://docs.fluentd.org/articles/out_mongo">out_mongo plugin</a>.
+        show:
+          page_title: Write to MongoDB setting
+      in_syslog:
+        option_guide: |
+          See also <a target="_blank" href="http://docs.fluentd.org/articles/in_syslog">in_syslog Plugin</a> page.
+        show:
+          page_title: Read from Syslog protocol
       in_tail_option_guide: |
         See <a target="_blank" href="http://docs.fluentd.org/articles/in_tail">in_tail Plugin</a> or 
         <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a> for more details.

@@ -1,0 +1,30 @@
+= render "shared/setting_errors"
+
+= form_for(@setting, url: finish_fluentd_setting_out_mongo_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
+  = field(f, :match)
+  = field(f, :host)
+  = field(f, :port)
+  = field(f, :database)
+  = field(f, :collection)
+  = field(f, :tag_mapped)
+  = field(f, :user)
+  = field(f, :password)
+
+  .well.well-sm
+    %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
+      = icon('fa-caret-down')
+      = t('terms.advanced_setting')
+    #advanced-setting.collapse
+      = field(f, :capped)
+      = field(f, :capped_size)
+      = field(f, :capped_max)
+      = field(f, :buffer_type)
+      = field(f, :buffer_queue_limit)
+      = field(f, :buffer_chunk_limit)
+      = field(f, :flush_interval)
+      = field(f, :retry_wait)
+      = field(f, :retry_limit)
+      = field(f, :max_retry_wait)
+      = field(f, :num_threads)
+  = f.submit t('fluentd.common.finish')   , class: "btn btn-lg btn-primary pull-right"
+

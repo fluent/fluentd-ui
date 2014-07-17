@@ -1,0 +1,9 @@
+= render "shared/setting_errors"
+
+= form_for(@setting, url: finish_fluentd_setting_in_syslog_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
+  = field(f, :tag)
+  = field(f, :bind)
+  = field(f, :port)
+  = field(f, :types)
+  = f.submit t('fluentd.common.finish')   , class: "btn btn-lg btn-primary pull-right"
+
