@@ -72,6 +72,7 @@ class Fluentd
         when :flag
           flag(key)
         when :nested
+          return "" unless send(key)
           klass = child_class(key)
           send(key).map do |(_, child)|
             # send("servers")
@@ -127,7 +128,11 @@ class Fluentd
       end
 
       def input_plugin?
-        self.class.to_s.match(/::In/)
+        self.class.to_s.match(/::In|^In/)
+      end
+
+      def output_plugin?
+        not input_plugin?
       end
 
       def to_config(elm_name = nil)
