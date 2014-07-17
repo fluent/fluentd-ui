@@ -89,7 +89,7 @@ en:
       stopped: Stopped
       running: Running
       operation: Detail
-      edit_config: Edit Config
+      raw_edit_config: Edit Config file directory
       config_file: Config file
       page_title: "%{label}"
       setup_in_tail: File
