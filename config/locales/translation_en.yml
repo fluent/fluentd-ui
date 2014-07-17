@@ -135,6 +135,11 @@ en:
         option_guide: |
         show:
           page_title: out_forward(TODO)
+      out_s3:
+        option_guide: |
+          fluent-plugin-s3 install is required.
+        show:
+          page_title: Write to AWS S3
       out_td:
         option_guide: |
         show:
@@ -149,7 +154,7 @@ en:
         option_guide: |
           See also <a target="_blank" href="http://docs.fluentd.org/articles/in_syslog">in_syslog Plugin</a> page.
         show:
-          page_title: Syslog読み込み設定
+          page_title: Read from Syslog protocol
       in_tail_option_guide: |
         See <a target="_blank" href="http://docs.fluentd.org/articles/in_tail">in_tail Plugin</a> or 
         <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a> for more details.

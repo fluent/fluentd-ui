@@ -136,6 +136,11 @@ ja:
         option_guide: |
         show:
           page_title: out_forward(TODO)
+      out_s3:
+        option_guide: |
+          fluent-plugin-s3プラグインのインストールが必要です。<br />
+        show:
+          page_title: AWS S3書き出し設定
       out_td:
         option_guide: |
           fluent-plugin-tdプラグインのインストールが必要です。<br />
