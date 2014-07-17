@@ -32,6 +32,18 @@ describe Fluentd::Setting::Common do
       it { subject.column_type(:foo).should_not == :flag }
     end
 
+    describe "#hidden" do
+      subject do
+        Class.new do
+          include Fluentd::Setting::Common
+          attr_accessor :hide
+          hidden :hide
+        end.new
+      end
+
+      it { subject.column_type(:hide).should == :hidden }
+    end
+
     describe "#choice" do
       subject do
         Class.new do
@@ -109,10 +121,11 @@ describe Fluentd::Setting::Common do
         end
         @klass = Class.new do
           include Fluentd::Setting::Common
-          KEYS = [:key1, :key2, :flag1, :ch, :child, :string] # FIXME: display "warning: already initialized constant KEYS", but works :(
+          KEYS = [:key1, :key2, :flag1, :hide, :ch, :child, :string] # FIXME: display "warning: already initialized constant KEYS", but works :(
           attr_accessor(*KEYS)
           booleans :key1, :key2
           flags :flag1
+          hidden :hide
           choice :ch, %w(foo bar)
           nested :child, Child
         end
@@ -138,6 +151,11 @@ describe Fluentd::Setting::Common do
           let(:params) { {flag1: "false"} }
           it { should_not include("flag1\n") }
         end
+      end
+
+      describe "hidden" do
+        let(:params) { {hide: "foo"} }
+        it { should include("hide foo\n") }
       end
 
       describe "choice" do

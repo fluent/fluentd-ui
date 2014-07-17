@@ -3,6 +3,8 @@ module SettingsHelper
     html = '<div class="form-group">'
 
     case form.object.column_type(key)
+    when :hidden
+      return form.hidden_field(key)
     when :boolean, :flag
       html << form.check_box(key, {}, "true", "false")
       html << " " # NOTE: Adding space for padding

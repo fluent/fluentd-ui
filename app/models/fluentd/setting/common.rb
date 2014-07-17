@@ -5,12 +5,16 @@ class Fluentd
       include ActiveModel::Model
 
       module ClassMethods
-        attr_accessor :values, :types, :children
+        attr_accessor :values, :types, :children, :hidden_values
 
         def choice(key, values)
           @values ||= {}
           @values[key] = values
           set_type(:choice, [key])
+        end
+
+        def hidden(key)
+          set_type(:hidden, [key])
         end
 
         def nested(key, klass, options = {})
@@ -92,7 +96,7 @@ class Fluentd
               "\n" + child_instance.to_config(key).gsub(/^/m, "  ")
             end
           end.join
-        else
+        else # including :hidden
           print_if_present(key)
         end
       end

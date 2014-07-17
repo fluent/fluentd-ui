@@ -4,6 +4,11 @@ class Fluentd::Settings::OutForwardController < ApplicationController
 
   def show
     @setting = Fluentd::Setting::OutForward.new({
+      secondary: {
+        "0" => {
+          type: "file",
+        }
+      }
     })
   end
 
@@ -27,7 +32,10 @@ class Fluentd::Settings::OutForwardController < ApplicationController
 
   def setting_params
     params.require(:fluentd_setting_out_forward).permit(*Fluentd::Setting::OutForward::KEYS).merge(
-      params.require(:fluentd_setting_out_forward).permit(:server => Fluentd::Setting::OutForward::Server::KEYS)
+      params.require(:fluentd_setting_out_forward).permit(
+        :server => Fluentd::Setting::OutForward::Server::KEYS,
+        :secondary => Fluentd::Setting::OutForward::Secondary::KEYS,
+      ),
     )
   end
 

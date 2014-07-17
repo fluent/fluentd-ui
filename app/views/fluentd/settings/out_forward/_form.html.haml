@@ -3,6 +3,7 @@
 = form_for(@setting, url: finish_fluentd_setting_out_forward_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
   = field(f, :match)
   = field(f, :server)
+  = field(f, :secondary)
 
   .well.well-sm
     %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
