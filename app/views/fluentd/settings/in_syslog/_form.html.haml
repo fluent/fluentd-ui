@@ -1,5 +1,4 @@
-- @setting.errors.full_messages.each do |msg|
-  = msg
+= render "shared/setting_errors"
 
 = form_for(@setting, url: finish_fluentd_setting_in_syslog_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
   = field(f, :tag)
