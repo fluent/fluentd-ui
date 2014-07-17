@@ -41,6 +41,12 @@ class Fluentd
         actual_reload
       end
 
+      def version
+        Bundler.with_clean_env do
+          `fluentd --version`.strip
+        end
+      end
+
       private
 
       def options_to_argv
