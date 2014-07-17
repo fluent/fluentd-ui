@@ -25,10 +25,6 @@ class Fluentd
       validates :match, presence: true
       validates :s3_bucket, presence: true
       validates :buffer_path, presence: true
-
-      def to_conf
-        to_config
-      end
     end
   end
 end

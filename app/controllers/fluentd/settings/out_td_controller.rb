@@ -17,7 +17,7 @@ class Fluentd::Settings::OutTdController < ApplicationController
       return render "show"
     end
 
-    @fluentd.agent.config_append @setting.to_conf
+    @fluentd.agent.config_append @setting.to_config
     if @fluentd.agent.running?
       unless @fluentd.agent.restart
         @setting.errors.add(:base, @fluentd.agent.log_tail(1).first)

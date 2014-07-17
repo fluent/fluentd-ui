@@ -23,10 +23,6 @@ class Fluentd
       def plugin_name
         "tdlog"
       end
-
-      def to_conf
-        to_config
-      end
     end
   end
 end

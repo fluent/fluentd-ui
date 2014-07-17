@@ -126,12 +126,20 @@ class Fluentd
         config.empty?
       end
 
+      def input_plugin?
+        self.class.to_s.match(/::In/)
+      end
+
       def to_config(elm_name = nil)
         indent = "  "
         if elm_name
           config = "<#{elm_name}>\n"
         else
-          config = "<match #{match}>\n"
+          if input_plugin?
+            config = "<source>\n"
+          else
+            config = "<match #{match}>\n"
+          end
           config << "#{indent}type #{plugin_type_name}\n"
         end
         self.class.const_get(:KEYS).each do |key|
@@ -143,7 +151,11 @@ class Fluentd
         if elm_name
           config << "</#{elm_name}>\n"
         else
-          config << "</match>\n"
+          if input_plugin?
+            config << "</source>\n"
+          else
+            config << "</match>\n"
+          end
         end
         config.gsub(/^[ ]*\n/m, "")
       end
