@@ -138,6 +138,7 @@ en:
       out_s3:
         option_guide: |
           fluent-plugin-s3 install is required.
+          See also <a target="_blank" href="http://docs.fluentd.org/articles/out_s3">out_s3 plugin</a>.
         show:
           page_title: Write to AWS S3
       out_td:

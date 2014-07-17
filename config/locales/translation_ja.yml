@@ -139,6 +139,7 @@ ja:
       out_s3:
         option_guide: |
           fluent-plugin-s3プラグインのインストールが必要です。<br />
+          <a target="_blank" href="http://docs.fluentd.org/articles/out_s3">out_s3プラグインの解説</a>もご参照ください。
         show:
           page_title: AWS S3書き出し設定
       out_td:
