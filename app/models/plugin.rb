@@ -190,7 +190,8 @@ class Plugin
   end
 
   def fluent_gem_path
-    if Fluentd.instance.fluentd?
+    # On installed both td-agent and fluentd system, decide which fluent-gem command should be used depend on setup(Fluentd.instance)
+    if Fluentd.instance && Fluentd.instance.fluentd?
       return "fluent-gem" # maybe `fluent-gem` command is in the $PATH
     end
 
