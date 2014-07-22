@@ -20,6 +20,7 @@
     </ul>
     <% end %>
   </li>
+
   <li>
     <a>
       <%= icon("fa-cogs fa-fw") << t('terms.plugins') << icon('pull-right fa-caret-down') %>
@@ -35,8 +36,8 @@
         <%= link_to_other t("plugins.updated.page_title"), updated_plugins_path %>
       </li>
     </ul>
-    <!-- /.nav-second-level -->
   </li>
+
   <li>
     <a>
       <%= icon('fa-coffee fa-fw') << t('terms.misc') << icon('pull-right fa-caret-down') %>
@@ -52,6 +53,16 @@
         <%= link_to_other t('tutorials.index.page_title'), tutorials_path %>
       </li>
     </ul>
-    <!-- /.nav-second-level -->
+  </li>
+
+  <li>
+    <a>
+      <%= icon('fa-font') << t('terms.languages') << icon('pull-right fa-caret-down') %>
+    </a>
+    <ul class="nav nav-second-level">
+      <li>
+        <%= language_menu %>
+      </li>
+    </ul>
   </li>
 </ul>

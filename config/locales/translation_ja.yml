@@ -44,6 +44,7 @@ ja:
     advanced_setting: 高度な設定
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
     lines: 行
+    languages: 言語
 
   plugins:
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
