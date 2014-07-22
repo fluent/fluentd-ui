@@ -4,7 +4,10 @@
     <% if fluentd_exists? %>
     <ul class="nav nav-second-level">
       <li>
-        <%= link_to_other t('fluentd.common.edit_config'), fluentd_setting_path %>
+        <%= link_to_other t('fluentd.settings.source_and_output.page_title'), source_and_output_fluentd_setting_path %>
+      </li>
+      <li>
+        <%= link_to_other t('fluentd.settings.show.page_title'), fluentd_setting_path %>
       </li>
       <li>
         <%= link_to_other t('fluentd.common.log'), log_fluentd_path %>

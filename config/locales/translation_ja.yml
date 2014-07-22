@@ -90,7 +90,6 @@ ja:
       running: 稼働中
       operation: プロセス詳細
       edit_config: 設定ファイルの編集
-      raw_edit_config: 設定ファイルの直接編集
       config_file: 設定ファイル
       page_title: "%{label}"
       setup_in_tail: ファイル
@@ -125,12 +124,12 @@ ja:
       error_is_empty: エラーはありません
     settings:
       <<: *fluentd_common
-      show:
-        <<: *fluentd_common
-        page_title: fluentd 設定
-        in_out_head: 入力/出力設定
+      source_and_output:
+        page_title: ソースと出力先の追加
         in: 入力
         out: 出力
+      show:
+        page_title: 設定ファイルの編集
       edit:
         <<: *fluentd_common
       out_forward:

@@ -124,12 +124,13 @@ en:
       page_title: fluentd log
       error_is_empty: No errors
     settings:
-      show:
-        <<: *fluentd_common
-        page_title: fluentd config
-        in_out_head: In/Out setting
-        in: Input
+      source_and_output:
+        page_title: Add Source and Output
+        in: Source
         out: Output
+      show:
+        page_title: Edit config file
+        in_out_head: In/Out setting
       edit:
         <<: *fluentd_common
       out_forward:
