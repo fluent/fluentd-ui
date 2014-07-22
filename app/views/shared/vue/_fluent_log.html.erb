@@ -1,5 +1,6 @@
 <!-- vue.js -->
-<div id="fluent-log" logUrl="<%= log_tail_fluentd_agent_path(fluentd) %>">
+<% auto_reload ||= false %>
+<div id="fluent-log" logUrl="<%= log_tail_fluentd_agent_path(fluentd) %>" initialAutoReload="<%= auto_reload ? "true" : "" %>">
   <p>
   <button class="btn btn-primary" v-on="click: fetchLogs">
     <%= t "terms.reload_log" %>

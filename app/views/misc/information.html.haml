@@ -24,7 +24,7 @@
           %dt ruby
           %dd= RUBY_DESCRIPTION
           %dt fluentd
-          %dd= Fluent::VERSION
+          %dd= FluentdUI.fluentd_version
           %dt fluentd-ui
           %dd= FluentdUI::VERSION
 
@@ -51,9 +51,8 @@
   %div.col-lg-12
     %div.panel.panel-default
       %div.panel-heading
-        %h4
-          %a{"data-toggle" => "collapse", "href" => "#env-table"}
-            = icon('fa-caret-down')
+        %h4{"data-toggle" => "collapse", "href" => "#env-table"}
+          = icon('fa-caret-down')
           = t('.env')
       %table{class: "table table-hover collapse", id: "env-table"}
         %thead

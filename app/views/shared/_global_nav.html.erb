@@ -21,6 +21,7 @@
     <% end %>
   </li>
 
+  <% if fluentd_exists? %>
   <li>
     <a>
       <%= icon("fa-cogs fa-fw") << t('terms.plugins') << icon('pull-right fa-caret-down') %>
@@ -37,6 +38,7 @@
       </li>
     </ul>
   </li>
+  <% end %>
 
   <li>
     <a>

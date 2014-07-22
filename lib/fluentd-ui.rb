@@ -13,4 +13,10 @@ module FluentdUI
     current = Gem::Version.new(::FluentdUI::VERSION)
     latest > current
   end
+
+  def self.fluentd_version
+    setup_fluentd = Fluentd.instance
+    return nil unless setup_fluentd
+    setup_fluentd.agent.version
+  end
 end

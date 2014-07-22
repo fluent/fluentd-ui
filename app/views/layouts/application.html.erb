@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-      Fluentd-UI
+      <% fluentd_ui_title %>
       <% if content_for?(:page_title) %>
         |
         <%= content_for(:page_title)  %>
@@ -32,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <%= link_to "fluentd-ui", root_path, class: "navbar-brand" %>
+                <%= link_to fluentd_ui_title, root_path, class: "navbar-brand" %>
             </div>
             <!-- /.navbar-header -->
 

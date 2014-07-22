@@ -25,6 +25,10 @@ class Fluentd
         # https://github.com/treasure-data/td-agent/blob/master/debian/td-agent.init#L156
         system('/etc/init.d/td-agent restart')
       end
+
+      def version
+        `td-agent --version`.strip
+      end
     end
   end
 end
