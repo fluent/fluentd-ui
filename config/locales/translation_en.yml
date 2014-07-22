@@ -111,8 +111,7 @@ en:
     form:
       <<: *fluentd_common
     show:
-      <<: *fluentd_common
-      page_title: fluentd
+      page_title: Dashboard
     new:
       <<: *fluentd_common
       page_title: fluentd | New

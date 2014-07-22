@@ -1,8 +1,13 @@
 <ul class="nav" id="side-menu">
   <li>
-    <%= link_to_other icon("fa-puzzle-piece fa-fw") << " fluentd", fluentd_path %>
+    <a>
+      <%= icon("fa-puzzle-piece fa-fw") << "fluentd" << icon('pull-right fa-caret-down') %>
+    </a>
     <% if fluentd_exists? %>
     <ul class="nav nav-second-level">
+      <li>
+        <%= link_to_other t('fluentd.show.page_title'), fluentd_path %>
+      </li>
       <li>
         <%= link_to_other t('fluentd.settings.source_and_output.page_title'), source_and_output_fluentd_setting_path %>
       </li>
@@ -16,7 +21,9 @@
     <% end %>
   </li>
   <li>
-    <%= link_to_other icon("fa-cogs fa-fw") << " " << t('terms.plugins') << icon('fa pull-right fa-caret-down'), plugins_path %>
+    <a>
+      <%= icon("fa-cogs fa-fw") << t('terms.plugins') << icon('pull-right fa-caret-down') %>
+    </a>
     <ul class="nav nav-second-level">
       <li>
         <%= link_to_other t("plugins.installed.page_title"), installed_plugins_path %>
@@ -31,7 +38,9 @@
     <!-- /.nav-second-level -->
   </li>
   <li>
-    <%= link_to_other icon('fa-coffee fa-fw') << " " << t('terms.misc') << icon('fa pull-right fa-caret-down'), misc_path %>
+    <a>
+      <%= icon('fa-coffee fa-fw') << t('terms.misc') << icon('pull-right fa-caret-down') %>
+    </a>
     <ul class="nav nav-second-level">
       <li>
         <%= link_to_other t("misc.information.page_title"), misc_information_path %>

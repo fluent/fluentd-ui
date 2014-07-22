@@ -110,8 +110,7 @@ ja:
     form:
       <<: *fluentd_common
     show:
-      <<: *fluentd_common
-      page_title: "%{label}"
+      page_title: "ダッシュボード"
     new:
       <<: *fluentd_common
       page_title: fluentd | 追加
