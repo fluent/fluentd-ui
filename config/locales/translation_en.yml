@@ -135,8 +135,11 @@ en:
         <<: *fluentd_common
       out_forward:
         option_guide: |
+          See also <a target="_blank" href="http://docs.fluentd.org/articles/out_forward">out_forward plugin</a> page.
+        secondary_note: |
+          All servers are unavailable, store data as a file to specified path.
         show:
-          page_title: out_forward(TODO)
+          page_title: Forward setting
       out_s3:
         option_guide: |
           fluent-plugin-s3 install is required.

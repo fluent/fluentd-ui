@@ -134,8 +134,11 @@ ja:
         <<: *fluentd_common
       out_forward:
         option_guide: |
+          <a target="_blank" href="http://docs.fluentd.org/ja/articles/out_forward">out_forwardプラグインの解説</a>もご参照ください。
+        secondary_note: |
+          ※どのserverにも転送できなかった場合、上記のパスにファイルとしてデータが保存されます。
         show:
-          page_title: out_forward(TODO)
+          page_title: フォワード設定
       out_s3:
         option_guide: |
           fluent-plugin-s3プラグインのインストールが必要です。<br />
