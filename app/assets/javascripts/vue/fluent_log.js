@@ -6,7 +6,7 @@
 
     new Vue({
       el: "#fluent-log",
-      paramAttributes: ["logUrl"],
+      paramAttributes: ["logUrl", "initialAutoReload"],
       data: {
         "autoFetch": false,
         "logs": [],
@@ -15,6 +15,9 @@
       },
 
       created: function(){
+        if(this.initialAutoReload) {
+          this.autoFetch = true;
+        }
         this.fetchLogs();
 
         var self = this;
