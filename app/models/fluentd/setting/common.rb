@@ -57,6 +57,18 @@ class Fluentd
         end
       end
 
+      def children_of(key)
+        meta = self.class.children[key]
+        return unless meta
+        klass = meta[:class]
+        data = send(key) || {"0" => {}}
+        children = []
+        data.each_pair do |index, attrs|
+          children << klass.new(attrs)
+        end
+        children
+      end
+
       def child_class(key)
         self.class.children[key][:class]
       end

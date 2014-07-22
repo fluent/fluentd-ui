@@ -370,6 +370,7 @@ ja:
       lack_write_permission: の書き込み権限がありません
       is_a_directory: はディレクトリです。ファイルを指定してください
       duplicated_conf: 同じ内容の設定がすでに存在しています
+      out_forward_blank_server: serverの設定がありません。
 
   activemodel: &activemodel
     errors:

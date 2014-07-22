@@ -373,6 +373,7 @@ en:
       lack_write_permission: doesn't writable
       is_a_directory: is a directory. should be a file
       duplicated_conf: Configurations is duplicated
+      out_forward_blank_server: server settings should be at least one
 
   activemodel: &activemodel
     errors:

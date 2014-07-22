@@ -17,14 +17,19 @@ module SettingsHelper
       html << h(form.label(key))
       child_data = form.object.class.children[key]
       klass = child_data[:class]
+      options = child_data[:options]
       children = form.object.send(key) || {"0" => {}}
       children.each_pair do |index, child|
-        # TODO: allow append/delete for multiple child
-        form.fields_for("#{key}[#{index}]", klass.new(child), class: "nested-column #{child_data[:multiple] ? "multiple" : ""} well well-sm") do |ff|
+        html << %Q!<div class="nested-column #{options[:multiple] ? "multiple" : ""} well well-sm">!
+        if options[:multiple]
+          html << %Q!<a class="btn btn-default append">+</a>!
+        end
+        form.fields_for("#{key}[#{index}]", klass.new(child)) do |ff|
           klass::KEYS.each do |k|
             html << field(ff, k)
           end
         end
+        html << "</div>"
       end
     else
       html << h(form.label(key))

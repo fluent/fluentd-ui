@@ -12,12 +12,13 @@ class Fluentd
         flags :standby
 
         validates :host, presence: true
+        validates :port, presence: true
       end
 
       class Secondary
         include Common
         KEYS = [
-          :path, :type
+          :type, :path
         ].freeze
 
         attr_accessor(*KEYS)
@@ -37,24 +38,32 @@ class Fluentd
 
       attr_accessor(*KEYS)
       choice :heartbeat_type, %w(udp tcp)
-      nested :server, Server
+      nested :server, Server, multiple: true
       nested :secondary, Secondary
 
       validates :match, presence: true
-      validate :validate_at_least_one_server
+      validate :validate_has_at_least_one_server
       validate :validate_nested_values
 
-      def validate_at_least_one_server
-        # FIXME: real validation
-        true
+      def validate_has_at_least_one_server
+        if children_of(:server).reject{|s| s.empty_value? }.blank?
+          errors.add(:base, :out_forward_blank_server)
+        end
       end
 
       def validate_nested_values
-        # FIXME: real validation with child class instance
-        self.class.children.inject(true) do |result, child|
-          # result & child.valid?
+        self.class.children.inject(true) do |result, (key, _)|
+          children_of(key).each do |child|
+            if !child.empty_value? && !child.valid?
+              child.errors.full_messages.each do |message|
+                errors.add(:base, "(#{key})#{message}")
+              end
+              result = false
+            end
+            result
+          end
+          result
         end
-        true
       end
     end
   end
