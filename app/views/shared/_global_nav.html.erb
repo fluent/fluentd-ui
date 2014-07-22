@@ -12,6 +12,8 @@
     </ul>
     <% end %>
   </li>
+
+  <% if fluentd_exists? %>
   <li>
     <%= link_to_other icon("fa-cogs fa-fw") << " " << t('terms.plugins') << icon('fa pull-right fa-caret-down'), plugins_path %>
     <ul class="nav nav-second-level">
@@ -27,6 +29,8 @@
     </ul>
     <!-- /.nav-second-level -->
   </li>
+  <% end %>
+
   <li>
     <%= link_to_other icon('fa-coffee fa-fw') << " " << t('terms.misc') << icon('fa pull-right fa-caret-down'), misc_path %>
     <ul class="nav nav-second-level">

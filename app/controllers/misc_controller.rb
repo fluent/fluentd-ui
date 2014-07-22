@@ -47,7 +47,7 @@ class MiscController < ApplicationController
       end
       zip.get_output_stream('versions.txt') do |f|
         f.puts "ruby: #{RUBY_DESCRIPTION}"
-        f.puts "fluentd: #{Fluent::VERSION}"
+        f.puts "fluentd: #{FluentdUI.fluentd_version}"
         f.puts "fluentd-ui: #{FluentdUI::VERSION}"
       end
     end

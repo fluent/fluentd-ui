@@ -190,11 +190,16 @@ class Plugin
   end
 
   def fluent_gem_path
+    # On installed both td-agent and fluentd system, decide which fluent-gem command should be used depend on setup(Fluentd.instance)
+    if Fluentd.instance && Fluentd.instance.fluentd?
+      return "fluent-gem" # maybe `fluent-gem` command is in the $PATH
+    end
+
+    # NOTE: td-agent has a command under the /usr/lib{,64}, td-agent2 has under /opt/td-agent
     %W(
-      fluent-gem
+      /opt/td-agent/embedded/bin/fluent-gem
       /usr/lib/fluent/ruby/bin/fluent-gem
       /usr/lib64/fluent/ruby/bin/fluent-gem
-      /opt/td-agent/embedded/bin/fluent-gem
     ).find do |path|
       system("which #{path}", out: File::NULL, err: File::NULL)
     end

@@ -66,7 +66,7 @@ class Fluentd
         end
       end
 
-      %w(running? log config config_write config_append log_tail configuration).each do |method|
+      %w(running? version log config config_write config_append log_tail configuration).each do |method|
         define_method(method) do
           raise NotImplementedError, "'#{method}' method is required to be defined"
         end
