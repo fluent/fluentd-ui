@@ -14,16 +14,17 @@ module SettingsHelper
       html << " " # NOTE: Adding space for padding
       html << form.select(key, form.object.values_of(key), opts)
     when :nested
-      html << h(form.label(key))
       child_data = form.object.class.children[key]
       klass = child_data[:class]
       options = child_data[:options]
       children = form.object.send(key) || {"0" => {}}
       children.each_pair do |index, child|
-        html << %Q!<div class="nested-column #{options[:multiple] ? "multiple" : ""} well well-sm">!
+        html << %Q!<div class="js-nested-column #{options[:multiple] ? "js-multiple" : ""} well well-sm">!
         if options[:multiple]
-          html << %Q!<a class="btn btn-default append">+</a>!
+          html << %Q!<a class="btn btn-xs btn-default js-append">#{icon('fa-plus')}</a> !
+          html << %Q!<a class="btn btn-xs btn-default js-remove" style="display:none">#{icon('fa-minus')}</a> !
         end
+        html << h(form.label(key))
         form.fields_for("#{key}[#{index}]", klass.new(child)) do |ff|
           klass::KEYS.each do |k|
             html << field(ff, k)

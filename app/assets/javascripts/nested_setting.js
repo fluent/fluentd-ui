@@ -2,25 +2,40 @@
   "use strict";
 
   $(function(){
-    if($('.nested-column.multiple').length === 0) return;
+    var $firstSetting = $('.js-nested-column.js-multiple:first');
 
-    var $setting = $('.nested-column.multiple:first');
+    if($firstSetting.length === 0) return;
+
     var counter = 0;
-
-    $('.append', $setting).on('click', function(ev){
+    $('.js-append', $firstSetting).on('click', function(ev){
       ev.preventDefault();
-      var $new = $setting.clone(true);
-      var elements = $('.form-control', $new);
-      _.each(elements, function(elm){
-        elm.name = elm.name.replace("0", ++counter);
+      var $new = $firstSetting.clone(true);
+      counter++;
+
+      var fields = $('input,select,textarea', $new);
+      _.each(fields, function(elm){
+        elm.name = elm.name.replace("0", counter);
       });
-      var $close = $(this).clone().text('-');
-      $close.on('click', function(){
-        $new.remove();
+      $('label', $new).each(function(_, label){
+        var $label = $(label);
+        $label.attr('for', $label.attr('for').replace("0", counter));
       });
-      $(".append", $new).replaceWith($close);
-      $new.appendTo($setting.parent());
+
+      $('.js-remove', $new).show();
+      $('.js-append', $new).hide();
+      $new.appendTo($firstSetting.parent());
     });
+
+    $('.js-remove').on('click', function(ev){
+      ev.preventDefault();
+      $(this).closest('.js-nested-column').remove();
+    });
+
+    var $allSettings = $('.js-nested-column.js-multiple');
+    $('.js-append', $allSettings).hide();
+    $('.js-remove', $allSettings).show();
+    $('.js-append', $firstSetting).show();
+    $('.js-remove', $firstSetting).hide();
   });
 })();
 
