@@ -103,7 +103,7 @@ en:
       finish: Update config
       fluentd_info: Setting info
       recent_errors: "Recently %{days} days errors"
-      raw_log_link: Download log file
+      raw_log_link: Download
       destroy_fluentd_setting: Delete fluentd setting
       destroy_fluentd_setting_warning: |
         Delete fluentd setting.
@@ -129,7 +129,7 @@ en:
         in: Source
         out: Output
       show:
-        page_title: Edit config file
+        page_title: Config File
         in_out_head: In/Out setting
       edit:
         <<: *fluentd_common
@@ -227,7 +227,7 @@ en:
       page_title: System Information
       update_fluentd_ui: Update fluentd-ui
       update_fluentd_ui_caution: "Note: fluentd will not restart"
-      download_system_information: Download system information
+      download_system_information: Download System Information
     update_fluentd_ui:
       <<: *misc_common
       update_title: Updating fluentd-ui
