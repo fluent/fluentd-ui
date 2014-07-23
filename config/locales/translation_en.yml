@@ -41,7 +41,7 @@ en:
     auto_reload: "Auto Reload(every %{seconds} seconds)"
     next: Next
     prev: Prev
-    advanced_setting: Advanced Setting
+    advanced_setting: Advanced Settings
     notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
     lines: Lines
     languages: Language
@@ -95,12 +95,12 @@ en:
       config_file: Config file
       page_title: "%{label}"
       setup_in_tail: File
-      setup_in_syslog: Syslog protocol
+      setup_in_syslog: Syslog Protocol
       setup_out_td: Treasure Data
       setup_out_mongo: MongoDB
-      setup_out_forward: forwarding
-      setup_out_s3: AWS S3
-      finish: Update config
+      setup_out_forward: Forwarding
+      setup_out_s3: Amazon S3
+      finish: Update Config and Restart
       fluentd_info: Setting info
       recent_errors: "Recently %{days} days errors"
       raw_log_link: Download
@@ -135,35 +135,33 @@ en:
         <<: *fluentd_common
       out_forward:
         option_guide: |
-          See also <a target="_blank" href="http://docs.fluentd.org/articles/out_forward">out_forward plugin</a> page.
+          For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/out_forward" target="_blank">Forward output plugin</a> documentation page.
         secondary_note: |
           All servers are unavailable, store data as a file to specified path.
         show:
-          page_title: Forward setting
+          page_title: Add Output to another Fluentd
       out_s3:
         option_guide: |
-          fluent-plugin-s3 install is required.
-          See also <a target="_blank" href="http://docs.fluentd.org/articles/out_s3">out_s3 plugin</a>.
+          For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/out_s3" target="_blank">Amazon S3 output plugin</a> documentation page.
         show:
-          page_title: Write to AWS S3
+          page_title: Add Output to Amazon S3
       out_td:
         option_guide: |
+          For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/out_td" target="_blank">Treasure Data output plugin</a> documentation page.
         show:
-          page_title: Write to Treasure Data setting
+          page_title: Add Output to Treasure Data
       out_mongo:
         option_guide: |
-          fluent-plugin-mongo install is required.<br />
-          See also <a target="_blank" href="http://docs.fluentd.org/articles/out_mongo">out_mongo plugin</a>.
+          For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/out_mongo" target="_blank">MongoDB output plugin</a> documentation page.
         show:
-          page_title: Write to MongoDB setting
+          page_title: Add Output to MongoDB
       in_syslog:
         option_guide: |
-          See also <a target="_blank" href="http://docs.fluentd.org/articles/in_syslog">in_syslog Plugin</a> page.
+          For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/in_syslog" target="_blank">MongoDB output plugin</a> documentation page.
         show:
-          page_title: Read from Syslog protocol
+          page_title: Add Input from Syslog Protocol
       in_tail_option_guide: |
-        See <a target="_blank" href="http://docs.fluentd.org/articles/in_tail">in_tail Plugin</a> or 
-        <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a> for more details.
+          For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/in_tail" target="_blank">Tail iutput plugin</a> documentation page.
       in_tail:
         <<: *fluentd_common
         restart_from_first: Restart from first
@@ -205,16 +203,16 @@ en:
           </table>
         show:
           <<: *fluentd_common
-          page_title: "File readling | Choosing File"
+          page_title: "Choose File Path"
         after_file_choose:
           <<: *fluentd_common
-          page_title: "File readling | Setting format"
+          page_title: "Select File Format"
         after_format:
           <<: *fluentd_common
-          page_title: "File readling | Other config"
+          page_title: "Config Parameters"
         confirm:
           <<: *fluentd_common
-          page_title: "File readling | Confirmation"
+          page_title: "Confirmation"
 
   misc:
     common: &misc_common
