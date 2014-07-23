@@ -24,7 +24,7 @@ en:
     update_password: Update Password
     detail: Detail
     create: Create
-    update: Update
+    update: Update & Restart
     edit: Edit
     destroy: Destroy
     new: New
@@ -100,9 +100,9 @@ en:
       setup_out_mongo: MongoDB
       setup_out_forward: Forwarding
       setup_out_s3: Amazon S3
-      finish: Update Config and Restart
+      finish: Update & Restart
       fluentd_info: Setting info
-      recent_errors: "Recently %{days} days errors"
+      recent_errors: "Errors within recent %{days} days"
       raw_log_link: Download
       destroy_fluentd_setting: Delete fluentd setting
       destroy_fluentd_setting_warning: |
