@@ -5,12 +5,16 @@ class Fluentd
       include ActiveModel::Model
 
       module ClassMethods
-        attr_accessor :values, :types, :children
+        attr_accessor :values, :types, :children, :hidden_values
 
         def choice(key, values)
           @values ||= {}
           @values[key] = values
           set_type(:choice, [key])
+        end
+
+        def hidden(key)
+          set_type(:hidden, [key])
         end
 
         def nested(key, klass, options = {})
@@ -53,6 +57,18 @@ class Fluentd
         end
       end
 
+      def children_of(key)
+        meta = self.class.children[key]
+        return unless meta
+        klass = meta[:class]
+        data = send(key) || {"0" => {}}
+        children = []
+        data.each_pair do |index, attrs|
+          children << klass.new(attrs)
+        end
+        children
+      end
+
       def child_class(key)
         self.class.children[key][:class]
       end
@@ -72,6 +88,7 @@ class Fluentd
         when :flag
           flag(key)
         when :nested
+          return "" unless send(key)
           klass = child_class(key)
           send(key).map do |(_, child)|
             # send("servers")
@@ -91,7 +108,7 @@ class Fluentd
               "\n" + child_instance.to_config(key).gsub(/^/m, "  ")
             end
           end.join
-        else
+        else # including :hidden
           print_if_present(key)
         end
       end
@@ -126,12 +143,24 @@ class Fluentd
         config.empty?
       end
 
+      def input_plugin?
+        self.class.to_s.match(/::In|^In/)
+      end
+
+      def output_plugin?
+        not input_plugin?
+      end
+
       def to_config(elm_name = nil)
         indent = "  "
         if elm_name
           config = "<#{elm_name}>\n"
         else
-          config = "<match #{match}>\n"
+          if input_plugin?
+            config = "<source>\n"
+          else
+            config = "<match #{match}>\n"
+          end
           config << "#{indent}type #{plugin_type_name}\n"
         end
         self.class.const_get(:KEYS).each do |key|
@@ -143,7 +172,11 @@ class Fluentd
         if elm_name
           config << "</#{elm_name}>\n"
         else
-          config << "</match>\n"
+          if input_plugin?
+            config << "</source>\n"
+          else
+            config << "</match>\n"
+          end
         end
         config.gsub(/^[ ]*\n/m, "")
       end

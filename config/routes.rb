@@ -4,13 +4,17 @@ Rails.application.routes.draw do
   resource :fluentd, controller: :fluentd do
     get "log"
     get "raw_log"
+
     resource :agent, only: [], module: :fluentd do
       put "start"
       put "stop"
       put "restart"
       get "log_tail"
     end
+
     resource :setting, only: [:show, :edit, :update], module: :fluentd do
+      get "source_and_output"
+
       resource :in_tail, only: ["show"], module: :settings, controller: :in_tail do
         post "after_file_choose"
         post "after_format"

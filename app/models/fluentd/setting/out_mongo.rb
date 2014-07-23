@@ -20,10 +20,6 @@ class Fluentd
       validate :validate_capped
       validate :validate_collection
 
-      def to_conf
-        to_config
-      end
-
       def validate_capped
         return true if capped.blank?
         errors.add(:capped_size, :blank) if capped_size.blank?

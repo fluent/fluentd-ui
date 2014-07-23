@@ -1,5 +1,5 @@
 - if @fluentd.present?
-  - page_title t('.page_title', label: @fluentd.label)
+  - page_title t('.page_title')
   .row
     .col-lg-6
       %div{class: "panel panel-#{@fluentd.agent.running? ? "success":"default"}"}
@@ -21,9 +21,9 @@
       .panel.panel-default
         .panel-heading
           .pull-right
-            = link_to t('.edit'), edit_fluentd_path, class: "btn btn-default"
-            = link_to t('.destroy'), "#", class: "btn btn-danger", data: { toggle: "modal", target: "#setting-destroy-modal" }
-          %h4= t('.fluentd_info')
+            = link_to t('terms.edit'), edit_fluentd_path, class: "btn btn-default"
+            = link_to t('terms.destroy'), "#", class: "btn btn-danger", data: { toggle: "modal", target: "#setting-destroy-modal" }
+          %h4= t('fluentd.common.fluentd_info')
           .modal.fade{id: "setting-destroy-modal"}
             .modal-dialog
               .modal-content
@@ -31,14 +31,14 @@
                   %button.close{"data-dismiss" => "modal"}
                     = raw "&times;"
                   %h4.modal-title
-                    = t('.destroy_fluentd_setting')
+                    = t('fluentd.common.destroy_fluentd_setting')
                 .modal-body
-                  = raw t('.destroy_fluentd_setting_warning')
+                  = raw t('fluentd.common.destroy_fluentd_setting_warning')
                 .modal-footer
                   = form_tag(fluentd_path(@fluentd), method: :delete) do
                     %button.btn.btn-default{"data-dismiss" => "modal"}
                       Close
-                    = submit_tag t('.destroy'), class: "btn btn-danger"
+                    = submit_tag t('terms.destroy'), class: "btn btn-danger"
 
         %table.table.table-hover
           %tbody

@@ -1,57 +1,9 @@
-- page_title t('.page_title', label: @fluentd.label)
+- page_title t('.page_title')
 
 .row
   .col-lg-12
-    %h2
-      = t(".edit_config")
-    = link_to icon('fa-pencil') << t(".edit"), edit_fluentd_setting_path(@fluentd)
+    %p
+      = link_to t("terms.edit"), edit_fluentd_setting_path(@fluentd), class: "btn btn-primary"
     %pre
       = preserve do
         = @config
-
-%hr
-
-%h2
-  = t ".in_out_head"
-
-.row.fluentd-setting-inout
-  .col-lg-4
-    .panel.panel-default
-      .panel-heading
-        %h4= t('.in')
-      .panel-body
-        %p
-          = link_to(fluentd_setting_in_tail_path(@fluentd)) do
-            = icon('fa-file-text-o fa-lg')
-            = t("fluentd.common.setup_in_tail")
-        %p
-          = link_to(fluentd_setting_in_syslog_path(@fluentd)) do
-            = icon('fa-file-text-o fa-lg')
-            = t("fluentd.common.setup_in_syslog")
-  .col-lg-1.arrow-right
-    = icon "fa-arrow-circle-right"
-  .col-lg-2
-    = image_tag "/fluentd-logo.png", style: "max-width: 100%"
-  .col-lg-1.arrow-right
-    = icon "fa-arrow-circle-right"
-  .col-lg-4
-    .panel.panel-default
-      .panel-heading
-        %h4= t('.out')
-      .panel-body
-        %p
-          = link_to(fluentd_setting_out_td_path(@fluentd)) do
-            = icon('fa-file-text-o fa-lg')
-            = t("fluentd.common.setup_out_td")
-        %p
-          = link_to(fluentd_setting_out_s3_path(@fluentd)) do
-            = icon('fa-file-text-o fa-lg')
-            = t("fluentd.common.setup_out_s3")
-        %p
-          = link_to(fluentd_setting_out_mongo_path(@fluentd)) do
-            = icon('fa-file-text-o fa-lg')
-            = t("fluentd.common.setup_out_mongo")
-        %p
-          = link_to(fluentd_setting_out_forward_path(@fluentd)) do
-            = icon('fa-file-text-o fa-lg')
-            = t("fluentd.common.setup_out_forward")

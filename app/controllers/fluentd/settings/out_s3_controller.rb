@@ -5,7 +5,9 @@ class Fluentd::Settings::OutS3Controller < ApplicationController
   def show
     @setting = Fluentd::Setting::OutS3.new({
       s3_endpoint: "s3-us-west-1.amazonaws.com",
-      buffer_path: "/var/log/fluent/s3",
+      output_tag: true,
+      output_time: true,
+      use_ssl: true,
     })
   end
 
@@ -15,7 +17,7 @@ class Fluentd::Settings::OutS3Controller < ApplicationController
       return render "show"
     end
 
-    @fluentd.agent.config_append @setting.to_conf
+    @fluentd.agent.config_append @setting.to_config
     if @fluentd.agent.running?
       unless @fluentd.agent.restart
         @setting.errors.add(:base, @fluentd.agent.log_tail(1).first)

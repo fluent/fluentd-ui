@@ -44,6 +44,7 @@ ja:
     advanced_setting: 高度な設定
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
     lines: 行
+    languages: 言語
 
   plugins:
     notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
@@ -110,8 +111,7 @@ ja:
     form:
       <<: *fluentd_common
     show:
-      <<: *fluentd_common
-      page_title: "%{label}"
+      page_title: "ダッシュボード"
     new:
       <<: *fluentd_common
       page_title: fluentd | 追加
@@ -124,18 +124,21 @@ ja:
       error_is_empty: エラーはありません
     settings:
       <<: *fluentd_common
-      show:
-        <<: *fluentd_common
-        page_title: fluentd 設定
-        in_out_head: 入力/出力設定
+      source_and_output:
+        page_title: ソースと出力先の追加
         in: 入力
         out: 出力
+      show:
+        page_title: 設定ファイルの編集
       edit:
         <<: *fluentd_common
       out_forward:
         option_guide: |
+          <a target="_blank" href="http://docs.fluentd.org/ja/articles/out_forward">out_forwardプラグインの解説</a>もご参照ください。
+        secondary_note: |
+          ※どのserverにも転送できなかった場合、上記のパスにファイルとしてデータが保存されます。
         show:
-          page_title: out_forward(TODO)
+          page_title: フォワード設定
       out_s3:
         option_guide: |
           fluent-plugin-s3プラグインのインストールが必要です。<br />
@@ -367,6 +370,7 @@ ja:
       lack_write_permission: の書き込み権限がありません
       is_a_directory: はディレクトリです。ファイルを指定してください
       duplicated_conf: 同じ内容の設定がすでに存在しています
+      out_forward_blank_server: serverの設定がありません。
 
   activemodel: &activemodel
     errors:
