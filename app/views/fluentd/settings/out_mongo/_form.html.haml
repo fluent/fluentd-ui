@@ -1,6 +1,6 @@
 = render "shared/setting_errors"
 
-= form_for(@setting, url: finish_fluentd_setting_out_mongo_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
+= form_for(@setting, url: finish_daemon_setting_out_mongo_path(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
   = field(f, :match)
   = field(f, :host)
   = field(f, :port)

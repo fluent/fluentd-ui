@@ -14,8 +14,8 @@ describe "sessions" do
 
     context "sign in with exists user" do
       let(:user) { exists_user }
-      it "login success, then redirect to root_path, and redirect_to fluentd_path from root_path" do
-        current_path.should == fluentd_path
+      it "login success, then redirect to root_path, and redirect_to daemon_path from root_path" do
+        current_path.should == daemon_path
       end
     end
 

@@ -1,6 +1,6 @@
 class FluentdController < ApplicationController
-  before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log, :raw_log]
-  before_action :check_fluentd_exists, only: [:edit, :log, :raw_log]
+  before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log, :raw_log, :errors]
+  before_action :check_fluentd_exists, only: [:edit, :log, :raw_log, :errors]
 
   def show
   end
@@ -15,7 +15,7 @@ class FluentdController < ApplicationController
     unless @fluentd.save
       return render :new
     end
-    redirect_to fluentd_path
+    redirect_to daemon_path
   end
 
   def edit
@@ -27,16 +27,19 @@ class FluentdController < ApplicationController
     unless @fluentd.save
       return render :edit
     end
-    redirect_to fluentd_path
+    redirect_to daemon_path
   end
   
   def destroy
     @fluentd.agent.stop if @fluentd.agent.running?
     @fluentd.destroy
-    redirect_to root_path, flash: {success: t('messages.destroy_succeed_fluentd_setting')}
+    redirect_to root_path, flash: {success: t('messages.destroy_succeed_fluentd_setting', brand: fluentd_ui_brand)}
   end
 
   def log
+  end
+
+  def errors
     @error_duration_days = 5
     @errors = @fluentd.agent.errors_since(@error_duration_days.days.ago)
   end

@@ -10,7 +10,7 @@
       = t('.step1')
     - else
       = icon('fa-warning text text-danger')
-      = link_to t('.step1'), fluentd_path
+      = link_to t('.step1'), daemon_path
   %li
     - if @fluentd && @fluentd.agent.running?
       = icon('fa-check text text-success')
@@ -18,7 +18,7 @@
     - else
       = icon('fa-warning text text-danger')
       - if @fluentd
-        = link_to t('.step2'), fluentd_path(@fluentd)
+        = link_to t('.step2'), daemon_path(@fluentd)
       - else
         = t('.step2')
 

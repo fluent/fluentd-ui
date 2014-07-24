@@ -5,8 +5,8 @@ module ApplicationHelper
     File.exist?("/etc/init.d/td-agent")
   end
 
-  def fluentd_ui_title
-    ENV["FLUENTD_UI_TITLE"] || "Fluentd UI"
+  def fluentd_ui_logo
+    image_tag(ENV["FLUENTD_UI_LOGO"] || "/fluentd-logo-right-text.png")
   end
 
   def language_name(locale)
@@ -40,12 +40,16 @@ module ApplicationHelper
     %Q!<i class="fa #{classes}">#{inner}</i> !.html_safe
   end
 
-  def page_title(title)
-    content_for(:page_title) { title }
-    page_head(title) unless content_for?(:page_head)
+  def page_title(title, &block)
+    content_for(:page_title) do
+      title
+    end
+    page_head(title, &block) unless content_for?(:page_head)
   end
 
-  def page_head(head)
-    content_for(:page_head) { head }
+  def page_head(head, &block)
+    content_for(:page_head) do
+      head.html_safe + block.try(:call).to_s
+    end
   end
 end

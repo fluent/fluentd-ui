@@ -1,21 +1,9 @@
+- page_title t('.page_title', label: @fluentd.label) do
+  - link_to raw_log_daemon_path(@fluentd), class: "btn btn-primary pull-right" do
+    = icon('fa-download')
+    = t('fluentd.common.raw_log_link')
 
-- page_title t('.page_title', label: @fluentd.label)
-
-= link_to t('.raw_log_link'), raw_log_fluentd_path(@fluentd), class: "btn btn-primary"
-
-
-%h3= t('.recent_errors', days: @error_duration_days)
-
-%div.row
-  %div.col-lg-12
-    - @errors.each do |error|
-      %div.panel.panel-default
-        %div.panel-heading
-          %h4= error[:subject]
-        - if error[:notes].present?
-          %div.panel-body
-            %ul
-              - error[:notes].each do |stack|
-                %li= stack
-    - if @errors.empty?
-      %p= t('.error_is_empty')
+.row
+  .col-lg-12
+    = preserve do # partial containing <pre>, so shouldn't break indent
+      = render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd }

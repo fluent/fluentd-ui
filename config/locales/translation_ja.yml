@@ -1,9 +1,8 @@
 ja:
   messages:
-    need_restart: fluentd-uiの再起動が必要です
     please_sign_in: ログイン
-    destroy_succeed_fluentd_setting: fluentdの設定を削除しました
-    available_new_fluentd_ui: 'fluentd-ui %{version}にアップデートできます。<a href="%{update_url}">システム情報ページへ</a>'
+    destroy_succeed_fluentd_setting: "%{brand}の設定を削除しました"
+    available_new_fluentd_ui: '%{title} %{version}にアップデートできます。<a href="%{update_url}">システム情報ページへ</a>'
 
   terms: &terms
     sign_in: ログイン
@@ -42,12 +41,11 @@ ja:
     next: 次へ
     prev: 前へ
     advanced_setting: 高度な設定
-    notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
+    notice_restart_for_config_edit: "※更新すると稼働中の%{brand}が再起動されます"
     lines: 行
     languages: 言語
 
   plugins:
-    notice_restart_for_config_edit: ※更新するとfluentdが再起動されます
     view_on_rubygems_org: rubygems.orgで見る
     common: &plugin_common
       <<: *terms
@@ -103,24 +101,25 @@ ja:
       fluentd_info: 設定情報
       recent_errors: "直近 %{days} 日内のエラー"
       raw_log_link: ログファイルをダウンロード
-      destroy_fluentd_setting: fluentdの設定情報を削除
+      destroy_fluentd_setting: "%{brand}の設定情報を削除"
       destroy_fluentd_setting_warning: |
-        fluentdの設定を削除します。
+        %{brand}の設定を削除します。
         
-        <p>起動中のfluentdは停止し、ログや設定ファイルはそのまま残存します。</p>
+        <p>起動中の%{brand}は停止し、ログや設定ファイルはそのまま残存します。</p>
     form:
       <<: *fluentd_common
     show:
       page_title: "ダッシュボード"
     new:
       <<: *fluentd_common
-      page_title: fluentd | 追加
+      page_title: 追加
     edit:
       <<: *fluentd_common
-      page_title: fluentd | 編集
+      page_title: 編集
     log:
-      <<: *fluentd_common
-      page_title: fluentd ログ
+      page_title: ログ
+    errors:
+      page_title: エラーログ
       error_is_empty: エラーはありません
     settings:
       <<: *fluentd_common
@@ -220,15 +219,14 @@ ja:
       env_key: キー
       env_value: 値
       page_title: システム情報
-      update_fluentd_ui: fluentd-uiを更新
-      update_fluentd_ui_caution: ※fluentdは再起動されません
+      update_fluentd_ui: "%{title}を更新"
+      update_fluentd_ui_caution: "※%{brand}は再起動されません"
       download_system_information: システム情報をダウンロード
     update_fluentd_ui:
-      <<: *misc_common
-      update_title: fluentd-ui 更新
+      update_title: "%{title} 更新"
       updating: 更新中
       update_finish: 更新が完了しました
-      failed: 更新に失敗しました。fluentd-uiのログをご確認ください
+      failed: "更新に失敗しました。%{title}のログをご確認ください"
 
   tutorials:
     common: &tutorials_common
@@ -359,9 +357,9 @@ ja:
 
   error:
     login_failed: ログインに失敗しました。
-    fluentd_start_failed: fluentdの起動に失敗しました。
-    fluentd_stop_failed: fluentdの停止に失敗しました。
-    fluentd_restart_failed: fluentdの再起動に失敗しました。
+    fluentd_start_failed:   "%{brand}の起動に失敗しました。"
+    fluentd_stop_failed:    "%{brand}の停止に失敗しました。"
+    fluentd_restart_failed: "%{brand}の再起動に失敗しました。"
 
   errors:
     messages: &error_messages

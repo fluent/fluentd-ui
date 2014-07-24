@@ -14,14 +14,14 @@
         .panel-body
           - if flash[:error]
             %div.alert.alert-danger= flash[:error]
-          = link_to icon("fa-play") << t("fluentd.common.start"), start_fluentd_agent_path(@fluentd),     method: :put, class: "btn #{@fluentd.agent.running? ? "disabled btn-default" : "btn-primary"}"
-          = link_to icon("fa-pause") << t("fluentd.common.stop"), stop_fluentd_agent_path(@fluentd),       method: :put, class: "btn #{@fluentd.agent.running? ? "btn-danger" : "disabled btn-default"}"
-          = link_to icon("fa-refresh") << t("fluentd.common.restart"), restart_fluentd_agent_path(@fluentd), method: :put, class: "btn #{@fluentd.agent.running? ? "btn-warning" : "disabled btn-default"}"
+          = link_to icon("fa-play") << t("fluentd.common.start"), start_daemon_agent_path(@fluentd),     method: :put, class: "btn #{@fluentd.agent.running? ? "disabled btn-default" : "btn-primary"}"
+          = link_to icon("fa-pause") << t("fluentd.common.stop"), stop_daemon_agent_path(@fluentd),       method: :put, class: "btn #{@fluentd.agent.running? ? "btn-danger" : "disabled btn-default"}"
+          = link_to icon("fa-refresh") << t("fluentd.common.restart"), restart_daemon_agent_path(@fluentd), method: :put, class: "btn #{@fluentd.agent.running? ? "btn-warning" : "disabled btn-default"}"
     .col-lg-6
       .panel.panel-default
         .panel-heading
           .pull-right
-            = link_to t('terms.edit'), edit_fluentd_path, class: "btn btn-default"
+            = link_to t('terms.edit'), edit_daemon_path, class: "btn btn-default"
             = link_to t('terms.destroy'), "#", class: "btn btn-danger", data: { toggle: "modal", target: "#setting-destroy-modal" }
           %h4= t('fluentd.common.fluentd_info')
           .modal.fade{id: "setting-destroy-modal"}
@@ -31,11 +31,11 @@
                   %button.close{"data-dismiss" => "modal"}
                     = raw "&times;"
                   %h4.modal-title
-                    = t('fluentd.common.destroy_fluentd_setting')
+                    = t('fluentd.common.destroy_fluentd_setting', brand: fluentd_ui_brand)
                 .modal-body
-                  = raw t('fluentd.common.destroy_fluentd_setting_warning')
+                  = raw t('fluentd.common.destroy_fluentd_setting_warning', brand: fluentd_ui_brand)
                 .modal-footer
-                  = form_tag(fluentd_path(@fluentd), method: :delete) do
+                  = form_tag(daemon_path(@fluentd), method: :delete) do
                     %button.btn.btn-default{"data-dismiss" => "modal"}
                       Close
                     = submit_tag t('terms.destroy'), class: "btn btn-danger"

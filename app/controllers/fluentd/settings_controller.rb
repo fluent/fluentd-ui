@@ -13,7 +13,7 @@ class Fluentd::SettingsController < ApplicationController
   def  update
     @fluentd.agent.config_write params[:config]
     @fluentd.agent.restart if @fluentd.agent.running?
-    redirect_to fluentd_setting_path(@fluentd)
+    redirect_to daemon_setting_path(@fluentd)
   end
 
   def in_tail_after_file_choose
@@ -54,7 +54,7 @@ class Fluentd::SettingsController < ApplicationController
 
     @fluentd.agent.config_append @setting.to_conf
     @fluentd.agent.restart if @fluentd.agent.running?
-    redirect_to fluentd_setting_path(@fluentd)
+    redirect_to daemon_setting_path(@fluentd)
   end
 
   private

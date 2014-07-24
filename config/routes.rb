@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root "welcome#home"
 
-  resource :fluentd, controller: :fluentd do
+  resource :daemon, controller: :fluentd do
     get "log"
     get "raw_log"
+    get "errors"
 
     resource :agent, only: [], module: :fluentd do
       put "start"

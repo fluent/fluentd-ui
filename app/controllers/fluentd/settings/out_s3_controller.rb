@@ -24,7 +24,7 @@ class Fluentd::Settings::OutS3Controller < ApplicationController
         return render "show"
       end
     end
-    redirect_to fluentd_setting_path(@fluentd)
+    redirect_to daemon_setting_path(@fluentd)
   end
 
   private

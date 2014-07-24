@@ -4,9 +4,9 @@
 - if flash[:error]
   %div.alert.alert-danger= flash[:error]
 
-= link_to t("fluentd.common.detail"), fluentd_path(@fluentd)
-= link_to t("fluentd.common.start"), start_fluentd_agent_path(@fluentd), method: :put
-= link_to t("fluentd.common.stop"), stop_fluentd_agent_path(@fluentd), method: :put
-= link_to t("fluentd.common.restart"), restart_fluentd_agent_path(@fluentd), method: :put
-= link_to t("fluentd.common.log"), log_fluentd_agent_path(@fluentd)
-= link_to t("fluentd.common.config_file"), fluentd_setting_path(@fluentd)
+= link_to t("fluentd.common.detail"), daemon_path(@fluentd)
+= link_to t("fluentd.common.start"), start_daemon_agent_path(@fluentd), method: :put
+= link_to t("fluentd.common.stop"), stop_daemon_agent_path(@fluentd), method: :put
+= link_to t("fluentd.common.restart"), restart_daemon_agent_path(@fluentd), method: :put
+= link_to t("fluentd.common.log"), log_daemon_agent_path(@fluentd)
+= link_to t("fluentd.common.config_file"), daemon_setting_path(@fluentd)

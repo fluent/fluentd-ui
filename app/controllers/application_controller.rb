@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :current_locale
   helper_method :installing_gem?, :installing_gems, :uninstalling_gem?, :uninstalling_gems
+  helper_method :fluentd_ui_title, :fluentd_ui_brand
   helper_method :file_tail
   helper_method :fluentd_exists?
   before_action :login_required
@@ -27,6 +28,14 @@ class ApplicationController < ActionController::Base
 
   def current_locale
     I18n.locale
+  end
+
+  def fluentd_ui_title
+    ENV["FLUENTD_UI_TITLE"] || "Fluentd UI"
+  end
+
+  def fluentd_ui_brand
+    ENV["FLUENTD_UI_BRAND"] || "fluentd"
   end
 
   def installing_gem?
@@ -53,7 +62,7 @@ class ApplicationController < ActionController::Base
 
   def notice_new_fluentd_ui_available
     if FluentdUI.update_available?
-      flash[:info] = I18n.t("messages.available_new_fluentd_ui", version: FluentdUI.latest_version, update_url: misc_information_path)
+      flash[:info] = I18n.t("messages.available_new_fluentd_ui", version: FluentdUI.latest_version, update_url: misc_information_path, title: fluentd_ui_title)
     end
   end
 

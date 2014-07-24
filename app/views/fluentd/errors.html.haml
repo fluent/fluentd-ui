@@ -1,0 +1,19 @@
+- page_title t('fluentd.common.recent_errors', days: @error_duration_days) do
+  - link_to raw_log_daemon_path(@fluentd), class: "btn btn-primary pull-right" do
+    = icon('fa-download')
+    = t('fluentd.common.raw_log_link')
+
+%div.row
+  %div.col-lg-12
+    - @errors.each do |error|
+      %div.panel.panel-default
+        %div.panel-heading
+          %h4= error[:subject]
+        - if error[:notes].present?
+          %div.panel-body
+            %ul
+              - error[:notes].each do |stack|
+                %li= stack
+    - if @errors.empty?
+      %p= t('.error_is_empty')
+
