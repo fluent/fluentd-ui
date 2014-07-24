@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
   def home
-    redirect_to fluentd_path
+    redirect_to daemon_path
   end
 end

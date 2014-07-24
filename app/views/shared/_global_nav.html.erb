@@ -6,19 +6,19 @@
     <% if fluentd_exists? %>
     <ul class="nav nav-second-level">
       <li>
-        <%= link_to_other t('fluentd.show.page_title'), fluentd_path %>
+        <%= link_to_other t('fluentd.show.page_title'), daemon_path %>
       </li>
       <li>
-        <%= link_to_other t('fluentd.settings.source_and_output.page_title'), source_and_output_fluentd_setting_path %>
+        <%= link_to_other t('fluentd.settings.source_and_output.page_title'), source_and_output_daemon_setting_path %>
       </li>
       <li>
-        <%= link_to_other t('fluentd.settings.show.page_title'), fluentd_setting_path %>
+        <%= link_to_other t('fluentd.settings.show.page_title'), daemon_setting_path %>
       </li>
       <li>
-        <%= link_to_other t('fluentd.common.log'), log_fluentd_path %>
+        <%= link_to_other t('fluentd.common.log'), log_daemon_path %>
       </li>
       <li>
-        <%= link_to_other t('fluentd.errors.page_title'), errors_fluentd_path %>
+        <%= link_to_other t('fluentd.errors.page_title'), errors_daemon_path %>
       </li>
     </ul>
     <% end %>

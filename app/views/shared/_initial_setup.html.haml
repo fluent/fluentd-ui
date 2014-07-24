@@ -3,11 +3,11 @@
 %div.row
   %div.col-lg-6
     %div.well
-      %span= link_to icon("fa-cog") << t("terms.setup", target: "fluentd"), new_fluentd_path(variant: "fluentd_gem"), class: "btn btn-primary btn-lg"
+      %span= link_to icon("fa-cog") << t("terms.setup", target: "fluentd"), new_daemon_path(variant: "fluentd_gem"), class: "btn btn-primary btn-lg"
   %div.col-lg-6
     %div.well
       %span
-        = link_to icon("fa-cog") << t("terms.setup", target: "td-agent"), new_fluentd_path(variant: "td-agent"), class: "btn btn-lg #{has_td_agent_system? ? "btn-primary" : "btn-default disabled"}"
+        = link_to icon("fa-cog") << t("terms.setup", target: "td-agent"), new_daemon_path(variant: "td-agent"), class: "btn btn-lg #{has_td_agent_system? ? "btn-primary" : "btn-default disabled"}"
         - unless has_td_agent_system?
           = link_to t('terms.install_it', target: "td-agent"), "http://docs.treasuredata.com/articles/td-agent"
 
