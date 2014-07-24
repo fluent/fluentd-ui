@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root "welcome#home"
 
-  resource :fluentd, controller: :fluentd do
+  # GH-51: URLs are changed from "/fluentd/xxx" to "/daemon/xxx", but already used xxx_fluentd_path renaming is so hard, thus path: "/daemon" is used for save trouble
+  resource :fluentd, controller: :fluentd, path: "/daemon" do
     get "log"
     get "raw_log"
     get "errors"
