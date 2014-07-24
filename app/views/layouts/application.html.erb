@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-      <% fluentd_ui_title %>
       <% if content_for?(:page_title) %>
-        |
         <%= content_for(:page_title)  %>
+        |
       <% end %>
+      <%= fluentd_ui_title %>
     </title>
   <%= stylesheet_link_tag    'application', media: 'all'%>
   <%= javascript_include_tag 'application' %>

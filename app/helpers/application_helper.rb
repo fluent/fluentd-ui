@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def fluentd_ui_title
-    ENV["FLUENTD_UI_TITLE"] || "Fluentd UI"
+    ENV["FLUENTD_UI_TITLE"] || "Fluentd"
   end
 
   def language_name(locale)
@@ -42,7 +42,7 @@ module ApplicationHelper
 
   def page_title(title, &block)
     content_for(:page_title) do
-      title + block.try(:call).to_s
+      title
     end
     page_head(title, &block) unless content_for?(:page_head)
   end
