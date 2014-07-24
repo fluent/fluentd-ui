@@ -1,6 +1,7 @@
-- page_title t('.page_title', label: @fluentd.label)
-
-%p= link_to t('fluentd.common.raw_log_link'), raw_log_fluentd_path(@fluentd), class: "btn btn-primary"
+- page_title t('.page_title', label: @fluentd.label) do
+  - link_to raw_log_fluentd_path(@fluentd), class: "btn btn-primary pull-right" do
+    = icon('fa-download')
+    = t('fluentd.common.raw_log_link')
 
 .row
   .col-lg-12

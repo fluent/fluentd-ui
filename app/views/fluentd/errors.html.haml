@@ -1,6 +1,7 @@
-- page_title t('fluentd.common.recent_errors', days: @error_duration_days)
-
-%p= link_to t('fluentd.common.raw_log_link'), raw_log_fluentd_path(@fluentd), class: "btn btn-primary"
+- page_title t('fluentd.common.recent_errors', days: @error_duration_days) do
+  - link_to raw_log_fluentd_path(@fluentd), class: "btn btn-primary pull-right" do
+    = icon('fa-download')
+    = t('fluentd.common.raw_log_link')
 
 %div.row
   %div.col-lg-12

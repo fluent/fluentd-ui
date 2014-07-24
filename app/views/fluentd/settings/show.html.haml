@@ -1,9 +1,10 @@
-- page_title t('.page_title')
+- page_title t('.page_title') do
+  - link_to edit_fluentd_setting_path(@fluentd), class: "btn btn-primary pull-right" do
+    = icon('fa-pencil')
+    = t("terms.edit")
 
 .row
   .col-lg-12
-    %p
-      = link_to t("terms.edit"), edit_fluentd_setting_path(@fluentd), class: "btn btn-primary"
     %pre
       = preserve do
         = @config
