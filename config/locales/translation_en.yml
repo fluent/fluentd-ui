@@ -120,8 +120,9 @@ en:
       <<: *fluentd_common
       page_title: fluentd | Edit
     log:
-      <<: *fluentd_common
       page_title: fluentd log
+    errors:
+      page_title: エラーログ
       error_is_empty: No errors
     settings:
       source_and_output:

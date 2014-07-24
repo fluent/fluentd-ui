@@ -119,8 +119,9 @@ ja:
       <<: *fluentd_common
       page_title: fluentd | 編集
     log:
-      <<: *fluentd_common
       page_title: fluentd ログ
+    errors:
+      page_title: エラーログ
       error_is_empty: エラーはありません
     settings:
       <<: *fluentd_common

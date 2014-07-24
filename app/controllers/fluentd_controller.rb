@@ -1,6 +1,6 @@
 class FluentdController < ApplicationController
-  before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log, :raw_log]
-  before_action :check_fluentd_exists, only: [:edit, :log, :raw_log]
+  before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log, :raw_log, :errors]
+  before_action :check_fluentd_exists, only: [:edit, :log, :raw_log, :errors]
 
   def show
   end
@@ -37,6 +37,9 @@ class FluentdController < ApplicationController
   end
 
   def log
+  end
+
+  def errors
     @error_duration_days = 5
     @errors = @fluentd.agent.errors_since(@error_duration_days.days.ago)
   end
