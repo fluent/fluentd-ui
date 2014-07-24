@@ -33,7 +33,7 @@ class FluentdController < ApplicationController
   def destroy
     @fluentd.agent.stop if @fluentd.agent.running?
     @fluentd.destroy
-    redirect_to root_path, flash: {success: t('messages.destroy_succeed_fluentd_setting')}
+    redirect_to root_path, flash: {success: t('messages.destroy_succeed_fluentd_setting', brand: fluentd_ui_brand)}
   end
 
   def log

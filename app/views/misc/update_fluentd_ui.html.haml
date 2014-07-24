@@ -1,6 +1,6 @@
 .panel.panel-default
   .panel-heading
-    = t('.update_title')
+    = t('.update_title', title: fluentd_ui_title)
   .panel-body
     #processing
       = icon('fa-lg fa-gear fa-spin')
@@ -11,7 +11,7 @@
       %p= link_to t('misc.information.page_title'), misc_information_path
     #failed{style: "display: none"}
       = icon('fa-lg fa-exclamation-circle')
-      = t('.failed')
+      = t('.failed', title: fluentd_ui_title)
       %p= link_to t('misc.information.page_title'), misc_information_path
 
 :javascript

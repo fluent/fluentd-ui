@@ -8,8 +8,8 @@
     .col-lg-12
       %p
         = link_to misc_update_daemon_ui_path, class: "btn btn-primary btn-lg", method: :post do
-          = t('.update_fluentd_ui', version: FluentdUI.latest_version)
-        = t('.update_fluentd_ui_caution')
+          = t('.update_fluentd_ui', version: FluentdUI.latest_version, title: fluentd_ui_title)
+        = t('.update_fluentd_ui_caution', brand: fluentd_ui_brand)
 
 .row
   %div.col-lg-6

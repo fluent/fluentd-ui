@@ -10,4 +10,4 @@
   %p
     = f.submit t('fluentd.common.finish')   , class: "btn btn-lg btn-primary pull-right"
     = f.submit t('terms.prev'),   class: "btn btn-lg btn-default", name: "back"
-    .clearfix.pull-right= t('terms.notice_restart_for_config_edit')
+    .clearfix.pull-right= t('terms.notice_restart_for_config_edit', brand: fluentd_ui_brand)

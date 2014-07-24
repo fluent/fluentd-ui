@@ -5,10 +5,6 @@ module ApplicationHelper
     File.exist?("/etc/init.d/td-agent")
   end
 
-  def fluentd_ui_title
-    ENV["FLUENTD_UI_TITLE"] || "Fluentd"
-  end
-
   def fluentd_ui_logo
     image_tag(ENV["FLUENTD_UI_LOGO"] || "/fluentd-logo-right-text.png")
   end

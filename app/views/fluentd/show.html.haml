@@ -31,9 +31,9 @@
                   %button.close{"data-dismiss" => "modal"}
                     = raw "&times;"
                   %h4.modal-title
-                    = t('fluentd.common.destroy_fluentd_setting')
+                    = t('fluentd.common.destroy_fluentd_setting', brand: fluentd_ui_brand)
                 .modal-body
-                  = raw t('fluentd.common.destroy_fluentd_setting_warning')
+                  = raw t('fluentd.common.destroy_fluentd_setting_warning', brand: fluentd_ui_brand)
                 .modal-footer
                   = form_tag(daemon_path(@fluentd), method: :delete) do
                     %button.btn.btn-default{"data-dismiss" => "modal"}

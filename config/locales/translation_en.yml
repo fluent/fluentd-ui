@@ -1,8 +1,7 @@
 en:
   messages:
-    need_restart: need to restart fluentd-ui
     please_sign_in: Sign in
-    destroy_succeed_fluentd_setting: Deleted fluentd setting
+    destroy_succeed_fluentd_setting: "Deleted %{brand} setting"
     available_new_fluentd_ui: 'fluentd-ui %{version} is available. <a href="%{update_url}">Go to system information page</a>'
 
   terms: &terms
@@ -42,12 +41,11 @@ en:
     next: Next
     prev: Prev
     advanced_setting: Advanced Settings
-    notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
+    notice_restart_for_config_edit: "NOTICE: running %{brand} will restart after update config"
     lines: Lines
     languages: Language
 
   plugins:
-    notice_restart_for_config_edit: "NOTICE: fluentd will restart after update config"
     view_on_rubygems_org: View on rubygems.org
     common: &plugin_common
       <<: *terms
@@ -104,23 +102,23 @@ en:
       fluentd_info: Setting info
       recent_errors: "Errors within recent %{days} days"
       raw_log_link: Download
-      destroy_fluentd_setting: Delete fluentd setting
+      destroy_fluentd_setting: "Delete %{brand} setting"
       destroy_fluentd_setting_warning: |
-        Delete fluentd setting.
+        Delete %{brand} setting.
         
-        <p>Running fluentd will be stopped, but log and config file are still exists.</p>
+        <p>Running %{brand} will be stopped, but log and config file are still exists.</p>
     form:
       <<: *fluentd_common
     show:
       page_title: Dashboard
     new:
       <<: *fluentd_common
-      page_title: fluentd | New
+      page_title: New
     edit:
       <<: *fluentd_common
-      page_title: fluentd | Edit
+      page_title: Edit
     log:
-      page_title: fluentd log
+      page_title: log
     errors:
       page_title: エラーログ
       error_is_empty: No errors
@@ -224,15 +222,15 @@ en:
       env_key: Key
       env_value: Value
       page_title: System Information
-      update_fluentd_ui: Update fluentd-ui
-      update_fluentd_ui_caution: "Note: fluentd will not restart"
+      update_fluentd_ui: "Update %{title}"
+      update_fluentd_ui_caution: "Note: %{brand} will not restart"
       download_system_information: Download System Information
     update_fluentd_ui:
       <<: *misc_common
-      update_title: Updating fluentd-ui
+      update_title: "Updating %{title}"
       updating: Updating..
       update_finish: Update finished!
-      failed: Failed to update. Please see fluentd-ui log
+      failed: "Failed to update. Please see %{title} log"
 
   tutorials:
     common: &tutorials_common

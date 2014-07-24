@@ -3,5 +3,5 @@
 = form_tag(daemon_setting_path(@fluentd), method: :patch) do
   %div.form-group
     = text_area_tag "config", @config, class: "form-control", rows: 40
-  %p.text.text-danger= t('plugins.notice_restart_for_config_edit')
+  %p.text.text-danger= t('terms.notice_restart_for_config_edit', brand: fluentd_ui_brand)
   = submit_tag t(".update"), class: "btn btn-primary"
