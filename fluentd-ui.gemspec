@@ -13,7 +13,13 @@ Gem::Specification.new do |spec|
   spec.homepage      = ""
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files`.split($/)
+  unless (ARGV & %w(rake build)).length.zero?
+    # NOTE: `fluentd-ui start` will run `bundle exec ...`. so this gemspec file evaluated by bundler then exec `git ls-files`
+    #       but `git ls-files` would be warn if $PWD is not git dir, and unnecessary this step for to do it.
+    #       And spec.files required for building a .gem only.
+    #       Thus git ls-files only invoked with `rake build` command
+    spec.files         = `git ls-files`.split($/)
+  end
   spec.executables   = ["fluentd-ui"]
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
