@@ -13,7 +13,8 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
-/tmp
+/tmp/*
+!/tmp/.gitkeep
 
 # built .gem file by `rake build`
 /pkg
