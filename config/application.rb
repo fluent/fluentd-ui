@@ -40,5 +40,9 @@ module FluentdUi
     # config.time_zone =
 
     require Rails.root.join("lib", "fluentd-ui")
+
+    if ENV["FLUENTD_UI_LOG_PATH"].present?
+      config.logger = ActiveSupport::Logger.new(ENV["FLUENTD_UI_LOG_PATH"])
+    end
   end
 end
