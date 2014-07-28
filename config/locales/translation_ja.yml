@@ -1,8 +1,12 @@
 ja:
   messages:
     please_sign_in: ログイン
+    login_failed: ログインに失敗しました。
     destroy_succeed_fluentd_setting: "%{brand}の設定を削除しました"
     available_new_fluentd_ui: '%{title} %{version}にアップデートできます。<a href="%{update_url}">システム情報ページへ</a>'
+    fluentd_start_failed:   "%{brand}の起動に失敗しました。"
+    fluentd_stop_failed:    "%{brand}の停止に失敗しました。"
+    fluentd_restart_failed: "%{brand}の再起動に失敗しました。"
 
   terms: &terms
     sign_in: ログイン
@@ -47,8 +51,7 @@ ja:
 
   plugins:
     view_on_rubygems_org: rubygems.orgで見る
-    common: &plugin_common
-      <<: *terms
+    common:
       name: プラグイン名
       status: 状態
       authors: 作者
@@ -60,27 +63,19 @@ ja:
       install_latest_version: 最新バージョンをインストール
       no_updates: 更新されたプラグインはありません
       no_installed: インストールされたプラグインはありません
-      installed: &installed インストール済みプラグイン
-      recommended: &recommended おすすめプラグイン
-      updated: &updated 更新のあったプラグイン
     installed:
-      <<: *plugin_common
-      page_title: *installed
+      page_title: インストール済みプラグイン
     recommended:
-      <<: *plugin_common
-      page_title: *recommended
+      page_title: おすすめプラグイン
     updated:
-      <<: *plugin_common
-      page_title: *updated
+      page_title: 更新のあったプラグイン
 
-  users: &users
+  users:
     show:
-      <<: *terms
       page_title: パスワード管理
 
-  fluentd: &fluentd
-    common: &fluentd_common
-      <<: *terms
+  fluentd:
+    common:
       start: 開始
       stop: 停止
       restart: 再起動
@@ -106,15 +101,11 @@ ja:
         %{brand}の設定を削除します。
         
         <p>起動中の%{brand}は停止し、ログや設定ファイルはそのまま残存します。</p>
-    form:
-      <<: *fluentd_common
     show:
       page_title: "ダッシュボード"
     new:
-      <<: *fluentd_common
       page_title: 追加
     edit:
-      <<: *fluentd_common
       page_title: 編集
     log:
       page_title: ログ
@@ -122,7 +113,6 @@ ja:
       page_title: エラーログ
       error_is_empty: エラーはありません
     settings:
-      <<: *fluentd_common
       source_and_output:
         page_title: ソースと出力先の追加
         in: 入力
@@ -130,7 +120,7 @@ ja:
       show:
         page_title: 設定ファイルの編集
       edit:
-        <<: *fluentd_common
+        page_title: 設定ファイルの編集
       out_forward:
         option_guide: |
           <a target="_blank" href="http://docs.fluentd.org/ja/articles/out_forward">out_forwardプラグインの解説</a>もご参照ください。
@@ -164,7 +154,6 @@ ja:
         <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_tail">in_tailプラグインの解説ページ</a>や
         <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。
       in_tail:
-        <<: *fluentd_common
         restart_from_first: 最初からやり直す
         grok_manual: |
           <p>
@@ -211,10 +200,7 @@ ja:
           page_title: "ファイル読み込み | 確認"
 
   misc:
-    common: &misc_common
-      <<: *terms
     information:
-      <<: *misc_common
       env: 環境変数
       env_key: キー
       env_value: 値
@@ -227,139 +213,6 @@ ja:
       updating: 更新中
       update_finish: 更新が完了しました
       failed: "更新に失敗しました。%{title}のログをご確認ください"
-
-  tutorials:
-    common: &tutorials_common
-      <<: *terms
-    index:
-      <<: *tutorials_common
-      page_title: チュートリアル
-      step1: "fluentdをセットアップ"
-      step2: "fluentdを起動"
-      start_tutorial: "チュートリアルを始める"
-    chapter1:
-      <<: *tutorials_common
-      page_title: "Chapter 1 | データを渡してみる"
-      description: fluentdに任意のデータをJSONで送ることができます。URLのパスがタグの名前になります。
-      learn_more: |
-        他にもin_tail, in_syslogなどのinputプラグインがあります。
-        <a href="http://docs.fluentd.org/ja/articles/input-plugin-overview">Learn More</a>
-      send: 送信
-    chapter2:
-      <<: *tutorials_common
-      page_title: "Chapter 2 | in_httpとout_stdout"
-      lesson_markdown: |
-        fluentdの起動時にこのようなログがあるかと思います。
-
-            2014-06-05 14:43:14 +0900 [info]: adding source type="http"
-            2014-06-05 14:43:14 +0900 [info]: adding match pattern="debug.*" type="stdout"
-
-        この1行目でhttpが有効化されています。これでHTTPリクエストを受け付けるようになります。
-
-        2行目でstdoutが有効化されています。受け取ったデータのうち、タグが`debug.*`にマッチするものはstdoutへと渡されます。
-
-        この2つはfluent.confでそれぞれ次のように設定されています。
-
-            <source>
-              type http
-              port %{http_port}
-            </source>
-
-            <match debug.*>
-              type stdout
-            </match>
-    chapter3:
-      <<: *tutorials_common
-      page_title: "Chapter 3 | fluentdを構築しよう！"
-      lesson_markdown: |
-        fluentdはHTTP以外にも[syslogプロトコル](http://docs.fluentd.org/ja/articles/in_syslog)や[ファイル](http://docs.fluentd.org/ja/articles/in_tail)を入力として受け取ることができます。
-
-        また出力についても、stdout以外に[MongoDB](http://docs.fluentd.org/ja/articles/out_mongo)や[AWS S3](http://docs.fluentd.org/ja/articles/out_s3)などを出力先として指定できます。
-
-        ![fluentd](/fluentd.png)
-
-        これらはプラグインとして提供されています。プラグインをインストールし、設定ファイルに追記してfluentdを再起動すると使用可能となります。
-
-        [数多くのプラグイン](/plugins/recommended)がありますので、用途にあったものを探して使いましょう！ 設定ファイルは[ここから編集できます。](%{edit_config_url})
-    chapter4:
-      <<: *tutorials_common
-      page_title: "Chapter 4 | 設定事例"
-      lesson_markdown: |
-        ### 例：Apacheの5xxレスポンスを検知してメールを送る
-
-        **必要なプラグイン**
-
-        - fluent-plugin-grepcounter
-        - fluent-plugin-mail
-
-        **設定ファイル例**
-
-            <source>
-              type tail
-              format apache2
-              path /var/log/apache2/access.log #This is the location of your Apache log
-              tag apache.access
-            </source>
-
-            <match apache.access>
-              type grepcounter
-              count_interval 3         # Time window to grep and count the # of events
-              input_key code           # We look at the (http status) "code" field
-              regexp ^5\d\d$           # This regexp matches 5xx status codes
-              threshold 1              # The # of events to trigger emitting an output
-              add_tag_prefix error_5xx # The output event's tag will be error_5xx.apache.access
-            </match>
-        
-            <match error_5xx.apache.access>
-              # The event that comes here looks like
-              # {
-              #   "count":1,
-              #   "input_tag":"error_5xx.apache.access",
-              #   "input_tag_last":"access",
-              #   "message":[500]
-              # }
-
-              type mail
-              host smtp.gmail.com       # This is for Gmail and Google Apps. Any SMTP server should work
-              port 587                  # port for smtp.gmail.com
-              user example@gmail.com    # your Gmail here for login
-              password XXXXXX           # Gmail password
-              enable_starttls_auto true # Gmail required this
-
-              from YOUR_SENDER_EMAIL_HERE
-              to   YOUR_RECIPIENT_EMAIL_HERE
-              subject [URGENT] APACHE 5XX ERROR
-              message Total 5xx error count: %s\n\nPlease check your Apache webserver ASAP
-              message_out_keys count # The value of 'count' will be substituted into %s above.
-            </match>
-
-        **処理の流れ**
-
-            [log file] -> 
-              (in_tail) ->
-                apache.accessタグでfluentdに取り込む ->
-              (apache.accessにマッチ) ->
-                grepcounterがタグにprefixを追加して再送 ->
-              (error_5xx.apache.accessにマッチ) ->
-                mailがメール送信
-    chapter5:
-      <<: *tutorials_common
-      page_title: "Chapter 5 | チュートリアル完了"
-      lesson_markdown: |
-        以上でチュートリアルは終了です。お疲れさまでした！
-
-        関連リソース：
-
-        - [クイックスタートガイド](http://docs.fluentd.org/ja/articles/quickstart)
-        - [メーリングリスト](https://groups.google.com/forum/?fromgroups#!forum/fluentd)
-        - [ソースコード(GitHub)](https://github.com/fluent/fluentd)
-        - [Twitter @fluentd](https://twitter.com/fluentd)
-
-  error:
-    login_failed: ログインに失敗しました。
-    fluentd_start_failed:   "%{brand}の起動に失敗しました。"
-    fluentd_stop_failed:    "%{brand}の停止に失敗しました。"
-    fluentd_restart_failed: "%{brand}の再起動に失敗しました。"
 
   errors:
     messages: &error_messages

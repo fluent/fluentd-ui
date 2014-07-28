@@ -4,18 +4,18 @@
   %thead
     %tr
       %th.col-lg-1
-      %th.col-lg-1= t('.name')
-      %th{width: 160}= t('.authors')
-      %th{width: 320}= t('.summary')
-      %th.col-lg-1= t('.installed_version')
-      %th.col-lg-1= t('.latest_version')
+      %th.col-lg-1= t('plugins.common.name')
+      %th{width: 160}= t('plugins.common.authors')
+      %th{width: 320}= t('plugins.common.summary')
+      %th.col-lg-1= t('plugins.common.installed_version')
+      %th.col-lg-1= t('plugins.common.latest_version')
       %th.col-lg-1
   %tbody
     - @plugins.each do |plugin|
       %tr
         %td
           %button{class: "btn btn-danger", data: {toggle: "modal", target:" #plugin-modal-#{plugin.gem_name}"}}
-            = t ".uninstall"
+            = t "terms.uninstall"
           .modal.fade{id: "plugin-modal-#{plugin.gem_name}"}
             .modal-dialog
               .modal-content
@@ -25,13 +25,13 @@
                   %h4.modal-title
                     = plugin.gem_name
                 .modal-body
-                  = t('.confirm_body', action: t('.uninstall'))
+                  = t('terms.confirm_body', action: t('terms.uninstall'))
                 .modal-footer
                   = form_tag(uninstall_plugins_path, method: :patch) do
                     %button.btn.btn-default{"data-dismiss" => "modal"}
                       Close
                     = hidden_field_tag("plugins[]", plugin.gem_name)
-                    = submit_tag t('.uninstall'), class: "btn btn-danger"
+                    = submit_tag t('terms.uninstall'), class: "btn btn-danger"
         %td
           %label{for: "plugin_#{plugin.gem_name}"}
             = plugin.gem_name
@@ -45,12 +45,12 @@
           = plugin.latest_version
         %td
           - if plugin.latest_version?
-            = t('.latest_version')
+            = t('plugins.common.latest_version')
           - else
             = form_tag(upgrade_plugins_path, method: :patch) do
               = hidden_field_tag("plugins[name]", plugin.gem_name)
               = hidden_field_tag("plugins[version]", plugin.latest_version)
-              = submit_tag t('.install_latest_version'), class: "btn btn-primary"
+              = submit_tag t('plugins.common.install_latest_version'), class: "btn btn-primary"
 
 :javascript
   $(document).ready(function() {
