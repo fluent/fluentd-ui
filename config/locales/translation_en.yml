@@ -1,8 +1,12 @@
 en:
   messages:
     please_sign_in: Sign in
+    login_failed: Login failed
     destroy_succeed_fluentd_setting: "Deleted %{brand} setting"
     available_new_fluentd_ui: 'fluentd-ui %{version} is available. <a href="%{update_url}">Go to system information page</a>'
+    fluentd_start_failed: Failed to start fluentd
+    fluentd_stop_failed: Failed to stop fluentd
+    fluentd_restart_failed: Failed to restart fluentd
 
   terms: &terms
     sign_in: Sign in
@@ -209,13 +213,6 @@ en:
       updating: Updating..
       update_finish: Update finished!
       failed: "Failed to update. Please see %{title} log"
-
-
-  error:
-    login_failed: Login failed
-    fluentd_start_failed: Failed to start fluentd
-    fluentd_stop_failed: Failed to stop fluentd
-    fluentd_restart_failed: Failed to restart fluentd
 
   errors:
     messages: &error_messages

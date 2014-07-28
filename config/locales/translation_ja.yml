@@ -1,8 +1,12 @@
 ja:
   messages:
     please_sign_in: ログイン
+    login_failed: ログインに失敗しました。
     destroy_succeed_fluentd_setting: "%{brand}の設定を削除しました"
     available_new_fluentd_ui: '%{title} %{version}にアップデートできます。<a href="%{update_url}">システム情報ページへ</a>'
+    fluentd_start_failed:   "%{brand}の起動に失敗しました。"
+    fluentd_stop_failed:    "%{brand}の停止に失敗しました。"
+    fluentd_restart_failed: "%{brand}の再起動に失敗しました。"
 
   terms: &terms
     sign_in: ログイン
@@ -209,12 +213,6 @@ ja:
       updating: 更新中
       update_finish: 更新が完了しました
       failed: "更新に失敗しました。%{title}のログをご確認ください"
-
-  error:
-    login_failed: ログインに失敗しました。
-    fluentd_start_failed:   "%{brand}の起動に失敗しました。"
-    fluentd_stop_failed:    "%{brand}の停止に失敗しました。"
-    fluentd_restart_failed: "%{brand}の再起動に失敗しました。"
 
   errors:
     messages: &error_messages
