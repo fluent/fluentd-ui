@@ -67,9 +67,8 @@ ja:
     updated:
       page_title: 更新のあったプラグイン
 
-  users: &users
+  users:
     show:
-      <<: *terms
       page_title: パスワード管理
 
   fluentd: &fluentd
@@ -205,10 +204,7 @@ ja:
           page_title: "ファイル読み込み | 確認"
 
   misc:
-    common: &misc_common
-      <<: *terms
     information:
-      <<: *misc_common
       env: 環境変数
       env_key: キー
       env_value: 値

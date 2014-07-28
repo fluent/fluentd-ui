@@ -66,9 +66,8 @@ en:
     updated:
       page_title: Updated Plugins
 
-  users: &users
+  users:
     show:
-      <<: *terms
       page_title: Password
 
   fluentd: &fluentd
@@ -207,10 +206,7 @@ en:
           page_title: "Confirmation"
 
   misc:
-    common: &misc_common
-      <<: *terms
     information:
-      <<: *misc_common
       env: Environment Variable
       env_key: Key
       env_value: Value
@@ -219,7 +215,6 @@ en:
       update_fluentd_ui_caution: "Note: %{brand} will not restart"
       download_system_information: Download System Information
     update_fluentd_ui:
-      <<: *misc_common
       update_title: "Updating %{title}"
       updating: Updating..
       update_finish: Update finished!
