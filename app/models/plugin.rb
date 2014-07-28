@@ -78,7 +78,7 @@ class Plugin
 
   def inspect
     self.version ||= latest_version
-    %Q|<"#{gem_name}", "#{version}">|
+    %Q|<#{gem_name}, "#{version}">|
   end
 
   def rubygems_org_page
@@ -88,9 +88,12 @@ class Plugin
   def self.installed
     Rails.cache.fetch("installed_gems", expires_in: 3.seconds) do
       Bundler.with_clean_env do
-        `#{fluent_gem_path} list`.lines.grep(/fluent-plugin/).map do |gem|
-          name, version = gem.strip.split(" (")
-          new(gem_name: name, version: version.gsub(/\)$/, ""))
+        gems = `#{fluent_gem_path} list`.try(:lines)
+        return [] unless gems
+        gems.grep(/fluent-plugin/).map do |gem|
+          name, versions_str = gem.strip.split(" ")
+          version = versions_str[/[^(), ]+/]
+          new(gem_name: name, version: version)
         end
       end
     end

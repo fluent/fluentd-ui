@@ -3,7 +3,7 @@
 - unless @plugins.present?
   = t('.no_updates')
 - else
-  = form_tag(install_plugins_path, method: :patch) do
+  = form_tag(bulk_upgrade_plugins_path, method: :patch) do
     %table{class: "table table-striped table-hover"}
       %tr
         %th.col-lg-2= t('.name')

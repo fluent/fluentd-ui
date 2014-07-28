@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       patch :install
       patch :uninstall
       patch :upgrade
+      patch :bulk_upgrade
     end
   end
 
