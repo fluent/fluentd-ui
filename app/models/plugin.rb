@@ -25,7 +25,7 @@ class Plugin
 
   def uninstall!
     return unless installed?
-    valid? && gem_uninstall
+    gem_uninstall # NOTE: not validate
   end
 
   def upgrade!(new_version)
