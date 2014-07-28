@@ -48,7 +48,6 @@ ja:
   plugins:
     view_on_rubygems_org: rubygems.orgで見る
     common:
-      <<: *terms
       name: プラグイン名
       status: 状態
       authors: 作者
@@ -71,9 +70,8 @@ ja:
     show:
       page_title: パスワード管理
 
-  fluentd: &fluentd
-    common: &fluentd_common
-      <<: *terms
+  fluentd:
+    common:
       start: 開始
       stop: 停止
       restart: 再起動
@@ -99,15 +97,11 @@ ja:
         %{brand}の設定を削除します。
         
         <p>起動中の%{brand}は停止し、ログや設定ファイルはそのまま残存します。</p>
-    form:
-      <<: *fluentd_common
     show:
       page_title: "ダッシュボード"
     new:
-      <<: *fluentd_common
       page_title: 追加
     edit:
-      <<: *fluentd_common
       page_title: 編集
     log:
       page_title: ログ
@@ -115,7 +109,6 @@ ja:
       page_title: エラーログ
       error_is_empty: エラーはありません
     settings:
-      <<: *fluentd_common
       source_and_output:
         page_title: ソースと出力先の追加
         in: 入力
@@ -123,7 +116,7 @@ ja:
       show:
         page_title: 設定ファイルの編集
       edit:
-        <<: *fluentd_common
+        page_title: 設定ファイルの編集
       out_forward:
         option_guide: |
           <a target="_blank" href="http://docs.fluentd.org/ja/articles/out_forward">out_forwardプラグインの解説</a>もご参照ください。
@@ -157,7 +150,6 @@ ja:
         <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_tail">in_tailプラグインの解説ページ</a>や
         <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。
       in_tail:
-        <<: *fluentd_common
         restart_from_first: 最初からやり直す
         grok_manual: |
           <p>

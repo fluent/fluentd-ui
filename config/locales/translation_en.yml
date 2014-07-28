@@ -70,9 +70,8 @@ en:
     show:
       page_title: Password
 
-  fluentd: &fluentd
-    common: &fluentd_common
-      <<: *terms
+  fluentd:
+    common:
       start: Start
       stop: Stop
       restart: Restart
@@ -99,20 +98,16 @@ en:
         Delete %{brand} setting.
         
         <p>Running %{brand} will be stopped, but log and config file are still exists.</p>
-    form:
-      <<: *fluentd_common
     show:
       page_title: Dashboard
     new:
-      <<: *fluentd_common
       page_title: New
     edit:
-      <<: *fluentd_common
       page_title: Edit
     log:
       page_title: log
     errors:
-      page_title: エラーログ
+      page_title: Error log
       error_is_empty: No errors
     settings:
       source_and_output:
@@ -123,7 +118,7 @@ en:
         page_title: Config File
         in_out_head: In/Out setting
       edit:
-        <<: *fluentd_common
+        page_title: Edit Config File
       out_forward:
         option_guide: |
           For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/out_forward" target="_blank">Forward output plugin</a> documentation page.
@@ -154,7 +149,6 @@ en:
       in_tail_option_guide: |
           For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/in_tail" target="_blank">Tail iutput plugin</a> documentation page.
       in_tail:
-        <<: *fluentd_common
         restart_from_first: Restart from first
         grok_manual: |
           <p>
@@ -193,16 +187,12 @@ en:
             </tr>
           </table>
         show:
-          <<: *fluentd_common
           page_title: "Choose File Path"
         after_file_choose:
-          <<: *fluentd_common
           page_title: "Select File Format"
         after_format:
-          <<: *fluentd_common
           page_title: "Config Parameters"
         confirm:
-          <<: *fluentd_common
           page_title: "Confirmation"
 
   misc:
