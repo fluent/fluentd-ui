@@ -165,6 +165,5 @@ class Fluentd
 
   def destroy
     File.unlink(JSON_PATH)
-    File.unlink(Plugin.gemfile_path)
   end
 end
