@@ -47,7 +47,7 @@ ja:
 
   plugins:
     view_on_rubygems_org: rubygems.orgで見る
-    common: &plugin_common
+    common:
       <<: *terms
       name: プラグイン名
       status: 状態
@@ -60,18 +60,12 @@ ja:
       install_latest_version: 最新バージョンをインストール
       no_updates: 更新されたプラグインはありません
       no_installed: インストールされたプラグインはありません
-      installed: &installed インストール済みプラグイン
-      recommended: &recommended おすすめプラグイン
-      updated: &updated 更新のあったプラグイン
     installed:
-      <<: *plugin_common
-      page_title: *installed
+      page_title: インストール済みプラグイン
     recommended:
-      <<: *plugin_common
-      page_title: *recommended
+      page_title: おすすめプラグイン
     updated:
-      <<: *plugin_common
-      page_title: *updated
+      page_title: 更新のあったプラグイン
 
   users: &users
     show:

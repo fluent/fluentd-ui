@@ -47,8 +47,7 @@ en:
 
   plugins:
     view_on_rubygems_org: View on rubygems.org
-    common: &plugin_common
-      <<: *terms
+    common:
       name: Plugin Name
       status: Status
       authors: Authors
@@ -60,18 +59,12 @@ en:
       install_latest_version: Install latest version
       no_updates: No updates available
       no_installed: No installed plugins
-      installed: &installed Installed Plugins
-      recommended: &recommended Recommened Plugins
-      updated: &updated Updated Plugins
     installed:
-      <<: *plugin_common
-      page_title: *installed
+      page_title: Installed Plugins
     recommended:
-      <<: *plugin_common
-      page_title: *recommended
+      page_title: Recommened Plugins
     updated:
-      <<: *plugin_common
-      page_title: *updated
+      page_title: Updated Plugins
 
   users: &users
     show:
