@@ -4,19 +4,14 @@
   = field(f, :match)
   = field(f, :apikey)
   = field(f, :auto_create_table)
-  = field(f, :use_ssl)
   = field(f, :database)
   = field(f, :table)
-  = field(f, :endpoint)
 
   .well.well-sm
     %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
       = icon('fa-caret-down')
       = t('terms.advanced_setting')
     #advanced-setting.collapse
-      = field(f, :connect_timeout)
-      = field(f, :read_timeout)
-      = field(f, :send_timeout)
       = field(f, :flush_interval)
       = field(f, :buffer_type)
       = field(f, :buffer_path)
