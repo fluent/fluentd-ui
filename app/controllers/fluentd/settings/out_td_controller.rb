@@ -6,8 +6,8 @@ class Fluentd::Settings::OutTdController < ApplicationController
     @setting = Fluentd::Setting::OutTd.new({
       buffer_type: "file",
       buffer_path: "/var/log/td-agent/buffer/td",
-      use_ssl: true,
       auto_create_table: true,
+      match: "td.*.*",
     })
   end
 
