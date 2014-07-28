@@ -3,12 +3,29 @@ require 'spec_helper'
 describe Plugin do
   let(:plugin) { build(:plugin) }
 
-  before do
-    Plugin.stub(:gemfile_path).and_return(Rails.root + "tmp/fluentd-ui-test-gemfile.plugins" )
-  end
+  describe ".installed" do
+    before { Plugin.stub(:"`").and_return(gem_list) }
 
-  after do
-    File.unlink Plugin.gemfile_path if File.exist?(Plugin.gemfile_path)
+    context "fluent-plugin-foo 0.1.2" do
+      let(:target) { Plugin.new(gem_name: "fluent-plugin-foo", version: "0.1.2") }
+      let(:gem_list) { <<-GEM.strip_heredoc }
+        dummy (3.3.3)
+        fluent-plugin-foo (0.1.2)
+        more_dummy (0.0.1)
+      GEM
+
+      it "detect foo plugin" do
+        Plugin.installed.first.inspect.should == target.inspect
+      end
+
+      it "detected foo plugin is marked as installed" do
+        target.should be_installed
+      end
+
+      it "detected foo plugin version to be installed_version" do
+        target.installed_version.should == target.version
+      end
+    end
   end
 
   describe "#valid?" do
@@ -41,10 +58,6 @@ describe Plugin do
         it { should be_valid }
       end
     end
-  end
-
-  describe "#format_gemfile" do
-    it { plugin.format_gemfile.should == %Q|gem "#{plugin.gem_name}", "#{plugin.version}"| }
   end
 
   describe "#install!" do
@@ -96,30 +109,26 @@ describe Plugin do
         subject.to raise_error(/#{plugin.gem_name}/)
       end
     end
-
-    describe "after install succeed" do
-      before do
-        plugin.stub(:fluent_gem).and_return(true)
-        plugin.install!
-      end
-
-      it { plugin.should be_installed }
-    end
   end
 
   describe "#uninstall!" do
     let(:installed_plugin) { build(:plugin, gem_name: "fluent-plugin-foobar") }
 
     before do
-      installed_plugin.stub(:fluent_gem).and_return(true)
-      installed_plugin.install!
+      installed_plugin.stub(:installed?).and_return(installed)
     end
 
-    before do
-      installed_plugin.uninstall!
+    context "installed" do
+      let(:installed) { true } 
+      before { installed_plugin.should_receive(:gem_uninstall) }
+      it { installed_plugin.uninstall! }
     end
 
-    it { installed_plugin.should_not be_installed }
+    context "not installed" do
+      let(:installed) { false } 
+      before { installed_plugin.should_not_receive(:gem_uninstall) }
+      it { installed_plugin.uninstall! }
+    end
   end
 
   describe "#upgrade!" do
@@ -128,68 +137,15 @@ describe Plugin do
     let(:target_version) { "1.2.0" }
 
     before do
-      Plugin.any_instance.stub(:fluent_gem).and_return(true) # NOTE: not `plugin.stub` because upgrade! creates new Plugin instance internally
-      installed_plugin.install!
-      installed_plugin.upgrade!(target_version)
+      # NOTE: not `plugin.stub` because upgrade! creates new Plugin instance internally
+      installed_plugin.stub(:installed?).and_return(true)
+      Plugin.any_instance.stub(:fluent_gem).and_return(true)
+
+      installed_plugin.should_receive(:uninstall!)
+      Plugin.any_instance.should_receive(:install!)
     end
 
-    it { installed_plugin.should be_installed }
-    it { installed_plugin.installed_version.should == target_version }
-  end
-
-  describe ".installed" do
-    before do
-      plugin.stub(:fluent_gem).and_return(true)
-      plugin.install!
-    end
-
-    it do
-      Plugin.installed.map(&:format_gemfile).should =~ [plugin].map(&:format_gemfile)
-    end
-  end
-
-  describe "#latest_version?" do
-    let(:plugin) { build(:plugin, version: gem_version.to_s) }
-    let(:gem_version) { Gem::Version.new("1.0.0") }
-
-    before do
-      plugin.stub(:installed_version).and_return(gem_version.to_s)
-      stub_request(:get, /rubygems.org/).to_return(body: JSON.dump(api_response))
-    end
-
-    subject { plugin.latest_version? }
-
-    context "available updates" do
-      let(:api_response) do
-        [{number: gem_version.bump}, {number: gem_version}]
-      end
-
-      it { subject.should be_falsy }
-    end
-
-    context "unavailable updates" do
-      let(:api_response) do
-        [{number: gem_version}]
-      end
-
-      it { subject.should be_truthy }
-    end
-  end
-
-  describe "#installed_version" do
-    before do
-      Plugin.any_instance.stub(:fluent_gem).and_return(true) # NOTE: not `plugin.stub` because upgrade! creates new Plugin instance internally
-      plugin.install!
-    end
-
-    it { plugin.installed_version.should == plugin.version }
-
-    context "upgrade to x.y.z" do
-      before { plugin.upgrade!(target_version) }
-      let(:target_version) { "3.3.3" }
-
-      it { plugin.installed_version.should == target_version }
-    end
+    it { installed_plugin.upgrade!(target_version) }
   end
 
   describe "#to_param" do
