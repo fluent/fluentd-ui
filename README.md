@@ -25,6 +25,14 @@ Or, for developers.
     $ bundle install
     $ bundle exec rails s
 
+Also you should have a phantomjs for a test.
+
+    $ npm install -g phantomjs
+    Or,
+    $ brew install phantomjs
+
+NOTE: `phantomjs` executable binary should be located under your `$PATH`.
+
 # Building fluentd-ui.gem
 
 It has the same tasks of `bundle gem foobar; cd foobar; rake -T`.

@@ -151,4 +151,41 @@ describe Plugin do
   describe "#to_param" do
     it { plugin.to_param.should == plugin.gem_name }
   end
+
+  describe "Gem versions" do
+    let(:plugin) { build(:plugin, version: current_version) }
+    let(:current_version) { "1.0.0" }
+    let(:versions) { %w(1.0.1 0.99.1 1.0.0 0.99.0 0.1.0 0.0.3 0.0.2 0.0.1) }
+    let(:authors) { %w(foo bar) }
+    let(:json) do
+      versions.map do |ver|
+        {
+          number: ver,
+          summary: "summary of #{ver}",
+          authors: authors,
+        }
+      end.to_json
+    end
+
+    before do
+      stub_request(:get, plugin.gem_json_url).to_return(body: json)
+    end
+
+    it "latest version is 1.0.1" do
+      plugin.latest_version.should == "1.0.1"
+    end
+    it "1.0.0 is not latest" do
+      plugin.should_not be_latest_version
+      plugin.latest_version.should_not == plugin.version
+    end
+    it "released version is sorted" do
+      plugin.released_versions.should == versions.sort_by{|ver| Gem::Version.new(ver) }.reverse
+    end
+    it "authors" do
+      plugin.authors.should == authors
+    end
+    it "summary" do
+      plugin.summary.should == "summary of #{plugin.version}"
+    end
+  end
 end
