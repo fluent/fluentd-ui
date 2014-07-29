@@ -4,6 +4,8 @@
   var POLLING_URL = "/polling/alerts";
 
   $(function(){
+    if($('#alert').length === 0) return;
+
     var alert = new Vue({
       el: "#alert",
       data: {
