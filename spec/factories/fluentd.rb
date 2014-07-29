@@ -1,8 +1,11 @@
 FactoryGirl.define do
   factory :fluentd do
+    dir = Rails.root.join("tmp/fluentd-test").to_s
+    FileUtils.mkdir_p(dir)
+
     variant "fluentd_gem"
-    log_file (Rails.root + "tmp/fluentd-test/fluentd.log").to_s
-    pid_file (Rails.root + "tmp/fluentd-test/fluentd.pid").to_s
-    config_file (Rails.root + "tmp/fluentd-test/fluentd.conf").to_s
+    log_file dir + "/fluentd.log"
+    pid_file dir + "/fluentd.pid"
+    config_file dir + "/fluentd.conf"
   end
 end
