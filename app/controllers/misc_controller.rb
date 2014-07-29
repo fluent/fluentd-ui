@@ -39,7 +39,11 @@ class MiscController < ApplicationController
 
     Zip::File.open(path, Zip::File::CREATE) do |zip|
       zip.get_output_stream('fluentd.log') {|f| f.puts fluentd.agent.log }
-      zip.add("fluentd-ui.log", Rails.root.join("log/#{Rails.env}.log"))
+      if ENV["FLUENTD_UI_LOG_PATH"].present?
+        zip.add("fluentd-ui.log", ENV["FLUENTD_UI_LOG_PATH"])
+      else
+        zip.add("fluentd-ui.log", Rails.root.join("log/#{Rails.env}.log"))
+      end
       zip.get_output_stream('env.txt') do |f|
         ENV.to_a.each do |(key, value)|
           f.puts "#{key}=#{value}"
