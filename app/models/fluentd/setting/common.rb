@@ -116,7 +116,7 @@ class Fluentd
       def plugin_type_name
         # Fluentd::Setting::OutS3 -> s3
         # Override this method if not above style
-        self.class.to_s.split("::").last.sub(/(In|Out)/, "").downcase
+        try(:plugin_name) || self.class.to_s.split("::").last.sub(/(In|Out)/, "").downcase
       end
 
       def print_if_present(key)
