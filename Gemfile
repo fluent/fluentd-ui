@@ -17,4 +17,5 @@ group :test do
   gem "simplecov", "~> 0.7.1", require: false
   gem "webmock", "~> 1.18.0"
   gem "timecop"
+  gem "poltergeist"
 end
