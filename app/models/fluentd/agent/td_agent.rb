@@ -36,6 +36,7 @@ class Fluentd
         Bundler.with_clean_env do
           spawn(cmd)
         end
+        sleep 1 # NOTE/FIXME: too early return will be caused incorrect status report, "sleep 1" is a adhoc hack
       end
     end
   end
