@@ -11,7 +11,6 @@ class Fluentd
   before_validation :expand_paths
 
   COLUMNS = [:id, :variant, :log_file, :pid_file, :config_file]
-  JSON_PATH = (ENV["FLUENTD_UI_DATA_DIR"].presence || Rails.root.join("db").to_s) + "/#{Rails.env}-fluentd.json"
   DEFAULT_CONF = <<-CONF.strip_heredoc
     <source>
       # http://docs.fluentd.org/articles/in_forward
@@ -44,6 +43,16 @@ class Fluentd
 
   def self.variants
     %w(fluentd_gem td-agent)
+  end
+
+  def self.json_path
+    if ENV["FLUENTD_UI_DATA_DIR"].present?
+      dir = ENV["FLUENTD_UI_DATA_DIR"]
+    else
+      dir = ENV["HOME"] + "/.fluentd-ui/core_data"
+    end
+    FileUtils.mkdir_p(dir)
+    dir + "/#{Rails.env}-fluentd.json"
   end
 
   def fluentd?
@@ -138,12 +147,12 @@ class Fluentd
 
   def self.instance
     return unless exists?
-    attr = JSON.parse(File.read(JSON_PATH))
+    attr = JSON.parse(File.read(json_path))
     Fluentd.new(attr)
   end
 
   def self.exists?
-    File.exists?(JSON_PATH)
+    File.exists?(json_path)
   end
 
   def update_attributes(params)
@@ -158,12 +167,12 @@ class Fluentd
       result[col] = send(col)
       result
     end.to_json
-    File.open(JSON_PATH, "w") do |f|
+    File.open(self.class.json_path, "w") do |f|
       f.write json
     end && ensure_default_config_file
   end
 
   def destroy
-    File.unlink(JSON_PATH)
+    File.unlink(self.class.json_path)
   end
 end
