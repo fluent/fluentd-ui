@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :current_locale
   helper_method :installing_gem?, :installing_gems, :uninstalling_gem?, :uninstalling_gems
-  helper_method :fluentd_ui_title, :fluentd_ui_brand
+  helper_method :fluentd_ui_title, :fluentd_ui_brand, :fluentd_run_user
   helper_method :file_tail
   helper_method :fluentd_exists?
   before_action :login_required
@@ -36,6 +36,10 @@ class ApplicationController < ActionController::Base
 
   def fluentd_ui_brand
     ENV["FLUENTD_UI_BRAND"] || "fluentd"
+  end
+
+  def fluentd_run_user
+    Fluentd.instance.td_agent? ? "td-agent" : ENV["USER"]
   end
 
   def installing_gem?

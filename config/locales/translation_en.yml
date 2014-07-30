@@ -154,6 +154,7 @@ en:
       in_tail_option_guide: |
           For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/in_tail" target="_blank">Tail iutput plugin</a> documentation page.
       in_tail:
+        notice_for_permission: "Please check permission or group setting for %{user} user can read it."
         restart_from_first: Restart from first
         grok_manual: |
           <p>

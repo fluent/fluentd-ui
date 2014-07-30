@@ -2,3 +2,4 @@
 
 = render partial: "shared/vue/treeview", locals: {name: "path", action: after_file_choose_daemon_setting_in_tail_path(@fluentd), submit_button: t('terms.next')}
 
+%p.text.text-danger= t('fluentd.settings.in_tail.notice_for_permission', user: fluentd_run_user)
