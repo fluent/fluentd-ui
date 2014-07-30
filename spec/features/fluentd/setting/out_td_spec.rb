@@ -7,7 +7,7 @@ describe "out_td" do
 
   before do
     Fluentd.stub(:instance).and_return(daemon)
-    daemon.stub(:detached_command).and_return(true)
+    Fluentd::Agent::TdAgent.any_instance.stub(:detached_command).and_return(true)
     daemon.agent.config_write ""
     
     visit '/sessions/new'
