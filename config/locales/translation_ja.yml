@@ -31,6 +31,7 @@ ja:
     edit: 編集
     destroy: 削除
     new: 新規作成
+    initial_setup: セットアップ
     setup: "%{target}をセットアップ"
     install_it: "%{target}をインストール"
     installing: "インストール中: %{target}"

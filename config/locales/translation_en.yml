@@ -31,6 +31,7 @@ en:
     edit: Edit
     destroy: Destroy
     new: New
+    initial_setup: Setup
     setup: "Setup %{target}"
     install_it: "Install %{target}"
     installing: "Installing: %{target}"
