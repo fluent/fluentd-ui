@@ -20,8 +20,9 @@
         %dl{class: "dl-horizontal"}
           %dt ruby
           %dd= RUBY_DESCRIPTION
-          %dt fluentd
-          %dd= FluentdUI.fluentd_version
+          - if FluentdUI.fluentd_version
+            %dt fluentd
+            %dd= FluentdUI.fluentd_version
           %dt fluentd-ui
           %dd= FluentdUI::VERSION
 
