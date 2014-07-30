@@ -1,7 +1,7 @@
 <ul class="nav" id="side-menu">
   <li>
-    <a>
-      <%= icon("fa-puzzle-piece fa-fw") << "fluentd" << icon('pull-right fa-caret-down') %>
+    <a class="section">
+      <%= icon("fa-puzzle-piece fa-fw") << "fluentd" %>
     </a>
     <ul class="nav nav-second-level">
       <% if fluentd_exists? %>
@@ -30,8 +30,8 @@
 
   <% if fluentd_exists? %>
   <li>
-    <a>
-      <%= icon("fa-cogs fa-fw") << t('terms.plugins') << icon('pull-right fa-caret-down') %>
+    <a class="section">
+      <%= icon("fa-cogs fa-fw") << t('terms.plugins') %>
     </a>
     <ul class="nav nav-second-level">
       <li>
@@ -48,8 +48,8 @@
   <% end %>
 
   <li>
-    <a>
-      <%= icon('fa-coffee fa-fw') << t('terms.misc') << icon('pull-right fa-caret-down') %>
+    <a class="section">
+      <%= icon('fa-coffee fa-fw') << t('terms.misc') %>
     </a>
     <ul class="nav nav-second-level">
       <li>
@@ -68,8 +68,8 @@
   </li>
 
   <li>
-    <a>
-      <%= icon('fa-font') << t('terms.languages') << icon('pull-right fa-caret-down') %>
+    <a class="section">
+      <%= icon('fa-font') << t('terms.languages') %>
     </a>
     <ul class="nav nav-second-level">
       <li>
