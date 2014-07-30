@@ -53,6 +53,9 @@ class MiscController < ApplicationController
         f.puts "ruby: #{RUBY_DESCRIPTION}"
         f.puts "fluentd: #{FluentdUI.fluentd_version}"
         f.puts "fluentd-ui: #{FluentdUI::VERSION}"
+        f.puts
+        f.puts "# OS Information"
+        f.puts "uname -a: #{`uname -a`.strip}"
       end
     end
     send_file path
