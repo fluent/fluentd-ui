@@ -13,27 +13,29 @@ class Fluentd
       end
 
       def start
-        Bundler.with_clean_env do
-          system('/etc/init.d/td-agent start')
-        end
+        detached_command('/etc/init.d/td-agent start')
       end
 
       def stop
-        Bundler.with_clean_env do
-          system('/etc/init.d/td-agent stop')
-        end
+        detached_command('/etc/init.d/td-agent stop')
       end
 
       def restart
         # NOTE: td-agent has no reload command
         # https://github.com/treasure-data/td-agent/blob/master/debian/td-agent.init#L156
-        Bundler.with_clean_env do
-          system('/etc/init.d/td-agent restart')
-        end
+        detached_command('/etc/init.d/td-agent restart')
       end
 
       def version
         `td-agent --version`.strip
+      end
+
+      private
+
+      def detached_command(cmd)
+        Bundler.with_clean_env do
+          spawn(cmd)
+        end
       end
     end
   end
