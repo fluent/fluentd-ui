@@ -5,12 +5,10 @@ class Fluentd
       include LocalCommon
 
       def self.default_options
-        # TODO: current default options from fluentd --setup, but root permission required for them.
-        #       It could be more user friendly values
         {
-          :pid_file => "/var/run/fluent.pid",
-          :log_file => "/var/log/fluent.log",
-          :config_file => "/etc/fluent/fluent.conf",
+          :pid_file    => "#{ENV["HOME"]}/.fluentd-ui/fluent.pid",
+          :log_file    => "#{ENV["HOME"]}/.fluentd-ui/fluent.log",
+          :config_file => "#{ENV["HOME"]}/.fluentd-ui/fluent.conf",
         }
       end
 
