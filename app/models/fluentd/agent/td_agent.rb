@@ -34,7 +34,8 @@ class Fluentd
 
       def detached_command(cmd)
         Bundler.with_clean_env do
-          spawn(cmd)
+          pid = spawn(cmd)
+          Process.detach(pid)
         end
         sleep 1 # NOTE/FIXME: too early return will be caused incorrect status report, "sleep 1" is a adhoc hack
       end
