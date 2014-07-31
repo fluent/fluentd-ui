@@ -10,7 +10,12 @@ class Fluentd::Settings::InTailController < ApplicationController
   end
 
   def after_format
-    @setting = Fluentd::Setting::InTail.new(setting_params)
+    # NOTE: pos_file form field doesn't exists before this action
+    attrs = setting_params
+    if attrs[:pos_file].blank?
+      attrs.merge!(pos_file: "/tmp/fluentd-#{@fluentd.id}-#{Time.now.to_i}.pos")
+    end
+    @setting = Fluentd::Setting::InTail.new(attrs)
   end
 
   def confirm
@@ -46,10 +51,7 @@ class Fluentd::Settings::InTailController < ApplicationController
   private
 
   def setting_params
-    setting_params = params.require(:setting).permit(:path, :format, :regexp, *Fluentd::Setting::InTail.known_formats, :tag, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
-    {
-      :pos_file => "/tmp/fluentd-#{@fluentd.id}-#{Time.now.to_i}.pos",
-    }.merge setting_params
+    params.require(:setting).permit(:path, :format, :regexp, *Fluentd::Setting::InTail.known_formats, :tag, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
   end
 
 end
