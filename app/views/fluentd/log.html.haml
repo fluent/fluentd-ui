@@ -4,6 +4,6 @@
     = t('fluentd.common.raw_log_link')
 
 .row
-  .col-lg-12
+  .col-xs-12
     = preserve do # partial containing <pre>, so shouldn't break indent
       = render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd }

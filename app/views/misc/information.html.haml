@@ -5,14 +5,14 @@
 
 - if FluentdUI.update_available?
   .row
-    .col-lg-12
+    .col-xs-12
       %p
         = link_to misc_update_daemon_ui_path, class: "btn btn-primary btn-lg", method: :post do
           = t('.update_fluentd_ui', version: FluentdUI.latest_version, title: fluentd_ui_title)
         = t('.update_fluentd_ui_caution', brand: fluentd_ui_brand)
 
 .row
-  %div.col-lg-6
+  %div.col-xs-6
     %div.panel.panel-default
       %div.panel-heading
         %h4= t ".version"
@@ -26,7 +26,7 @@
           %dt fluentd-ui
           %dd= FluentdUI::VERSION
 
-  %div.col-lg-6
+  %div.col-xs-6
     %div.panel.panel-default
       %div.panel-heading
         %h4= t('.installed_plugins')
@@ -46,7 +46,7 @@
           = t "plugins.common.no_installed"
 
 .row
-  %div.col-lg-12
+  %div.col-xs-12
     %div.panel.panel-default
       %div.panel-heading
         %h4{"data-toggle" => "collapse", "href" => "#env-table"}

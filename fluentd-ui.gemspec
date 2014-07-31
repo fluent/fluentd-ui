@@ -6,11 +6,11 @@ require 'fluentd-ui/version'
 Gem::Specification.new do |spec|
   spec.name          = "fluentd-ui"
   spec.version       = FluentdUI::VERSION
-  spec.authors       = ["Treasure Data"]
-  spec.email         = ["fixme@example.com"]
-  spec.summary       = %q{ Write a short summary. Required.}
-  spec.description   = %q{ Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.authors       = ["Masahiro Nakagawa", "uu59"]
+  spec.email         = ["repeatedly@gmail.com", "k@uu59.org"]
+  spec.summary       = %q{Web UI for Fluentd}
+  spec.description   = %q{Web UI for Fluentd}
+  spec.homepage      = "https://github.com/fluent/fluentd-ui"
   spec.license       = "MIT"
 
   unless (ARGV & %w(rake build)).length.zero?
