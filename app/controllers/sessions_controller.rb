@@ -38,6 +38,8 @@ class SessionsController < ApplicationController
   def sign_in(user)
     # NOTE: Cookie will encrypt by Rails, but store raw password into session is a bad practice.
     #       If we use some DB in the future, change this to store token with expire limitation (not password).
-    session[:succeed_password] = session_params[:password]
+    #
+    #       Currently, only store to session if default password is used.
+    session[:succeed_password] = session_params[:password] if session_params[:password] == Settings.default_password
   end
 end

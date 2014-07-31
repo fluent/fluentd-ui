@@ -31,7 +31,7 @@ class TutorialsController < ApplicationController
   end
 
   def check_ready
-    return redirect_to tutorials_url unless tutorial_ready?
+    redirect_to tutorials_url unless tutorial_ready?
   end
 
   def tutorial_ready?

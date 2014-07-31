@@ -12,8 +12,11 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :notice_new_fluentd_ui_available
 
+  private
+
   def current_user
     return unless session[:succeed_password]
+    # NOTE: if hashed password is invalid or broken, .authenticate would raise error. Using `try` is avoid that situation
     @current_user ||= User.new(name: "admin").try(:authenticate, session[:succeed_password])
   end
 
@@ -61,8 +64,6 @@ class ApplicationController < ActionController::Base
   def fluentd_exists?
     !!Fluentd.instance
   end
-
-  private
 
   def notice_new_fluentd_ui_available
     if FluentdUI.update_available?
