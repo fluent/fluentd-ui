@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :notice_new_fluentd_ui_available
 
+  private
+
   def current_user
     return unless session[:succeed_password]
     @current_user ||= User.new(name: "admin").try(:authenticate, session[:succeed_password])
@@ -61,8 +63,6 @@ class ApplicationController < ActionController::Base
   def fluentd_exists?
     !!Fluentd.instance
   end
-
-  private
 
   def notice_new_fluentd_ui_available
     if FluentdUI.update_available?
