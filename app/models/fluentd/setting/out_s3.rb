@@ -24,7 +24,6 @@ class Fluentd
 
       validates :match, presence: true
       validates :s3_bucket, presence: true
-      validates :buffer_path, presence: true
     end
   end
 end
