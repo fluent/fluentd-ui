@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>
       <% if content_for?(:page_title) %>
         <%= content_for(:page_title)  %>
@@ -13,99 +10,93 @@
       <% end %>
       <%= fluentd_ui_title %>
     </title>
-  <%= stylesheet_link_tag    'application', media: 'all'%>
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
-
-</head>
-
-<body>
-
-
+    <%= stylesheet_link_tag    'application', media: 'all'%>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
     <div id="wrapper">
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to fluentd_ui_logo, root_path, class: "navbar-brand fluentd-ui-logo" %>
+        </div>
+        <!-- /.navbar-header -->
 
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <%= link_to fluentd_ui_logo, root_path, class: "navbar-brand fluentd-ui-logo" %>
-            </div>
-            <!-- /.navbar-header -->
-
-            <ul class="nav navbar-top-links navbar-right">
-              <!-- vue.js -->
-              <li class="dropdown" id="alert">
-                <a
-                  class="dropdown-toggle"
-                  data-toggle="dropdown" href="#"
-                  >
-                  <i class="fa fa-bell fa-fw"></i>
-                  <span class="badge" v-if="hasAlerts">{{ alertsCount }}</span>
-                  <i class="fa fa-caret-down"></i>
+        <ul class="nav navbar-top-links navbar-right">
+          <!-- vue.js -->
+          <li class="dropdown" id="alert">
+            <a
+              class="dropdown-toggle"
+              data-toggle="dropdown" href="#"
+              >
+              <i class="fa fa-bell fa-fw"></i>
+              <span class="badge" v-if="hasAlerts">{{ alertsCount }}</span>
+              <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="nav dropdown-menu dropdown-alerts">
+              <li v-if="!hasAlerts">
+                <a>
+                  <div class="nothing text text-success">
+                    <%= icon "fa-check" %>
+                    <%= t "terms.no_alert" %>
+                  </div>
                 </a>
-                <ul class="nav dropdown-menu dropdown-alerts">
-                  <li v-if="!hasAlerts">
-                    <a>
-                      <div class="nothing text text-success">
-                        <%= icon "fa-check" %>
-                        <%= t "terms.no_alert" %>
-                      </div>
-                    </a>
-                  </li>
-                  <li v-repeat="alerts">
-                    <a>
-                      <div>
-                        <%= icon("fa-cog fa-fw fa-lg fa-spin") %>
-                        {{ text }}
-                      </div>
-                    </a>
-                  </li>
-                </ul>
               </li>
-              <!-- /vue.js -->
-
-              <li class="dropdown">
-                <%= link_to(t("terms.sign_out"), sessions_path, method: :delete) %>
+              <li v-repeat="alerts">
+                <a>
+                  <div>
+                    <%= icon("fa-cog fa-fw fa-lg fa-spin") %>
+                    {{ text }}
+                  </div>
+                </a>
               </li>
             </ul>
-            <!-- /.navbar-top-links -->
+          </li>
+          <!-- /vue.js -->
 
-            <div class="navbar-default navbar-static-side" role="navigation">
-                <div class="sidebar-collapse">
-                   <%= render partial: "shared/global_nav" %> 
-                    <!-- /#side-menu -->
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
+          <li class="dropdown">
+            <%= link_to(t("terms.sign_out"), sessions_path, method: :delete) %>
+          </li>
+        </ul>
+        <!-- /.navbar-top-links -->
 
-        <div id="page-wrapper">
-          <%= render partial: "shared/flash" %>
-          <% if content_for?(:page_head) %>
-            <div class="row">
-                <div class="col-xs-12">
-                  <h1 class="page-header"><%= content_for(:page_head) %></h1>
-                </div>
-                <!-- /.col-xs-12 -->
-            </div>
-            <!-- /.row -->
-          <% end %>
-              <div class="row">
-                <div class="col-xs-12">
-                  <%= yield %>
-                </div>
-              </div>
-            <!-- /.row -->
+        <div class="navbar-default navbar-static-side" role="navigation">
+          <div class="sidebar-collapse">
+            <%= render partial: "shared/global_nav" %> 
+            <!-- /#side-menu -->
+          </div>
+          <!-- /.sidebar-collapse -->
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /.navbar-static-side -->
+      </nav>
+
+      <div id="page-wrapper">
+        <%= render partial: "shared/flash" %>
+        <% if content_for?(:page_head) %>
+          <div class="row">
+            <div class="col-xs-12">
+              <h1 class="page-header"><%= content_for(:page_head) %></h1>
+            </div>
+            <!-- /.col-xs-12 -->
+          </div>
+          <!-- /.row -->
+        <% end %>
+        <div class="row">
+          <div class="col-xs-12">
+            <%= yield %>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
-</body>
-
+  </body>
 </html>
