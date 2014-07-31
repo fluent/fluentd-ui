@@ -10,6 +10,8 @@ en:
     fluentd_start_stop_delay_notice: "'%{action} daemon' is accepted. That operation could take a minute for complete."
 
   terms: &terms
+    name: Name
+    password: Password
     sign_in: Sign in
     sign_out: Sign out
     install: Install

@@ -10,6 +10,8 @@ ja:
     fluentd_start_stop_delay_notice: "デーモンの%{action}を受け付けました。処理が完了するまで時間がかかる場合があります。"
 
   terms: &terms
+    name: アカウント名
+    password: パスワード
     sign_in: ログイン
     sign_out: ログアウト
     uninstall: アンインストール
