@@ -2,20 +2,21 @@
 <% auto_reload ||= true %>
 <div id="fluent-log" logUrl="<%= log_tail_daemon_agent_path(fluentd) %>" initialAutoReload="<%= auto_reload ? "true" : "" %>">
   <p>
-  <button class="btn btn-primary" v-on="click: fetchLogs">
-    <%= t "terms.reload_log" %>
-  </button>
-  <input type="text" v-model="limit" size="4" v-on="keyup: fetchLogs | key enter" />
-  <%= t('terms.lines') %>
-  <label>
-    <input type="checkbox" v-model="autoFetch" /> <%= t "terms.auto_reload", seconds: 1 %>
-  </label>
-  <span v-if="processing"><%= icon('fa-spin fa-refresh') %></span>
-</p>
+    <button class="btn btn-primary" v-on="click: fetchLogs">
+      <%= t "terms.reload_log" %>
+    </button>
+    <input type="text" v-model="limit" size="4" v-on="keyup: fetchLogs | key enter" />
+    <%= t('terms.lines') %>
+    <label>
+      <input type="checkbox" v-model="autoFetch" /> <%= t "terms.auto_reload", seconds: 1 %>
+    </label>
+    <span v-if="processing"><%= icon('fa-spin fa-refresh') %></span>
+  </p>
 
 <pre v-if="isPresentedLogs"><!-- be careful indent -->
 <div class="log"><span v-repeat="logs">{{ $value }}
 </span></div></pre>
+
   <div v-if="!isPresentedLogs && !processing">
     <p>[log is empty]</p>
   </div>

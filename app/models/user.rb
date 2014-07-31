@@ -13,6 +13,7 @@ class User
   ENCRYPTED_PASSWORD_FILE = Rails.root + "db/#{Rails.env}-user.txt"
 
   attr_accessor :name, :password, :password_confirmation, :current_password
+  attr_writer :password_digest
 
   validates :name, presence: true
   validates :password, length: { minimum: 8 }
@@ -26,10 +27,6 @@ class User
       rescue Errno::ENOENT, BCrypt::Errors::InvalidHash
         BCrypt::Password.create(Settings.default_password, cost: cost)
       end
-  end
-
-  def password_digest=(digest)
-    @password_digest = digest
   end
 
   def update_attributes(params)
