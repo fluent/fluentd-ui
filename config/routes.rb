@@ -6,41 +6,43 @@ Rails.application.routes.draw do
     get "raw_log"
     get "errors"
 
-    resource :agent, only: [], module: :fluentd do
-      put "start"
-      put "stop"
-      put "restart"
-      get "log_tail"
-    end
-
-    resource :setting, only: [:show, :edit, :update], module: :fluentd do
-      get "source_and_output"
-
-      resource :in_tail, only: ["show"], module: :settings, controller: :in_tail do
-        post "after_file_choose"
-        post "after_format"
-        post "confirm"
-        post "finish"
+    scope module: :fluentd do
+      resource :agent, only: [] do
+        put "start"
+        put "stop"
+        put "restart"
+        get "log_tail"
       end
 
-      resource :in_syslog, only: ["show"], module: :settings, controller: :in_syslog do
-        post "finish"
-      end
+      resource :setting, only: [:show, :edit, :update] do
+        get "source_and_output"
 
-      resource :out_mongo, only: ["show"], module: :settings, controller: :out_mongo do
-        post "finish"
-      end
+        resource :in_tail, only: ["show"], module: :settings, controller: :in_tail do
+          post "after_file_choose"
+          post "after_format"
+          post "confirm"
+          post "finish"
+        end
 
-      resource :out_td, only: ["show"], module: :settings, controller: :out_td do
-        post "finish"
-      end
+        resource :in_syslog, only: ["show"], module: :settings, controller: :in_syslog do
+          post "finish"
+        end
 
-      resource :out_s3, only: ["show"], module: :settings, controller: :out_s3 do
-        post "finish"
-      end
+        resource :out_mongo, only: ["show"], module: :settings, controller: :out_mongo do
+          post "finish"
+        end
 
-      resource :out_forward, only: ["show"], module: :settings, controller: :out_forward do
-        post "finish"
+        resource :out_td, only: ["show"], module: :settings, controller: :out_td do
+          post "finish"
+        end
+
+        resource :out_s3, only: ["show"], module: :settings, controller: :out_s3 do
+          post "finish"
+        end
+
+        resource :out_forward, only: ["show"], module: :settings, controller: :out_forward do
+          post "finish"
+        end
       end
     end
   end
