@@ -27,7 +27,7 @@ class Fluentd
       end
 
       def version
-        `td-agent --version`.strip
+        `/usr/sbin/td-agent --version`.strip
       end
 
       private
