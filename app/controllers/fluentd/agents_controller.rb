@@ -5,6 +5,7 @@ class Fluentd::AgentsController < ApplicationController
     unless @fluentd.agent.start
       flash[:error] = t("messages.fluentd_start_failed", brand: fluentd_ui_title) + @fluentd.agent.log_tail(1).first
     end
+    flash[:success] = t("messages.fluentd_start_stop_delay_notice", action: t('fluentd.common.start'))
     redirect_to daemon_path(@fluentd), status: 303 # 303 is change HTTP Verb GET
   end
 
@@ -12,6 +13,7 @@ class Fluentd::AgentsController < ApplicationController
     unless @fluentd.agent.stop
       flash[:error] = t("messages.fluentd_stop_failed", brand: fluentd_ui_title)
     end
+    flash[:success] = t("messages.fluentd_start_stop_delay_notice", action: t('fluentd.common.stop'))
     redirect_to daemon_path(@fluentd), status: 303 # 303 is change HTTP Verb GET
   end
 
@@ -19,6 +21,7 @@ class Fluentd::AgentsController < ApplicationController
     unless @fluentd.agent.restart
       flash[:error] = t("messages.fluentd_restart_failed", brand: fluentd_ui_title) + @fluentd.agent.log_tail(1).first
     end
+    flash[:success] = t("messages.fluentd_start_stop_delay_notice", action: t('fluentd.common.restart'))
     redirect_to daemon_path(@fluentd), status: 303 # 303 is change HTTP Verb GET
   end
 

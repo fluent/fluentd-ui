@@ -7,6 +7,7 @@ ja:
     fluentd_start_failed:   "%{brand}の起動に失敗しました。"
     fluentd_stop_failed:    "%{brand}の停止に失敗しました。"
     fluentd_restart_failed: "%{brand}の再起動に失敗しました。"
+    fluentd_start_stop_delay_notice: "デーモンの%{action}を受け付けました。処理が完了するまで時間がかかる場合があります。"
 
   terms: &terms
     sign_in: ログイン
