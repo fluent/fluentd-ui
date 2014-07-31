@@ -17,7 +17,7 @@
     <div class="form-group">
       <label>format</label>
       <select name="setting[format]" v-model="format">
-        <option v-repeat="formats" value="{{ $value }}" v-attr="selected: format==$value">{{ $value }}</option>
+        <option v-repeat="selectableFormats" value="{{ $value }}" v-attr="selected: format==$value">{{ $value }}</option>
       </select>
     </div>
     <div class="form-group" v-repeat="options">

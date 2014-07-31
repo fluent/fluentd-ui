@@ -39,6 +39,10 @@
         options: function(){
           return this.formatOptions[this.format];
         },
+
+        selectableFormats: function() {
+          return _.filter(this.formats, function(format){ return format !== "regexp"; });
+        }
       },
 
       methods: {
