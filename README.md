@@ -14,7 +14,7 @@ $ gem install fluentd-ui
 $ fluentd-ui start
 ```
 
-Open http://localhost:9292/ by your browser.
+Open `http://localhost:9292/` by your browser.<br />
 The default account is username="admin" and password="changeme"
 
 ## To the developer
