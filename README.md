@@ -12,9 +12,10 @@ fluentd-ui is a browser-based [fluentd](http://fluentd.org/) and [td-agent](http
 ```console
 $ gem install fluentd-ui
 $ fluentd-ui start
-Open http://localhost:9292/ by your browser
-default account is username="admin" and password="changeme"
 ```
+
+Open http://localhost:9292/ by your browser.
+The default account is username="admin" and password="changeme"
 
 ## To the developer
 
