@@ -9,7 +9,6 @@ PATH
       font-awesome-rails
       haml-rails (~> 0.5.3)
       httpclient
-      i18n_generators (= 1.2.1)
       jbuilder (~> 2.0)
       jquery-rails (~> 3.1.0)
       kramdown (> 1.0.0)
@@ -238,6 +237,7 @@ DEPENDENCIES
   database_cleaner (~> 1.2.0)
   factory_girl_rails
   fluentd-ui!
+  i18n_generators (= 1.2.1)
   poltergeist
   pry
   rake

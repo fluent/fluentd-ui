@@ -10,6 +10,10 @@ group :development, :test do
   gem "rspec-rails", "~> 2.99"
 end
 
+group :development do
+  gem 'i18n_generators', '1.2.1'
+end
+
 group :test do
   gem "factory_girl_rails"
   gem "database_cleaner", "~> 1.2.0"
