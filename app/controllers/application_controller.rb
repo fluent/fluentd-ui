@@ -101,10 +101,10 @@ class ApplicationController < ActionController::Base
   end
 
   def file_tail(path, limit = 10)
-    return unless path
-    return unless File.exists? path
+    return [] unless path
+    return [] unless File.exists? path
     reader = FileReverseReader.new(File.open(path))
-    return if reader.binary_file?
+    return [] if reader.binary_file?
     reader.tail(limit)
   end
 end
