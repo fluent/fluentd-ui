@@ -11,7 +11,7 @@ class ApiController < ApplicationController
     unless File.file?(file) && File.readable?(file)
       return render json: [], status: 403
     end
-    render json: file_tail(file) || []
+    render json: file_tail(file)
   end
 
   def empty_json
