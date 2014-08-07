@@ -1,3 +1,9 @@
-Release 0.1.0 - 2014/08/1
+Release 0.1.1 - 2014/08/07
+
+* [fixed] Can't install a gem on some environment #70
+* [fixed] Can't setup in_tail if recognized as binary file selected #71
+
+
+Release 0.1.0 - 2014/08/01
 
 * First release!
