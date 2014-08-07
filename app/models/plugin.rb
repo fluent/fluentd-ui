@@ -88,7 +88,9 @@ class Plugin
   def self.installed
     Rails.cache.fetch("installed_gems", expires_in: 3.seconds) do
       Bundler.with_clean_env do
-        gems = `#{fluent_gem_path} list`.try(:lines)
+        fluent_gem = fluent_gem_path
+        return [] unless fluent_gem
+        gems = `#{fluent_gem} list`.try(:lines)
         return [] unless gems
         gems.grep(/fluent-plugin/).map do |gem|
           name, versions_str = gem.strip.split(" ")
