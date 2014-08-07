@@ -1,3 +1,7 @@
+Release 0.1.2 - 2014/08/07
+
+* [fixed] Can't login if password changed from default
+
 Release 0.1.1 - 2014/08/07
 
 * [fixed] Can't install a gem on some environment #70
