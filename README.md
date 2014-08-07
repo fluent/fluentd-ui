@@ -10,12 +10,20 @@ fluentd-ui is a browser-based [fluentd](http://fluentd.org/) and [td-agent](http
 # Getting Started
 
 ```console
-$ gem install fluentd-ui
+$ gem install -V fluentd-ui
 $ fluentd-ui start
 ```
 
 Open `http://localhost:9292/` by your browser.<br />
 The default account is username="admin" and password="changeme"
+
+## TO Ubuntu 14.04 user (installed ruby by apt-get)
+
+You also need to install these packages:
+
+- build-essential
+- libssl-dev
+- ruby-dev
 
 ## To the developer
 
