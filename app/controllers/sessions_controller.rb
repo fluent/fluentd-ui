@@ -40,6 +40,7 @@ class SessionsController < ApplicationController
     #       If we use some DB in the future, change this to store token with expire limitation (not password).
     #
     #       Currently, only store to session if default password is used.
-    session[:succeed_password] = session_params[:password] if session_params[:password] == Settings.default_password
+    # TODO: How to keep a login session to be decide
+    session[:succeed_password] = session_params[:password]
   end
 end
