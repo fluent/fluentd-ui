@@ -1,8 +1,9 @@
 describe "sessions" do
   let(:exists_user) { build(:user) }
+  let(:submit_label) { I18n.t("terms.sign_in") }
+  let(:after_sign_in_location) { daemon_path }
 
-  describe "the sign in process" do
-    let(:submit_label) { I18n.t("terms.sign_in") }
+  describe "sign in with default password" do
     before do
       visit '/sessions/new'
       within("form") do
@@ -12,22 +13,57 @@ describe "sessions" do
       click_button submit_label
     end
 
-    context "sign in with exists user" do
+    context "correct credentials" do
       let(:user) { exists_user }
       it "login success, then redirect to root_path, and redirect_to daemon_path from root_path" do
-        current_path.should == daemon_path
+        current_path.should == after_sign_in_location
       end
     end
 
-    context "sign in with non-exists user" do
+    context "wrong credentials" do
       let(:user) { build(:user, password: "passw0rd") }
 
       it "current location is not root_path" do
-        current_path.should_not == root_path
+        current_path.should_not == after_sign_in_location
       end
 
       it "display form for retry" do
         page.body.should have_css('form')
+      end
+    end
+  end
+
+  describe "sign in with modified password" do
+    let(:user) { build(:user, password: password) }
+    let(:new_password) { "newpassword" }
+    let(:old_password) { Settings.default_password }
+
+    before do
+      exists_user.update_attributes(current_password: Settings.default_password, password: new_password, password_confirmation: new_password)
+      visit '/sessions/new'
+      within("form") do
+        fill_in 'session_name', :with => user.name
+        fill_in 'session_password', :with => user.password
+      end
+      click_button submit_label
+    end
+
+    after do
+      # reset password to the default
+      FileUtils.rm_rf(User::ENCRYPTED_PASSWORD_FILE)
+    end
+
+    context "correct password" do
+      let(:password) { new_password }
+      it "login success" do
+        current_path.should == after_sign_in_location
+      end
+    end
+
+    context "wrong password" do
+      let(:password) { old_password }
+      it "login failed" do
+        current_path.should_not == after_sign_in_location
       end
     end
   end
