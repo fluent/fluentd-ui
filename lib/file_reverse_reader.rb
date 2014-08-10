@@ -36,8 +36,7 @@ class FileReverseReader
 
   def binary_file?
     sample = io.read(1024) || ""
-    sample2 = sample.force_encoding('ascii-8bit').encode('us-ascii', :undef => :replace, :invalid => :replace, :replace => "")
-    sample != sample2 # maybe binary file
+    !sample.force_encoding('us-ascii').valid_encoding?
   ensure
     io.rewind
   end
