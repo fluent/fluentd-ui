@@ -5,10 +5,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    unless @user.authenticate(user_params[:current_password])
-      @user.errors.add(:current_password, :wrong_password)
-      return render :show
-    end
     unless @user.update_attributes(user_params)
       return render :show
     end
