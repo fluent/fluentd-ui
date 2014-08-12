@@ -17,7 +17,6 @@ class User
 
   validates :name, presence: true
   validates :password, length: { minimum: 8 }
-  validate :valid_current_password
 
   def password_digest
     @password_digest ||
@@ -42,11 +41,5 @@ class User
 
   def cost
     Rails.env.test? ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-  end
-
-  def valid_current_password
-    unless authenticate(current_password)
-      errors.add(:current_password, :wrong_password)
-    end
   end
 end
