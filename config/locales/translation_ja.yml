@@ -96,6 +96,7 @@ ja:
       setup_out_mongo: MongoDB
       setup_out_forward: 転送
       setup_out_s3: AWS S3
+      setup_out_elasticsearch: Elasticsearch
       finish: 設定する
       fluentd_info: 設定情報
       recent_errors: "直近 %{days} 日内のエラー"
@@ -143,6 +144,12 @@ ja:
           fluent-plugin-tdプラグインのインストールが必要です。<br />
         show:
           page_title: Treasure Data書き出し設定
+      out_elasticsearch:
+        option_guide: |
+          fluent-plugin-elasticsearchプラグインのインストールが必要です。<br />
+          <a target="_blank" href="https://github.com/uken/fluent-plugin-elasticsearch">out_elasticsearchプラグインの解説</a>もご参照ください。
+        show:
+          page_title: Elasticsearch設定
       out_mongo:
         option_guide: |
           fluent-plugin-mongoプラグインのインストールが必要です。<br />

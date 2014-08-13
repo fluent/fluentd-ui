@@ -97,6 +97,7 @@ en:
       setup_out_mongo: MongoDB
       setup_out_forward: Forwarding
       setup_out_s3: Amazon S3
+      setup_out_elasticsearch: Elasticsearch
       finish: Update & Restart
       fluentd_info: Setting info
       recent_errors: "Errors within recent %{days} days"
@@ -144,6 +145,11 @@ en:
           For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/out_td" target="_blank">Treasure Data output plugin</a> documentation page.
         show:
           page_title: Add Output to Treasure Data
+      out_elasticsearch:
+        option_guide: |
+          For each config parameter, pelase refer to the <a target="_blank" href="https://github.com/uken/fluent-plugin-elasticsearch">Elasticsearch output plugin</a>  documentation page.
+        show:
+          page_title: Add Output to Elasticsearch
       out_mongo:
         option_guide: |
           For each config parameter, pelase refer to the <a href="http://docs.fluentd.org/articles/out_mongo" target="_blank">MongoDB output plugin</a> documentation page.
