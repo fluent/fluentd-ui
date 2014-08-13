@@ -7,7 +7,7 @@ class Fluentd
         :match,
         :host, :port, :index_name, :type_name,
         :logstash_format, :logstash_prefix, :logstash_dateformat, :utc_index,
-        :hosts, :request_timeout, :include_tag_key, :tag_key
+        :hosts, :request_timeout, :include_tag_key
       ].freeze
 
       attr_accessor(*KEYS)

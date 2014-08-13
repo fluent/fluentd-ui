@@ -15,7 +15,6 @@ class Fluentd::Settings::OutElasticsearchController < ApplicationController
       type_name: "via_fluentd",
       logstash_format: true,
       include_tag_key: false,
-      tag_key: "tag",
       utc_index: true,
     }
   end
