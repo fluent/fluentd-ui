@@ -43,6 +43,10 @@ Rails.application.routes.draw do
         resource :out_forward, only: [:show], module: :settings, controller: :out_forward do
           post "finish"
         end
+
+        resource :out_elasticsearch, only: [:show], module: :settings, controller: :out_elasticsearch do
+          post "finish"
+        end
       end
     end
   end

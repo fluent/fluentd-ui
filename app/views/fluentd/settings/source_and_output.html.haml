@@ -40,6 +40,10 @@
             = icon('fa-file-text-o fa-lg')
             = t("fluentd.common.setup_out_mongo")
         %p
+          = link_to(daemon_setting_out_elasticsearch_path(@fluentd)) do
+            = icon('fa-file-text-o fa-lg')
+            = t("fluentd.common.setup_out_elasticsearch")
+        %p
           = link_to(daemon_setting_out_forward_path(@fluentd)) do
             = icon('fa-file-text-o fa-lg')
             = t("fluentd.common.setup_out_forward")
