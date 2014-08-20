@@ -1,3 +1,7 @@
+Release 0.1.4 - 2014/08/20
+
+* [fixed] Fix can't setting in_tail with format regexp.
+
 Release 0.1.3 - 2014/08/13
 
 * [feature] Add out_elasticsearch setting
