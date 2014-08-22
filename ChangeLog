@@ -1,6 +1,7 @@
 Release 0.1.5 - (not released yet)
 
 * [fixed] Keep changed password after update fluentd-ui gem.
+* [fixed] Add missing LICENSE file (Apache license 2.0)
 
 Release 0.1.4 - 2014/08/20
 
