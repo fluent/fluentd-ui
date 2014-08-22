@@ -16,8 +16,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return unless session[:succeed_password]
-    # NOTE: if hashed password is invalid or broken, .authenticate would raise error. Using `try` is avoid that situation
-    @current_user ||= User.new(name: "admin").try(:authenticate, session[:succeed_password])
+    @current_user ||= User.new(name: "admin").authenticate(session[:succeed_password])
   end
 
   def login_required

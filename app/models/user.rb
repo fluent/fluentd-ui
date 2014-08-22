@@ -19,6 +19,12 @@ class User
   validates :password, length: { minimum: 8 }
   validate :valid_current_password
 
+  def authenticate(unencrypted_password)
+    super
+  rescue BCrypt::Errors::InvalidHash
+    false
+  end
+
   def password_digest
     @password_digest ||
       begin
