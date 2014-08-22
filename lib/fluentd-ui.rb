@@ -19,4 +19,10 @@ module FluentdUI
     return nil unless setup_fluentd
     setup_fluentd.agent.version
   end
+
+  def self.data_dir
+    dir = ENV["FLUENTD_UI_DATA_DIR"].presence || ENV["HOME"] + "/.fluentd-ui/core_data"
+    FileUtils.mkdir_p(dir) # ensure directory exists
+    dir
+  end
 end

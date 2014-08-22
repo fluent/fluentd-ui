@@ -46,13 +46,7 @@ class Fluentd
   end
 
   def self.json_path
-    if ENV["FLUENTD_UI_DATA_DIR"].present?
-      dir = ENV["FLUENTD_UI_DATA_DIR"]
-    else
-      dir = ENV["HOME"] + "/.fluentd-ui/core_data"
-    end
-    FileUtils.mkdir_p(dir)
-    dir + "/#{Rails.env}-fluentd.json"
+    FluentdUI.data_dir + "/#{Rails.env}-fluentd.json"
   end
 
   def fluentd?
