@@ -1,3 +1,7 @@
+Release 0.1.5 - (not released yet)
+
+* [fixed] Keep changed password after update fluentd-ui gem.
+
 Release 0.1.4 - 2014/08/20
 
 * [fixed] Fix can't setting in_tail with format regexp.

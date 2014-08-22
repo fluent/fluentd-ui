@@ -10,7 +10,7 @@ class User
 
   has_secure_password
 
-  ENCRYPTED_PASSWORD_FILE = Rails.root + "db/#{Rails.env}-user.txt"
+  ENCRYPTED_PASSWORD_FILE = FluentdUI.data_dir + "/#{Rails.env}-user.txt"
 
   attr_accessor :name, :password, :password_confirmation, :current_password
   attr_writer :password_digest
