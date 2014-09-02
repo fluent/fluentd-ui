@@ -6,33 +6,36 @@
 
 class User
   include ActiveModel::Model
-  include ActiveModel::SecurePassword
 
-  has_secure_password
-
-  ENCRYPTED_PASSWORD_FILE = FluentdUI.data_dir + "/#{Rails.env}-user.txt"
+  SALT = "XG16gfdC5IFRaQ3c".freeze
+  ENCRYPTED_PASSWORD_FILE = FluentdUI.data_dir + "/#{Rails.env}-user-pwhash.txt"
 
   attr_accessor :name, :password, :password_confirmation, :current_password
-  attr_writer :password_digest
 
   validates :name, presence: true
   validates :password, length: { minimum: 8 }
   validate :valid_current_password
+  validate :valid_password_confirmation
 
   def authenticate(unencrypted_password)
-    super
-  rescue BCrypt::Errors::InvalidHash
-    false
+    digest(unencrypted_password) == stored_digest
   end
 
-  def password_digest
-    @password_digest ||
-      begin
-        hash = File.read(ENCRYPTED_PASSWORD_FILE).rstrip
-        BCrypt::Password.new(hash) # raise BCrypt::Errors::InvalidHash if hash is invalid
-      rescue Errno::ENOENT, BCrypt::Errors::InvalidHash
-        BCrypt::Password.create(Settings.default_password, cost: cost)
-      end
+  def digest(unencrypted_password)
+    unencrypted_password ||= ""
+    hash = Digest::SHA1.hexdigest(SALT + unencrypted_password)
+    stretching_cost.times do
+      hash = Digest::SHA1.hexdigest(hash + SALT + unencrypted_password)
+    end
+    hash
+  end
+
+  def stored_digest
+    if File.exist?(ENCRYPTED_PASSWORD_FILE)
+      File.read(ENCRYPTED_PASSWORD_FILE).rstrip
+    else
+      digest(Settings.default_password)
+    end
   end
 
   def update_attributes(params)
@@ -42,17 +45,21 @@ class User
     return false unless valid?
 
     File.open(ENCRYPTED_PASSWORD_FILE, "w") do |f|
-      f.write BCrypt::Password.create(password, cost: cost)
+      f.write digest(password)
     end
-  end
-
-  def cost
-    Rails.env.test? ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
   end
 
   def valid_current_password
     unless authenticate(current_password)
       errors.add(:current_password, :wrong_password)
     end
+  end
+
+  def valid_password_confirmation
+    password == password_confirmation
+  end
+
+  def stretching_cost
+    Rails.env.test? ? 1 : 20000
   end
 end
