@@ -18,6 +18,7 @@ class User
   validate :valid_password_confirmation
 
   def authenticate(unencrypted_password)
+    return false if @name != "admin"
     digest(unencrypted_password) == stored_digest
   end
 

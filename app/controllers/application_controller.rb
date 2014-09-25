@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    return unless session[:succeed_password]
-    @current_user ||= User.new(name: "admin").authenticate(session[:succeed_password])
+    return unless session[:password]
+    @current_user ||= User.new(name: session[:user_name]).authenticate(session[:password])
   end
 
   def login_required
