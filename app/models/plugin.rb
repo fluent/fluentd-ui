@@ -151,6 +151,7 @@ class Plugin
       /opt/td-agent/embedded/bin/fluent-gem
       /usr/lib/fluent/ruby/bin/fluent-gem
       /usr/lib64/fluent/ruby/bin/fluent-gem
+      fluent-gem
     ).find do |path|
       system("which #{path}", out: File::NULL, err: File::NULL)
     end
