@@ -22,6 +22,8 @@
         %td
           - if plugin.installed?
             = t("terms.installed")
+          - elsif plugin.processing?
+            = t("terms.processing")
           - else
             = t("terms.not_installed")
         %td
