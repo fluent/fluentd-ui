@@ -19,6 +19,7 @@ en:
     upgrade: Upgrade
     installed: Installed
     not_installed: Not Installed
+    processing: Processing
     new_version: "%{version} is available"
     install_latest: Install latest
     installed_plugins: Installed Plugins
