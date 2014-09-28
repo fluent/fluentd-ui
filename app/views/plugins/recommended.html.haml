@@ -21,9 +21,9 @@
           = plugin.category
         %td
           - if plugin.installed?
-            = t("plugins.common.installed")
+            = t("terms.installed")
           - else
-            = t(".not_installed")
+            = t("terms.not_installed")
         %td
           = link_to t('plugins.view_on_rubygems_org'), plugin.rubygems_org_page, target: "_blank"
 
