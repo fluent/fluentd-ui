@@ -8,7 +8,7 @@ class PluginsController < ApplicationController
   end
 
   def recommended
-    @plugins = Plugin.recommended
+    @plugins = PluginDecorator.decorate_collection(Plugin.recommended)
   end
 
   def updated

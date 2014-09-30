@@ -20,12 +20,7 @@
         %td
           = plugin.category
         %td
-          - if plugin.installed?
-            = t("terms.installed")
-          - elsif plugin.processing?
-            = t("terms.processing")
-          - else
-            = t("terms.not_installed")
+          = plugin.status
         %td
           = link_to t('plugins.view_on_rubygems_org'), plugin.rubygems_org_page, target: "_blank"
 
