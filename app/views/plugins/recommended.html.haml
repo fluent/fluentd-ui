@@ -51,6 +51,8 @@
         method: "POST"
       }).done(function(){
         $anchor.fadeOut();
+        var status = $anchor.parent().closest('tr').children()[3];
+        $(status).text("#{t("terms.processing")}");
       });;
     });
   });
