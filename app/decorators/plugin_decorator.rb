@@ -2,10 +2,10 @@ class PluginDecorator < Draper::Decorator
   delegate_all
 
   def status
-    if installed?
-      I18n.t("terms.installed")
-    elsif processing?
+    if processing?
       I18n.t("terms.processing")
+    elsif installed?
+      I18n.t("terms.installed")
     else
       I18n.t("terms.not_installed")
     end
