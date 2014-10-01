@@ -4,11 +4,6 @@ class SessionsController < ApplicationController
   before_action :set_user
 
   def create
-    if session_params[:name] != "admin" # NOTE: Application user is "admin" only, other user name is invalid for now.
-      flash.now[:notice] = I18n.t("messages.login_failed")
-      return render :new
-    end
-
     unless @user.authenticate(session_params[:password])
       flash.now[:notice] = I18n.t("messages.login_failed")
       return render :new
@@ -21,14 +16,15 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete :succeed_password
+    session.delete :user_name
+    session.delete :password
     redirect_to new_sessions_path
   end
 
   private
 
   def set_user
-    @user = User.new(name: "admin")
+    @user = User.new(name: (params[:session] || {})[:name])
   end
 
   def session_params
@@ -41,6 +37,7 @@ class SessionsController < ApplicationController
     #
     #       Currently, only store to session if default password is used.
     # TODO: How to keep a login session to be decide
-    session[:succeed_password] = session_params[:password]
+    session[:user_name] = user.name
+    session[:password]  = session_params[:password]
   end
 end
