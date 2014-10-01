@@ -21,6 +21,7 @@ ja:
     upgrade: アップグレード
     installed: インストール済み
     not_installed: 未インストール
+    processing: 処理中
     new_version: "%{version}があります"
     plugins: プラグイン
     misc: その他

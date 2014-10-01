@@ -8,6 +8,7 @@ class Plugin
   WORKING = []
 
   include ActiveModel::Model
+  include Draper::Decoratable
 
   attr_accessor :gem_name, :version, :category
   validates :gem_name, presence: true

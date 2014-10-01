@@ -12,7 +12,7 @@
     - @plugins.each do |plugin|
       %tr
         %td
-          - unless plugin.installed?
+          - unless plugin.installed? || plugin.processing?
             = link_to t("terms.install"), install_plugins_path, class: "js-install btn btn-primary", data: { url: install_plugins_path, name: plugin.gem_name}
         %td
           %label{for: "plugin_#{plugin.gem_name}"}
@@ -20,10 +20,7 @@
         %td
           = plugin.category
         %td
-          - if plugin.installed?
-            = t("terms.installed")
-          - else
-            = t("terms.not_installed")
+          = plugin.status
         %td
           = link_to t('plugins.view_on_rubygems_org'), plugin.rubygems_org_page, target: "_blank"
 
@@ -54,6 +51,8 @@
         method: "POST"
       }).done(function(){
         $anchor.fadeOut();
+        var status = $anchor.parent().closest('tr').children()[3];
+        $(status).text("#{t("terms.processing")}");
       });;
     });
   });
