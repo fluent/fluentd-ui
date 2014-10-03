@@ -3,8 +3,11 @@
 
 
 %div.col-xs-6
-  - @user.errors.full_messages.each do |e|
-    %div.alert.alert-danger= e
+  - if notice
+    %div.alert.alert-success= notice
+  - else
+    - @user.errors.full_messages.each do |e|
+      %div.alert.alert-danger= e
 
   = form_for(:user, url: user_path, method: :patch) do |f|
     %div.form-group

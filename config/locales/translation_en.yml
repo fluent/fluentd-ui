@@ -8,6 +8,7 @@ en:
     fluentd_stop_failed: Failed to stop fluentd
     fluentd_restart_failed: Failed to restart fluentd
     fluentd_start_stop_delay_notice: "'%{action} daemon' is accepted. That operation could take a minute for complete."
+    password_successfully_updated: "Your password has been changed successfully."
 
   terms: &terms
     name: Name
