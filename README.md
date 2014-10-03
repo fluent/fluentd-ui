@@ -59,8 +59,8 @@ fluentd-ui has the same tasks of `bundle gem foobar; cd foobar; rake -T`.
 
 (v0.1.0)
 
-![ss01](./fluentd-ui-ss01.png)
-![ss02](./fluentd-ui-ss02.png)
-![ss03](./fluentd-ui-ss03.png)
-![ss04](./fluentd-ui-ss04.png)
-![ss05](./fluentd-ui-ss05.png)
+![ss01](./docs/screenshots/01.png)
+![ss02](./docs/screenshots/02.png)
+![ss03](./docs/screenshots/03.png)
+![ss04](./docs/screenshots/04.png)
+![ss05](./docs/screenshots/05.png)
