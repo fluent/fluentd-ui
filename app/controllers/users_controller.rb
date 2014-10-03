@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       return render :show
     end
     session[:password] = user_params[:password]
-    redirect_to user_path
+    redirect_to user_path, notice: I18n.t("messages.password_successfully_updated")
   end
 
   private
