@@ -1,27 +1,27 @@
-%div.col-xs-6
+.col-xs-6
   - @fluentd.errors.full_messages.each do |e|
-    %div.alert.alert-danger= e
+    .alert.alert-danger= e
 
   = form_for(:fluentd, url: url, method: method) do |f|
-    %div.form-group
+    .form-group
       = f.label :variant
       = f.hidden_field :variant
       = @fluentd.variant
-    %div.form-group
+    .form-group
       = f.label :pid_file
       - if @fluentd.td_agent?
         = f.text_field :pid_file, class: "form-control", disabled: true
         = f.hidden_field :pid_file
       - else
         = f.text_field :pid_file, class: "form-control"
-    %div.form-group
+    .form-group
       = f.label :log_file
       - if @fluentd.td_agent?
         = f.text_field :log_file, class: "form-control", disabled: true
         = f.hidden_field :log_file
       - else
         = f.text_field :log_file, class: "form-control"
-    %div.form-group
+    .form-group
       = f.label :config_file
       - if @fluentd.td_agent?
         = f.text_field :config_file, class: "form-control", disabled: true
