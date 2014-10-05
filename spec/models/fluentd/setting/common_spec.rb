@@ -121,8 +121,8 @@ describe Fluentd::Setting::Common do
         end
         @klass = Class.new do
           include Fluentd::Setting::Common
-          KEYS = [:key1, :key2, :flag1, :hide, :ch, :child, :string] # FIXME: display "warning: already initialized constant KEYS", but works :(
-          attr_accessor(*KEYS)
+          const_set(:KEYS, [:key1, :key2, :flag1, :hide, :ch, :child, :string])
+          attr_accessor(*const_get(:KEYS))
           booleans :key1, :key2
           flags :flag1
           hidden :hide
