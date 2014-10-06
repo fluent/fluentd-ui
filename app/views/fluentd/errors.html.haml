@@ -3,14 +3,14 @@
     = icon('fa-download')
     = t('fluentd.common.raw_log_link')
 
-%div.row
-  %div.col-xs-12
+.row
+  .col-xs-12
     - @errors.each do |error|
-      %div.panel.panel-default
-        %div.panel-heading
+      .panel.panel-default
+        .panel-heading
           %h4= error[:subject]
         - if error[:notes].present?
-          %div.panel-body
+          .panel-body
             %ul
               - error[:notes].each do |stack|
                 %li= stack

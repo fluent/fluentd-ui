@@ -2,24 +2,24 @@
 
 
 
-%div.col-xs-6
+.col-xs-6
   - if notice
-    %div.alert.alert-success= notice
+    .alert.alert-success= notice
   - else
     - @user.errors.full_messages.each do |e|
-      %div.alert.alert-danger= e
+      .alert.alert-danger= e
 
   = form_for(:user, url: user_path, method: :patch) do |f|
-    %div.form-group
+    .form-group
       = f.label :name
       = f.text_field :name, class: "form-control", disabled: true
-    %div.form-group
+    .form-group
       = f.label :current_password
       = f.password_field :current_password, class: "form-control"
-    %div.form-group
+    .form-group
       = f.label :password
       = f.password_field :password, class: "form-control"
-    %div.form-group
+    .form-group
       = f.label :password_confirmation
       = f.password_field :password_confirmation, class: "form-control"
     = f.submit t("terms.update_password"), class: "btn btn-primary"

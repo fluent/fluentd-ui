@@ -4,9 +4,9 @@
 
 = form_for(@setting, as: "setting", url: after_format_daemon_setting_in_tail_path(@fluentd)) do |f|
   - @setting.errors.full_messages.each do |e|
-    %div.alert.alert-danger= e
+    .alert.alert-danger= e
 
-  %div.form-group
+  .form-group
     = f.label :path
     = f.hidden_field :path
     = f.text_field :path, class: "form-control", disabled: true

@@ -5,9 +5,9 @@
   .panel-body
     = render partial: "shared/error"
     = form_for(:session, url: sessions_path) do |f|
-      %div.form-group
+      .form-group
         = f.text_field :name, placeholder: t('terms.name')
-      %div.form-group
+      .form-group
         = f.password_field :password, placeholder: t('terms.password')
 
       = submit_tag t("terms.sign_in"), class: "btn btn-success"

@@ -12,11 +12,11 @@
         = t('.update_fluentd_ui_caution', brand: fluentd_ui_brand)
 
 .row
-  %div.col-xs-6
-    %div.panel.panel-default
-      %div.panel-heading
+  .col-xs-6
+    .panel.panel-default
+      .panel-heading
         %h4= t("terms.version")
-      %div.panel-body
+      .panel-body
         %dl{class: "dl-horizontal"}
           %dt ruby
           %dd= RUBY_DESCRIPTION
@@ -26,11 +26,11 @@
           %dt fluentd-ui
           %dd= FluentdUI::VERSION
 
-  %div.col-xs-6
-    %div.panel.panel-default
-      %div.panel-heading
+  .col-xs-6
+    .panel.panel-default
+      .panel-heading
         %h4= t('terms.installed_plugins')
-      %div.panel-body
+      .panel-body
         - if @plugins.present?
           %table{class: "table table-hover", id: "plugins-table"}
             %thead
@@ -46,9 +46,9 @@
           = t "plugins.common.no_installed"
 
 .row
-  %div.col-xs-12
-    %div.panel.panel-default
-      %div.panel-heading
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
         %h4{"data-toggle" => "collapse", "href" => "#env-table"}
           = icon('fa-caret-down')
           = t('.env')
