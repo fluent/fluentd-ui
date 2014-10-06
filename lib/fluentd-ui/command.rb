@@ -8,6 +8,7 @@ module FluentdUI
     option :pidfile, type: :string, default: File.expand_path('tmp/fluentd-ui.pid', ROOT)
     option :daemonize, type: :boolean, default: false
     def start
+      trap(:INT) { puts "\nStopping..." }
       system(*%W(bundle exec rackup #{options[:daemonize] ? "-D" : ""} --pid #{options[:pidfile]} -p #{options[:port]} -E production #{ROOT}/config.ru))
     end
 
@@ -40,6 +41,7 @@ module FluentdUI
       install dependency gems
     DESC
     def setup
+      trap(:INT) { puts "\nStopping..." }
       system(*%W(bundle install))
     end
 
