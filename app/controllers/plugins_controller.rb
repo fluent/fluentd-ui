@@ -4,7 +4,7 @@ class PluginsController < ApplicationController
   end
 
   def installed
-    @plugins = Plugin.installed
+    @plugins = Plugin.installed.reject{|plugin| plugin.processing? }
   end
 
   def recommended
