@@ -1,0 +1,29 @@
+<% require "cgi" %>
+
+defaults: &defaults
+  uri: ldap://127.0.0.1/dc=example,dc=com
+  start_tls: false
+  authentication:
+    method: simple
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  # Authentication is needed to populate test users in test.
+  uri: ldap://127.0.0.1/dc=example,dc=com????bindname=<%= CGI.escape("cn=admin,dc=example,dc=com") %>
+  authentication:
+    # Authentication is needed to populate test users in test.
+    password: secret
+
+production:
+  uri: ldap://ldap.example.com/dc=example,dc=com
+  start_tls: true
+  # For StartTLS: ldap:// + start_tls(true)
+  # For LDAPS: ldaps://
+  authentication:
+    method: simple
+    # Available methods: "simple", "sasl" and "gss_spnego"
+    # The default is "simple".
+
