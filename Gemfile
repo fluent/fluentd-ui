@@ -22,4 +22,5 @@ group :test do
   gem "webmock", "~> 1.18.0"
   gem "timecop"
   gem "poltergeist"
+  gem "activeldap", "~> 4.0.4"
 end

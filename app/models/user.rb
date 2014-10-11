@@ -18,8 +18,12 @@ class User
   validate :valid_password_confirmation
 
   def authenticate(unencrypted_password)
-    return false if @name != "admin"
-    digest(unencrypted_password) == stored_digest
+    if ldap_authenticate_enabled?
+      ldap_authenticate(unencrypted_password)
+    else
+      return false if @name != "admin"
+      digest(unencrypted_password) == stored_digest
+    end
   end
 
   def digest(unencrypted_password)
@@ -62,5 +66,16 @@ class User
 
   def stretching_cost
     Rails.env.test? ? 1 : 20000
+  end
+
+  private
+  def ldap_authenticate_enabled?
+    Settings.authentication_methods.include?("ldap") &&
+      File.exist?(LdapSettings.source)
+  end
+
+  def ldap_authenticate(unencrypted_password)
+    ldap_authenticator = LdapAuthenticator.new(LdapSettings)
+    ldap_authenticator.authenticate(self, unencrypted_password)
   end
 end

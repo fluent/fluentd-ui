@@ -1,6 +1,9 @@
 defaults: &defaults
   default_password: changeme
   default_log_tail_count: 30
+  authentication_methods:
+    - file
+    # - ldap
   recommended_plugins:
     - category: filter
       name: "rewrite-tag-filter"
