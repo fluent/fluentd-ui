@@ -1,3 +1,9 @@
+Release 0.3.0 - 2014/10/22
+
+* [feature] Potentially support for multiple user name (not have UI to do it)
+* [improve] Improve installing plugin processing experience
+* [improve] Some messages added or fixed
+
 Release 0.2.0 - 2014/09/02
 
 * [compatibility] Login password is reset as default if v0.1.x user who updates thier password.
