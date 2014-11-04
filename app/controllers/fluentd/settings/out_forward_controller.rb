@@ -15,14 +15,4 @@ class Fluentd::Settings::OutForwardController < ApplicationController
       ),
     )
   end
-
-  def initial_params
-    {
-      secondary: {
-        "0" => {
-          type: "file",
-        }
-      }
-    }
-  end
 end
