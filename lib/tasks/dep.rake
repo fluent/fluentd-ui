@@ -8,7 +8,10 @@ namespace :dep do
     versions = {
       "bundler" => "1.7.4" # bundler version does not appear in Gemfile.lock
     }
-    lock_file = ENV["GEMFILE_LOCK"] || "Gemfile.production.lock"
+    lock_file = "Gemfile.production.lock"
+    unless ENV["SKIP_BUNDLE_INSTALL"]
+      system("bundle install --gemfile Gemfile.production", out: STDERR) # ensure lock file is up to date
+    end
     File.open(lock_file).each_line do |line|
       # GEM
       #   remote: https://rubygems.org/
