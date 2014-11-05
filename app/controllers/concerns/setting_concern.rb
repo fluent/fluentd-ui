@@ -4,10 +4,13 @@ module SettingConcern
   included do
     before_action :login_required
     before_action :find_fluentd
+    helper_method :target_plugin_name, :plugin_setting_form_action_url
   end
+
 
   def show
     @setting = target_class.new(initial_params)
+    render "shared/settings/show"
   end
 
   def finish
@@ -30,5 +33,17 @@ module SettingConcern
 
   def setting_params
     params.require(target_class.to_s.underscore.gsub("/", "_")).permit(*target_class.const_get(:KEYS))
+  end
+
+  def initial_params
+    target_class.initial_params
+  end
+
+  def target_plugin_name
+    target_class.to_s.split("::").last.underscore
+  end
+
+  def plugin_setting_form_action_url(*args)
+    send("finish_daemon_setting_#{target_plugin_name}_path", *args)
   end
 end
