@@ -3,7 +3,8 @@
     = icon('fa-download')
     = t('.download_system_information')
 
-- if FluentdUI.update_available?
+- if FluentdUI.update_available? && !FluentdUI.td_agent_ui?
+  - # NOTE: td-agent-ui shouldn't have auto update feature
   .row
     .col-xs-12
       %p
