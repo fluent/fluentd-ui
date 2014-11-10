@@ -25,4 +25,8 @@ module FluentdUI
     FileUtils.mkdir_p(dir) # ensure directory exists
     dir
   end
+
+  def self.td_agent_ui?
+    ENV["FLUENTD_UI_TD_AGENT"].present?
+  end
 end

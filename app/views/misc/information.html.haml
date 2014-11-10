@@ -3,11 +3,12 @@
     = icon('fa-download')
     = t('.download_system_information')
 
-- if FluentdUI.update_available?
+- if FluentdUI.update_available? && !FluentdUI.td_agent_ui?
+  - # NOTE: td-agent-ui shouldn't have auto update feature
   .row
     .col-xs-12
       %p
-        = link_to misc_update_daemon_ui_path, class: "btn btn-primary btn-lg", method: :post do
+        = link_to misc_update_fluentd_ui_path, class: "btn btn-primary btn-lg", method: :post do
           = t('.update_fluentd_ui', version: FluentdUI.latest_version, title: fluentd_ui_title)
         = t('.update_fluentd_ui_caution', brand: fluentd_ui_brand)
 
