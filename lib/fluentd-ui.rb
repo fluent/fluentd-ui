@@ -34,7 +34,7 @@ module FluentdUI
     case RbConfig::CONFIG['host_os']
     when /darwin|mac os/
       :macosx
-    else
+    else # FIXME: windows is unix? :P
       :unix
     end
   end
