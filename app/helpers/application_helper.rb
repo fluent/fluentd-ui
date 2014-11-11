@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def has_td_agent_system?
-    File.exist?("/etc/init.d/td-agent")
+    File.exist?("/etc/init.d/td-agent") || File.exist?("/opt/td-agent/embedded/bin/fluentd")
   end
 
   def fluentd_ui_logo
