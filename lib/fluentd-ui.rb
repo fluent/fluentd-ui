@@ -29,4 +29,13 @@ module FluentdUI
   def self.td_agent_ui?
     ENV["FLUENTD_UI_TD_AGENT"].present?
   end
+
+  def self.platform
+    case RbConfig::CONFIG['host_os']
+    when /darwin|mac os/
+      :macosx
+    else
+      :unix
+    end
+  end
 end
