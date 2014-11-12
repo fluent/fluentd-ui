@@ -1,7 +1,5 @@
 - page_title t('.page_title')
 
-%h2
-
 .row.fluentd-setting-inout
   .col-xs-4
     .panel.panel-default
@@ -47,3 +45,28 @@
           = link_to(daemon_setting_out_forward_path(@fluentd)) do
             = icon('fa-file-text-o fa-lg')
             = t("fluentd.common.setup_out_forward")
+
+%h2= t('.current')
+
+.row
+  .col-xs-6
+    %h3= t('.in')
+    - @config.sources.each_with_index do |elm, idx|
+      .panel.panel-default
+        .panel-heading{"data-toggle" => "collapse", "href" => "#source#{idx}", "title" => elm.inspect}
+          = elm["type"]
+          = icon('fa-caret-down')
+        .panel-body.collapse{"id" => "source#{idx}"}
+          %pre= elm.to_s
+  .col-xs-6
+    %h3= t('.out')
+    - @config.matches.each_with_index do |elm, idx|
+      .panel.panel-default
+        .panel-heading{"data-toggle" => "collapse", "href" => "#match#{idx}", "title" => elm.inspect}
+          = elm["type"]
+          (
+          = elm.arg
+          )
+          = icon('fa-caret-down')
+        .panel-body.collapse{"id" => "match#{idx}"}
+          %pre= elm.to_s

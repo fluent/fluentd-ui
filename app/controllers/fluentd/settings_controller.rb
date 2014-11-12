@@ -15,4 +15,8 @@ class Fluentd::SettingsController < ApplicationController
     @fluentd.agent.restart if @fluentd.agent.running?
     redirect_to daemon_setting_path(@fluentd)
   end
+
+  def source_and_output
+    @config = Fluentd::Setting::Config.new(@fluentd.config_file)
+  end
 end

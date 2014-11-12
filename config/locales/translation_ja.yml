@@ -124,6 +124,7 @@ ja:
         page_title: ソースと出力先の追加
         in: 入力
         out: 出力
+        current: 現在の設定
       show:
         page_title: 設定ファイルの編集
       edit:
