@@ -1,3 +1,6 @@
+require "active_support"
+require "active_support/core_ext"
+
 module FluentdUI
   class Command < Thor
     ROOT = File.expand_path('../../../', __FILE__)
@@ -9,7 +12,11 @@ module FluentdUI
     option :daemonize, type: :boolean, default: false
     def start
       trap(:INT) { puts "\nStopping..." }
-      system(*%W(bundle exec rackup #{options[:daemonize] ? "-D" : ""} --pid #{options[:pidfile]} -p #{options[:port]} -E production #{ROOT}/config.ru))
+      # NOTE: on Debian based distributions, td-agent uses start-stop-daemon with --exec option for stopping process
+      #       then fluentd-ui will be killed by them because given --exec option matches.
+      #       FLUENTD_UI_EXEC_COMMAND is used for workaround it.
+      cmd = ENV['FLUENTD_UI_EXEC_COMMAND'].presence || "rackup"
+      system(* %w(bundle exec) + cmd.split(" ") + %W(#{options[:daemonize] ? "-D" : ""} --pid #{options[:pidfile]} -p #{options[:port]} -E production #{ROOT}/config.ru))
     end
 
 
