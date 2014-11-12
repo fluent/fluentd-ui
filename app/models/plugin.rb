@@ -165,7 +165,7 @@ class Plugin
     return if processing?
     return if installed?
     WORKING.push(data)
-    fluent_gem("install", gem_name, "-v", version)
+    fluent_gem("install", gem_name, "--no-document", "-v", version)
   ensure
     WORKING.delete(data)
   end
