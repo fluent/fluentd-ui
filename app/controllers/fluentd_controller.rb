@@ -1,6 +1,25 @@
+require "fluent/config/basic_parser"
+require 'fluent/config/parser'
+
 class FluentdController < ApplicationController
   before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log, :raw_log, :errors]
   before_action :check_fluentd_exists, only: [:edit, :log, :raw_log, :errors]
+
+  def dashboard
+    path = File.expand_path(Fluentd.instance.config_file)
+    File.open(path) { |io|
+      @root_conf = Fluent::Config::Parser.parse(io, File.basename(path), File.dirname(path))
+    }
+
+    @main_config = path
+    @sources = []
+    @matches = []
+    @root_conf.elements.each do |c|
+      @sources << c if c.name == 'source'
+      @matches << c if c.name == 'match'
+    end
+  end
+
 
   def show
   end

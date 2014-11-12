@@ -109,8 +109,10 @@ en:
         Delete %{brand} setting.
         
         <p>Running %{brand} will be stopped, but log and config file are still exists.</p>
-    show:
+    dashboard:
       page_title: Dashboard
+    show:
+      page_title: Console
     new:
       page_title: New
     edit:

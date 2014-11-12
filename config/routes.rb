@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "welcome#home"
 
   resource :daemon, controller: :fluentd do
+    get "dashboard"
     get "log"
     get "raw_log"
     get "errors"

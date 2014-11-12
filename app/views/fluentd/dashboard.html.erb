@@ -1,0 +1,26 @@
+<% @sources.each do |s| %>	
+	<% next unless s["tag"] %>
+	<div class="">
+		<h4>Sources</h4>
+		<h6>type: <%= s["type"] %></h6>
+		<h6>tag: <%= s["tag"] %></h6>
+		<h6>describe: <%= s["describe"] %></h6>
+		<h6>interval: <%= s["interval"] %></h6>
+	</div>
+<% end %>
+--
+<% @matches.each do |m| %>	
+	<div class="">
+		<h4>Matches</h4>
+		<h6>type: <%= m["type"] %></h6>
+		<h6>match com tag: <%= m.arg %></h6>
+		<h6>describe: <%= m["describe"] %></h6>
+		<% m.elements.each do |e| %>
+			<% next unless e.name == "store" %>
+			<h6>element: <%= e["type"] %></h6>
+		<% end %>
+	</div>
+<% end %>
+
+
+
