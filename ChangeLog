@@ -1,7 +1,10 @@
-Release 0.3.4 - 2014/11/12
+Release 0.3.5 - 2014/11/12
 
 * [fixed] `/etc/init.d/td-agent stop` was killing the td-agent-ui on Debian based distributions.
 
+Release 0.3.4 - 2014/11/12
+
+* yanked
 
 Release 0.3.3 - 2014/11/11
 
