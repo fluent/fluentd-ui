@@ -1,26 +1,21 @@
-<% @sources.each do |s| %>	
-	<% next unless s["tag"] %>
-	<div class="">
-		<h4>Sources</h4>
-		<h6>type: <%= s["type"] %></h6>
-		<h6>tag: <%= s["tag"] %></h6>
-		<h6>describe: <%= s["describe"] %></h6>
-		<h6>interval: <%= s["interval"] %></h6>
-	</div>
-<% end %>
---
-<% @matches.each do |m| %>	
-	<div class="">
-		<h4>Matches</h4>
-		<h6>type: <%= m["type"] %></h6>
-		<h6>match com tag: <%= m.arg %></h6>
-		<h6>describe: <%= m["describe"] %></h6>
-		<% m.elements.each do |e| %>
-			<% next unless e.name == "store" %>
-			<h6>element: <%= e["type"] %></h6>
-		<% end %>
-	</div>
-<% end %>
+<div style="margin-top:100px;">
+	<% @matches.each_with_index do |m, idx| %>	
 
+		<div id="match_event_#{idx}" style="background-color:#006666;color:white;width:300px;float:left;margin-right:30px;padding:10px;margin:10px">
+			action: <b><%= m.type %></b><br />
+			description: <%= m.describe || "N/A"%><br />	
+			<b>stores at...</b><br />
+			<% m.stores.each_with_index do |s, idx2| %>	
+				<%= "#{idx2+1}) #{s}" %><br />	
+			<% end %>
+			<b>..from sources</b><br />
+			<% m.sources.each do |s| %>
+				<%= s.type %><br />
+				interval to update.. <%= s.interval %><br />
+			<% end %>
+		</div>
+
+	<% end %>
+</div>
 
 
