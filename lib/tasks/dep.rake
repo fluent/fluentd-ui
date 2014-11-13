@@ -9,6 +9,7 @@ namespace :dep do
       "bundler" => "1.7.4" # bundler version does not appear in Gemfile.lock
     }
     skip_gems = %w(fluentd)
+    ignore_gems_at_dump = %w(bundler rake json httpclient fluentd-ui) # these gems are installed by td-agent
     lock_file = "Gemfile.production.lock"
     unless ENV["SKIP_BUNDLE_INSTALL"]
       system("bundle install --gemfile Gemfile.production", out: STDERR) # ensure lock file is up to date
@@ -53,6 +54,7 @@ namespace :dep do
       rank[parent] += 1
     end
     rank.to_a.sort_by {|(name, score)| score }.each do |(name, score)|
+      next if ignore_gems_at_dump.include?(name)
       puts %Q|download "#{name}", "#{versions[name]}"|
     end
   end
