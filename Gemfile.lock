@@ -8,7 +8,7 @@ PATH
       fluentd (~> 0.10.56)
       font-awesome-rails
       haml-rails (~> 0.5.3)
-      httpclient
+      httpclient (= 2.4.0)
       jbuilder (~> 2.0)
       jquery-rails (~> 3.1.0)
       kramdown (> 1.0.0)
@@ -81,7 +81,7 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    fluentd (0.10.56)
+    fluentd (0.10.57)
       cool.io (>= 1.1.1, < 2.0.0, != 1.2.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
       json (>= 1.4.3)
@@ -103,7 +103,7 @@ GEM
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     http_parser.rb (0.6.0)
-    httpclient (2.5.3.2)
+    httpclient (2.4.0)
     i18n (0.6.11)
     i18n_generators (1.2.1)
       mechanize
@@ -219,7 +219,7 @@ GEM
     timers (1.1.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2014.9)
+    tzinfo-data (1.2014.10)
       tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext

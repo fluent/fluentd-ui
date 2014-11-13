@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'jbuilder', '~> 2.0'
   spec.add_dependency "draper", '~> 1.3'
   spec.add_dependency "bundler"
-  spec.add_dependency "httpclient"
+  spec.add_dependency "httpclient", "2.4.0" # same as td-agent
   spec.add_dependency "settingslogic"
   spec.add_dependency "puma"
   spec.add_dependency "thor"
