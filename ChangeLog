@@ -1,3 +1,8 @@
+Release 0.3.7 - 2014/11/13
+
+* [maintenance] Change httpclient gem as stable version.
+
+
 Release 0.3.6 - 2014/11/12
 
 * [improve] Don't install ri and rdoc.
