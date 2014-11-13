@@ -1,16 +1,17 @@
 <div style="margin-top:100px;">
 	<% @matches.each_with_index do |m, idx| %>	
 
-		<div id="match_event_#{idx}" style="background-color:#006666;color:white;width:300px;float:left;margin-right:30px;padding:10px;margin:10px">
+		<div id="match_event_#{idx}" style="background-color:#006666;color:white;width:400px;float:left;margin-right:30px;padding:10px;margin:10px;font-size:14pt">
 			action: <b><%= m.type %></b><br />
-			description: <%= m.describe || "N/A"%><br />	
-			<b>stores at...</b><br />
+			"<%= m.describe || "N/A"%>"<br />	
+			<i><b>stores at...</b></i><br />
 			<% m.stores.each_with_index do |s, idx2| %>	
 				<%= "#{idx2+1}) #{s}" %><br />	
 			<% end %>
-			<b>..from sources</b><br />
+			<i><b>..from sources</b></i><br />
 			<% m.sources.each do |s| %>
 				<%= s.type %><br />
+				"<%= s.describe || "N/A" %>"<br />
 				interval to update.. <%= s.interval %><br />
 			<% end %>
 		</div>
