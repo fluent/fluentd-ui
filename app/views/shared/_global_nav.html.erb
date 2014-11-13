@@ -6,6 +6,9 @@
     <ul class="nav nav-second-level">
       <% if fluentd_exists? %>
         <li>
+          <%= link_to_other t('fluentd.dashboard.page_title'), dashboard_daemon_path %>
+        </li>
+        <li>
           <%= link_to_other t('fluentd.show.page_title'), daemon_path %>
         </li>
         <li>

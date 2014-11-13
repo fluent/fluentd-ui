@@ -1,6 +1,54 @@
+require "fluent/config/basic_parser"
+require 'fluent/config/parser'
+
 class FluentdController < ApplicationController
+  include FluentdConfig
+
   before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log, :raw_log, :errors]
   before_action :check_fluentd_exists, only: [:edit, :log, :raw_log, :errors]
+
+  def dashboard
+    path = File.expand_path(Fluentd.instance.config_file)
+    File.open(path) { |io|
+      @root_conf = Fluent::Config::Parser.parse(io, File.basename(path), File.dirname(path))
+    }
+
+    raw_sources = []
+    raw_matches = []
+    @root_conf.elements.each do |c|
+      raw_sources << c if c.name == 'source'
+      raw_matches << c if c.name == 'match'
+    end
+    
+    @sources = {}
+    raw_sources.each do |s|
+      source = SourceElement.new
+      next unless s["tag"]
+      @sources[s["tag"]] ||= []
+
+      source.type = s["type"]
+      source.tag = s["tag"]
+      source.describe = s["describe"]
+      source.interval = s["interval"]
+      @sources[s["tag"]] << source
+    end
+
+    @matches = []
+    raw_matches.each do |m|
+        match = MatchElement.new
+        match.type = m["type"]
+        match.describe = m["describe"]
+        match.stores = []
+        match.sources = @sources[m.arg] || []
+        m.elements.each do |e|
+          next unless e.name == "store"
+          match.stores << e["type"]
+        end
+        @matches << match
+    end
+
+  end
+
 
   def show
   end
