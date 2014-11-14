@@ -2,6 +2,7 @@ namespace :dep do
   desc "list dependency gems order by less referenced"
   task :list do
     require "set"
+    require "fileutils"
     deps = Set.new
     context = false
     current_parent  = false
@@ -12,7 +13,11 @@ namespace :dep do
     ignore_gems_at_dump = %w(bundler rake json httpclient fluentd-ui) # these gems are installed by td-agent
     lock_file = "Gemfile.production.lock"
     unless ENV["SKIP_BUNDLE_INSTALL"]
-      system("bundle install --gemfile Gemfile.production", out: STDERR) # ensure lock file is up to date
+      # ensure Gemfile.production.lock file is up to date
+      Bundler.with_clean_env do
+        FileUtils.cp "Gemfile.lock", "Gemfile.production.lock"
+        system("bundle install --no-deployment --gemfile Gemfile.production")
+      end
     end
 
     File.open(lock_file).each_line do |line|
