@@ -34,8 +34,6 @@ defaults: &defaults
       name: "numeric-counter"
     - category: storage
       name: "webhdfs"
-    - category: data_source
-      name: "tail-multiline"
     - category: filter
       name: "parser"
     - category: storage
@@ -44,14 +42,18 @@ defaults: &defaults
       name: "dstat"
     - category: filter
       name: "record-reformer"
-    - category: data_source
-      name: "tail-ex"
     - category: storage
       name: "zabbix-simple-bufferd"
     - category: processing
       name: "numeric-monitor"
     - category: notification
       name: "ping-message"
+    - category: processing
+      name: "extract_query_params"
+    - category: processing
+      name: "norikra"
+    - category: notification
+      name: "cloudwatch"
     - category: storage
       name: "pghstore"
     - category: filter
@@ -62,44 +64,30 @@ defaults: &defaults
       name: "grep"
     - category: processing
       name: "grepcounter"
-    - category: data_source
-      name: "mysqlslowquery"
+    - category: processing
+      name: "groupcounter"
     - category: routing
       name: "keep-forward"
     - category: notification
       name: "mail"
     - category: filter
       name: "record-modifier"
-    - category: storage
-      name: "mysql"
     - category: notification
       name: "sns"
     - category: data_source
       name: "munin"
-    - category: routing
-      name: "flume"
-    - category: data_source
-      name: "tail-asis"
     - category: monitoring
       name: "metricsense"
     - category: storage
       name: "sqs"
     - category: processing
       name: "datacalculator"
-    - category: search
-      name: "splunkapi"
     - category: filter
       name: "amplifier-filter"
     - category: filter
       name: "sampling-filter"
-    - category: notification
-      name: "growl"
-    - category: storage
-      name: "dynamodb"
     - category: processing
       name: "flatten"
-    - category: storage
-      name: "hoop"
     - category: processing
       name: "anomalydetect"
     - category: notification
@@ -110,34 +98,28 @@ defaults: &defaults
       name: "redis-counter"
     - category: storage
       name: "kestrel"
-    - category: routing
-      name: "udp"
     - category: storage
       name: "forward-aws"
-    - category: processing
-      name: "extract_query_params"
-    - category: processing
-      name: "norikra"
-    - category: notification
-      name: "cloudwatch"
     - category: data_source
       name: "snmp"
-    - category: data_source
-      name: "http-enhanced"
     - category: processing
-      name: "calc"
+      name: "stats"
+    - category: storage
+      name: "dynamodb"
+    - category: storage
+      name: "cassandra"
     - category: storage
       name: "cassandra-cql"
-    - category: filter
-      name: "hostname"
     - category: data_source
       name: "cloudstack"
+    - category: storage
+      name: "mysql"
     - category: data_source
       name: "mysql-query"
+    - category: data_source
+      name: "mysqlslowquery"
     - category: storage
       name: "redshift"
-    - category: processing
-      name: "groupcounter"
     - category: data_source
       name: "twitter"
     - category: data_source
@@ -148,8 +130,6 @@ defaults: &defaults
       name: "histogram"
     - category: routing
       name: "hash-forward"
-    - category: notification
-      name: "yohoushi"
     - category: storage
       name: "zmq"
     - category: monitoring
@@ -164,6 +144,8 @@ defaults: &defaults
       name: "suppress"
     - category: filter
       name: "filter"
+    - category: filter
+      name: "select"
     - category: storage
       name: "resque"
     - category: data_source
@@ -180,26 +162,24 @@ defaults: &defaults
       name: "reassemble"
     - category: data_source
       name: "jvmwatcher"
-    - category: storage
-      name: "redshift-kwarter"
     - category: data_source
       name: "http-status"
     - category: data_source
       name: "df"
     - category: processing
       name: "typecast"
-    - category: filter
-      name: "select"
     - category: data_source
       name: "rds-slowlog"
     - category: security
       name: "anonymizer"
     - category: search
       name: "splunk"
-    - category: storage
-      name: "cassandra"
+    - category: search
+      name: "splunkapi"
     - category: notification
       name: "boundio"
+    - category: notification
+      name: "growl"
 
 development:
   <<: *defaults
