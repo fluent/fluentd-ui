@@ -149,6 +149,7 @@ class Plugin
 
     # NOTE: td-agent has a command under the /usr/lib{,64}, td-agent2 has under /opt/td-agent
     %W(
+      /usr/sbin/td-agent-gem
       /opt/td-agent/embedded/bin/fluent-gem
       /usr/lib/fluent/ruby/bin/fluent-gem
       /usr/lib64/fluent/ruby/bin/fluent-gem
