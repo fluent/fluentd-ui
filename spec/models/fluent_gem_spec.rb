@@ -53,7 +53,7 @@ describe FluentGem do
 
     context "no list" do
       let(:gem_list) { "" }
-      it { subject.should == [] }
+      it { subject.to_a.should == [] }
     end
 
     context "some lines" do
@@ -62,7 +62,7 @@ describe FluentGem do
         fluent-plugin-foo (0.1.2)
         more_dummy (0.0.1)
       GEM
-      it { subject.should == gem_list.lines }
+      it { subject.to_a.should == gem_list.lines.to_a }
     end
 
     context "failed" do
