@@ -39,12 +39,12 @@ describe FileReverseReader do
 
     context "contain ascii only" do
       let(:content) { "ABCDE" }
-      it { should be_false }
+      it { should == false }
     end
 
     context "contain non-ascii" do
       let(:content) { "\x89NG" }
-      it { should be_true }
+      it { should == true }
     end
   end
 
