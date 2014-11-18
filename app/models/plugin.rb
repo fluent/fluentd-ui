@@ -89,10 +89,7 @@ class Plugin
   def self.installed
     Rails.cache.fetch("installed_gems", expires_in: 3.seconds) do
       Bundler.with_clean_env do
-        fluent_gem = fluent_gem_path
-        return [] unless fluent_gem
-        gems = `#{fluent_gem} list`.try(:lines)
-        return [] unless gems
+        gems = FluentGem.list
         gems.grep(/fluent-plugin/).map do |gem|
           name, versions_str = gem.strip.split(" ")
           version = versions_str[/[^(), ]+/]
@@ -141,24 +138,6 @@ class Plugin
     "https://rubygems.org/api/v1/versions/#{gem_name}.json"
   end
 
-  def self.fluent_gem_path
-    # On installed both td-agent and fluentd system, decide which fluent-gem command should be used depend on setup(Fluentd.instance)
-    if Fluentd.instance && Fluentd.instance.fluentd?
-      return "fluent-gem" # maybe `fluent-gem` command is in the $PATH
-    end
-
-    # NOTE: td-agent has a command under the /usr/lib{,64}, td-agent2 has under /opt/td-agent
-    %W(
-      /usr/sbin/td-agent-gem
-      /opt/td-agent/embedded/bin/fluent-gem
-      /usr/lib/fluent/ruby/bin/fluent-gem
-      /usr/lib64/fluent/ruby/bin/fluent-gem
-      fluent-gem
-    ).find do |path|
-      system("which #{path}", out: File::NULL, err: File::NULL)
-    end
-  end
-
   private
 
   def gem_install
@@ -166,7 +145,7 @@ class Plugin
     return if processing?
     return if installed?
     WORKING.push(data)
-    fluent_gem("install", gem_name, "--no-document", "-v", version)
+    FluentGem.install(gem_name, "--no-document", "-v", version)
   ensure
     WORKING.delete(data)
   end
@@ -176,23 +155,8 @@ class Plugin
     return if processing?
     return unless installed?
     WORKING.push(data)
-    fluent_gem("uninstall", gem_name, "-x", "-a")
+    FluentGem.uninstall(gem_name, "-x", "-a")
   ensure
     WORKING.delete(data)
-  end
-
-  def fluent_gem(*commands)
-    # NOTE: use `fluent-gem` instead of `gem`
-    Bundler.with_clean_env do
-      # NOTE: this app is under the Bundler, so call `system` in with_clean_env is Bundler jail breaking
-      unless system(* [fluent_gem_path, *commands])
-        raise GemError, "failed command #{commands.join(" ")}"
-      end
-    end
-    true
-  end
-
-  def fluent_gem_path
-    self.class.fluent_gem_path
   end
 end

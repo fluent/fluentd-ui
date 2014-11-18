@@ -4,7 +4,7 @@ describe Plugin do
   let(:plugin) { build(:plugin) }
 
   describe ".installed" do
-    before { Plugin.stub(:"`").and_return(gem_list) }
+    before { FluentGem.stub(:"`").and_return(gem_list) }
 
     context "fluent-plugin-foo 0.1.2" do
       let(:target) { Plugin.new(gem_name: "fluent-plugin-foo", version: "0.1.2") }
@@ -73,12 +73,12 @@ describe Plugin do
 
         context "installed" do
           let(:installed) { true }
-          it { plugin.should_not_receive(:fluent_gem) }
+          it { FluentGem.should_not_receive(:install) }
         end
 
         context "not installed" do
           let(:installed) { false }
-          it { plugin.should_receive(:fluent_gem) }
+          it { FluentGem.should_receive(:install) }
         end
       end
 
@@ -87,22 +87,22 @@ describe Plugin do
 
         context "installed" do
           let(:installed) { true }
-          it { plugin.should_not_receive(:fluent_gem) }
+          it { FluentGem.should_not_receive(:install) }
         end
 
         context "not installed" do
           let(:installed) { false }
-          it { plugin.should_not_receive(:fluent_gem) }
+          it { FluentGem.should_not_receive(:installed) }
         end
       end
     end
 
     context "system command error" do
-      before { plugin.should_receive(:system).at_least(1).and_return(false) }
+      before { FluentGem.should_receive(:system).at_least(1).and_return(false) }
       subject { expect { plugin.install! } }
 
       it "raise GemError" do
-        subject.to raise_error(Plugin::GemError)
+        subject.to raise_error(FluentGem::GemError)
       end
 
       it "error message contains gem name" do
@@ -139,10 +139,10 @@ describe Plugin do
     before do
       # NOTE: not `plugin.stub` because upgrade! creates new Plugin instance internally
       installed_plugin.stub(:installed?).and_return(true)
-      Plugin.any_instance.stub(:fluent_gem).and_return(true)
+      FluentGem.stub(:run).and_return(true)
 
       installed_plugin.should_receive(:uninstall!)
-      Plugin.any_instance.should_receive(:install!)
+      FluentGem.should_receive(:install)
     end
 
     it { installed_plugin.upgrade!(target_version) }
