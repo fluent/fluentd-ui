@@ -13,7 +13,7 @@ module FluentGem
     def list
       output = `#{gem} list`
       unless $?.exitstatus.zero?
-        raise GemError, "failed command `#{gem} list`"
+        raise GemError, "failed command: `#{gem} list`"
       end
       output.lines
     end
@@ -36,7 +36,7 @@ module FluentGem
 
       # On installed both td-agent and fluentd system, decide which fluent-gem command should be used depend on setup(Fluentd.instance)
       if Fluentd.instance && Fluentd.instance.fluentd?
-        return "fluent-gem" # maybe `fluent-gem` command is in the $PATH
+        "fluent-gem" # maybe `fluent-gem` command is in the $PATH
       else
         detect_td_agent_gem
       end

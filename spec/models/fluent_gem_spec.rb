@@ -1,50 +1,48 @@
 require 'spec_helper'
 
 describe FluentGem do
-  describe "invoker" do
-    describe "#install" do
-      let(:gem) { FluentGem.gem }
+  describe "#install" do
+    let(:gem) { FluentGem.gem }
 
-      context "no argument" do
-        after { FluentGem.install }
-        it { FluentGem.should_receive(:run).with("install") }
-      end
-
-      context "with arguments" do
-        after { FluentGem.install(*args) }
-
-        context "1" do
-          let(:args) { ["plugin-foo"] }
-          it { FluentGem.should_receive(:run).with("install", *args) }
-        end
-
-        context "2" do
-          let(:args) { ["plugin-foo", "--no-document"] }
-          it { FluentGem.should_receive(:run).with("install", *args) }
-        end
-      end
+    context "no argument" do
+      after { FluentGem.install }
+      it { FluentGem.should_receive(:run).with("install") }
     end
 
-    describe "#uninstall" do
-      let(:gem) { FluentGem.gem }
+    context "with arguments" do
+      after { FluentGem.install(*args) }
 
-      context "no argument" do
-        after { FluentGem.uninstall }
-        it { FluentGem.should_receive(:run).with("uninstall") }
+      context "1" do
+        let(:args) { ["plugin-foo"] }
+        it { FluentGem.should_receive(:run).with("install", *args) }
       end
 
-      context "with arguments" do
-        after { FluentGem.uninstall(*args) }
+      context "2" do
+        let(:args) { ["plugin-foo", "--no-document"] }
+        it { FluentGem.should_receive(:run).with("install", *args) }
+      end
+    end
+  end
 
-        context "1" do
-          let(:args) { ["plugin-foo"] }
-          it { FluentGem.should_receive(:run).with("uninstall", *args) }
-        end
+  describe "#uninstall" do
+    let(:gem) { FluentGem.gem }
 
-        context "2" do
-          let(:args) { ["plugin-foo", "--no-document"] }
-          it { FluentGem.should_receive(:run).with("uninstall", *args) }
-        end
+    context "no argument" do
+      after { FluentGem.uninstall }
+      it { FluentGem.should_receive(:run).with("uninstall") }
+    end
+
+    context "with arguments" do
+      after { FluentGem.uninstall(*args) }
+
+      context "1" do
+        let(:args) { ["plugin-foo"] }
+        it { FluentGem.should_receive(:run).with("uninstall", *args) }
+      end
+
+      context "2" do
+        let(:args) { ["plugin-foo", "--no-document"] }
+        it { FluentGem.should_receive(:run).with("uninstall", *args) }
       end
     end
   end
