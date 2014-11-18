@@ -22,8 +22,9 @@ module FluentGem
       # NOTE: use `fluent-gem` instead of `gem`
       Bundler.with_clean_env do
         # NOTE: this app is under the Bundler, so call `system` in with_clean_env is Bundler jail breaking
-        unless system(* [gem, *args])
-          raise GemError, "failed command #{gem} #{args.join(" ")}"
+        cmd = [gem, *args].compact
+        unless system(*cmd)
+          raise GemError, "failed command: `#{cmd.join(" ")}`"
         end
       end
       true
@@ -36,8 +37,12 @@ module FluentGem
       # On installed both td-agent and fluentd system, decide which fluent-gem command should be used depend on setup(Fluentd.instance)
       if Fluentd.instance && Fluentd.instance.fluentd?
         return "fluent-gem" # maybe `fluent-gem` command is in the $PATH
+      else
+        detect_td_agent_gem
       end
+    end
 
+    def detect_td_agent_gem
       # NOTE: td-agent has a command under the /usr/lib{,64}, td-agent2 has under /opt/td-agent
       %W(
         /usr/sbin/td-agent-gem
