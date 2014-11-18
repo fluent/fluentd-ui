@@ -126,6 +126,7 @@ en:
         in: Source
         out: Output
         current: Current setting
+        setting_empty: Not exists
       show:
         page_title: Config File
         in_out_head: In/Out setting

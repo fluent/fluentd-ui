@@ -11,6 +11,10 @@ class Fluentd
         @file = config_file
       end
 
+      def empty?
+        config.elements.length.zero?
+      end
+
       def sources
         config.elements.find_all do |elm|
           elm.name == "source"

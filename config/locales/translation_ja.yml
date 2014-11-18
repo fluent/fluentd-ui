@@ -125,6 +125,7 @@ ja:
         in: 入力
         out: 出力
         current: 現在の設定
+        setting_empty: 設定されていません
       show:
         page_title: 設定ファイルの編集
       edit:
