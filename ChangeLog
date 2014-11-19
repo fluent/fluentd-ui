@@ -1,3 +1,9 @@
+Release 0.3.8 - 2014/11/19
+
+* [improve] Recommended plugins are updated.
+* [fixed] Plugin installation on td-agent-ui.
+
+
 Release 0.3.7 - 2014/11/13
 
 * [maintenance] Change httpclient gem as stable version.
