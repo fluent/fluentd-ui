@@ -2,6 +2,8 @@ module FluentGem
   class GemError < StandardError; end
 
   class << self
+    LIST_CACHE_KEY = "gem_list".freeze
+
     def install(*args)
       run("install", *args)
     end
@@ -11,11 +13,13 @@ module FluentGem
     end
 
     def list
-      output = `#{gem} list`
-      unless $?.exitstatus.zero?
-        raise GemError, "failed command: `#{gem} list`"
+      Rails.cache.fetch(LIST_CACHE_KEY) do
+        output = `#{gem} list`
+        unless $?.exitstatus.zero?
+          raise GemError, "failed command: `#{gem} list`"
+        end
+        output.lines
       end
-      output.lines
     end
 
     def run(*args)
@@ -26,6 +30,7 @@ module FluentGem
         unless system(*cmd)
           raise GemError, "failed command: `#{cmd.join(" ")}`"
         end
+        Rails.cache.delete(LIST_CACHE_KEY)
       end
       true
     end

@@ -87,14 +87,12 @@ class Plugin
   end
 
   def self.installed
-    Rails.cache.fetch("installed_gems", expires_in: 3.seconds) do
-      Bundler.with_clean_env do
-        gems = FluentGem.list
-        gems.grep(/fluent-plugin/).map do |gem|
-          name, versions_str = gem.strip.split(" ")
-          version = versions_str[/[^(), ]+/]
-          new(gem_name: name, version: version)
-        end
+    Bundler.with_clean_env do
+      gems = FluentGem.list
+      gems.grep(/fluent-plugin/).map do |gem|
+        name, versions_str = gem.strip.split(" ")
+        version = versions_str[/[^(), ]+/]
+        new(gem_name: name, version: version)
       end
     end
   end
