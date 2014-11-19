@@ -13,7 +13,10 @@ module FluentGem
     end
 
     def list
-      Rails.cache.fetch(LIST_CACHE_KEY) do
+      # NOTE: gem list is heavyly used from anywhere in 1 request, if not caching, user experience to be bad
+      #       but long living caching causes mismatch with actual status e.g. user install plugin from console (without fluentd-ui)
+      #       So our decision is that cache `gem list` in 3 seconds
+      Rails.cache.fetch(LIST_CACHE_KEY, expires_in: 3.seconds) do
         output = `#{gem} list`
         unless $?.exitstatus.zero?
           raise GemError, "failed command: `#{gem} list`"
