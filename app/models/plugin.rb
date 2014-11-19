@@ -145,7 +145,7 @@ class Plugin
     return if processing?
     return if installed?
     WORKING.push(data)
-    FluentGem.install(gem_name, "--no-document", "-v", version)
+    FluentGem.install(gem_name, "--no-ri", "--no-rdoc", "-v", version)
   ensure
     WORKING.delete(data)
   end
