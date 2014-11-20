@@ -4,10 +4,10 @@
   var POLLING_URL = "/polling/alerts";
 
   $(function(){
-    if($('#alert').length === 0) return;
+    if($('#vue-notification').length === 0) return;
 
     var alert = new Vue({
-      el: "#alert",
+      el: "#vue-notification",
       data: {
         "alerts": []
       },
