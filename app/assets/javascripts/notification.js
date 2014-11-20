@@ -14,20 +14,26 @@
 
       created: function(){
         var self = this;
+        var currentInterval = POLLING_INTERVAL;
         var fetch = function(){
           self.fetchAlertsData().then(function(alerts){
+            if(self.alerts.toString() == alerts.toString()) {
+              currentInterval *= 1.1;
+            } else {
+              currentInterval = POLLING_INTERVAL;
+            }
             self.alerts = alerts;
+            setTimeout(fetch, currentInterval);
           })["catch"](function(xhr){
             if(xhr.status === 401) {
-              clearInterval(timer); // signed out
+              // signed out
             }
             if(xhr.status === 0) {
-              clearInterval(timer); // server unreachable (maybe down)
+              // server unreachable (maybe down)
             }
           });
         };
         fetch();
-        var timer = setInterval(fetch, POLLING_INTERVAL);
       },
 
       computed: {
