@@ -13,6 +13,7 @@
       },
 
       created: function(){
+        var timer;
         var self = this;
         var currentInterval = POLLING_INTERVAL;
         var fetch = function(){
@@ -23,7 +24,7 @@
               currentInterval = POLLING_INTERVAL;
             }
             self.alerts = alerts;
-            setTimeout(fetch, currentInterval);
+            timer = setTimeout(fetch, currentInterval);
           })["catch"](function(xhr){
             if(xhr.status === 401) {
               // signed out
@@ -33,6 +34,13 @@
             }
           });
         };
+        window.addEventListener('focus', function(ev){
+          currentInterval = POLLING_INTERVAL;
+          timer = setTimeout(fetch, currentInterval);
+        }, false);
+        window.addEventListener('blur', function(ev){
+          clearTimeout(timer);
+        }, false);
         fetch();
       },
 
