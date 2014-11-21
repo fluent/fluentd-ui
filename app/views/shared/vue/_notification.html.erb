@@ -1,0 +1,31 @@
+<!-- vue.js -->
+<li class="dropdown" id="vue-notification">
+  <a
+    class="dropdown-toggle"
+    data-toggle="dropdown" href="#"
+    >
+    <i class="fa fa-bell fa-fw"></i>
+    <span class="badge" v-if="hasAlerts">{{ alertsCount }}</span>
+    <i class="fa fa-caret-down"></i>
+  </a>
+  <ul class="nav dropdown-menu dropdown-alerts">
+    <li v-if="!hasAlerts">
+      <a>
+        <div class="nothing text text-success">
+          <%= icon "fa-check" %>
+          <%= t "terms.no_alert" %>
+        </div>
+      </a>
+    </li>
+    <li v-repeat="alerts">
+      <a>
+        <div>
+          <%= icon("fa-cog fa-fw fa-lg fa-spin") %>
+          {{ text }}
+        </div>
+      </a>
+    </li>
+  </ul>
+</li>
+<!-- /vue.js -->
+
