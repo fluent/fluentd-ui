@@ -16,14 +16,14 @@ module SettingConcern
   def finish
     @setting = target_class.new(setting_params)
     unless @setting.valid?
-      return render "show"
+      return render "shared/settings/show"
     end
 
     @fluentd.agent.config_append @setting.to_config
     if @fluentd.agent.running?
       unless @fluentd.agent.restart
         @setting.errors.add(:base, @fluentd.agent.log_tail(1).first)
-        return render "show"
+        return render "shared/settings/show"
       end
     end
     redirect_to daemon_setting_path(@fluentd)
