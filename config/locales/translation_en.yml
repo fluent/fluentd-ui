@@ -100,6 +100,7 @@ en:
       setup_in_monitor_agent: Monitoring Agent
       setup_out_td: Treasure Data
       setup_out_mongo: MongoDB
+      setup_out_stdout: stdout (log)
       setup_out_forward: Forwarding
       setup_out_s3: Amazon S3
       setup_out_elasticsearch: Elasticsearch
@@ -162,6 +163,11 @@ en:
           For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/out_mongo" target="_blank">MongoDB output plugin</a> documentation page.
         show:
           page_title: Add Output to MongoDB
+      out_stdout:
+        option_guide: |
+          Print events to STDOUT (or fluentd log file if launched with daemon mode). Please refer to the <a href="http://docs.fluentd.org/articles/out_stdout" target="_blank">stdout output plugin</a> documentation page.
+        show:
+          page_title: stdout (log)
       in_syslog:
         option_guide: |
           For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/in_syslog" target="_blank">MongoDB output plugin</a> documentation page.

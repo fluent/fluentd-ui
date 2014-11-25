@@ -98,6 +98,7 @@ ja:
       setup_in_syslog: syslogプロトコル
       setup_in_monitor_agent: 監視エージェント
       setup_out_td: Treasure Data
+      setup_out_stdout: 標準出力（ログ）
       setup_out_mongo: MongoDB
       setup_out_forward: 転送
       setup_out_s3: AWS S3
@@ -163,6 +164,12 @@ ja:
           <a target="_blank" href="http://docs.fluentd.org/ja/articles/out_mongo">out_mongoプラグインの解説</a>もご参照ください。
         show:
           page_title: MongoDB書き出し設定
+      out_stdout:
+        option_guide: |
+          標準出力（デーモンとして起動しているときはログファイル）へイベントを書き出します。<br />
+          <a target="_blank" href="http://docs.fluentd.org/ja/articles/out_stdout">out_stdoutプラグインの解説</a>もご参照ください。
+        show:
+          page_title: 標準出力（ログ）
       in_syslog:
         option_guide: |
           <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_syslog">in_syslogプラグイン解説ページ</a>もご参照ください。
