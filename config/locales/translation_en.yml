@@ -97,6 +97,7 @@ en:
       page_title: "%{label}"
       setup_in_tail: File
       setup_in_syslog: Syslog Protocol
+      setup_in_monitor_agent: Monitoring Agent
       setup_out_td: Treasure Data
       setup_out_mongo: MongoDB
       setup_out_forward: Forwarding
@@ -166,6 +167,12 @@ en:
           For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/in_syslog" target="_blank">MongoDB output plugin</a> documentation page.
         show:
           page_title: Add Input from Syslog Protocol
+      in_monitor_agent:
+        option_guide: |
+          Monitoring agent returns current fluentd/td-agent setting as JSON via HTTP. <br />
+          Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/monitoring">Monitoring Agent</a> documentation page.
+        show:
+          page_title: Monitoring Agent (monitor_agent)
       in_tail_option_guide: |
           For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/in_tail" target="_blank">Tail input plugin</a> documentation page.
       in_tail:

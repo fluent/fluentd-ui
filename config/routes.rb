@@ -28,6 +28,10 @@ Rails.application.routes.draw do
           post "finish"
         end
 
+        resource :in_monitor_agent, only: [:show], module: :settings, controller: :in_monitor_agent do
+          post "finish"
+        end
+
         resource :out_mongo, only: [:show], module: :settings, controller: :out_mongo do
           post "finish"
         end
