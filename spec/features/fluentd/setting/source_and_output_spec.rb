@@ -89,4 +89,69 @@ describe "source_and_output", js: true do
       end
     end
   end
+
+  describe "edit, update, delete" do
+    let(:config_contents) { <<-CONF.strip_heredoc }
+      <source>
+        type forward
+        port 24224
+      </source>
+    CONF
+    let(:new_config) { <<-CONF.strip_heredoc }
+      <source>
+        type http
+        port 8899
+      </source>
+    CONF
+
+    before do
+      all(".input .panel .panel-heading").first.click
+    end
+
+    it "click edit button transform textarea, then click cancel button to be reset" do
+      page.should_not have_css('.input textarea')
+      find(".btn", text: I18n.t('terms.edit')).click
+      page.should have_css('.input textarea')
+      find('.input textarea').value.should == config_contents
+      find('.input textarea').set "foo"
+      find(".btn", text: I18n.t('terms.cancel')).click
+      content = wait_until do
+        page.evaluate_script("document.querySelector('.input pre').textContent")
+      end
+      content.should == config_contents
+      daemon.agent.config.strip.should == config_contents.strip
+    end
+
+    it "click edit button transform textarea, then click update button to be stored" do
+      page.should_not have_css('.input textarea')
+      find(".btn", text: I18n.t('terms.edit')).click
+      page.should have_css('.input textarea')
+      find('.input textarea').value.should == config_contents
+      find('.input textarea').set new_config
+      find(".btn", text: I18n.t('terms.save')).click
+      content = wait_until do
+        page.evaluate_script("document.querySelector('.input pre').textContent")
+      end
+      content.should == new_config
+      daemon.agent.config.strip.should == new_config.strip
+    end
+
+    it "click delete button transform textarea" do
+      page.should have_css('.input .panel-body')
+      confirm_dialog(true) do
+        find(".btn", text: I18n.t('terms.destroy')).click
+      end
+      page.should_not have_css('.input .panel-body')
+      daemon.agent.config.strip.should == ""
+    end
+
+    it "click delete button then cancel it" do
+      page.should have_css('.input .panel-body')
+      confirm_dialog(false) do
+        find(".btn", text: I18n.t('terms.destroy')).click
+      end
+      page.should have_css('.input .panel-body')
+      daemon.agent.config.strip.should == config_contents.strip
+    end
+  end
 end

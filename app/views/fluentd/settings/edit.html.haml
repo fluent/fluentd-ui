@@ -1,5 +1,8 @@
 - page_title t('.page_title', label: @fluentd.label)
 
+- if @error
+  %pre.alert.alert-danger= @error
+
 = form_tag(daemon_setting_path(@fluentd), method: :patch) do
   .form-group
     = text_area_tag "config", @config, class: "form-control", rows: 40

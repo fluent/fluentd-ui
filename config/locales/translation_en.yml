@@ -31,8 +31,10 @@ en:
     no_alert: Nothing
     update_password: Update Password
     detail: Detail
+    cancel: Cancel
     create: Create
     update: Update & Restart
+    save: Save
     edit: Edit
     destroy: Destroy
     new: New

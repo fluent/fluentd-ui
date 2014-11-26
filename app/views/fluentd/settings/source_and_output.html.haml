@@ -46,33 +46,21 @@
             = icon('fa-file-text-o fa-lg')
             = t("fluentd.common.setup_out_forward")
 
-.current-settings
-  %h2= t('.current')
+= render "shared/vue/setting"
+
+#vue-setting.current-settings
+  %h2
+    = t('.current')
+    %span{"v-on" => "click: update", "v-if" => "!loading"}= icon('fa-refresh')
+    %span{"v-if" => "loading"}= icon('fa-spin fa-refresh')
   .row
     .col-xs-6.input
       %h3= t('.in')
-      - if @config.sources.empty?
+      %div{"v-if" => "loaded && sections.sources.length == 0"}
         %p.empty= t('.setting_empty')
-      - else
-        - @config.sources.each_with_index do |elm, idx|
-          .panel.panel-default
-            .panel-heading{"data-toggle" => "collapse", "href" => "#source#{idx}", "title" => elm.inspect}
-              = elm["type"]
-              = icon('fa-caret-down')
-            .panel-body.collapse{"id" => "source#{idx}"}
-              %pre= elm.to_s
+      %div{"v-repeat" => "sections.sources", "v-component" => "section"}
     .col-xs-6.output
       %h3= t('.out')
-      - if @config.matches.empty?
+      %div{"v-if" => "loaded && sections.matches.length == 0"}
         %p.empty= t('.setting_empty')
-      - else
-        - @config.matches.each_with_index do |elm, idx|
-          .panel.panel-default
-            .panel-heading{"data-toggle" => "collapse", "href" => "#match#{idx}", "title" => elm.inspect}
-              = elm["type"]
-              (
-              = elm.arg
-              )
-              = icon('fa-caret-down')
-            .panel-body.collapse{"id" => "match#{idx}"}
-              %pre= elm.to_s
+      %div{"v-repeat" => "sections.matches", "v-component" => "section"}

@@ -31,8 +31,10 @@ ja:
     no_alert: 通知なし
     update_password: パスワード更新
     detail: 詳細
+    cancel: キャンセル
     create: 作成
     update: 更新
+    save: 保存
     edit: 編集
     destroy: 削除
     new: 新規作成

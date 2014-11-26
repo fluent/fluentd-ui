@@ -93,5 +93,7 @@ Rails.application.routes.draw do
     get "file_preview"
     post "regexp_preview"
     post "grok_to_regexp"
+
+    resources :settings, only: [:index, :show, :update, :destroy], defaults: { format: "json" }
   end
 end
