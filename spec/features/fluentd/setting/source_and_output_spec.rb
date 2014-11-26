@@ -144,5 +144,14 @@ describe "source_and_output", js: true do
       page.should_not have_css('.input .panel-body')
       daemon.agent.config.strip.should == ""
     end
+
+    it "click delete button then cancel it" do
+      page.should have_css('.input .panel-body')
+      confirm_dialog(false) do
+        find(".btn", text: I18n.t('terms.destroy')).click
+      end
+      page.should have_css('.input .panel-body')
+      daemon.agent.config.strip.should == config_contents.strip
+    end
   end
 end
