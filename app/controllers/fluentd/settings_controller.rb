@@ -17,6 +17,7 @@ class Fluentd::SettingsController < ApplicationController
   end
 
   def source_and_output
-    @config = Fluentd::Setting::Config.new(@fluentd.config_file)
+    # TODO: error handling if config file has invalid syntax
+    # @config = Fluentd::Setting::Config.new(@fluentd.config_file)
   end
 end

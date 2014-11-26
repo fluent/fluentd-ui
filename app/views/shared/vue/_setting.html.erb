@@ -1,0 +1,14 @@
+<script type="text/template" id="vue-setting-section">
+
+<div class='panel panel-default'>
+  <div class='panel-heading' data-toggle='collapse' href='#{{ id }}' title='{{ content }}'>
+    {{ type }}
+    <span v-if="name == 'match'">({{ arg }})</span>
+    <i class="fa fa-caret-down"></i>
+  </div>
+  <div class='panel-body collapse' id='{{ id }}'>
+    <pre>{{ content }}</pre>
+  </div>
+</div>
+
+</script>
