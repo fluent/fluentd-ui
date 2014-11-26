@@ -9,6 +9,7 @@
       el: el,
       data: {
         loaded: false,
+        loading: false,
         sections: {
           sources: [],
           matches: []
@@ -77,7 +78,7 @@
                   id: this.id
                 }
               }).then(function(){
-                self.$destroy();
+                self.$parent.update();
               });
             }
           }
@@ -85,6 +86,7 @@
       },
       methods: {
         update: function() {
+          this.loading = true;
           var self = this;
           $.getJSON("/api/settings", function(data){
             var sources = [];
@@ -99,6 +101,9 @@
             self.sections.sources = sources;
             self.sections.matches = matches;
             self.loaded = true;
+            setTimeout(function(){
+              self.loading = false;
+            }, 500);
           });
         }
       }

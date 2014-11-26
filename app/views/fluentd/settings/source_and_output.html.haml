@@ -49,7 +49,10 @@
 = render "shared/vue/setting"
 
 #vue-setting.current-settings
-  %h2= t('.current')
+  %h2
+    = t('.current')
+    %span{"v-on" => "click: update", "v-if" => "!loading"}= icon('fa-refresh')
+    %span{"v-if" => "loading"}= icon('fa-spin fa-refresh')
   .row
     .col-xs-6.input
       %h3= t('.in')
