@@ -138,10 +138,10 @@ describe "source_and_output", js: true do
 
     it "click delete button transform textarea" do
       page.should have_css('.input .panel-body')
-      page.execute_script "__backup = window.confirm; window.confirm = function(){return true;}"
-      find(".btn", text: I18n.t('terms.destroy')).click
+      confirm_dialog(true) do
+        find(".btn", text: I18n.t('terms.destroy')).click
+      end
       page.should_not have_css('.input .panel-body')
-      page.execute_script "window.confirm = __backup;"
       daemon.agent.config.strip.should == ""
     end
   end
