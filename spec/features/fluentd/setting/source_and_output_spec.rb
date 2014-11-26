@@ -128,7 +128,7 @@ describe "source_and_output", js: true do
       page.should have_css('.input textarea')
       find('.input textarea').value.should == config_contents
       find('.input textarea').set new_config
-      find(".btn", text: I18n.t('terms.update')).click
+      find(".btn", text: I18n.t('terms.save')).click
       content = wait_until do
         page.evaluate_script("document.querySelector('.input pre').textContent")
       end

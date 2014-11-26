@@ -15,7 +15,7 @@
       <button v-if="mode == 'default'" class="btn btn-default" v-on="click: onEdit"><%= t('terms.edit') %></button>
       <button v-if="mode == 'default'" class="btn btn-danger" v-on="click: onDelete"><%= t('terms.destroy') %></button>
       <button v-if="mode != 'default'" class="btn btn-default" v-on="click: onCancel"><%= t('terms.cancel') %></button>
-      <button v-if="mode == 'edit'" class="btn btn-primary" v-on="click: onSubmit"><%= t('terms.update') %></button>
+      <button v-if="mode == 'edit'" class="btn btn-primary" v-on="click: onSubmit"><%= t('terms.save') %></button>
     </p>
   </div>
 </div>
