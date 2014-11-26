@@ -8,6 +8,7 @@
     new Vue({
       el: el,
       data: {
+        loaded: false,
         sections: {
           sources: [],
           matches: []
@@ -36,6 +37,7 @@
             });
             self.sections.sources = sources;
             self.sections.matches = matches;
+            self.loaded = true;
           });
         }
       }

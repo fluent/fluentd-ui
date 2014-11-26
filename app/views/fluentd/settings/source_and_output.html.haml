@@ -53,11 +53,11 @@
   .row
     .col-xs-6.input
       %h3= t('.in')
-      %div{"v-if" => "sections.sources.length == 0"}
+      %div{"v-if" => "loaded && sections.sources.length == 0"}
         %p.empty= t('.setting_empty')
       %div{"v-repeat" => "sections.sources", "v-component" => "section"}
     .col-xs-6.output
       %h3= t('.out')
-      %div{"v-if" => "sections.matches.length == 0"}
+      %div{"v-if" => "loaded && sections.matches.length == 0"}
         %p.empty= t('.setting_empty')
       %div{"v-repeat" => "sections.matches", "v-component" => "section"}
