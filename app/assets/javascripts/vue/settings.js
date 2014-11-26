@@ -19,7 +19,68 @@
       },
       components: {
         section: {
-          template: "#vue-setting-section"
+          template: "#vue-setting-section",
+          data: {
+            mode: "default",
+            processing: false,
+            editContent: null
+          },
+          created: function(){
+            this.initialState();
+          },
+          computed: {
+            endpoint: function(){
+              return "/api/settings/" + this.id;
+            }
+          },
+          methods: {
+            onCancel: function(ev) {
+              this.initialState();
+            },
+            onEdit: function(ev) {
+              this.mode = "edit";
+            },
+            onDelete: function(ev) {
+              if(!confirm("really?")) return;
+              this.destroy();
+            },
+            onSubmit: function(ev) {
+              this.processing = true;
+              var self = this;
+              $.ajax({
+                url: this.endpoint,
+                method: "POST",
+                data: {
+                  _method: "PATCH",
+                  id: this.id,
+                  content: this.editContent
+                }
+              }).then(function(data){
+                // NOTE: child VM update doesn't effect to parent VM (at least Vue v0.10)
+                self.$data = data;
+                self.initialState();
+              }).always(function(){
+                self.processing = false;
+              });
+            },
+            initialState: function(){
+              this.mode = "default";
+              this.editContent = this.content;
+            },
+            destroy: function(){
+              var self = this;
+              $.ajax({
+                url: this.endpoint,
+                method: "POST",
+                data: {
+                  _method: "DELETE",
+                  id: this.id
+                }
+              }).then(function(){
+                self.$destroy();
+              });
+            }
+          }
         }
       },
       methods: {

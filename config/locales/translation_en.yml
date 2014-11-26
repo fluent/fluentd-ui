@@ -31,6 +31,7 @@ en:
     no_alert: Nothing
     update_password: Update Password
     detail: Detail
+    cancel: Cancel
     create: Create
     update: Update & Restart
     edit: Edit

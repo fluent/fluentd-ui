@@ -7,7 +7,16 @@
     <i class="fa fa-caret-down"></i>
   </div>
   <div class='panel-body collapse' id='{{ id }}'>
-    <pre>{{ content }}</pre>
+    <pre v-if="mode != 'edit'">{{ content }}</pre>
+    <p v-if="mode == 'edit'">
+      <textarea class="form-control" v-model="editContent" v-attr="disabled: processing"></textarea>
+    </p>
+    <p class="pull-right">
+      <button v-if="mode == 'default'" class="btn btn-default" v-on="click: onEdit"><%= t('terms.edit') %></button>
+      <button v-if="mode == 'default'" class="btn btn-danger" v-on="click: onDelete"><%= t('terms.destroy') %></button>
+      <button v-if="mode != 'default'" class="btn btn-default" v-on="click: onCancel"><%= t('terms.cancel') %></button>
+      <button v-if="mode == 'edit'" class="btn btn-primary" v-on="click: onSubmit"><%= t('terms.update') %></button>
+    </p>
   </div>
 </div>
 

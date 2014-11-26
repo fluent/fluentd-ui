@@ -10,12 +10,12 @@ class Api::SettingsController < ApplicationController
   end
 
   def update
-    coming = Fluent::Config::V1Parser.parse(params[:body], @fluentd.config_file)
+    coming = Fluent::Config::V1Parser.parse(params[:content], @fluentd.config_file)
     current = @section
     index = @config.elements.index current
     @config.elements[index] = coming.elements.first
     @config.write_to_file
-    head :no_content # 204
+    redirect_to api_setting_path(id: element_id(coming.elements.first))
   end
 
   def destroy
