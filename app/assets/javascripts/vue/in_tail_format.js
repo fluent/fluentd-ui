@@ -4,45 +4,58 @@
   $(function(){
     if($('#in_tail_format').length === 0) return;
 
+    var FormatBundle = Vue.component('format-bundle', {
+      inherit: true,
+      template: "#format-bundle",
+      computed: {
+        options: {
+          get: function(){
+            return _.contains(this.selectableFormats, this.format) && this.formatOptions[this.format];
+          },
+        },
+        selectableFormats: {
+          get: function() {
+            if(!this.formatOptions) return [""];
+            var formats = Object.keys(this.formatOptions);
+            return formats;
+          }
+        }
+      }
+    });
+
     new Vue({
       el: "#in_tail_format",
-      paramAttributes: ["formatOptions", "initialSelected", "targetFile", "paramsJson"],
+      paramAttributes: ["formatOptionsJson", "initialSelected", "targetFile", "paramsJson"],
       data: {
-        regexp: "",
-        grok_str: "",
-        time_format: "",
         previewProcessing: false,
-        highlightedLines: null
+        format: "",
+        highlightedLines: null,
       },
 
-      created: function(){
-        this.formatOptions = JSON.parse(this.formatOptions);
-        this.formats = Object.keys(this.formatOptions);
+      compiled: function(){
+        this.$watch('params.setting.regexp', function(){
+          this.preview();
+        });
+        this.$watch('format', function(){
+          this.preview();
+        });
+        this.$set("formatOptions", JSON.parse(this.formatOptionsJson));
         this.format = this.initialSelected;
-        this.params = JSON.parse(this.paramsJson);
-        if(this.params && this.params.setting) {
-          this.grok_str = this.params.setting.grok_str;
-          this.regexp = this.params.setting.regexp;
+
+        // initialize params
+        // NOTE: if `params.setting.foo` is undefined, Vue can't binding with v-model="params.setting.foo"
+        var params = JSON.parse(this.paramsJson);
+        if(!params.setting) {
+          params.setting = {};
         }
-        this.$watch('regexp', function(ev){
-          this.preview();
+        _.each(this.formatOptions, function(options){
+          _.each(options, function(key){
+            if(!params.setting.hasOwnProperty(key)){
+              params.setting[key] = "";
+            }
+          });
         });
-        this.$watch('format', function(ev){
-          this.preview();
-        });
-
-        var updateGrokPreview = _.debounce(_.bind(this.generateRegexp, this), 256);
-        this.$watch('grok_str', updateGrokPreview);
-      },
-
-      computed: {
-        options: function(){
-          return this.formatOptions[this.format];
-        },
-
-        selectableFormats: function() {
-          return _.filter(this.formats, function(format){ return format !== "regexp"; });
-        }
+        this.$set('params', params);
       },
 
       methods: {
@@ -114,36 +127,18 @@
               method: "POST",
               url: "/api/regexp_preview",
               data: {
-                regexp: self.regexp,
-                format: self.formatType == "regexp" ? "regexp" : self.format,
-                time_format: self.time_format,
+                regexp: self.params.setting.regexp,
+                time_format: self.params.setting.time_format,
+                format: _.isEmpty(self.format) ? "regexp" : self.format,
                 file: self.targetFile
               }
             }).done(resolve).fail(reject);
           }).then(function(result){
-            self.time_format = result.time_format;
+            self.params = _.merge(self.params, result.params);
             self.regexpMatches = result.matches;
             self.updateHighlightedLines();
           })["catch"](function(error){
             console.error(error.stack);
-          });
-        },
-
-        generateRegexp: function() {
-          // for grok
-          var self = this;
-          new Promise(function(resolve, reject) {
-            $.ajax({
-              method: "POST",
-              url: "/api/grok_to_regexp",
-              data: {
-                grok_str: self.grok_str
-              }
-            }).done(resolve).fail(reject);
-          }).then(function(regexp){
-            self.regexp = regexp;
-          }).catch(function(e){
-            console.error(e);
           });
         },
       }
