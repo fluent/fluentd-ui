@@ -7,24 +7,29 @@
 
     new Vue({
       el: el,
-      data: {
-        loaded: false,
-        loading: false,
-        sections: {
-          sources: [],
-          matches: []
-        }
+      data: function(){
+        return {
+          loaded: false,
+          loading: false,
+          sections: {
+            sources: [],
+            matches: []
+          }
+        };
       },
-      created: function() {
+      ready: function() {
         this.update();
       },
       components: {
         section: {
+          inherit: true,
           template: "#vue-setting-section",
-          data: {
-            mode: "default",
-            processing: false,
-            editContent: null
+          data: function(){
+            return {
+              mode: "default",
+              processing: false,
+              editContent: null
+            };
           },
           created: function(){
             this.initialState();
@@ -57,16 +62,20 @@
                   content: this.editContent
                 }
               }).then(function(data){
-                // NOTE: child VM update doesn't effect to parent VM (at least Vue v0.10)
-                self.$data = data;
+                // NOTE: self.$data = data doesn't work as well, so using _.each
+                //       whole $data swapping breaks mode switching..
+                _.each(data, function(v,k){
+                  self[k] = v;
+                });
                 self.initialState();
               }).always(function(){
                 self.processing = false;
               });
             },
             initialState: function(){
-              this.mode = "default";
-              this.editContent = this.content;
+              this.$set('processing', false);
+              this.$set('mode', 'default');
+              this.$set('editContent', this.content);
             },
             destroy: function(){
               var self = this;
