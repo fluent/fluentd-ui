@@ -9,11 +9,12 @@
       paramAttributes: [],
       data: {
         preview: "",
+        path: "",
         initialPath: "/var/log",
         paths: []
       },
 
-      created: function(){
+      compiled: function(){
         this.path = this.initialPath;
         this.fetchTree();
         this.$watch("path", this.fetchTree);

@@ -2,7 +2,7 @@
   "name": "fluentd-ui",
   "dependencies": {
     "es6-promise": "~1.0.0",
-    "vue": "~0.10.0",
+    "vue": "~0.11.0",
     "lodash": "~2.4.0"
   },
   "devDependencies": {

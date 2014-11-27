@@ -1,56 +1,68 @@
-var utils    = require('../utils')
+var _ = require('../util')
+var compile = require('../compile/compile')
+var templateParser = require('../parse/template')
+var transition = require('../transition')
 
-/**
- *  Manages a conditional child VM
- */
 module.exports = {
 
-    bind: function () {
-        
-        this.parent = this.el.parentNode
-        this.ref    = document.createComment('vue-if')
-        this.Ctor   = this.compiler.resolveComponent(this.el)
-
-        // insert ref
-        this.parent.insertBefore(this.ref, this.el)
-        this.parent.removeChild(this.el)
-
-        if (utils.attr(this.el, 'view')) {
-            utils.warn(
-                'Conflict: v-if cannot be used together with v-view. ' +
-                'Just set v-view\'s binding value to empty string to empty it.'
-            )
-        }
-        if (utils.attr(this.el, 'repeat')) {
-            utils.warn(
-                'Conflict: v-if cannot be used together with v-repeat. ' +
-                'Use `v-show` or the `filterBy` filter instead.'
-            )
-        }
-    },
-
-    update: function (value) {
-
-        if (!value) {
-            this.unbind()
-        } else if (!this.childVM) {
-            this.childVM = new this.Ctor({
-                el: this.el.cloneNode(true),
-                parent: this.vm
-            })
-            if (this.compiler.init) {
-                this.parent.insertBefore(this.childVM.$el, this.ref)
-            } else {
-                this.childVM.$before(this.ref)
-            }
-        }
-        
-    },
-
-    unbind: function () {
-        if (this.childVM) {
-            this.childVM.$destroy()
-            this.childVM = null
-        }
+  bind: function () {
+    var el = this.el
+    if (!el.__vue__) {
+      this.start = document.createComment('v-if-start')
+      this.end = document.createComment('v-if-end')
+      _.replace(el, this.end)
+      _.before(this.start, this.end)
+      if (el.tagName === 'TEMPLATE') {
+        this.template = templateParser.parse(el, true)
+      } else {
+        this.template = document.createDocumentFragment()
+        this.template.appendChild(el)
+      }
+      // compile the nested partial
+      this.linker = compile(
+        this.template,
+        this.vm.$options,
+        true
+      )
+    } else {
+      this.invalid = true
+      _.warn(
+        'v-if="' + this.expression + '" cannot be ' +
+        'used on an already mounted instance.'
+      )
     }
+  },
+
+  update: function (value) {
+    if (this.invalid) return
+    if (value) {
+      this.insert()
+    } else {
+      this.teardown()
+    }
+  },
+
+  insert: function () {
+    // avoid duplicate inserts, since update() can be
+    // called with different truthy values
+    if (this.decompile) {
+      return
+    }
+    var vm = this.vm
+    var frag = templateParser.clone(this.template)
+    var decompile = this.linker(vm, frag)
+    this.decompile = function () {
+      decompile()
+      transition.blockRemove(this.start, this.end, vm)
+    }
+    transition.blockAppend(frag, this.end, vm)
+  },
+
+  teardown: function () {
+    if (this.decompile) {
+      this.decompile()
+      this.decompile = null
+    }
+  }
+
 }

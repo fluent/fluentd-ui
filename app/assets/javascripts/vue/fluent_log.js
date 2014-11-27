@@ -14,10 +14,7 @@
         "processing": false
       },
 
-      created: function(){
-        if(this.initialAutoReload) {
-          this.autoFetch = true;
-        }
+      compiled: function(){
         this.fetchLogs();
 
         var self = this;
@@ -33,6 +30,9 @@
             clearInterval(timer);
           }
         });
+        if(this.initialAutoReload) {
+          this.autoFetch = true;
+        }
       },
 
       computed: {

@@ -1,19 +1,4 @@
-<div id="in_tail_format" class="form-group"
-  formatOptions="<%= formats.to_json %>"
-  initialSelected="<%= initialSelected %>"
-  targetFile="<%= file %>"
-  paramsJson="<%= params.to_json %>"
-  >
-  <div class="form-group">
-    <label>
-      <input type="radio" v-model="formatType" value="bundled">bundled
-    </label>
-    <label>
-      <input type="radio" v-model="formatType" value="regexp">regexp
-    </label>
-  </div>
-
-  <div v-if="formatType == 'bundled'">
+<script type="text/template" id="format-bundle">
     <div class="form-group">
       <label>format</label>
       <select name="setting[format]" v-model="format">
@@ -22,28 +7,18 @@
     </div>
     <div class="form-group" v-repeat="options">
       <label>{{ $value }} </label>
-      <input type="text" name="setting[{{ $value }}]" v-model="{{ $value }}" size="100%" />
-      <span v-if="format == 'grok' && previewProcessing"><%= icon('fa-spin fa-refresh fa-lg') %></span>
+      <input type="text" name="setting[{{ $value }}]" v-model="params.setting[$value]" size="100%" />
     </div>
-    <div v-if="format == 'grok'">
-      <pre v-if="highlightedLines">{{{ highlightedLines }}}</pre>
-      <div class="well well-sm">
-        <%= raw t('fluentd.settings.grok_manual') %>
-      </div>
-    </div>
-  </div>
+</script>
 
-  <div v-if="formatType == 'regexp'">
-    <div class="form-group">
-      <label>regexp</label>
-      <input type="hidden" name="setting[format]" value="regexp" />
-      <input type="text" name="setting[regexp]" v-model="regexp" size="100%" />
-    </div>
-    <div class="form-group">
-      <label>time_format</label>
-      <input type="text" name="setting[time_format]" v-model="time_format" size="100%" />
-    </div>
-  </div>
+<div id="in_tail_format" class="form-group"
+  formatOptionsJson="<%= formats.to_json %>"
+  initialSelected="<%= initialSelected %>"
+  targetFile="<%= file %>"
+  paramsJson="<%= params.to_json %>"
+  >
+
+  <div v-component="format-bundle"></div>
 
   <pre>{{{ highlightedLines }}}</pre>
 
