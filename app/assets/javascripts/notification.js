@@ -46,10 +46,10 @@
 
       computed: {
         alertsCount: {
-          $get: function(){ return this.alerts.length; }
+          get: function(){ return this.alerts.length; }
         },
         hasAlerts: {
-          $get: function(){ return this.alertsCount > 0; }
+          get: function(){ return this.alertsCount > 0; }
         }
       },
 
