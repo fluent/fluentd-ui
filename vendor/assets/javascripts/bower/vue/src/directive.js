@@ -1,258 +1,202 @@
-var dirId           = 1,
-    ARG_RE          = /^[\w\$-]+$/,
-    FILTER_TOKEN_RE = /[^\s'"]+|'[^']+'|"[^"]+"/g,
-    NESTING_RE      = /^\$(parent|root)\./,
-    SINGLE_VAR_RE   = /^[\w\.$]+$/,
-    QUOTE_RE        = /"/g,
-    TextParser      = require('./text-parser')
+var _ = require('./util')
+var config = require('./config')
+var Watcher = require('./watcher')
+var textParser = require('./parse/text')
+var expParser = require('./parse/expression')
 
 /**
- *  Directive class
- *  represents a single directive instance in the DOM
+ * A directive links a DOM element with a piece of data,
+ * which is the result of evaluating an expression.
+ * It registers a watcher with the expression and calls
+ * the DOM update function when a change is triggered.
+ *
+ * @param {String} name
+ * @param {Node} el
+ * @param {Vue} vm
+ * @param {Object} descriptor
+ *                 - {String} expression
+ *                 - {String} [arg]
+ *                 - {Array<Object>} [filters]
+ * @param {Object} def - directive definition object
+ * @param {Function} [linker] - pre-compiled linker function
+ * @constructor
  */
-function Directive (name, ast, definition, compiler, el) {
 
-    this.id             = dirId++
-    this.name           = name
-    this.compiler       = compiler
-    this.vm             = compiler.vm
-    this.el             = el
-    this.computeFilters = false
-    this.key            = ast.key
-    this.arg            = ast.arg
-    this.expression     = ast.expression
+function Directive (name, el, vm, descriptor, def, linker) {
+  // public
+  this.name = name
+  this.el = el
+  this.vm = vm
+  // copy descriptor props
+  this.raw = descriptor.raw
+  this.expression = descriptor.expression
+  this.arg = descriptor.arg
+  this.filters = _.resolveFilters(vm, descriptor.filters)
+  // private
+  this._linker = linker
+  this._locked = false
+  this._bound = false
+  // init
+  this._bind(def)
+}
 
-    var isEmpty = this.expression === ''
+var p = Directive.prototype
 
-    // mix in properties from the directive definition
-    if (typeof definition === 'function') {
-        this[isEmpty ? 'bind' : 'update'] = definition
+/**
+ * Initialize the directive, mixin definition properties,
+ * setup the watcher, call definition bind() and update()
+ * if present.
+ *
+ * @param {Object} def
+ */
+
+p._bind = function (def) {
+  if (this.name !== 'cloak' && this.el.removeAttribute) {
+    this.el.removeAttribute(config.prefix + this.name)
+  }
+  if (typeof def === 'function') {
+    this.update = def
+  } else {
+    _.extend(this, def)
+  }
+  this._watcherExp = this.expression
+  this._checkDynamicLiteral()
+  if (this.bind) {
+    this.bind()
+  }
+  if (
+    this.update && this._watcherExp &&
+    (!this.isLiteral || this._isDynamicLiteral) &&
+    !this._checkStatement()
+  ) {
+    // use raw expression as identifier because filters
+    // make them different watchers
+    var watcher = this.vm._watchers[this.raw]
+    // wrapped updater for context
+    var dir = this
+    var update = this._update = function (val, oldVal) {
+      if (!dir._locked) {
+        dir.update(val, oldVal)
+      }
+    }
+    if (!watcher) {
+      watcher = this.vm._watchers[this.raw] = new Watcher(
+        this.vm,
+        this._watcherExp,
+        update, // callback
+        this.filters,
+        this.twoWay // need setter
+      )
     } else {
-        for (var prop in definition) {
-            this[prop] = definition[prop]
-        }
+      watcher.addCb(update)
     }
-
-    // empty expression, we're done.
-    if (isEmpty || this.isEmpty) {
-        this.isEmpty = true
-        return
+    this._watcher = watcher
+    if (this._initValue != null) {
+      watcher.set(this._initValue)
+    } else {
+      this.update(watcher.value)
     }
-
-    if (TextParser.Regex.test(this.key)) {
-        this.key = compiler.eval(this.key)
-        if (this.isLiteral) {
-            this.expression = this.key
-        }
-    }
-
-    var filters = ast.filters,
-        filter, fn, i, l, computed
-    if (filters) {
-        this.filters = []
-        for (i = 0, l = filters.length; i < l; i++) {
-            filter = filters[i]
-            fn = this.compiler.getOption('filters', filter.name)
-            if (fn) {
-                filter.apply = fn
-                this.filters.push(filter)
-                if (fn.computed) {
-                    computed = true
-                }
-            }
-        }
-    }
-
-    if (!this.filters || !this.filters.length) {
-        this.filters = null
-    }
-
-    if (computed) {
-        this.computedKey = Directive.inlineFilters(this.key, this.filters)
-        this.filters = null
-    }
-
-    this.isExp =
-        computed ||
-        !SINGLE_VAR_RE.test(this.key) ||
-        NESTING_RE.test(this.key)
-
-}
-
-var DirProto = Directive.prototype
-
-/**
- *  called when a new value is set 
- *  for computed properties, this will only be called once
- *  during initialization.
- */
-DirProto.$update = function (value, init) {
-    if (this.$lock) return
-    if (init || value !== this.value || (value && typeof value === 'object')) {
-        this.value = value
-        if (this.update) {
-            this.update(
-                this.filters && !this.computeFilters
-                    ? this.$applyFilters(value)
-                    : value,
-                init
-            )
-        }
-    }
+  }
+  this._bound = true
 }
 
 /**
- *  pipe the value through filters
+ * check if this is a dynamic literal binding.
+ *
+ * e.g. v-component="{{currentView}}"
  */
-DirProto.$applyFilters = function (value) {
-    var filtered = value, filter
-    for (var i = 0, l = this.filters.length; i < l; i++) {
-        filter = this.filters[i]
-        filtered = filter.apply.apply(this.vm, [filtered].concat(filter.args))
+
+p._checkDynamicLiteral = function () {
+  var expression = this.expression
+  if (expression && this.isLiteral) {
+    var tokens = textParser.parse(expression)
+    if (tokens) {
+      var exp = textParser.tokensToExp(tokens)
+      this.expression = this.vm.$get(exp)
+      this._watcherExp = exp
+      this._isDynamicLiteral = true
     }
-    return filtered
+  }
 }
 
 /**
- *  Unbind diretive
+ * Check if the directive is a function caller
+ * and if the expression is a callable one. If both true,
+ * we wrap up the expression and use it as the event
+ * handler.
+ *
+ * e.g. v-on="click: a++"
+ *
+ * @return {Boolean}
  */
-DirProto.$unbind = function () {
-    // this can be called before the el is even assigned...
-    if (!this.el || !this.vm) return
-    if (this.unbind) this.unbind()
-    this.vm = this.el = this.binding = this.compiler = null
-}
 
-// Exposed static methods -----------------------------------------------------
-
-/**
- *  Parse a directive string into an Array of
- *  AST-like objects representing directives
- */
-Directive.parse = function (str) {
-
-    var inSingle = false,
-        inDouble = false,
-        curly    = 0,
-        square   = 0,
-        paren    = 0,
-        begin    = 0,
-        argIndex = 0,
-        dirs     = [],
-        dir      = {},
-        lastFilterIndex = 0,
-        arg
-
-    for (var c, i = 0, l = str.length; i < l; i++) {
-        c = str.charAt(i)
-        if (inSingle) {
-            // check single quote
-            if (c === "'") inSingle = !inSingle
-        } else if (inDouble) {
-            // check double quote
-            if (c === '"') inDouble = !inDouble
-        } else if (c === ',' && !paren && !curly && !square) {
-            // reached the end of a directive
-            pushDir()
-            // reset & skip the comma
-            dir = {}
-            begin = argIndex = lastFilterIndex = i + 1
-        } else if (c === ':' && !dir.key && !dir.arg) {
-            // argument
-            arg = str.slice(begin, i).trim()
-            if (ARG_RE.test(arg)) {
-                argIndex = i + 1
-                dir.arg = arg
-            }
-        } else if (c === '|' && str.charAt(i + 1) !== '|' && str.charAt(i - 1) !== '|') {
-            if (dir.key === undefined) {
-                // first filter, end of key
-                lastFilterIndex = i + 1
-                dir.key = str.slice(argIndex, i).trim()
-            } else {
-                // already has filter
-                pushFilter()
-            }
-        } else if (c === '"') {
-            inDouble = true
-        } else if (c === "'") {
-            inSingle = true
-        } else if (c === '(') {
-            paren++
-        } else if (c === ')') {
-            paren--
-        } else if (c === '[') {
-            square++
-        } else if (c === ']') {
-            square--
-        } else if (c === '{') {
-            curly++
-        } else if (c === '}') {
-            curly--
-        }
+p._checkStatement = function () {
+  var expression = this.expression
+  if (
+    expression && this.acceptStatement &&
+    !expParser.pathTestRE.test(expression)
+  ) {
+    var fn = expParser.parse(expression).get
+    var vm = this.vm
+    var handler = function () {
+      fn.call(vm, vm)
     }
-    if (i === 0 || begin !== i) {
-        pushDir()
+    if (this.filters) {
+      handler = _.applyFilters(
+        handler,
+        this.filters.read,
+        vm
+      )
     }
-
-    function pushDir () {
-        dir.expression = str.slice(begin, i).trim()
-        if (dir.key === undefined) {
-            dir.key = str.slice(argIndex, i).trim()
-        } else if (lastFilterIndex !== begin) {
-            pushFilter()
-        }
-        if (i === 0 || dir.key) {
-            dirs.push(dir)
-        }
-    }
-
-    function pushFilter () {
-        var exp = str.slice(lastFilterIndex, i).trim(),
-            filter
-        if (exp) {
-            filter = {}
-            var tokens = exp.match(FILTER_TOKEN_RE)
-            filter.name = tokens[0]
-            filter.args = tokens.length > 1 ? tokens.slice(1) : null
-        }
-        if (filter) {
-            (dir.filters = dir.filters || []).push(filter)
-        }
-        lastFilterIndex = i + 1
-    }
-
-    return dirs
+    this.update(handler)
+    return true
+  }
 }
 
 /**
- *  Inline computed filters so they become part
- *  of the expression
+ * Teardown the watcher and call unbind.
  */
-Directive.inlineFilters = function (key, filters) {
-    var args, filter
-    for (var i = 0, l = filters.length; i < l; i++) {
-        filter = filters[i]
-        args = filter.args
-            ? ',"' + filter.args.map(escapeQuote).join('","') + '"'
-            : ''
-        key = 'this.$compiler.getOption("filters", "' +
-                filter.name +
-            '").call(this,' +
-                key + args +
-            ')'
+
+p._teardown = function () {
+  if (this._bound) {
+    if (this.unbind) {
+      this.unbind()
     }
-    return key
+    var watcher = this._watcher
+    if (watcher && watcher.active) {
+      watcher.removeCb(this._update)
+      if (!watcher.active) {
+        this.vm._watchers[this.raw] = null
+      }
+    }
+    this._bound = false
+    this.vm = this.el = this._watcher = null
+  }
 }
 
 /**
- *  Convert double quotes to single quotes
- *  so they don't mess up the generated function body
+ * Set the corresponding value with the setter.
+ * This should only be used in two-way directives
+ * e.g. v-model.
+ *
+ * @param {*} value
+ * @param {Boolean} lock - prevent wrtie triggering update.
+ * @public
  */
-function escapeQuote (v) {
-    return v.indexOf('"') > -1
-        ? v.replace(QUOTE_RE, '\'')
-        : v
+
+p.set = function (value, lock) {
+  if (this.twoWay) {
+    if (lock) {
+      this._locked = true
+    }
+    this._watcher.set(value)
+    if (lock) {
+      var self = this
+      _.nextTick(function () {
+        self._locked = false        
+      })
+    }
+  }
 }
 
 module.exports = Directive
