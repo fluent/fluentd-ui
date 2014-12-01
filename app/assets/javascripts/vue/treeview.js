@@ -6,11 +6,10 @@
 
     new Vue({
       el: "#treeview",
-      paramAttributes: [],
+      paramAttributes: ["initialPath"],
       data: {
         preview: "",
         path: "",
-        initialPath: "/var/log",
         paths: []
       },
 
