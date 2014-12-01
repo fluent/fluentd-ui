@@ -3,7 +3,7 @@
 <% submit_button ||= "" %>
 <%= form_tag(action, method: :post) do %>
   <div id="treeview" initialPath="/var/log">
-    <input type="text" size="48" v-model="path" disabled />
+    <pre>{{ path }}</pre>
     <input type="hidden" name="<%= name %>" v-model="path" />
     <div class="dirs">
       <span v-repeat="currentDirs">
