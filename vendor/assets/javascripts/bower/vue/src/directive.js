@@ -1,8 +1,8 @@
 var _ = require('./util')
 var config = require('./config')
 var Watcher = require('./watcher')
-var textParser = require('./parse/text')
-var expParser = require('./parse/expression')
+var textParser = require('./parsers/text')
+var expParser = require('./parsers/expression')
 
 /**
  * A directive links a DOM element with a piece of data,
@@ -85,7 +85,8 @@ p._bind = function (def) {
         this._watcherExp,
         update, // callback
         this.filters,
-        this.twoWay // need setter
+        this.twoWay, // need setter,
+        this.deep
       )
     } else {
       watcher.addCb(update)
@@ -154,6 +155,21 @@ p._checkStatement = function () {
 }
 
 /**
+ * Check for an attribute directive param, e.g. lazy
+ *
+ * @param {String} name
+ * @return {String}
+ */
+
+p._checkParam = function (name) {
+  var param = this.el.getAttribute(name)
+  if (param !== null) {
+    this.el.removeAttribute(name)
+  }
+  return param
+}
+
+/**
  * Teardown the watcher and call unbind.
  */
 
@@ -193,7 +209,7 @@ p.set = function (value, lock) {
     if (lock) {
       var self = this
       _.nextTick(function () {
-        self._locked = false        
+        self._locked = false
       })
     }
   }

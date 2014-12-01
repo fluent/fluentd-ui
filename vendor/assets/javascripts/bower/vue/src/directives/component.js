@@ -1,5 +1,6 @@
 var _ = require('../util')
-var templateParser = require('../parse/template')
+var compile = require('../compiler/compile')
+var templateParser = require('../parsers/template')
 
 module.exports = {
 
@@ -20,37 +21,36 @@ module.exports = {
       // create a ref anchor
       this.ref = document.createComment('v-component')
       _.replace(this.el, this.ref)
-      // check keep-alive options
-      this.checkKeepAlive()
-      // check parent directives
-      this.parentLinker = this.el._parentLinker
+      // check keep-alive options.
+      // If yes, instead of destroying the active vm when
+      // hiding (v-if) or switching (dynamic literal) it,
+      // we simply remove it from the DOM and save it in a
+      // cache object, with its constructor id as the key.
+      this.keepAlive = this._checkParam('keep-alive') != null
+      if (this.keepAlive) {
+        this.cache = {}
+      }
+      // compile parent scope content
+      this.parentLinkFn = compile(
+        this.el, this.vm.$options,
+        true, // partial
+        true  // asParent
+      )
       // if static, build right now.
       if (!this._isDynamicLiteral) {
         this.resolveCtor(this.expression)
-        this.build()
+        this.childVM = this.build()
+        this.childVM.$before(this.ref)
+      } else {
+        // check dynamic component params
+        this.readyEvent = this._checkParam('wait-for')
+        this.transMode = this._checkParam('transition-mode')
       }
     } else {
       _.warn(
         'v-component="' + this.expression + '" cannot be ' +
         'used on an already mounted instance.'
       )
-    }
-  },
-
-  /**
-   * Check if the "keep-alive" flag is present.
-   * If yes, instead of destroying the active vm when
-   * hiding (v-if) or switching (dynamic literal) it,
-   * we simply remove it from the DOM and save it in a
-   * cache object, with its constructor id as the key.
-   */
-
-  checkKeepAlive: function () {
-    // check keep-alive flag
-    this.keepAlive = this.el.hasAttribute('keep-alive')
-    if (this.keepAlive) {
-      this.el.removeAttribute('keep-alive')
-      this.cache = {}
     }
   },
 
@@ -69,64 +69,72 @@ module.exports = {
    * Instantiate/insert a new child vm.
    * If keep alive and has cached instance, insert that
    * instance; otherwise build a new one and cache it.
+   *
+   * @return {Vue} - the created instance
    */
 
   build: function () {
     if (this.keepAlive) {
       var cached = this.cache[this.ctorId]
       if (cached) {
-        this.childVM = cached
-        cached.$before(this.ref)
-        return
+        return cached
       }
     }
     var vm = this.vm
-    if (this.Ctor && !this.childVM) {
-      this.childVM = vm.$addChild({
-        el: templateParser.clone(this.el)
+    var el = templateParser.clone(this.el)
+    if (this.Ctor) {
+      var parentUnlinkFn
+      if (this.parentLinkFn) {
+        parentUnlinkFn = this.parentLinkFn(vm, el)
+      }
+      var child = vm.$addChild({
+        el: el
       }, this.Ctor)
-      if (this.parentLinker) {
-        var dirCount = vm._directives.length
-        var targetVM = this.childVM.$options.inherit
-          ? this.childVM
-          : vm
-        this.parentLinker(targetVM, this.childVM.$el)
-        this.parentDirs = vm._directives.slice(dirCount)
-      }
+      child._parentUnlinkFn = parentUnlinkFn
       if (this.keepAlive) {
-        this.cache[this.ctorId] = this.childVM
+        this.cache[this.ctorId] = child
       }
-      this.childVM.$before(this.ref)
+      return child
     }
   },
 
   /**
-   * Teardown the active vm.
-   * If keep alive, simply remove it; otherwise destroy it.
-   *
-   * @param {Boolean} remove
+   * Teardown the current child, but defers cleanup so
+   * that we can separate the destroy and removal steps.
    */
 
-  unbuild: function (remove) {
+  unbuild: function () {
     var child = this.childVM
-    if (!child) {
+    if (!child || this.keepAlive) {
       return
     }
-    if (this.keepAlive) {
-      if (remove) {
-        child.$remove()
-      }
-    } else {
-      child.$destroy(remove)
-      var parentDirs = this.parentDirs
-      if (parentDirs) {
-        var i = parentDirs.length
-        while (i--) {
-          parentDirs[i]._teardown()
-        }
-      }
+    if (child._parentUnlinkFn) {
+      child._parentUnlinkFn()
     }
-    this.childVM = null
+    // the sole purpose of `deferCleanup` is so that we can
+    // "deactivate" the vm right now and perform DOM removal
+    // later.
+    child.$destroy(false, true)
+  },
+
+  /**
+   * Remove current destroyed child and manually do
+   * the cleanup after removal.
+   *
+   * @param {Function} cb
+   */
+
+  removeCurrent: function (cb) {
+    var child = this.childVM
+    var keepAlive = this.keepAlive
+    if (child) {
+      child.$remove(function () {
+        if (!keepAlive) child._cleanup()
+        if (cb) cb()
+      })
+    } else if (cb) {
+      cb()
+    }
   },
 
   /**
@@ -135,22 +143,72 @@ module.exports = {
    */
 
   update: function (value) {
-    this.unbuild(true)
-    if (value) {
+    if (!value) {
+      // just destroy and remove current
+      this.unbuild()
+      this.removeCurrent()
+      this.childVM = null
+    } else {
       this.resolveCtor(value)
-      this.build()
+      this.unbuild()
+      var newComponent = this.build()
+      var self = this
+      if (this.readyEvent) {
+        newComponent.$once(this.readyEvent, function () {
+          self.swapTo(newComponent)
+        })
+      } else {
+        this.swapTo(newComponent)
+      }
+    }
+  },
+
+  /**
+   * Actually swap the components, depending on the
+   * transition mode. Defaults to simultaneous.
+   *
+   * @param {Vue} target
+   */
+
+  swapTo: function (target) {
+    var self = this
+    switch (self.transMode) {
+      case 'in-out':
+        target.$before(self.ref, function () {
+          self.removeCurrent()
+          self.childVM = target
+        })
+        break
+      case 'out-in':
+        self.removeCurrent(function () {
+          target.$before(self.ref)
+          self.childVM = target
+        })
+        break
+      default:
+        self.removeCurrent()
+        target.$before(self.ref)
+        self.childVM = target
     }
   },
 
   /**
    * Unbind.
-   * Make sure keepAlive is set to false so that the
-   * instance is always destroyed.
    */
 
   unbind: function () {
-    this.keepAlive = false
     this.unbuild()
+    // destroy all keep-alive cached instances
+    if (this.cache) {
+      for (var key in this.cache) {
+        var child = this.cache[key]
+        if (child._parentUnlinkFn) {
+          child._parentUnlinkFn()
+        }
+        child.$destroy()
+      }
+      this.cache = null
+    }
   }
 
 }

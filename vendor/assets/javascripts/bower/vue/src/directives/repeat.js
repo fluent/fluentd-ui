@@ -1,10 +1,10 @@
 var _ = require('../util')
 var isObject = _.isObject
-var textParser = require('../parse/text')
-var expParser = require('../parse/expression')
-var templateParser = require('../parse/template')
-var compile = require('../compile/compile')
-var transclude = require('../compile/transclude')
+var textParser = require('../parsers/text')
+var expParser = require('../parsers/expression')
+var templateParser = require('../parsers/template')
+var compile = require('../compiler/compile')
+var transclude = require('../compiler/transclude')
 var mergeOptions = require('../util/merge-option')
 var uid = 0
 
@@ -40,8 +40,11 @@ module.exports = {
     // at v-repeat level
     this.checkIf()
     this.checkRef()
-    this.checkTrackById()
     this.checkComponent()
+    // check for trackby param
+    this.idKey =
+      this._checkParam('track-by') ||
+      this._checkParam('trackby') // 0.11.0 compat
     // cache for primitive value instances
     this.cache = Object.create(null)
   },
@@ -72,19 +75,6 @@ module.exports = {
     this.elId = elId
       ? this.vm.$interpolate(elId)
       : null
-  },
-
-  /**
-   * Check for a track-by ID, which allows us to identify
-   * a piece of data and its associated instance by its
-   * unique id.
-   */
-
-  checkTrackById: function () {
-    this.idKey = this.el.getAttribute('trackby')
-    if (this.idKey !== null) {
-      this.el.removeAttribute('trackby')
-    }
   },
 
   /**
