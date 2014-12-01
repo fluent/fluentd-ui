@@ -18,7 +18,7 @@
   paramsJson="<%= params.to_json %>"
   >
 
-  <div v-component="format-bundle"></div>
+  <div v-component="format-bundle" wait-for="data-loaded"></div>
 
   <pre>{{{ highlightedLines }}}</pre>
 

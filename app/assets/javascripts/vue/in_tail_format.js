@@ -10,14 +10,12 @@
       computed: {
         options: {
           get: function(){
-            return _.contains(this.selectableFormats, this.format) && this.formatOptions[this.format];
+            return this.formatOptions[this.format];
           },
         },
         selectableFormats: {
           get: function() {
-            if(!this.formatOptions) return [""];
-            var formats = Object.keys(this.formatOptions);
-            return formats;
+            return Object.keys(this.formatOptions);
           }
         }
       }
@@ -56,6 +54,7 @@
           });
         });
         this.$set('params', params);
+        this.$emit("data-loaded");
       },
 
       methods: {
