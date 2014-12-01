@@ -1,7 +1,7 @@
 var _ = require('./util')
 var config = require('./config')
 var Observer = require('./observer')
-var expParser = require('./parse/expression')
+var expParser = require('./parsers/expression')
 var Batcher = require('./batcher')
 
 var batcher = new Batcher()
@@ -46,18 +46,18 @@ function Watcher (vm, expression, cb, filters, needSet, deep) {
 var p = Watcher.prototype
 
 /**
- * Add a binding dependency to this directive.
+ * Add a dependency to this directive.
  *
- * @param {Binding} binding
+ * @param {Dep} dep
  */
 
-p.addDep = function (binding) {
-  var id = binding.id
+p.addDep = function (dep) {
+  var id = dep.id
   if (!this.newDeps[id]) {
-    this.newDeps[id] = binding
+    this.newDeps[id] = dep
     if (!this.deps[id]) {
-      this.deps[id] = binding
-      binding.addSub(this)
+      this.deps[id] = dep
+      dep.addSub(this)
     }
   }
 }
@@ -72,11 +72,14 @@ p.get = function () {
   var value
   try {
     value = this.getter.call(vm, vm)
-  } catch (e) {}
-  // use JSON.stringify to "touch" every property
-  // so they are all tracked as dependencies for
-  // deep watching
-  if (this.deep) JSON.stringify(value)
+  } catch (e) {
+    _.warn(e)
+  }
+  // "touch" every property so they are all tracked as
+  // dependencies for deep watching
+  if (this.deep) {
+    traverse(value)
+  }
   value = _.applyFilters(value, this.readFilters, vm)
   this.afterGet()
   return value
@@ -209,6 +212,28 @@ p.teardown = function () {
     }
     this.active = false
     this.vm = this.cbs = this.value = null
+  }
+}
+
+
+/**
+ * Recrusively traverse an object to evoke all converted
+ * getters, so that every nested property inside the object
+ * is collected as a "deep" dependency.
+ *
+ * @param {Object} obj
+ */
+
+function traverse (obj) {
+  var key, val, i
+  for (key in obj) {
+    val = obj[key]
+    if (_.isArray(val)) {
+      i = val.length
+      while (i--) traverse(val[i])
+    } else if (_.isObject(val)) {
+      traverse(val)
+    }
   }
 }
 

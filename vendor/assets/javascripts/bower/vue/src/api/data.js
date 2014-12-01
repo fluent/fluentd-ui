@@ -1,9 +1,9 @@
 var _ = require('../util')
 var Watcher = require('../watcher')
-var Path = require('../parse/path')
-var textParser = require('../parse/text')
-var dirParser = require('../parse/directive')
-var expParser = require('../parse/expression')
+var Path = require('../parsers/path')
+var textParser = require('../parsers/text')
+var dirParser = require('../parsers/directive')
+var expParser = require('../parsers/expression')
 var filterRE = /[^|]\|[^|]/
 
 /**
@@ -152,7 +152,10 @@ exports.$interpolate = function (text) {
 
 exports.$log = function (path) {
   var data = path
-    ? Path.get(this, path)
+    ? Path.get(this._data, path)
     : this._data
-  console.log(JSON.parse(JSON.stringify(data)))
+  if (data) {
+    data = JSON.parse(JSON.stringify(data))
+  }
+  console.log(data)
 }

@@ -8,17 +8,9 @@ module.exports = {
 
     // check params
     // - lazy: update model on "change" instead of "input"
-    var lazy = el.hasAttribute('lazy')
-    if (lazy) {
-      el.removeAttribute('lazy')
-    }
+    var lazy = this._checkParam('lazy') != null
     // - number: cast value into number when updating model.
-    var number =
-      el.hasAttribute('number') ||
-      el.type === 'number'
-    if (number) {
-      el.removeAttribute('number')
-    }
+    var number = this._checkParam('number') != null
 
     // handle composition events.
     // http://blog.evanyou.me/2014/01/03/composition-event/
@@ -47,30 +39,44 @@ module.exports = {
     // if the directive has filters, we need to
     // record cursor position and restore it after updating
     // the input with the filtered value.
-    this.listener = function textInputListener () {
-      if (cpLocked) return
-      var charsOffset
-      // some HTML5 input types throw error here
-      try {
-        // record how many chars from the end of input
-        // the cursor was at
-        charsOffset = el.value.length - el.selectionStart
-      } catch (e) {}
-      set()
-      // force a value update, because in
-      // certain cases the write filters output the same
-      // result for different input values, and the Observer
-      // set events won't be triggered.
-      _.nextTick(function () {
-        var newVal = self._watcher.value
-        self.update(newVal)
-        if (charsOffset != null) {
-          var cursorPos =
-            _.toString(newVal).length - charsOffset
-          el.setSelectionRange(cursorPos, cursorPos)
+    // also force update for type="range" inputs to enable
+    // "lock in range" (see #506)
+    this.listener = this.filters || el.type === 'range'
+      ? function textInputListener () {
+          if (cpLocked) return
+          var charsOffset
+          // some HTML5 input types throw error here
+          try {
+            // record how many chars from the end of input
+            // the cursor was at
+            charsOffset = el.value.length - el.selectionStart
+          } catch (e) {}
+          // Fix IE10/11 infinite update cycle
+          // https://github.com/yyx990803/vue/issues/592
+          /* istanbul ignore if */
+          if (charsOffset < 0) {
+            return
+          }
+          set()
+          _.nextTick(function () {
+            // force a value update, because in
+            // certain cases the write filters output the
+            // same result for different input values, and
+            // the Observer set events won't be triggered.
+            var newVal = self._watcher.value
+            self.update(newVal)
+            if (charsOffset != null) {
+              var cursorPos =
+                _.toString(newVal).length - charsOffset
+              el.setSelectionRange(cursorPos, cursorPos)
+            }
+          })
         }
-      })
-    }
+      : function textInputListener () {
+          if (cpLocked) return
+          set()
+        }
+
     this.event = lazy ? 'change' : 'input'
     _.on(el, this.event, this.listener)
 

@@ -6,8 +6,19 @@ var _ = require('../util')
  * @param {Number} indent
  */
 
-exports.json = function (value, indent) {
-  return JSON.stringify(value, null, Number(indent) || 2)
+exports.json = {
+  read: function (value, indent) {
+    return typeof value === 'string'
+      ? value
+      : JSON.stringify(value, null, Number(indent) || 2)
+  },
+  write: function (value) {
+    try {
+      return JSON.parse(value)
+    } catch (e) {
+      return value
+    }
+  }
 }
 
 /**
@@ -113,6 +124,9 @@ exports.key = function (handler, key) {
     }
   }
 }
+
+// expose keycode hash
+exports.key.keyCodes = keyCodes
 
 /**
  * Install special array filters

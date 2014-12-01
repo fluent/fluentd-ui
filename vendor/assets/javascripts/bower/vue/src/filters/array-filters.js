@@ -1,5 +1,5 @@
 var _ = require('../util')
-var Path = require('../parse/path')
+var Path = require('../parsers/path')
 
 /**
  * Filter filter for v-repeat
@@ -22,7 +22,7 @@ exports.filterBy = function (arr, searchKey, delimiter, dataKey) {
   if (!search) {
     return arr
   }
-  search = search.toLowerCase()
+  search = ('' + search).toLowerCase()
   // get the optional dataKey
   dataKey =
     dataKey &&

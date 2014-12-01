@@ -69,7 +69,7 @@ var capitalCamelRE = /(?:^|[-_])(\w)/g
 exports.camelize = function (str, cap) {
   var RE = cap ? capitalCamelRE : camelRE
   return str.replace(RE, function (_, c) {
-    return c ? c.toUpperCase () : '';
+    return c ? c.toUpperCase () : ''
   })
 }
 
@@ -116,6 +116,7 @@ exports.extend = function (to, from) {
   for (var key in from) {
     to[key] = from[key]
   }
+  return to
 }
 
 /**
