@@ -1,3 +1,5 @@
+require "fluent/config/v1_parser"
+
 class Fluentd::SettingsController < ApplicationController
   before_action :login_required
   before_action :find_fluentd
