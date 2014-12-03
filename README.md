@@ -57,7 +57,24 @@ fluentd-ui has the same tasks of `bundle gem foobar; cd foobar; rake -T`.
 
 # Screenshots
 
-(v0.1.0)
+(v0.3.9)
+
+## Dashboard
+
+![dashboard](./docs/screenshots/dashboard.gif)
+
+## Setting
+
+![setting](./docs/screenshots/setting.gif)
+
+### in_file setting
+
+![in_file](./docs/screenshots/in_file.gif)
+
+## Plugin
+
+![plugin](./docs/screenshots/plugin.gif)
+
 
 ![ss01](./docs/screenshots/01.png)
 ![ss02](./docs/screenshots/02.png)
