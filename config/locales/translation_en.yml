@@ -99,7 +99,7 @@ en:
       setup_in_syslog: Syslog Protocol
       setup_in_monitor_agent: Monitoring Agent
       setup_in_http: http
-      setup_in_forward: forward (receiving events from another fluentd)
+      setup_in_forward: Forwarding (receiving from another fluentd)
       setup_out_td: Treasure Data
       setup_out_mongo: MongoDB
       setup_out_stdout: stdout (log)

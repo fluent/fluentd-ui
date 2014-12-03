@@ -98,7 +98,7 @@ ja:
       setup_in_syslog: syslogプロトコル
       setup_in_monitor_agent: 監視エージェント
       setup_in_http: http
-      setup_in_forward: forward（他Fluentdからのイベント受信）
+      setup_in_forward: 転送（他Fluentdからの受信）
       setup_out_td: Treasure Data
       setup_out_stdout: 標準出力（ログ）
       setup_out_mongo: MongoDB
