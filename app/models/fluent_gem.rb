@@ -18,10 +18,7 @@ module FluentGem
       #       So our decision is that cache `gem list` in 3 seconds
       Rails.cache.fetch(LIST_CACHE_KEY, expires_in: 3.seconds) do
         output = `#{gem} list`
-        timeout(1) do
-          sleep 0.01 until $? # FIXME: for CircleCI fragile test such as https://circleci.com/gh/fluent/fluentd-ui/480
-        end
-        unless $?.exitstatus.zero?
+        if $? && $?.exitstatus != 0 # NOTE: $? will be nil on CircleCI, so check $? at first
           raise GemError, "failed command: `#{gem} list`"
         end
         output.lines
