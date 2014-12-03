@@ -55,6 +55,7 @@ class Fluentd
 
       def pid
         return unless File.exists?(pid_file)
+        return if File.zero?(pid_file)
         File.read(pid_file).to_i rescue nil
       end
 

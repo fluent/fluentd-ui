@@ -20,10 +20,10 @@ describe 'Fluentd::Agent::LocalCommon' do
     end
 
     context 'valid pid file given' do
-      before { File.write pid_file_path, '99999' }
+      before { File.write pid_file_path, '9999' }
       after  { FileUtils.rm pid_file_path }
 
-      its(:pid) { should eq(99999) }
+      its(:pid) { should eq(9999) }
     end
   end
 end
