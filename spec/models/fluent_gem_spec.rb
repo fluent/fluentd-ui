@@ -64,12 +64,6 @@ describe FluentGem do
       GEM
       it { subject.to_a.should == gem_list.lines.to_a }
     end
-
-    context "failed" do
-      let(:gem_list) { "" }
-      before { $?.stub(:exitstatus).and_return(128) }
-      it { expect{ subject }.to raise_error(FluentGem::GemError) }
-    end
   end
 
   describe "#run" do
