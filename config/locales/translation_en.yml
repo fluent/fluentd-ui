@@ -97,8 +97,12 @@ en:
       page_title: "%{label}"
       setup_in_tail: File
       setup_in_syslog: Syslog Protocol
+      setup_in_monitor_agent: Monitoring Agent
+      setup_in_http: http
+      setup_in_forward: forward (receiving events from another fluentd)
       setup_out_td: Treasure Data
       setup_out_mongo: MongoDB
+      setup_out_stdout: stdout (log)
       setup_out_forward: Forwarding
       setup_out_s3: Amazon S3
       setup_out_elasticsearch: Elasticsearch
@@ -109,7 +113,7 @@ en:
       destroy_fluentd_setting: "Delete %{brand} setting"
       destroy_fluentd_setting_warning: |
         Delete %{brand} setting.
-        
+
         <p>Running %{brand} will be stopped, but log and config file are still exists.</p>
     show:
       page_title: Dashboard
@@ -161,11 +165,35 @@ en:
           For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/out_mongo" target="_blank">MongoDB output plugin</a> documentation page.
         show:
           page_title: Add Output to MongoDB
+      out_stdout:
+        option_guide: |
+          Print events to STDOUT (or fluentd log file if launched with daemon mode). Please refer to the <a href="http://docs.fluentd.org/articles/out_stdout" target="_blank">stdout output plugin</a> documentation page.
+        show:
+          page_title: stdout (log)
       in_syslog:
         option_guide: |
           For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/in_syslog" target="_blank">MongoDB output plugin</a> documentation page.
         show:
           page_title: Add Input from Syslog Protocol
+      in_monitor_agent:
+        option_guide: |
+          Monitoring agent returns current fluentd/td-agent setting as JSON via HTTP. <br />
+          Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/monitoring">Monitoring Agent</a> documentation page.
+        show:
+          page_title: Monitoring Agent (monitor_agent)
+      in_http:
+        option_guide: |
+          Retrieve records from http POST.<br />
+          The URL path becomes the tag of the Fluentd event log and the POSTed body element becomes the record itself.<br />
+          Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/in_http">http Input Plugin</a> documentation page.
+        show:
+          page_title: Add http Input Plugin
+      in_forward:
+        option_guide: |
+          Listen to a TCP socket to receive the event stream and an UDP socket to receive heartbeat messages.
+          Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/in_forward">forward Input Plugin</a> documentation page.
+        show:
+          page_title: Add forward Input Plugin
       in_tail_option_guide: |
           For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/in_tail" target="_blank">Tail input plugin</a> documentation page.
       in_tail:

@@ -96,7 +96,11 @@ ja:
       page_title: "%{label}"
       setup_in_tail: ファイル
       setup_in_syslog: syslogプロトコル
+      setup_in_monitor_agent: 監視エージェント
+      setup_in_http: http
+      setup_in_forward: forward（他Fluentdからのイベント受信）
       setup_out_td: Treasure Data
+      setup_out_stdout: 標準出力（ログ）
       setup_out_mongo: MongoDB
       setup_out_forward: 転送
       setup_out_s3: AWS S3
@@ -108,7 +112,7 @@ ja:
       destroy_fluentd_setting: "%{brand}の設定情報を削除"
       destroy_fluentd_setting_warning: |
         %{brand}の設定を削除します。
-        
+
         <p>起動中の%{brand}は停止し、ログや設定ファイルはそのまま残存します。</p>
     show:
       page_title: "ダッシュボード"
@@ -162,11 +166,39 @@ ja:
           <a target="_blank" href="http://docs.fluentd.org/ja/articles/out_mongo">out_mongoプラグインの解説</a>もご参照ください。
         show:
           page_title: MongoDB書き出し設定
+      out_stdout:
+        option_guide: |
+          標準出力（デーモンとして起動しているときはログファイル）へイベントを書き出します。<br />
+          <a target="_blank" href="http://docs.fluentd.org/ja/articles/out_stdout">out_stdoutプラグインの解説</a>もご参照ください。
+        show:
+          page_title: 標準出力（ログ）
       in_syslog:
         option_guide: |
           <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_syslog">in_syslogプラグイン解説ページ</a>もご参照ください。
         show:
           page_title: Syslog読み込み設定
+      in_monitor_agent:
+        option_guide: |
+          HTTP経由で現在稼働中のfluentdが使用しているconfigやプラグインをJSONやLTSV形式で取得できます。<br />
+          <a target="_blank" href="http://docs.fluentd.org/ja/articles/monitoring">監視エージェント</a>のページもご参照ください。
+        show:
+          page_title: 監視エージェント設定(monitor_agent)
+      in_http:
+        option_guide: |
+          http POSTからレコードを取得可能にします。<br />
+          URLパスはFluentdイベントログのタグとなり、ポストされたbody要素はレコードそのものになります。<br />
+          <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_http">httpインプットプラグイン解説ページ</a>もご参照ください。
+        show:
+          page_title: http入力設定
+      in_forward:
+        option_guide: |
+          TCPソケットをリッスンし、イベントストリームを受信します。<br />
+          UDPソケットもリッスンし、ハートビートメッセージを受信します。<br />
+          他のFluentdインスタンス、fluent-catコマンドまたはクライアントライブラリーからイベントログを受信するために使用されます。<br />
+          <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_forward">forwardインプットプラグイン解説ページ</a>もご参照ください。
+        show:
+          page_title: forward入力設定
+
       in_tail_option_guide: |
         <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_tail">in_tailプラグインの解説ページ</a>や
         <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。
