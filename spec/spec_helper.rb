@@ -35,6 +35,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include LoginMacro
   config.include JavascriptMacro
+  config.include StubDaemon
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of

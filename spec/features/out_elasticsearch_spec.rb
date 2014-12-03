@@ -1,22 +1,12 @@
 require "spec_helper"
 
-describe "out_elasticsearch" do
+describe "out_elasticsearch", stub: :daemon do
   let(:exists_user) { build(:user) }
-  let(:daemon) { build(:fluentd, variant: "td-agent") }
-  let(:match) { "test.out_elasticsearch.#{Time.now.to_i}.*" }
+  let(:match) { "test.out_forward.#{Time.now.to_i}.*" }
   let(:location) { daemon_setting_out_elasticsearch_path }
 
   before do
-    Fluentd.stub(:instance).and_return(daemon)
-    Fluentd::Agent::TdAgent.any_instance.stub(:detached_command).and_return(true)
-    daemon.agent.config_write ""
-
-    visit '/sessions/new'
-    within("form") do
-      fill_in 'session_name', :with => exists_user.name
-      fill_in 'session_password', :with => exists_user.password
-    end
-    click_button I18n.t("terms.sign_in")
+    login_with exists_user
   end
 
   it "Shown form" do
