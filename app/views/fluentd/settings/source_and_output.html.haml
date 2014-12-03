@@ -18,6 +18,10 @@
           = link_to(daemon_setting_in_monitor_agent_path(@fluentd)) do
             = icon('fa-file-text-o fa-lg')
             = t("fluentd.common.setup_in_monitor_agent")
+        %p
+          = link_to(daemon_setting_in_http_path(@fluentd)) do
+            = icon('fa-file-text-o fa-lg')
+            = t("fluentd.common.setup_in_http")
   .col-xs-1.arrow-right
     = icon "fa-arrow-circle-right"
   .col-xs-2

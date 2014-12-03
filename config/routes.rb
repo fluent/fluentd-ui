@@ -32,6 +32,10 @@ Rails.application.routes.draw do
           post "finish"
         end
 
+        resource :in_http, only: [:show], module: :settings, controller: :in_http do
+          post "finish"
+        end
+
         resource :out_stdout, only: [:show], module: :settings, controller: :out_stdout do
           post "finish"
         end
