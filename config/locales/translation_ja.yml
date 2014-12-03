@@ -98,6 +98,7 @@ ja:
       setup_in_syslog: syslogプロトコル
       setup_in_monitor_agent: 監視エージェント
       setup_in_http: http
+      setup_in_forward: forward（他Fluentdからのイベント受信）
       setup_out_td: Treasure Data
       setup_out_stdout: 標準出力（ログ）
       setup_out_mongo: MongoDB
@@ -189,6 +190,15 @@ ja:
           <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_http">httpインプットプラグイン解説ページ</a>もご参照ください。
         show:
           page_title: http入力設定
+      in_forward:
+        option_guide: |
+          TCPソケットをリッスンし、イベントストリームを受信します。<br />
+          UDPソケットもリッスンし、ハートビートメッセージを受信します。<br />
+          他のFluentdインスタンス、fluent-catコマンドまたはクライアントライブラリーからイベントログを受信するために使用されます。<br />
+          <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_forward">forwardインプットプラグイン解説ページ</a>もご参照ください。
+        show:
+          page_title: forward入力設定
+
       in_tail_option_guide: |
         <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_tail">in_tailプラグインの解説ページ</a>や
         <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。

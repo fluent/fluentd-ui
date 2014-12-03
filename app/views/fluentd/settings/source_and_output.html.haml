@@ -6,7 +6,7 @@
       .panel-heading
         %h4= t('.in')
       .panel-body
-        - %w|in_tail in_syslog in_monitor_agent in_http|.each do |type|
+        - %w|in_tail in_syslog in_monitor_agent in_http in_forward|.each do |type|
           %p
             = link_to(send("daemon_setting_#{type}_path", @fluentd)) do
               = icon('fa-file-text-o fa-lg')
