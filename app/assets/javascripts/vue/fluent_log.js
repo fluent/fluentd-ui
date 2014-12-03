@@ -24,7 +24,7 @@
             timer = setInterval(function(){
               self.fetchLogs();
               var $log = $(".log", self.$el);
-              $log.scrollTop($log[0].scrollHeight);
+              $log.scrollTop($log.innerHeight());
             }, 1000);
           } else {
             clearInterval(timer);
