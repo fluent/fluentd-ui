@@ -70,9 +70,9 @@ fluentd-ui has the same tasks of `bundle gem foobar; cd foobar; rake -T`.
 
 ![setting](./docs/screenshots/setting.gif)
 
-### in_file setting
+### in_tail setting
 
-![in_file](./docs/screenshots/in_file.gif)
+![in_tail](./docs/screenshots/in_tail.gif)
 
 ## Plugin
 
