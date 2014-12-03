@@ -7,15 +7,8 @@ describe "source_and_output", js: true do
   before do
     Fluentd.stub(:instance).and_return(daemon)
     Fluentd::Agent::TdAgent.any_instance.stub(:detached_command).and_return(true)
-  end
 
-  before do
-    visit '/sessions/new'
-    within("form") do
-      fill_in 'session_name', :with => exists_user.name
-      fill_in 'session_password', :with => exists_user.password
-    end
-    click_button I18n.t("terms.sign_in")
+    login_with exists_user
   end
 
   before do

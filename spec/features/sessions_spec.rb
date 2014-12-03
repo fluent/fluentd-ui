@@ -5,12 +5,7 @@ describe "sessions" do
 
   describe "sign in with default password" do
     before do
-      visit '/sessions/new'
-      within("form") do
-        fill_in 'session_name', :with => user.name
-        fill_in 'session_password', :with => user.password
-      end
-      click_button submit_label
+      login_with user
     end
 
     context "correct credentials" do
@@ -40,12 +35,8 @@ describe "sessions" do
 
     before do
       exists_user.update_attributes(current_password: Settings.default_password, password: new_password, password_confirmation: new_password)
-      visit '/sessions/new'
-      within("form") do
-        fill_in 'session_name', :with => user.name
-        fill_in 'session_password', :with => user.password
-      end
-      click_button submit_label
+
+      login_with user
     end
 
     after do
@@ -71,12 +62,7 @@ describe "sessions" do
   describe "sign out process" do
     let(:submit_label) { I18n.t("terms.sign_in") }
     before do
-      visit '/sessions/new'
-      within("form") do
-        fill_in 'session_name', :with => exists_user.name
-        fill_in 'session_password', :with => exists_user.password
-      end
-      click_button submit_label
+      login_with exists_user
     end
 
     before do
