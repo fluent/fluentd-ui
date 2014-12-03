@@ -11,6 +11,7 @@ fluentd-ui is a browser-based [fluentd](http://fluentd.org/) and [td-agent](http
 * Configure fluentd settings such as config file content, pidfile path, etc
 * View fluentd log with simple error viewer
 
+
 # Getting Started
 
 ```console
@@ -20,6 +21,8 @@ $ fluentd-ui start
 
 Open `http://localhost:9292/` by your browser.<br />
 The default account is username="admin" and password="changeme"
+
+![fluentd-ui](./docs/screenshots/fluentd-ui.gif)
 
 ## TO Ubuntu 14.04 user (installed ruby by apt-get)
 
@@ -57,7 +60,24 @@ fluentd-ui has the same tasks of `bundle gem foobar; cd foobar; rake -T`.
 
 # Screenshots
 
-(v0.1.0)
+(v0.3.9)
+
+## Dashboard
+
+![dashboard](./docs/screenshots/dashboard.gif)
+
+## Setting
+
+![setting](./docs/screenshots/setting.gif)
+
+### in_file setting
+
+![in_file](./docs/screenshots/in_file.gif)
+
+## Plugin
+
+![plugin](./docs/screenshots/plugin.gif)
+
 
 ![ss01](./docs/screenshots/01.png)
 ![ss02](./docs/screenshots/02.png)
