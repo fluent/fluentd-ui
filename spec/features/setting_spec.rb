@@ -23,11 +23,11 @@ describe 'setting', stub: :daemon do
     page.should have_css('h1', text: I18n.t('fluentd.settings.edit.page_title'))
     page.should have_css('p.text-danger', text: I18n.t('terms.notice_restart_for_config_edit', brand: 'fluentd'))
 
-    fill_in 'config', with: 'SUPER GREAT CONFIG HERE'
+    fill_in 'config', with: 'YET ANOTHER CONFIG'
 
     click_button I18n.t('terms.update')
 
     current_path.should == '/daemon/setting'
-    page.should have_css('pre', text: 'SUPER GREAT CONFIG HERE')
+    page.should have_css('pre', text: 'YET ANOTHER CONFIG')
   end
 end
