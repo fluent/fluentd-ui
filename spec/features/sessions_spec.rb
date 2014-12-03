@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "sessions" do
   let(:exists_user) { build(:user) }
   let(:submit_label) { I18n.t("terms.sign_in") }
