@@ -16,9 +16,7 @@ describe 'dashboard' do
   end
 
   context 'fluentd is stop', stub: :daemon do
-    before do
-      visit '/'
-    end
+    before { visit '/' }
 
     it do
       page.should have_css('h1', text: I18n.t('fluentd.show.page_title'))
