@@ -53,12 +53,12 @@ class Fluentd
         end
       end
 
-      private
-
       def pid
         return unless File.exists?(pid_file)
         File.read(pid_file).to_i rescue nil
       end
+
+      private
 
       def logged_errors(&block)
         return [] unless File.exist?(log_file)
