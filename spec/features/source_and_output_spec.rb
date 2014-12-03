@@ -1,13 +1,9 @@
 require "spec_helper"
 
-describe "source_and_output", js: true do
+describe "source_and_output", js: true, stub: :daemon do
   let(:exists_user) { build(:user) }
-  let(:daemon) { build(:fluentd, variant: "td-agent") }
 
   before do
-    Fluentd.stub(:instance).and_return(daemon)
-    Fluentd::Agent::TdAgent.any_instance.stub(:detached_command).and_return(true)
-
     login_with exists_user
   end
 

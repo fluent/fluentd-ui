@@ -1,15 +1,10 @@
 require "spec_helper"
 
-describe "out_td" do
+describe "out_td", stub: :daemon do
   let(:exists_user) { build(:user) }
-  let(:daemon) { build(:fluentd, variant: "td-agent") }
   let(:api_key) { "dummydummy" }
 
   before do
-    Fluentd.stub(:instance).and_return(daemon)
-    Fluentd::Agent::TdAgent.any_instance.stub(:detached_command).and_return(true)
-    daemon.agent.config_write ""
-
     login_with exists_user
   end
 
