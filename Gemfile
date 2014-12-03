@@ -16,6 +16,7 @@ group :development do
 end
 
 group :test do
+  gem "rspec-its"
   gem "factory_girl_rails"
   gem "database_cleaner", "~> 1.2.0"
   gem "capybara", "~> 2.2.1"
