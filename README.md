@@ -11,6 +11,7 @@ fluentd-ui is a browser-based [fluentd](http://fluentd.org/) and [td-agent](http
 * Configure fluentd settings such as config file content, pidfile path, etc
 * View fluentd log with simple error viewer
 
+
 # Getting Started
 
 ```console
@@ -20,6 +21,8 @@ $ fluentd-ui start
 
 Open `http://localhost:9292/` by your browser.<br />
 The default account is username="admin" and password="changeme"
+
+![fluentd-ui](./docs/screenshots/fluentd-ui.gif)
 
 ## TO Ubuntu 14.04 user (installed ruby by apt-get)
 
