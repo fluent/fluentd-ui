@@ -59,10 +59,15 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (1.0.3)
+      capybara (>= 1.0, < 3)
+      colored
+      launchy
     celluloid (0.15.2)
       timers (~> 1.1.0)
     cliver (0.3.2)
     coderay (1.1.0)
+    colored (1.2)
     cool.io (1.2.4)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -118,6 +123,8 @@ GEM
     kramdown (1.5.0)
     kramdown-haml (0.0.3)
       haml
+    launchy (2.4.3)
+      addressable (~> 2.3)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mechanize (2.7.3)
@@ -243,6 +250,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara (~> 2.2.1)
+  capybara-screenshot
   database_cleaner (~> 1.2.0)
   factory_girl_rails
   fluentd-ui!
