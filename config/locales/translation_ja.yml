@@ -9,6 +9,8 @@ ja:
     fluentd_restart_failed: "%{brand}の再起動に失敗しました。"
     fluentd_start_stop_delay_notice: "デーモンの%{action}を受け付けました。処理が完了するまで時間がかかる場合があります。"
     password_successfully_updated: "パスワードを変更しました。"
+    fluentd_status_running: 稼働中
+    fluentd_status_stopped: 停止中
 
   terms: &terms
     name: アカウント名

@@ -9,6 +9,16 @@ module ApplicationHelper
     image_tag(ENV["FLUENTD_UI_LOGO"] || "/fluentd-logo-right-text.png")
   end
 
+  def fluentd_status_icon
+    return unless Fluentd.instance
+    Fluentd.instance.agent.running? ? icon('fa-circle running') : icon('fa-circle stopped')
+  end
+
+  def fluentd_status_message
+    return unless Fluentd.instance
+    Fluentd.instance.agent.running? ? I18n.t('messages.fluentd_status_running') : I18n.t('messages.fluentd_status_stopped')
+  end
+
   def language_name(locale)
     # NOTE: these are fixed terms, not i18n-ed
     {

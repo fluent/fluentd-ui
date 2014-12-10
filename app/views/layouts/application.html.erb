@@ -29,6 +29,13 @@
         <!-- /.navbar-header -->
 
         <ul class="nav navbar-top-links navbar-right">
+          <% if @fluentd %>
+          <li class="fluentd-status">
+            <a href="<%= daemon_path %>" data-toggle="tooltip" data-placement="bottom" title="fluentd <%= fluentd_status_message %>">
+              <%= fluentd_status_icon %>
+            </a>
+          </li>
+          <% end %>
           <%= render partial: "shared/vue/notification" %>
 
           <li class="dropdown">
