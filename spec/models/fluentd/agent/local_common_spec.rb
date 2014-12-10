@@ -2,6 +2,10 @@ require 'spec_helper'
 require 'fileutils'
 
 describe 'Fluentd::Agent::LocalCommon' do
+  let!(:now) { Time.zone.now }
+  before { Timecop.freeze(now) }
+  after { Timecop.return }
+
   subject { target_class.new.tap{|t| t.pid_file = pid_file_path} }
 
   let!(:target_class) { Struct.new(:pid_file){ include Fluentd::Agent::LocalCommon } }
@@ -24,6 +28,47 @@ describe 'Fluentd::Agent::LocalCommon' do
       after  { FileUtils.rm pid_file_path }
 
       its(:pid) { should eq(9999) }
+    end
+  end
+
+  describe '#config_write', stub: :daemon do
+    let(:config_contents) { <<-CONF.strip_heredoc }
+      <source>
+        type forward
+        port 24224
+      </source>
+    CONF
+
+    let(:new_config) { <<-CONF.strip_heredoc }
+      <source>
+        type http
+        port 8899
+      </source>
+    CONF
+
+    before do
+      Fluentd::Agent::LocalCommon::MAX_BACKUP_FILE_NUM.times do |i|
+        backpued_time = now - (i + 1).hours
+        FileUtils.touch daemon.agent.config_backup_dir + "/#{backpued_time.strftime('%Y%m%d_%H%M%S')}.conf"
+      end
+
+      daemon.agent.config_write config_contents #add before conf
+      daemon.agent.config_write new_config #update conf
+    end
+
+    after do
+      FileUtils.rm_r daemon.agent.config_backup_dir, force: true
+    end
+
+    it 'backed up old conf' do
+      backup_file = daemon.agent.config_backup_dir + "/#{now.strftime('%Y%m%d_%H%M%S')}.conf"
+      expect(File.exists? backup_file).to be_truthy
+      expect(File.read(backup_file)).to eq config_contents
+    end
+
+    it 'keep files num up to max' do
+      backup_files = Dir.glob("#{daemon.agent.config_backup_dir}/*").sort
+      expect(backup_files.size).to eq Fluentd::Agent::LocalCommon::MAX_BACKUP_FILE_NUM
     end
   end
 end

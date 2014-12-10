@@ -57,6 +57,11 @@ class Fluentd
         extra_options[:config_file] || self.class.default_options[:config_file]
       end
 
+      def config_backup_dir
+        dir = FluentdUI.data_dir + "/#{Rails.env}_confg_backups"
+        FileUtils.mkdir_p(dir)
+        dir
+      end
 
       # define these methods on each Agent class
 

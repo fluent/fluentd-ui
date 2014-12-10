@@ -1,6 +1,8 @@
 class Fluentd
   class Agent
     module LocalCommon
+      MAX_BACKUP_FILE_NUM = 100
+
       def running?
         begin
           pid && Process.kill(0, pid)
@@ -20,12 +22,14 @@ class Fluentd
       end
 
       def config_write(content)
+        backup_config
         File.open(config_file, "w") do |f|
           f.write content
         end
       end
 
       def config_append(content)
+        backup_config
         File.open(config_file, "a") do |f|
           f.write "\n"
           f.write content
@@ -60,6 +64,27 @@ class Fluentd
       end
 
       private
+
+      def backup_config
+        return unless File.exists? config_file
+
+        FileUtils.cp config_file, config_backup_dir + "/#{Time.zone.now.strftime('%Y%m%d_%H%M%S')}.conf"
+
+        remove_over_backup_files
+      end
+
+      def remove_over_backup_files
+        over_file_count = backup_files.size - MAX_BACKUP_FILE_NUM
+
+        #.times do nothing if over_file_count is negative or 0.
+        over_file_count.times do |i|
+          FileUtils.rm(backup_files.shift)
+        end
+      end
+
+      def backup_files
+        Dir.glob("#{config_backup_dir}/*").sort
+      end
 
       def logged_errors(&block)
         return [] unless File.exist?(log_file)
