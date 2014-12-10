@@ -10,23 +10,13 @@ module ApplicationHelper
   end
 
   def fluentd_status_icon
-    if Fluentd.instance.present?
-      if Fluentd.instance.agent.running?
-        icon('fa-circle running')
-      else
-        icon('fa-circle stopped')
-      end
-    end
+    return unless Fluentd.instance
+    Fluentd.instance.agent.running? ? icon('fa-circle running') : icon('fa-circle stopped')
   end
 
   def fluentd_status_message
-    if Fluentd.instance.present?
-      if Fluentd.instance.agent.running?
-        I18n.t('messages.fluentd_status_running')
-      else
-        I18n.t('messages.fluentd_status_stopped')
-      end
-    end
+    return unless Fluentd.instance
+    Fluentd.instance.agent.running? ? I18n.t('messages.fluentd_status_running') : I18n.t('messages.fluentd_status_stopped')
   end
 
   def language_name(locale)
