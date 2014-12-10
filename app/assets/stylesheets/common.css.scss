@@ -156,3 +156,12 @@ label {
   min-height: 12em;
   resize: both;
 }
+
+.fluentd-status {
+  .running {
+    color: #090;
+  }
+  .stopped {
+    color: #999;
+  }
+}
