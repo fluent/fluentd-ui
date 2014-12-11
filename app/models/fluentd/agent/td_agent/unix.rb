@@ -3,7 +3,9 @@ class Fluentd
     class TdAgent
       module Unix
         def start
-          detached_command('/etc/init.d/td-agent start')
+          backup_running_config do
+            detached_command('/etc/init.d/td-agent start')
+          end
         end
 
         def stop

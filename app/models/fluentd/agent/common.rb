@@ -63,6 +63,16 @@ class Fluentd
         dir
       end
 
+      def running_config_backup_dir
+        dir = FluentdUI.data_dir + "/#{Rails.env}_running_confg_backup"
+        FileUtils.mkdir_p(dir)
+        dir
+      end
+
+      def running_config_backup_file
+        running_config_backup_dir + "/running.conf"
+      end
+
       # define these methods on each Agent class
 
       %w(start stop restart).each do |method|
@@ -76,6 +86,21 @@ class Fluentd
           raise NotImplementedError, "'#{method}' method is required to be defined"
         end
       end
+
+
+      private
+
+      def backup_running_config
+        #back up config file only when start success
+        return unless yield
+
+        return unless File.exists? config_file
+
+        FileUtils.cp config_file, running_config_backup_file
+
+        true
+      end
+
     end
   end
 end

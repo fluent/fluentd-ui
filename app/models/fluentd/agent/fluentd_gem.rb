@@ -15,7 +15,10 @@ class Fluentd
       # return value is status_after_this_method_called == started
       def start
         return true if running?
-        actual_start
+
+        backup_running_config do
+          actual_start
+        end
       end
 
       # return value is status_after_this_method_called == stopped
@@ -67,6 +70,7 @@ class Fluentd
         Bundler.with_clean_env do
           spawn("fluentd #{options_to_argv}")
         end
+
         wait_starting
       end
 

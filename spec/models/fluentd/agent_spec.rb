@@ -38,8 +38,19 @@ describe Fluentd::Agent do
         end
 
         context "actual start success" do
+          after do
+            FileUtils.rm_r instance.running_config_backup_dir, force: true
+          end
+
           let(:start_result) { true }
           it { should be_truthy }
+
+          it 'backed up running conf' do
+            subject
+            backup_file = instance.running_config_backup_file
+            expect(File.exists? backup_file).to be_truthy
+            expect(File.read(backup_file)).to eq File.read(instance.config_file)
+          end
         end
 
         context "actual start failed" do
@@ -86,6 +97,33 @@ describe Fluentd::Agent do
     let(:described_class) { Fluentd::Agent::TdAgent } # override nested described_class behavior as https://github.com/rspec/rspec-core/issues/1114
 
     it_should_behave_like "Fluentd::Agent has common behavior"
+
+    describe "#backup_running_config" do
+      before do
+        instance.stub(:detached_command).and_return(true)
+        instance.stub(:pid_from_launchctl).and_return(true)
+      end
+
+      after do
+        FileUtils.rm_r instance.running_config_backup_dir, force: true
+      end
+
+      let(:options) do
+        {
+          :config_file => Rails.root.join('tmp', 'fluentd-test', 'fluentd.conf').to_s
+        }
+      end
+
+      before do
+        instance.start
+      end
+
+      it 'backed up running conf' do
+        backup_file = instance.running_config_backup_file
+        expect(File.exists? backup_file).to be_truthy
+        expect(File.read(backup_file)).to eq File.read(instance.config_file)
+      end
+    end
   end
 end
 
