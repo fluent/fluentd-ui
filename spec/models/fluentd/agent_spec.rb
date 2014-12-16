@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe Fluentd::Agent do
   let(:instance) { described_class.new(options) }
-  let(:options) { {} }
+  let(:options) {
+    {
+      :config_file => Rails.root.join('tmp', 'fluentd-test', 'fluentd.conf').to_s
+    }
+   }
 
   describe "FluentdGem" do
     let(:described_class) { Fluentd::Agent::FluentdGem } # override nested described_class behavior as https://github.com/rspec/rspec-core/issues/1114
