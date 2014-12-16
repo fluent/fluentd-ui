@@ -18,6 +18,9 @@ module ConfigHistories
     before do
       Timecop.freeze(three_hours_ago)
 
+      #remove backups on each to avoid depending on spec execution order
+      FileUtils.rm_r daemon.agent.config_backup_dir, force: true
+
       7.times do |i|
         backpued_time = three_hours_ago - (i + 1).hours
         FileUtils.touch daemon.agent.config_backup_dir + "/#{backpued_time.strftime('%Y%m%d_%H%M%S')}.conf"

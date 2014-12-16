@@ -13,14 +13,9 @@ describe "histories", stub: :daemon do
       visit '/daemon/setting/histories'
     end
 
-    after do
-      #remove backups on each to avoid deppending on spec execution order
-      FileUtils.rm_r daemon.agent.config_backup_dir, force: true
-    end
-
     it 'show histories#index' do
       page.should have_css('h1', text: I18n.t('fluentd.settings.histories.index.page_title'))
-      expect(all('.row li').count).to eq 10 #links to hisotries#show
+      expect(all('.row li').count).to eq 9 #links to hisotries#show
     end
 
     it 'will go to histories#show' do
