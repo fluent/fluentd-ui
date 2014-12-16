@@ -7,7 +7,7 @@ class Fluentd::SettingsController < ApplicationController
 
   def show
     @backup_files = @fluentd.agent.backup_files_in_new_order[0..4].map do |file_path|
-      Fluentd::Setting::BackupFile.new(file_path: file_path)
+      Fluentd::Setting::BackupFile.new(file_path)
     end
   end
 

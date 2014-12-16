@@ -3,14 +3,14 @@ class Fluentd
     class BackupFile
       attr_accessor :file_path
 
-      def self.find_by_file_id(backup_dir: , file_id: )
+      def self.find_by_file_id(backup_dir, file_id)
         file_path = Pathname.new(backup_dir).join("#{file_id}.conf")
         raise "No suce file #{file_path}" unless File.exist?(file_path)
 
-        new(file_path: file_path)
+        new(file_path)
       end
 
-      def initialize(file_path: nil)
+      def initialize(file_path)
         @file_path = file_path
       end
 
@@ -31,6 +31,7 @@ class Fluentd
       end
 
       private
+
       def with_file
         return nil unless file_path && File.exist?(file_path)
         yield

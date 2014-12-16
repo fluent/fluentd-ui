@@ -5,7 +5,7 @@ class Fluentd::Settings::HistoriesController < ApplicationController
 
   def index
     @backup_files = @fluentd.agent.backup_files_in_new_order.map do |file_path|
-      Fluentd::Setting::BackupFile.new(file_path: file_path)
+      Fluentd::Setting::BackupFile.new(file_path)
     end
   end
 
@@ -21,11 +21,6 @@ class Fluentd::Settings::HistoriesController < ApplicationController
 
   def find_backup_file
     #Do not use BackupFile.new(params[:id]) because params[:id] can be any path.
-    @backup_file = Fluentd::Setting::BackupFile.find_by_file_id(
-      {
-        backup_dir: @fluentd.agent.config_backup_dir,
-        file_id: params[:id]
-      }
-    )
+    @backup_file = Fluentd::Setting::BackupFile.find_by_file_id(@fluentd.agent.config_backup_dir, params[:id])
   end
 end

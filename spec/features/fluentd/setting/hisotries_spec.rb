@@ -26,7 +26,8 @@ describe "histories", stub: :daemon do
   end
 
   describe 'show' do
-     let(:last_backup_file) { Fluentd::Setting::BackupFile.new(file_path: daemon.agent.backup_files_in_new_order.first) }
+    let(:last_backup_file) { Fluentd::Setting::BackupFile.new(daemon.agent.backup_files_in_new_order.first) }
+
     before do
       visit "/daemon/setting/histories/#{last_backup_file.file_id}"
     end
