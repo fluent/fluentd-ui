@@ -6,6 +6,9 @@ class Fluentd::SettingsController < ApplicationController
   before_action :set_config, only: [:show, :edit, :update]
 
   def show
+    @backup_files = @fluentd.agent.backup_files_in_new_order[0..4].map do |file_path|
+      Fluentd::Setting::BackupFile.new(file_path: file_path)
+    end
   end
 
   def edit

@@ -87,7 +87,6 @@ class Fluentd
         end
       end
 
-
       private
 
       def backup_running_config
@@ -100,7 +99,6 @@ class Fluentd
 
         true
       end
-
     end
   end
 end

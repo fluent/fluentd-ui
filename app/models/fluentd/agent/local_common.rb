@@ -63,6 +63,14 @@ class Fluentd
         File.read(pid_file).to_i rescue nil
       end
 
+      def backup_files
+        Dir.glob("#{config_backup_dir}/*").sort
+      end
+
+      def backup_files_in_new_order
+        backup_files.reverse
+      end
+
       private
 
       def backup_config
@@ -80,10 +88,6 @@ class Fluentd
         over_file_count.times do |i|
           FileUtils.rm(backup_files.shift)
         end
-      end
-
-      def backup_files
-        Dir.glob("#{config_backup_dir}/*").sort
       end
 
       def logged_errors(&block)

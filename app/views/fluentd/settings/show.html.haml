@@ -8,3 +8,10 @@
     %pre
       = preserve do
         = @config
+
+.row
+  .col-xs-12
+    %h3= t('fluentd.settings.history')
+    = render '/fluentd/settings/histories/list'
+    .link= link_to t('.link_to_histories'), daemon_setting_histories_path
+
