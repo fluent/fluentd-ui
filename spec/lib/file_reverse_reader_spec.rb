@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require "enumerator"
 require 'spec_helper'
 
