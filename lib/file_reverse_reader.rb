@@ -36,7 +36,7 @@ class FileReverseReader
 
   def binary_file?
     sample = io.read(1024) || ""
-    !sample.force_encoding('us-ascii').valid_encoding?
+    !sample.force_encoding('utf-8').valid_encoding?
   ensure
     io.rewind
   end
@@ -44,6 +44,7 @@ class FileReverseReader
   private
 
   def split_each_line(buf, &block)
+    return unless buf.force_encoding('utf-8').valid_encoding?
     buf.split($/).reverse.each do |line|
       block.call(line)
     end

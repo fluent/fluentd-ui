@@ -50,23 +50,41 @@ describe FileReverseReader do
 
   describe "#tail" do
     let(:logfile) { File.expand_path("./tmp/log.log", Rails.root) }
-    let(:log_lines) { 100 }
-    before { File.open(logfile, "w"){|f| f.write("foo\n" * log_lines) } }
-    subject { instance.tail(count) }
+    before { File.open(logfile, "wb"){|f| f.write(content) } }
 
-    context "2" do
-      let(:count) { 2 }
-      it { subject.to_a.size.should == count }
+    describe "count" do
+      let(:log_lines) { 100 }
+      let(:content) { "foo\n" * log_lines }
+      subject { instance.tail(count) }
+
+      context "2" do
+        let(:count) { 2 }
+        it { subject.to_a.size.should == count }
+      end
+
+      context "50" do
+        let(:count) { 50 }
+        it { subject.to_a.size.should == count }
+      end
+
+      context "over log lines" do
+        let(:count) { log_lines + 100 }
+        it { subject.to_a.size.should == log_lines }
+      end
     end
 
-    context "50" do
-      let(:count) { 50 }
-      it { subject.to_a.size.should == count }
-    end
+    describe "non-ascii encoding" do
+      subject { instance.tail }
 
-    context "over log lines" do
-      let(:count) { log_lines + 100 }
-      it { subject.to_a.size.should == log_lines }
+      context "compatible with utf-8" do
+        let(:content) { "utf8あいう\n" }
+        it { subject.to_a.should == [content.strip] }
+      end
+
+      context "incompatible with utf-8" do
+        let(:content) { "eucあいう\n".encode('euc-jp') }
+        it { subject.to_a.should == [] }
+      end
     end
   end
 end
