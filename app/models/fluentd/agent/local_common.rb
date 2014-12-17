@@ -64,7 +64,7 @@ class Fluentd
       end
 
       def backup_files
-        Dir.glob("#{config_backup_dir}/*")
+        Dir.glob(File.join("#{config_backup_dir}", "*.conf"))
       end
 
       def backup_files_in_old_order
@@ -80,7 +80,7 @@ class Fluentd
       def backup_config
         return unless File.exists? config_file
 
-        FileUtils.cp config_file, config_backup_dir + "/#{Time.zone.now.strftime('%Y%m%d_%H%M%S')}.conf"
+        FileUtils.cp config_file, File.join(config_backup_dir, "#{Time.zone.now.strftime('%Y%m%d_%H%M%S')}.conf")
 
         remove_over_backup_files
       end

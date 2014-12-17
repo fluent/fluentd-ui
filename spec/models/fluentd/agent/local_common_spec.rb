@@ -49,7 +49,7 @@ describe 'Fluentd::Agent::LocalCommon' do
     before do
       Fluentd::Agent::LocalCommon::MAX_BACKUP_FILE_NUM.times do |i|
         backpued_time = now - (i + 1).hours
-        FileUtils.touch daemon.agent.config_backup_dir + "/#{backpued_time.strftime('%Y%m%d_%H%M%S')}.conf"
+        FileUtils.touch File.join(daemon.agent.config_backup_dir , "#{backpued_time.strftime('%Y%m%d_%H%M%S')}.conf")
       end
 
       daemon.agent.config_write config_contents #add before conf
@@ -61,7 +61,7 @@ describe 'Fluentd::Agent::LocalCommon' do
     end
 
     it 'backed up old conf' do
-      backup_file = daemon.agent.config_backup_dir + "/#{now.strftime('%Y%m%d_%H%M%S')}.conf"
+      backup_file = File.join(daemon.agent.config_backup_dir, "#{now.strftime('%Y%m%d_%H%M%S')}.conf")
       expect(File.exists? backup_file).to be_truthy
       expect(File.read(backup_file)).to eq config_contents
     end

@@ -58,19 +58,19 @@ class Fluentd
       end
 
       def config_backup_dir
-        dir = FluentdUI.data_dir + "/#{Rails.env}_confg_backups"
+        dir = File.join(FluentdUI.data_dir, "#{Rails.env}_confg_backups")
         FileUtils.mkdir_p(dir)
         dir
       end
 
       def running_config_backup_dir
-        dir = FluentdUI.data_dir + "/#{Rails.env}_running_confg_backup"
+        dir = File.join(FluentdUI.data_dir, "#{Rails.env}_running_confg_backup")
         FileUtils.mkdir_p(dir)
         dir
       end
 
       def running_config_backup_file
-        running_config_backup_dir + "/running.conf"
+        File.join(running_config_backup_dir, "running.conf")
       end
 
       # define these methods on each Agent class
