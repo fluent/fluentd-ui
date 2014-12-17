@@ -28,7 +28,8 @@ class Fluentd
       end
 
       def write_to_file
-        File.open(file, "w"){|f| f.write formatted }
+        return unless Fluentd.instance
+        Fluentd.instance.agent.config_write formatted
       end
 
       def formatted
