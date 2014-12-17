@@ -5,7 +5,7 @@ class Fluentd
 
       def self.find_by_file_id(backup_dir, file_id)
         file_path = Pathname.new(backup_dir).join("#{file_id}.conf")
-        raise "No suce file #{file_path}" unless File.exist?(file_path)
+        raise "No such a file #{file_path}" unless File.exist?(file_path)
 
         new(file_path)
       end

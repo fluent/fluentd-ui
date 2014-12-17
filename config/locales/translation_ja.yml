@@ -119,6 +119,7 @@ ja:
         %{brand}の設定を削除します。
 
         <p>起動中の%{brand}は停止し、ログや設定ファイルはそのまま残存します。</p>
+      never_started_yet: "%{brand} は起動されたことがありません。"
     show:
       page_title: "ダッシュボード"
     new:
@@ -260,6 +261,10 @@ ja:
           page_title: "設定履歴 | 一覧"
         show:
           page_title: "設定履歴 | 詳細"
+      running_backup:
+        title: "使用中の設定"
+        show:
+          page_title: "使用中の設定"
 
   misc:
     information:

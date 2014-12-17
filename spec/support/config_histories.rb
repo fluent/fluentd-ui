@@ -40,4 +40,18 @@ module ConfigHistories
       Timecop.return
     end
   end
+
+  shared_context 'daemon had been started once' do
+    let!(:backup_content){ "Running backup file content" }
+
+    before do
+      File.open(daemon.agent.running_config_backup_file, "w") do |file|
+        file.write(backup_content)
+      end
+    end
+
+    after do
+      FileUtils.rm_r daemon.agent.running_config_backup_dir, force: true
+    end
+  end
 end

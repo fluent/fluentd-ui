@@ -67,6 +67,10 @@ Rails.application.routes.draw do
         resources :histories, only: [:index, :show], module: :settings, controller: :histories do
           post "reuse", action: 'reuse', on: :member, as: 'reuse'
         end
+
+        resource :running_backup, only: [:show], module: :settings, controller: :running_backup do
+          post "reuse", action: 'reuse', on: :member, as: 'reuse'
+        end
       end
     end
   end

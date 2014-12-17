@@ -11,7 +11,7 @@ en:
     password_successfully_updated: "Your password has been changed successfully."
     fluentd_status_running: Running
     fluentd_status_stopped: Stopped
-    config_successfully_copied: "Config has been copeid successfully. Please restart %{brand} to use the new config"
+    config_successfully_copied: "Config has been copied successfully. Please restart %{brand} to use the new config"
 
   terms: &terms
     name: Name
@@ -120,6 +120,7 @@ en:
         Delete %{brand} setting.
 
         <p>Running %{brand} will be stopped, but log and config file are still exists.</p>
+      never_started_yet: "%{brand} had never been started yet."
     show:
       page_title: Dashboard
     new:
@@ -255,6 +256,10 @@ en:
           page_title: "Setting Histories"
         show:
           page_title: "Reuse Setting History"
+      running_backup:
+        title: "Running Config"
+        show:
+          page_title: "Running Config"
 
   misc:
     information:
