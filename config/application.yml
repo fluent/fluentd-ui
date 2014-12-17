@@ -1,6 +1,8 @@
 defaults: &defaults
   default_password: changeme
   default_log_tail_count: 30
+  histories_count_in_preview: 5
+  max_backup_files_count: 100
   recommended_plugins:
     - category: filter
       name: "rewrite-tag-filter"

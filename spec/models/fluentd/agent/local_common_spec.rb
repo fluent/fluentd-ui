@@ -47,7 +47,7 @@ describe 'Fluentd::Agent::LocalCommon' do
     CONF
 
     before do
-      Fluentd::Agent::LocalCommon::MAX_BACKUP_FILE_NUM.times do |i|
+      ::Settings.max_backup_files_count.times do |i|
         backpued_time = now - (i + 1).hours
         FileUtils.touch File.join(daemon.agent.config_backup_dir , "#{backpued_time.strftime('%Y%m%d_%H%M%S')}.conf")
       end
@@ -68,7 +68,7 @@ describe 'Fluentd::Agent::LocalCommon' do
 
     it 'keep files num up to max' do
       backup_files = Dir.glob("#{daemon.agent.config_backup_dir}/*").sort
-      expect(backup_files.size).to eq Fluentd::Agent::LocalCommon::MAX_BACKUP_FILE_NUM
+      expect(backup_files.size).to eq ::Settings.max_backup_files_count
     end
   end
 end

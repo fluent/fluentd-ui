@@ -1,8 +1,6 @@
 class Fluentd
   class Agent
     module LocalCommon
-      MAX_BACKUP_FILE_NUM = 100
-
       def running?
         begin
           pid && Process.kill(0, pid)
@@ -86,7 +84,7 @@ class Fluentd
       end
 
       def remove_over_backup_files
-        over_file_count = backup_files.size - MAX_BACKUP_FILE_NUM
+        over_file_count = backup_files.size - ::Settings.max_backup_files_count
 
         return if over_file_count <= 0
 

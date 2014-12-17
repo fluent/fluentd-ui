@@ -17,7 +17,7 @@ describe 'setting', stub: :daemon do
     page.should have_css('h1', text: I18n.t('fluentd.settings.show.page_title'))
     page.should have_link(I18n.t('terms.edit'))
     page.should have_css('pre', text: 'GREAT CONFIG HERE')
-    expect(all('.row li').count).to eq 5 #links to hisotries#show
+    expect(all('.row li').count).to eq Settings.histories_count_in_preview #links to hisotries#show
     page.should have_link(I18n.t('fluentd.settings.show.link_to_histories'))
     page.should have_text(I18n.t('fluentd.settings.running_backup.title'))
   end
