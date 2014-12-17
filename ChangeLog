@@ -1,3 +1,8 @@
+Release 0.3.10 - 2014/12/17
+* [maintenance] Update components.
+* [improve] Add fluentd default plugin settings.
+* [fixed] Fix #121. Change to allow utf-8 string instead of ascii.
+
 Release 0.3.9 - 2014/12/01
 
 * [improve] Display current setting for each section.
