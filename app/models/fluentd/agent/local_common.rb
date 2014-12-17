@@ -64,11 +64,15 @@ class Fluentd
       end
 
       def backup_files
-        Dir.glob("#{config_backup_dir}/*").sort
+        Dir.glob("#{config_backup_dir}/*")
+      end
+
+      def backup_files_in_old_order
+        backup_files.sort
       end
 
       def backup_files_in_new_order
-        backup_files.reverse
+        backup_files_in_old_order.reverse
       end
 
       private
@@ -84,9 +88,11 @@ class Fluentd
       def remove_over_backup_files
         over_file_count = backup_files.size - MAX_BACKUP_FILE_NUM
 
-        #.times do nothing if over_file_count is negative or 0.
-        over_file_count.times do |i|
-          FileUtils.rm(backup_files.shift)
+        return if over_file_count <= 0
+
+        backup_files_in_old_order.first(over_file_count).each do |file|
+          next unless File.exist? file
+          FileUtils.rm(file)
         end
       end
 
