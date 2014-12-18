@@ -73,14 +73,6 @@ class Fluentd
     end
   end
 
-  def api
-    Api::Http.new(api_endpoint)
-  end
-
-  def api_endpoint
-    # TODO: autodetect from parsed configuration, but unused for now
-  end
-
   def label
     "fluentd" # NOTE: for multiple fluentd management, but only single fluentd manage now
   end

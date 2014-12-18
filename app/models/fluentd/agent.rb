@@ -5,7 +5,6 @@ require 'fluent/supervisor'
 require "fluentd/agent/common"
 require "fluentd/agent/fluentd_gem"
 require "fluentd/agent/td_agent"
-require "fluentd/agent/remote"
 
 class Fluentd
   class Agent
