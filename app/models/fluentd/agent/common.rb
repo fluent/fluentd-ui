@@ -57,6 +57,21 @@ class Fluentd
         extra_options[:config_file] || self.class.default_options[:config_file]
       end
 
+      def config_backup_dir
+        dir = File.join(FluentdUI.data_dir, "#{Rails.env}_confg_backups")
+        FileUtils.mkdir_p(dir)
+        dir
+      end
+
+      def running_config_backup_dir
+        dir = File.join(FluentdUI.data_dir, "#{Rails.env}_running_confg_backup")
+        FileUtils.mkdir_p(dir)
+        dir
+      end
+
+      def running_config_backup_file
+        File.join(running_config_backup_dir, "running.conf")
+      end
 
       # define these methods on each Agent class
 
@@ -70,6 +85,19 @@ class Fluentd
         define_method(method) do
           raise NotImplementedError, "'#{method}' method is required to be defined"
         end
+      end
+
+      private
+
+      def backup_running_config
+        #back up config file only when start success
+        return unless yield
+
+        return unless File.exists? config_file
+
+        FileUtils.cp config_file, running_config_backup_file
+
+        true
       end
     end
   end

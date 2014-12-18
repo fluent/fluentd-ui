@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe 'setting', stub: :daemon do
   let!(:exists_user) { build(:user) }
+  include_context 'daemon has some config histories'
+  include_context 'daemon had been started once'
 
   before do
     login_with exists_user
@@ -15,6 +17,21 @@ describe 'setting', stub: :daemon do
     page.should have_css('h1', text: I18n.t('fluentd.settings.show.page_title'))
     page.should have_link(I18n.t('terms.edit'))
     page.should have_css('pre', text: 'GREAT CONFIG HERE')
+    expect(all('.row li').count).to eq Settings.histories_count_in_preview #links to hisotries#show
+    page.should have_link(I18n.t('fluentd.settings.show.link_to_histories'))
+    page.should have_text(I18n.t('fluentd.settings.running_backup.title'))
+  end
+
+  it 'will go to histories#index' do
+    click_link I18n.t('fluentd.settings.show.link_to_histories')
+
+    page.should have_css('h1', text: I18n.t('fluentd.settings.histories.index.page_title'))
+  end
+
+  it 'will go to histories#show' do
+    all('.row li a').first.click
+
+    page.should have_css('h1', text: I18n.t('fluentd.settings.histories.show.page_title'))
   end
 
   it 'edits setting' do

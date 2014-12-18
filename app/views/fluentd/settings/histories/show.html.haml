@@ -1,0 +1,11 @@
+- page_title t('.page_title', label: @fluentd.label) do
+  - link_to reuse_daemon_setting_history_path(id: @backup_file.file_id), method: 'post', class: "btn btn-primary pull-right" do
+    = icon('fa-pencil')
+    = t("terms.reuse")
+
+.row
+  .col-xs-12
+    %pre
+      = preserve do
+        = @backup_file.content
+

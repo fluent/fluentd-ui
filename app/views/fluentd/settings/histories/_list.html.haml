@@ -1,0 +1,6 @@
+%ul
+  - @backup_files.each do |file|
+    %li
+      = link_to(file.name, daemon_setting_history_path(id: file.file_id))
+      %label= t('terms.backup_time')
+      = file.ctime.strftime(I18n.t 'time.formats.default')

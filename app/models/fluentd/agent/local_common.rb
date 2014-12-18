@@ -20,12 +20,14 @@ class Fluentd
       end
 
       def config_write(content)
+        backup_config
         File.open(config_file, "w") do |f|
           f.write content
         end
       end
 
       def config_append(content)
+        backup_config
         File.open(config_file, "a") do |f|
           f.write "\n"
           f.write content
@@ -59,7 +61,38 @@ class Fluentd
         File.read(pid_file).to_i rescue nil
       end
 
+      def backup_files
+        Dir.glob(File.join("#{config_backup_dir}", "*.conf"))
+      end
+
+      def backup_files_in_old_order
+        backup_files.sort
+      end
+
+      def backup_files_in_new_order
+        backup_files_in_old_order.reverse
+      end
+
       private
+
+      def backup_config
+        return unless File.exists? config_file
+
+        FileUtils.cp config_file, File.join(config_backup_dir, "#{Time.zone.now.strftime('%Y%m%d_%H%M%S')}.conf")
+
+        remove_over_backup_files
+      end
+
+      def remove_over_backup_files
+        over_file_count = backup_files.size - ::Settings.max_backup_files_count
+
+        return if over_file_count <= 0
+
+        backup_files_in_old_order.first(over_file_count).each do |file|
+          next unless File.exist? file
+          FileUtils.rm(file)
+        end
+      end
 
       def logged_errors(&block)
         return [] unless File.exist?(log_file)

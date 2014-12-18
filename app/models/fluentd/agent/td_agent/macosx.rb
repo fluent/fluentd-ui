@@ -4,7 +4,9 @@ class Fluentd
       module Macosx
 
         def start
-          detached_command("launchctl load #{plist}") && pid_from_launchctl
+          backup_running_config do
+            detached_command("launchctl load #{plist}") && pid_from_launchctl
+          end
         end
 
         def stop

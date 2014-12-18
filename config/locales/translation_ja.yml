@@ -11,6 +11,7 @@ ja:
     password_successfully_updated: "パスワードを変更しました。"
     fluentd_status_running: 稼働中
     fluentd_status_stopped: 停止中
+    config_successfully_copied: "設定をコピーしました。反映させるには、 %{brand}を再起動してください。"
 
   terms: &terms
     name: アカウント名
@@ -58,6 +59,8 @@ ja:
     notice_restart_for_config_edit: "※更新すると稼働中の%{brand}が再起動されます"
     lines: 行
     languages: 言語
+    backup_time: バックアップ日時
+    reuse: 再利用
 
   plugins:
     view_on_rubygems_org: rubygems.orgで見る
@@ -116,6 +119,7 @@ ja:
         %{brand}の設定を削除します。
 
         <p>起動中の%{brand}は停止し、ログや設定ファイルはそのまま残存します。</p>
+      never_started_yet: "%{brand} は起動されたことがありません。"
     show:
       page_title: "ダッシュボード"
     new:
@@ -136,6 +140,7 @@ ja:
         setting_empty: 設定されていません
       show:
         page_title: 設定ファイルの編集
+        link_to_histories: さらに過去の履歴をみる
       edit:
         page_title: 設定ファイルの編集
       out_forward:
@@ -250,6 +255,16 @@ ja:
           page_title: "ファイル読み込み | その他の設定"
         confirm:
           page_title: "ファイル読み込み | 確認"
+      history: 設定履歴
+      histories:
+        index:
+          page_title: "設定履歴 | 一覧"
+        show:
+          page_title: "設定履歴 | 詳細"
+      running_backup:
+        title: "使用中の設定"
+        show:
+          page_title: "使用中の設定"
 
   misc:
     information:

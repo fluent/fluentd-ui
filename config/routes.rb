@@ -63,6 +63,14 @@ Rails.application.routes.draw do
         resource :out_elasticsearch, only: [:show], module: :settings, controller: :out_elasticsearch do
           post "finish"
         end
+
+        resources :histories, only: [:index, :show], module: :settings, controller: :histories do
+          post "reuse", action: 'reuse', on: :member, as: 'reuse'
+        end
+
+        resource :running_backup, only: [:show], module: :settings, controller: :running_backup do
+          post "reuse", action: 'reuse', on: :member, as: 'reuse'
+        end
       end
     end
   end

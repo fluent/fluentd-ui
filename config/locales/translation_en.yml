@@ -11,6 +11,7 @@ en:
     password_successfully_updated: "Your password has been changed successfully."
     fluentd_status_running: Running
     fluentd_status_stopped: Stopped
+    config_successfully_copied: "Config has been copied successfully. Please restart %{brand} to use the new config"
 
   terms: &terms
     name: Name
@@ -58,6 +59,8 @@ en:
     notice_restart_for_config_edit: "NOTICE: running %{brand} will restart after update config"
     lines: Lines
     languages: Language
+    backup_time: Backed up at
+    reuse: reuse
 
   plugins:
     view_on_rubygems_org: View on rubygems.org
@@ -117,6 +120,7 @@ en:
         Delete %{brand} setting.
 
         <p>Running %{brand} will be stopped, but log and config file are still exists.</p>
+      never_started_yet: "%{brand} had never been started yet."
     show:
       page_title: Dashboard
     new:
@@ -138,6 +142,7 @@ en:
       show:
         page_title: Config File
         in_out_head: In/Out setting
+        link_to_histories: See more histories
       edit:
         page_title: Edit Config File
       out_forward:
@@ -245,6 +250,16 @@ en:
           page_title: "Config Parameters"
         confirm:
           page_title: "Confirmation"
+      history: "Setting History"
+      histories:
+        index:
+          page_title: "Setting Histories"
+        show:
+          page_title: "Reuse Setting History"
+      running_backup:
+        title: "Running Config"
+        show:
+          page_title: "Running Config"
 
   misc:
     information:
