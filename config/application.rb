@@ -20,6 +20,7 @@ require "sucker_punch"
 require "settingslogic"
 require "kramdown-haml"
 require "jbuilder"
+require "diff/lcs"
 
 module FluentdUi
   class Application < Rails::Application
