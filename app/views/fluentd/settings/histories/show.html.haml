@@ -14,8 +14,21 @@
       %p= @backup_file.note.content
 
 .row
-  .col-xs-12
+  .col-xs-6
+    %h2 Current
+    %pre
+      = preserve do
+        = @current
+  .col-xs-6
+    %h2 Target
     %pre
       = preserve do
         = @backup_file.content
 
+  .col-xs-12.diff
+    %h2
+      Diff: 
+      current
+      = ".."
+      = params[:id]
+    = preserve render "diff"

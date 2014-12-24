@@ -169,3 +169,11 @@ label {
 .datetime {
   white-space: nowrap;
 }
+.diff {
+  .deleted {
+    background-color: #fdd;
+  }
+  .added {
+    background-color: #dfd;
+  }
+}
