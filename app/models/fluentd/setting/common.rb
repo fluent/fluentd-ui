@@ -7,6 +7,35 @@ class Fluentd
       module ClassMethods
         attr_accessor :values, :types, :children, :hidden_values
 
+        def configure_with_yaml(path)
+          params =  ActiveSupport::HashWithIndifferentAccess.new_from_hash_copying_default YAML.load_file(Rails.root.join("config","plugins",path))
+          keys = params[:keys][:common] + params[:keys][:advanced]
+          const_set(:KEYS, keys.freeze)
+          attr_accessor(*keys)
+          define_singleton_method(:initial_params) do
+            params[:initial_params]
+          end
+          define_method(:common_options) do
+            params[:keys][:common]
+          end
+          define_method(:advanced_options) do
+            params[:keys][:advanced]
+          end
+          params[:validations].each_pair do |key, value|
+            validates key, value
+          end
+
+          params[:types][:choice].each_pair do |key, choices|
+            choice key, choices
+          end
+          params[:types][:booleans].each do |key|
+            booleans key
+          end
+          params[:types][:flags].each do |key|
+            flags key
+          end
+        end
+
         def choice(key, values)
           @values ||= {}
           @values[key] = values
