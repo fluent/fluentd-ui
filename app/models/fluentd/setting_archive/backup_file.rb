@@ -1,5 +1,5 @@
 class Fluentd
-  module Setting
+  module SettingArchive
     class BackupFile
       attr_accessor :file_path
 
