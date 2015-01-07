@@ -4,12 +4,8 @@ class Fluentd::Settings::NotesController < ApplicationController
   before_action :find_note, only: [:update]
 
   def update
-    if @note.update(params[:note][:content])
-      flash[:success] = t('messages.note_updating_success')
-    else
-      flash[:error] = t('errors.messages.note_updating_failed')
-    end
-    redirect_to daemon_setting_path
+    @note.update!(params[:note][:content])
+    redirect_to daemon_setting_path, flash: { success: t('messages.note_updating_success') }
   end
 
   private

@@ -287,7 +287,6 @@ en:
       is_a_directory: is a directory. should be a file
       duplicated_conf: Configurations is duplicated
       out_forward_blank_server: server settings should be at least one
-      note_updating_failed: Updating the note is failed. See application logs.
 
   activemodel: &activemodel
     errors:

@@ -292,7 +292,6 @@ ja:
       is_a_directory: はディレクトリです。ファイルを指定してください
       duplicated_conf: 同じ内容の設定がすでに存在しています
       out_forward_blank_server: serverの設定がありません。
-      note_updating_failed: メモの更新に失敗しました。ログを確認して下さい。
 
   activemodel: &activemodel
     errors:
