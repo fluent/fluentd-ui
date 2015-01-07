@@ -13,7 +13,7 @@ class Fluentd
 
       def initialize(file_path, note = nil)
         @file_path = file_path
-        @note = note || Note.create(file_path.sub(/#{Regexp.escape(FILE_EXTENSION)}$/, Note::FILE_EXTENSION))
+        @note = note || Note.create(file_path.sub(/#{Regexp.escape(FILE_EXTENSION)}\z/, Note::FILE_EXTENSION))
       end
     end
   end
