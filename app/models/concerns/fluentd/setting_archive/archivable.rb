@@ -15,7 +15,7 @@ class Fluentd
       end
 
       def file_id
-        @file_id ||= with_file { name.gsub(/#{self.class::FILE_EXTENSION}\Z/,'') }
+        @file_id ||= with_file { name.gsub(/#{Regexp.escape(self.class::FILE_EXTENSION)}\Z/,'') }
       end
 
       def name
