@@ -3,6 +3,13 @@
     = icon('fa-pencil')
     = t("terms.reuse")
 
+- if @backup_file.note.content.present?
+  .row
+    .col-xs-12
+      %pre
+        = preserve do
+          = @backup_file.note.content
+
 .row
   .col-xs-12
     %pre
