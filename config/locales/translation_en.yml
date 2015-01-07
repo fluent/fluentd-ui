@@ -12,6 +12,7 @@ en:
     fluentd_status_running: Running
     fluentd_status_stopped: Stopped
     config_successfully_copied: "Config has been copied successfully. Please restart %{brand} to use the new config"
+    note_updating_success: "Note successfully updated."
 
   terms: &terms
     name: Name
@@ -59,7 +60,9 @@ en:
     notice_restart_for_config_edit: "NOTICE: running %{brand} will restart after update config"
     lines: Lines
     languages: Language
+    backup_file: Backup File
     backup_time: Backed up at
+    note: Note
     reuse: reuse
 
   plugins:

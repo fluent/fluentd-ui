@@ -1,21 +1,21 @@
 class Fluentd
-  module Setting
-    class BackupFile
+  module SettingArchive
+    module Archivable
+      extend ActiveSupport::Concern
       attr_accessor :file_path
 
-      def self.find_by_file_id(backup_dir, file_id)
-        file_path = Pathname.new(backup_dir).join("#{file_id}.conf")
-        raise "No such a file #{file_path}" unless File.exist?(file_path)
+      module ClassMethods
+        private
 
-        new(file_path)
-      end
-
-      def initialize(file_path)
-        @file_path = file_path
+        def file_path_of(dir, id)
+          file_path = Pathname.new(dir).join("#{id}#{self::FILE_EXTENSION}")
+          raise "No such a file #{file_path}" unless File.exist?(file_path)
+          file_path
+        end
       end
 
       def file_id
-        @file_id ||= with_file { name.gsub(/.conf\Z/,'') }
+        @file_id ||= with_file { name.gsub(/#{Regexp.escape(self.class::FILE_EXTENSION)}\Z/,'') }
       end
 
       def name

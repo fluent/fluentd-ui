@@ -7,10 +7,10 @@ class Fluentd::SettingsController < ApplicationController
 
   def show
     @backup_files = @fluentd.agent.backup_files_in_new_order.first(Settings.histories_count_in_preview).map do |file_path|
-      Fluentd::Setting::BackupFile.new(file_path)
+      Fluentd::SettingArchive::BackupFile.new(file_path)
     end
 
-    @running_backedup_file = Fluentd::Setting::BackupFile.new(@fluentd.agent.running_config_backup_file)
+    @running_backedup_file = Fluentd::SettingArchive::BackupFile.new(@fluentd.agent.running_config_backup_file)
   end
 
   def edit

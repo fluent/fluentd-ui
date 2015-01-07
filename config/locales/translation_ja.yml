@@ -12,6 +12,7 @@ ja:
     fluentd_status_running: 稼働中
     fluentd_status_stopped: 停止中
     config_successfully_copied: "設定をコピーしました。反映させるには、 %{brand}を再起動してください。"
+    note_updating_success: "メモを更新しました。"
 
   terms: &terms
     name: アカウント名
@@ -59,7 +60,9 @@ ja:
     notice_restart_for_config_edit: "※更新すると稼働中の%{brand}が再起動されます"
     lines: 行
     languages: 言語
+    backup_file: バックアップファイル
     backup_time: バックアップ日時
+    note: メモ
     reuse: 再利用
 
   plugins:

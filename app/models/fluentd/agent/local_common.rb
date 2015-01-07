@@ -89,8 +89,9 @@ class Fluentd
         return if over_file_count <= 0
 
         backup_files_in_old_order.first(over_file_count).each do |file|
-          next unless File.exist? file
-          FileUtils.rm(file)
+          note_file_attached_backup = file.sub(/#{Regexp.escape(File.extname(file))}\z/, ::Fluentd::SettingArchive::Note::FILE_EXTENSION)
+          FileUtils.rm(note_file_attached_backup) if File.exist? note_file_attached_backup
+          FileUtils.rm(file) if File.exist? file
         end
       end
 
