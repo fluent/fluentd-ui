@@ -68,6 +68,8 @@ Rails.application.routes.draw do
           post "reuse", action: 'reuse', on: :member, as: 'reuse'
         end
 
+        resources :notes, only: [:update], module: :settings, controller: :notes
+
         resource :running_backup, only: [:show], module: :settings, controller: :running_backup do
           post "reuse", action: 'reuse', on: :member, as: 'reuse'
         end
