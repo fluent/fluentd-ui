@@ -11,4 +11,4 @@
       %td
         = form_for :note, url: daemon_setting_note_path(id: file.note.file_id), method: :patch do |f|
           = f.text_field :content, value: file.note.content, class: "note-content", id: nil
-          = submit_tag t('terms.save'), class: 'btn'
+          = submit_tag t('terms.save'), class: 'btn btn-default btn-sm pull-right'
