@@ -10,5 +10,5 @@
       %td= file.ctime.strftime t('time.formats.default')
       %td
         = form_for :note, url: daemon_setting_note_path(id: file.note.file_id), method: :patch do |f|
-          = f.text_field :content, value: file.note.content
+          = f.text_field :content, value: file.note.content, class: "note-content", id: nil
           = submit_tag t('terms.save'), class: 'btn'
