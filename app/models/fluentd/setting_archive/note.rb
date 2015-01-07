@@ -12,6 +12,18 @@ class Fluentd
       def initialize(file_path)
         @file_path = file_path
       end
+
+      def update(content)
+        begin
+          File.open(@file_path, "w") do |f|
+            f.write content
+          end
+        rescue => ex
+          Rails.logger.error ex.message
+          return false
+        end
+        true
+      end
     end
   end
 end
