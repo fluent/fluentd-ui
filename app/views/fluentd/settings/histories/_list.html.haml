@@ -1,9 +1,14 @@
-%ul
+%table.table.table-hover.table-bordered
+  %tbody
+    %tr
+      %th= t('terms.backup_file')
+      %th= t('terms.backup_time')
+      %th= t('terms.note')
   - @backup_files.each do |file|
-    %li
-      = link_to(file.name, daemon_setting_history_path(id: file.file_id))
-      %label= t('terms.backup_time')
-      = file.ctime.strftime(I18n.t 'time.formats.default')
-      = form_for :note, url: daemon_setting_note_path(id: file.note.file_id), method: :patch, id: "note-#{file.note.file_id}" do |f|
-        = f.text_field :content, value: file.note.content
-        = submit_tag t('terms.save'), class: 'btn'
+    %tr
+      %td= link_to(file.name, daemon_setting_history_path(id: file.file_id))
+      %td= file.ctime.strftime(I18n.t 'time.formats.default')
+      %td
+        = form_for :note, url: daemon_setting_note_path(id: file.note.file_id), method: :patch do |f|
+          = f.text_field :content, value: file.note.content
+          = submit_tag t('terms.save'), class: 'btn'

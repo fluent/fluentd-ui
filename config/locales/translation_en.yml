@@ -60,7 +60,9 @@ en:
     notice_restart_for_config_edit: "NOTICE: running %{brand} will restart after update config"
     lines: Lines
     languages: Language
+    backup_file: Backup File
     backup_time: Backed up at
+    note: Note
     reuse: reuse
 
   plugins:

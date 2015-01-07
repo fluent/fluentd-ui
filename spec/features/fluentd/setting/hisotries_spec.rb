@@ -15,11 +15,11 @@ describe "histories", stub: :daemon do
 
     it 'show histories#index' do
       page.should have_css('h1', text: I18n.t('fluentd.settings.histories.index.page_title'))
-      expect(all('.row li').count).to eq 9 #links to hisotries#show
+      expect(all('.row tr').count).to eq 9 + 1 # links to hisotries#show + 1 table header
     end
 
     it 'will go to histories#show' do
-      all('.row li a').first.click
+      all('.row tr td a').first.click
 
       page.should have_css('h1', text: I18n.t('fluentd.settings.histories.show.page_title'))
     end
