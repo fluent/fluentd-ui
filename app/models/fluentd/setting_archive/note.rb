@@ -9,6 +9,11 @@ class Fluentd
         new(file_path_of(backup_dir, file_id))
       end
 
+      def self.create(file_path)
+        FileUtils.touch(file_path)
+        new(file_path)
+      end
+
       def initialize(file_path)
         @file_path = file_path
       end
