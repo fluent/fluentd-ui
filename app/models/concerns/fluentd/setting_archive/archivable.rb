@@ -1,7 +1,18 @@
 class Fluentd
   module SettingArchive
     module Archivable
+      extend ActiveSupport::Concern
       attr_accessor :file_path
+
+      module ClassMethods
+        private
+
+        def file_path_of(dir, id)
+          file_path = Pathname.new(dir).join("#{id}#{self::FILE_EXTENSION}")
+          raise "No such a file #{file_path}" unless File.exist?(file_path)
+          file_path
+        end
+      end
 
       def file_id
         @file_id ||= with_file { name.gsub(/#{self.class::FILE_EXTENSION}\Z/,'') }
@@ -20,12 +31,6 @@ class Fluentd
       end
 
       private
-
-      def file_path_of(dir, id)
-        file_path = Pathname.new(dir).join("#{id}#{self.class::FILE_EXTENSION}")
-        raise "No such a file #{file_path}" unless File.exist?(file_path)
-        file_path
-      end
 
       def with_file
         return nil unless file_path && File.exist?(file_path)
