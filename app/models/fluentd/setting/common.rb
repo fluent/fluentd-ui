@@ -7,6 +7,11 @@ class Fluentd
       module ClassMethods
         attr_accessor :values, :types, :children, :hidden_values
 
+        def installed_version(plugin_name, default = nil)
+          pl = Plugin.new(gem_name: plugin_name)
+          pl.installed_version || pl.latest_version
+        end
+
         def configure_with_yaml(path)
           params =  ActiveSupport::HashWithIndifferentAccess.new_from_hash_copying_default YAML.load_file(Rails.root.join("config","plugins",path))
           keys = params[:keys][:common] + params[:keys][:advanced]
