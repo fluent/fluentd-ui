@@ -12,7 +12,7 @@ module SettingsHelper
   def field_resolver(type, html, form, key, opts)
     case type
     when :hidden
-      return form.hidden_field(key)
+      html << form.hidden_field(key)
     when :boolean, :flag
       boolean_field(html, form, key, opts)
     when :choice
