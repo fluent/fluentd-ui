@@ -68,13 +68,11 @@ class Plugin
   end
 
   def summary
-    target_version = self.version || latest_version
-    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }.try(:[], "summary")
+    property("summary")
   end
 
   def authors
-    target_version = self.version || latest_version
-    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }.try(:[], "authors")
+    property("authors")
   end
 
   def inspect
@@ -110,11 +108,11 @@ class Plugin
   end
 
   def self.installing
-    processing.find_all{|data| data[:type] == :install }.map{|data| data[:plugin] }
+    processing_state(:install)
   end
 
   def self.uninstalling
-    processing.find_all{|data| data[:type] == :uninstall }.map{|data| data[:plugin] }
+    processing_state(:uninstall)
   end
 
   def gem_versions
@@ -137,6 +135,14 @@ class Plugin
   end
 
   private
+  def self.processing_state(state)
+    processing.find_all{|data| data[:type] == state }.map{ |data| data[:plugin] }
+  end
+
+  def property(prop)
+    target_version = self.version || latest_version
+    JSON.parse(gem_versions).find {|ver| ver["number"] == target_version }.try(:[], prop)
+  end
 
   def gem_install
     data = { plugin: self, state: :running, type: :install }
