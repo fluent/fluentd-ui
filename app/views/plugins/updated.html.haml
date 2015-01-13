@@ -5,25 +5,27 @@
 - else
   = form_tag(bulk_upgrade_plugins_path, method: :patch) do
     %table{class: "table table-striped table-hover"}
-      %tr
-        %th.col-xs-2= t('plugins.common.name')
-        %th.col-xs-2= t('plugins.common.authors')
-        %th.col-xs-6= t('plugins.common.summary')
-        %th.col-xs-1= t('plugins.common.installed_version')
-        %th.col-xs-1= t('plugins.common.latest_version')
-      - @plugins.each do |plugin|
+      %thead
         %tr
-          %td
-            = check_box_tag("plugins[]", plugin.gem_name, false, id: "plugin_#{plugin.gem_name}")
-            %label{for: "plugin_#{plugin.gem_name}"}
-              = plugin.gem_name
-          %td
-            = plugin.authors
-          %td
-            = plugin.summary
-          %td
-            = plugin.installed_version
-          %td
-            = plugin.latest_version
+          %th.col-xs-2= t('plugins.common.name')
+          %th.col-xs-2= t('plugins.common.authors')
+          %th.col-xs-6= t('plugins.common.summary')
+          %th.col-xs-1= t('plugins.common.installed_version')
+          %th.col-xs-1= t('plugins.common.latest_version')
+      %tbody
+        - @plugins.each do |plugin|
+          %tr
+            %td
+              = check_box_tag("plugins[]", plugin.gem_name, false, id: "plugin_#{plugin.gem_name}")
+              %label{for: "plugin_#{plugin.gem_name}"}
+                = plugin.gem_name
+            %td
+              = plugin.authors
+            %td
+              = plugin.summary
+            %td
+              = plugin.installed_version
+            %td
+              = plugin.latest_version
     = submit_tag t("terms.install_latest"), class: "btn btn-primary"
 
