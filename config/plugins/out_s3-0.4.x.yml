@@ -36,7 +36,7 @@ keys:
 validations:
   match:
     presence: true
-  s3_bucket:
+  s3_endpoint:
     presence: true
 types:
   choice:
