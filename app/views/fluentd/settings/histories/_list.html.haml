@@ -1,16 +1,17 @@
 %table.table.table-hover.table-bordered
-  %tbody
+  %thead
     %tr
       %th= t('terms.backup_file')
       %th= t('terms.backup_time')
       %th= t('terms.note')
-  - @backup_files.each do |file|
-    %tr
-      %td= link_to(file.name, daemon_setting_history_path(id: file.file_id))
-      %td.datetime= file.ctime.strftime t('time.formats.default')
-      %td
-        = form_for :note, url: daemon_setting_note_path(id: file.note.file_id), method: :patch do |f|
-          .form-group.input-group
-            = f.text_field :content, value: file.note.content, class: "note-content form-control", id: nil
-            %span.input-group-btn
-              = submit_tag t('terms.save'), class: 'btn btn-default'
+  %tbody
+    - @backup_files.each do |file|
+      %tr
+        %td= link_to(file.name, daemon_setting_history_path(id: file.file_id))
+        %td.datetime= file.ctime.strftime t('time.formats.default')
+        %td
+          = form_for :note, url: daemon_setting_note_path(id: file.note.file_id), method: :patch do |f|
+            .form-group.input-group
+              = f.text_field :content, value: file.note.content, class: "note-content form-control", id: nil
+              %span.input-group-btn
+                = submit_tag t('terms.save'), class: 'btn btn-default'
