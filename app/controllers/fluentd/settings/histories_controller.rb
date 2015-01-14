@@ -13,8 +13,4 @@ class Fluentd::Settings::HistoriesController < ApplicationController
     #Do not use BackupFile.new(params[:id]) because params[:id] can be any path.
     @backup_file = Fluentd::SettingArchive::BackupFile.find_by_file_id(@fluentd.agent.config_backup_dir, params[:id])
   end
-
-  def after_dryrun_redirect(flash)
-    redirect_to daemon_setting_history_path(params[:id]), flash: flash
-  end
 end

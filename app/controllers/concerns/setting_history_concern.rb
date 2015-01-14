@@ -22,7 +22,7 @@ module SettingHistoryConcern
     else
       flash = { danger: @fluentd.agent.log_tail(1).first }
     end
-    after_dryrun_redirect(flash)
+    redirect_to :back, flash: flash
   end
 
 end
