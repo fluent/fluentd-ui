@@ -21,7 +21,7 @@ module FluentGem
         if $? && $?.exitstatus != 0 # NOTE: $? will be nil on CircleCI, so check $? at first
           raise GemError, "failed command: `#{gem} list`"
         end
-        output.lines
+        output.lines.to_a
       end
     end
 
