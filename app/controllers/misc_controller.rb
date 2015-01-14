@@ -39,29 +39,38 @@ class MiscController < ApplicationController
 
     Zip::File.open(path, Zip::File::CREATE) do |zip|
       zip.get_output_stream('fluentd.log') {|f| f.puts fluentd.agent.log }
-      if ENV["FLUENTD_UI_LOG_PATH"].present?
-        zip.add("fluentd-ui.log", ENV["FLUENTD_UI_LOG_PATH"])
-      else
-        zip.add("fluentd-ui.log", Rails.root.join("log/#{Rails.env}.log"))
-      end
-      zip.get_output_stream('env.txt') do |f|
-        ENV.to_a.each do |(key, value)|
-          f.puts "#{key}=#{value}"
-        end
-      end
-      zip.get_output_stream('versions.txt') do |f|
-        f.puts "ruby: #{RUBY_DESCRIPTION}"
-        f.puts "fluentd: #{FluentdUI.fluentd_version}"
-        f.puts "fluentd-ui: #{FluentdUI::VERSION}"
-        f.puts
-        f.puts "# OS Information"
-        f.puts "uname -a: #{`uname -a`.strip}"
-      end
+      zip.add("fluentd-ui.log", log_path)
+
+      add_env_file_to(zip)
+      add_version_file_to(zip)
     end
     send_file path
   end
 
   private
+
+  def log_path
+    ENV["FLUENTD_UI_LOG_PATH"] || Rails.root.join("log/#{Rails.env}.log")
+  end
+
+  def add_env_file_to(zip)
+    zip.get_output_stream('env.txt') do |f|
+      ENV.to_a.each do |(key, value)|
+        f.puts "#{key}=#{value}"
+      end
+    end
+  end
+
+  def add_version_file_to(zip)
+    zip.get_output_stream('versions.txt') do |f|
+      f.puts "ruby: #{RUBY_DESCRIPTION}"
+      f.puts "fluentd: #{FluentdUI.fluentd_version}"
+      f.puts "fluentd-ui: #{FluentdUI::VERSION}"
+      f.puts
+      f.puts "# OS Information"
+      f.puts "uname -a: #{`uname -a`.strip}"
+    end
+  end
 
   def update!
     FluentdUiRestart.new.async.perform
