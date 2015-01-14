@@ -73,6 +73,7 @@ Rails.application.routes.draw do
 
         resource :running_backup, only: [:show], module: :settings, controller: :running_backup do
           post "reuse", action: 'reuse', on: :member, as: 'reuse'
+          post "configtest" , action: "configtest", on: :member, as: "configtest"
         end
       end
     end
