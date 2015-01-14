@@ -6,7 +6,7 @@ class Fluentd
 
       KEYS = [
         :match,
-        :aws_key_id, :aws_sec_key, :s3_bucket, :s3_endpoint, :path,
+        :aws_key_id, :aws_sec_key, :s3_bucket, :s3_region, :path,
         # :reduced_redundancy, :check_apikey_on_start, :command_parameter, # not configurable?
         :format, :include_time_key, :time_key, :delimiter, :label_delimiter, :add_newline, :output_tag, :output_time,
         :time_slice_format, :time_slice_wait, :time_format, :utc, :store_as, :proxy_uri, :use_ssl,
@@ -27,7 +27,7 @@ class Fluentd
 
       def self.initial_params
         {
-          s3_endpoint: "s3-us-west-1.amazonaws.com",
+          s3_region: "us-west-1",
           output_tag: true,
           output_time: true,
           use_ssl: true,
@@ -37,7 +37,7 @@ class Fluentd
       def common_options
         [
           :match, :aws_key_id, :aws_sec_key,
-          :s3_endpoint, :s3_bucket, :use_ssl, :path,
+          :s3_region, :s3_bucket, :use_ssl, :path,
         ]
       end
 
