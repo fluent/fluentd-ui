@@ -5,7 +5,7 @@ class Fluentd
       include LocalCommon
 
       def self.default_options
-       {
+        {
           :pid_file    => "#{ENV["HOME"]}/.fluentd-ui/fluent.pid",
           :log_file    => "#{ENV["HOME"]}/.fluentd-ui/fluent.log",
           :config_file => "#{ENV["HOME"]}/.fluentd-ui/fluent.conf",
