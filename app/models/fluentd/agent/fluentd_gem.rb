@@ -42,6 +42,12 @@ class Fluentd
         actual_reload
       end
 
+      def dryrun
+        Bundler.with_clean_env do
+          system("fluentd -q --dry-run #{options_to_argv}")
+        end
+      end
+
       def version
         Bundler.with_clean_env do
           `fluentd --version`.strip
@@ -60,9 +66,7 @@ class Fluentd
       end
 
       def validate_fluentd_options
-        Bundler.with_clean_env do
-          system("fluentd --dry-run #{options_to_argv}")
-        end
+        dryrun
       end
 
       def actual_start

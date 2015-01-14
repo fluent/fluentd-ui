@@ -133,11 +133,12 @@ class Fluentd
       end
 
       def detached_command(cmd)
-        Bundler.with_clean_env do
+        thread = Bundler.with_clean_env do
           pid = spawn(cmd)
           Process.detach(pid)
         end
-        sleep 1 # NOTE/FIXME: too early return will be caused incorrect status report, "sleep 1" is a adhoc hack
+        thread.join
+        thread.value.exitstatus.zero?
       end
     end
   end
