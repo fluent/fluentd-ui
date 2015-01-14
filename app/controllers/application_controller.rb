@@ -75,28 +75,38 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    available = I18n.available_locales.map(&:to_s)
-    if params[:lang] && available.include?(params[:lang])
+    I18n.locale = locale_from_params || locale_from_session || locale_from_http_accept_lang || I18n.default_locale
+  end
+
+  def locale_from_params
+    if params[:lang] && available_locales.include?(params[:lang])
       session[:prefer_lang] = params[:lang]
-      I18n.locale = params[:lang]
-      return
+      params[:lang]
+    else
+      nil
     end
-    if session[:prefer_lang]
-      I18n.locale = session[:prefer_lang]
-      return
+  end
+
+  def locale_from_session
+    session[:prefer_lang]
+  end
+
+  def locale_from_http_accept_lang
+    # NOTE: ignoring q=xxx in request header for now
+    return nil if request.env["HTTP_ACCEPT_LANGUAGE"].blank?
+
+    langs = request.env["HTTP_ACCEPT_LANGUAGE"].gsub(/q=[0-9.]+/, "").gsub(";","").split(",")
+    prefer = langs.find { |lang| available_locales.include?(lang) }
+
+    unless prefer
+      prefer = :en if langs.find{ |lang| lang.match(/^en/) }
     end
 
-    # NOTE: ignoring q=xxx in request header for now
-    return if request.env["HTTP_ACCEPT_LANGUAGE"].blank?
-    langs = request.env["HTTP_ACCEPT_LANGUAGE"].gsub(/q=[0-9.]+/, "").gsub(";","").split(",")
-    prefer = langs.find {|lang| available.include?(lang) }
-    unless prefer
-      if langs.find{|lang| lang.match(/^en/)}
-        I18n.locale = :en
-        return
-      end
-    end
-    I18n.locale = prefer
+    prefer
+  end
+
+  def available_locales
+    @available_locales ||= I18n.available_locales.map(&:to_s)
   end
 
   def file_tail(path, limit = 10)
