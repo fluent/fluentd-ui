@@ -13,11 +13,11 @@ class Fluentd
         end
 
         def restart
-          stop && start
+          dryrun && stop && start
         end
 
         def dryrun
-          detached_command("/usr/sbin/td-agent --dry-run -q --use-v1-config -c #{config_file} -o #{log_file}")
+          detached_command("/usr/sbin/td-agent --dry-run -q --use-v1-config -c #{config_file}")
         end
 
         private

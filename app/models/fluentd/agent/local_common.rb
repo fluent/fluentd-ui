@@ -138,7 +138,7 @@ class Fluentd
           Process.detach(pid)
         end
         thread.join
-        thread.value.exitstatus
+        thread.value.exitstatus.zero?
       end
     end
   end

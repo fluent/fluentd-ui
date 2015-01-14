@@ -44,7 +44,7 @@ class Fluentd
 
       def dryrun
         Bundler.with_clean_env do
-          system("fluentd --dry-run #{options_to_argv}")
+          system("fluentd -q --dry-run #{options_to_argv}")
         end
       end
 
