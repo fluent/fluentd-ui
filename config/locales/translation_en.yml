@@ -13,6 +13,7 @@ en:
     fluentd_status_stopped: Stopped
     config_successfully_copied: "Config has been copied successfully. Please restart %{brand} to use the new config"
     note_updating_success: "Note successfully updated."
+    dryrun_is_passed: Success without errors.
 
   terms: &terms
     name: Name
@@ -64,6 +65,7 @@ en:
     backup_time: Backed up at
     note: Note
     reuse: reuse
+    configtest: config test
 
   plugins:
     view_on_rubygems_org: View on rubygems.org

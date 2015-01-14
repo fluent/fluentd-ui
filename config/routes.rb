@@ -66,6 +66,7 @@ Rails.application.routes.draw do
 
         resources :histories, only: [:index, :show], module: :settings, controller: :histories do
           post "reuse", action: 'reuse', on: :member, as: 'reuse'
+          post "configtest" , action: "configtest", on: :member, as: "configtest"
         end
 
         resources :notes, only: [:update], module: :settings, controller: :notes
