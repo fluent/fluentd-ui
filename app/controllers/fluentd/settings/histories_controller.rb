@@ -22,7 +22,7 @@ class Fluentd::Settings::HistoriesController < ApplicationController
     if @fluentd.agent.dryrun
       flash = { success: t('messages.dryrun_is_passed') }
     else
-      flash = { danger: @fluentd.agent.log_tail(1).first }
+      flash = { danger: @fluentd.agent.recent_errors(1).first[:subject] }
     end
     redirect_to daemon_setting_history_path(params[:id]), flash: flash
   end
