@@ -75,7 +75,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    # NOTE: ignoring q=xxx in request header for now
     I18n.locale = locale_from_params || locale_from_session || locale_from_http_accept_lang || I18n.default_locale
   end
 
@@ -93,6 +92,7 @@ class ApplicationController < ActionController::Base
   end
 
   def locale_from_http_accept_lang
+    # NOTE: ignoring q=xxx in request header for now
     return nil if request.env["HTTP_ACCEPT_LANGUAGE"].blank?
 
     langs = request.env["HTTP_ACCEPT_LANGUAGE"].gsub(/q=[0-9.]+/, "").gsub(";","").split(",")
