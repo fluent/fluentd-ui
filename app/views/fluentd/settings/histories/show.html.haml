@@ -1,6 +1,6 @@
 - page_title t('.page_title', label: @fluentd.label)
 
-%p{class: "pull-right"}
+%p.pull-right
   = link_to configtest_daemon_setting_history_path(id: @backup_file.file_id), method: "post", class: "btn btn-default" do
     = icon('fa-legal')
     = t("terms.configtest")
