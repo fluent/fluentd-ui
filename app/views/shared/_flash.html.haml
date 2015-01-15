@@ -8,3 +8,6 @@
   - if flash[:info]
     %p.alert.alert-info
       =raw flash[:info]
+  - if flash[:danger]
+    %p.alert.alert-danger
+      =raw flash[:danger]
