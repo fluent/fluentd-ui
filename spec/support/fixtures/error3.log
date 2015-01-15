@@ -1,0 +1,7 @@
+2014-05-27 10:54:37 +0900 [info]: listening fluent socket on 0.0.0.0:24224
+2014-05-27 10:54:37 +0900 [error]: unexpected error error_class=Errno::EADDRINUSE error=#<Errno::EADDRINUSE: Address already in use - bind(2) for "0.0.0.0" port 24224>
+2014-05-27 10:55:40 +0900 [error]: unexpected error error_class=Errno::EADDRINUSE error=#<Errno::EADDRINUSE: Address already in use - bind(2) for "0.0.0.0" port 24224>
+  2014-05-27 10:55:40 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/cool.io-1.2.4/lib/cool.io/server.rb:57:in `initialize'
+  2014-05-27 10:55:40 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/cool.io-1.2.4/lib/cool.io/server.rb:57:in `new'
+2014-05-27 11:28:12 +0900 [error]: unexpected error error_class=Errno::EADDRINUSE error=#<Errno::EADDRINUSE: Address already in use - bind(2) for "0.0.0.0" port 24224>
+  2014-05-27 11:28:12 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/cool.io-1.2.4/lib/cool.io/server.rb:57:in `initialize'
