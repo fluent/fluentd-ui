@@ -108,6 +108,20 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
           one.should >= two
         end
       end
+
+      context "have 3 errors log includeing sequential 2 error log" do
+        let(:logfile) { File.expand_path("./spec/support/fixtures/error3.log", Rails.root) }
+        subject { instance.recent_errors(3) }
+
+        it "count 3 errors" do
+          subject[0][:subject].should include("3 Address already in use - bind(2)")
+          subject[0][:notes].size.should be 1
+          subject[1][:subject].should include("2 Address already in use - bind(2)")
+          subject[1][:notes].size.should be 2
+          subject[2][:subject].should include("1 Address already in use - bind(2)")
+          subject[2][:notes].size.should be 0
+        end
+      end
     end
   end
 end

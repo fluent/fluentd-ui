@@ -7,26 +7,24 @@ class FileReverseReader
   end
 
   def each_line(&block)
+    #read from the end of file
     io.seek(0, IO::SEEK_END)
     buf = ""
     loop do
       if reach_start_of_file?
-        last_pos = io.pos
-        io.seek(0, IO::SEEK_SET)
-        buf.insert(0, io.read(last_pos))
-        split_each_line(buf, &block)
+        read_rest(buf, &block)
         break
       end
 
-      io.seek(-1 * step, IO::SEEK_CUR)
-      buf.insert(0, io.read(step))
-      io.seek(-1 * step, IO::SEEK_CUR)
-      next if buf[$/].nil?
-      gap = buf.index($/)
-      buf.gsub!(/\A.*?\n/, "")
-      split_each_line(buf, &block)
-      buf = ""
-      io.seek(gap, IO::SEEK_CUR)
+      read_to_buf_by_step(buf)
+
+      #if buffer dose not include multi lines, seek more.
+      if buf[$/].nil?
+        next
+      else
+        split_only_whole_lines(buf, &block)
+        buf = ""
+      end
     end
   end
 
@@ -42,6 +40,33 @@ class FileReverseReader
   end
 
   private
+
+  def read_rest(buf, &block)
+    last_pos = io.pos
+    io.seek(0, IO::SEEK_SET)
+    buf.insert(0, io.read(last_pos))
+    split_each_line(buf, &block)
+  end
+
+  def read_to_buf_by_step(buf)
+    #move up file pointer by one step
+    io.seek(-1 * step, IO::SEEK_CUR) #point[A]
+    #read strings by one step from the pointer, and insert to buffer
+    #(on io.read, file pointer returns down to the point before [A])
+    buf.insert(0, io.read(step))
+    #forword file pointer to [A]
+    io.seek(-1 * step, IO::SEEK_CUR)
+  end
+
+  def split_only_whole_lines(buf, &block)
+    #if budder includes multi lines,
+    gap = buf.index($/)
+    #cut off first line (*first* line because it's seeking from end of file, and first line may be broken-line)
+    buf.gsub!(/\A.*?\n/, "")
+    split_each_line(buf, &block)
+    #move file pointer to the gap(= the end of *first* line)
+    io.seek(gap, IO::SEEK_CUR)
+  end
 
   def split_each_line(buf, &block)
     return unless buf.force_encoding('utf-8').valid_encoding?

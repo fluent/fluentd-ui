@@ -117,12 +117,14 @@ class Fluentd
               #           2014-06-30 11:24:08 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.2/lib/ruby/2.1.0/socket.rb:461:in `block in tcp_server_sockets'
               #         ]
               #       }
-              subject, *notes = *buf.reverse
-              block.call({
-                subject: subject,
-                notes: notes,
-              })
+              split_error_lines_to_error_units(buf.reverse).each do |error_unit|
+                block.call({
+                  subject: error_unit[:subject],
+                  notes: error_unit[:notes],
+                })
+              end
             end
+
             buf = []
             next
           end
@@ -130,6 +132,37 @@ class Fluentd
         end
       ensure
         io && io.close
+      end
+
+      def split_error_lines_to_error_units(buf)
+        # NOTE: if a following log is given
+        #
+        #2014-05-27 10:54:37 +0900 [error]: unexpected error error_class=Errno::EADDRINUSE error=#<Errno::#EADDRINUSE: Address already in use - bind(2) for "0.0.0.0" port 24224>
+        #2014-05-27 10:55:40 +0900 [error]: unexpected error error_class=Errno::EADDRINUSE error=#<Errno::#EADDRINUSE: Address already in use - bind(2) for "0.0.0.0" port 24224>
+        #  2014-05-27 10:55:40 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/cool.io-1.2.4/lib/cool.io/server.rb:57:in `initialize'
+        #  2014-05-27 10:55:40 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/cool.io-1.2.4/lib/cool.io/server.rb:57:in `new'
+        #
+        #the first line and second line must be each "error_unit". and after third lines lines are "notes" of second error unit of .
+        # [
+        #   { subject: "2014-05-27 10:54:37 +0900 [error]: unexpected error error_class=Errno::EADDRINUSE error=#<Errno::#EADDRINUSE: Address already in use - bind(2) for "0.0.0.0" port 24224>          ",
+        #     notes: [] },
+        #   { subject: "2014-05-27 10:55:40 +0900 [error]: unexpected error error_class=Errno::EADDRINUSE error=#<Errno::#EADDRINUSE: Address already in use - bind(2) for "0.0.0.0" port 24224>          ",
+        #     notes: [
+        #       "2014-05-27 10:55:40 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/cool.io-1.2.4/lib/cool.io/server.rb:57:in `initialize'",
+        #       "2014-05-27 10:55:40 +0900 [error]: /Users/uu59/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/cool.io-1.2.4/lib/cool.io/server.rb:57:in `new'"
+        #     ]
+        #   },
+        # ]
+        #
+        return_array = []
+        buf.each_with_index do |b, i|
+          if b.match(/\A /)
+            return_array[-1][:notes] << b
+          else
+            return_array << { subject: b, notes: [] }
+          end
+        end
+        return return_array.reverse
       end
 
       def detached_command(cmd)
