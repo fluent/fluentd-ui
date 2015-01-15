@@ -13,7 +13,7 @@ ja:
     fluentd_status_stopped: 停止中
     config_successfully_copied: "設定をコピーしました。反映させるには、 %{brand}を再起動してください。"
     note_updating_success: "メモを更新しました。"
-    dryrun_is_passed: 使用可能です
+    dryrun_is_passed: この設定でのdry-runが成功しました
 
   terms: &terms
     name: アカウント名
@@ -65,7 +65,7 @@ ja:
     backup_time: バックアップ日時
     note: メモ
     reuse: 再利用
-    configtest: 設定テスト
+    configtest: この設定を検証する(dry-run)
 
   plugins:
     view_on_rubygems_org: rubygems.orgで見る

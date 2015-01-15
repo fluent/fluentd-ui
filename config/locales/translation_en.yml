@@ -13,7 +13,7 @@ en:
     fluentd_status_stopped: Stopped
     config_successfully_copied: "Config has been copied successfully. Please restart %{brand} to use the new config"
     note_updating_success: "Note successfully updated."
-    dryrun_is_passed: Success without errors.
+    dryrun_is_passed: config test passed
 
   terms: &terms
     name: Name
