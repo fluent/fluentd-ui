@@ -25,24 +25,41 @@ module SettingsHelper
   end
 
   def nested_field(html, form, key, opts = {})
-    child_data = form.object.class.children[key]
-    klass = child_data[:class]
-    options = child_data[:options]
+    klass    = child_data(form, key)[:class]
+    options  = child_data(form, key)[:options]
     children = form.object.send(key) || {"0" => {}}
+
     children.each_pair do |index, child|
-      html << %Q!<div class="js-nested-column #{options[:multiple] ? "js-multiple" : ""} well well-sm">!
-      if options[:multiple]
-        html << %Q!<a class="btn btn-xs btn-default js-append">#{icon('fa-plus')}</a> !
-        html << %Q!<a class="btn btn-xs btn-default js-remove" style="display:none">#{icon('fa-minus')}</a> !
-      end
+      html << open_nested_div(options[:multiple])
+      html << append_and_remove_links if options[:multiple]
       html << h(form.label(key))
-      form.fields_for("#{key}[#{index}]", klass.new(child)) do |ff|
-        klass::KEYS.each do |k|
-          html << field(ff, k)
-        end
-      end
+      html << nested_fields(form, key, index, klass, child)
       html << "</div>"
     end
+  end
+
+  def open_nested_div(multiple)
+    %Q!<div class="js-nested-column #{ multiple ? "js-multiple" : "" } well well-sm">!
+  end
+
+  def nested_fields(form, key, index, klass, child)
+    nested_html = ""
+    form.fields_for("#{key}[#{index}]", klass.new(child)) do |ff|
+      klass::KEYS.each do |k|
+        nested_html << field(ff, k)
+      end
+    end
+
+    nested_html
+  end
+
+  def append_and_remove_links
+    %Q!<a class="btn btn-xs btn-default js-append">icon('fa-plus')}</a> ! +
+    %Q!<a class="btn btn-xs btn-default js-remove" style="display:none">icon('fa-minus')}</a> !
+  end
+
+  def child_data(form, key)
+    form.object.class.children[key]
   end
 
   def choice_field(html, form, key, opts = {})
