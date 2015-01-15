@@ -28,6 +28,19 @@ class FileReverseReader
     end
   end
 
+  def tail(limit = 10)
+    enum_for(:each_line).first(limit).reverse
+  end
+
+  def binary_file?
+    sample = io.read(1024) || ""
+    !sample.force_encoding('utf-8').valid_encoding?
+  ensure
+    io.rewind
+  end
+
+  private
+
   def read_rest(buf, &block)
     last_pos = io.pos
     io.seek(0, IO::SEEK_SET)
@@ -54,19 +67,6 @@ class FileReverseReader
     #move file pointer to the gap(= the end of *first* line)
     io.seek(gap, IO::SEEK_CUR)
   end
-
-  def tail(limit = 10)
-    enum_for(:each_line).first(limit).reverse
-  end
-
-  def binary_file?
-    sample = io.read(1024) || ""
-    !sample.force_encoding('utf-8').valid_encoding?
-  ensure
-    io.rewind
-  end
-
-  private
 
   def split_each_line(buf, &block)
     return unless buf.force_encoding('utf-8').valid_encoding?
