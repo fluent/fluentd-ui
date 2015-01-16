@@ -1,10 +1,21 @@
+Release 0.3.12 - 2015/01/16
+* [maintenance] #126-#131, #135, #138,#139 #CodeClimate score is now 4.0! special thanks to @rthbound for many pull-requests.
+* [fixed] #133 Incompatible config generated on out_s3 version 0.5.x or newer.
+* [fixed] #140 Fluentd::Agent#logged_errors methods returned wrong errors.
+* [fixed] #136 Caused error on gem list fetching on some environments.
+* [improve] #124 Enable to note config history.
+* [improve] #137 Add "config test" button to config histories. You can check config before reuse that.
+
+
 Release 0.3.11 - 2014/12/19
 * [improve] Save config history. Now any saved config files can be restored to the current.
+
 
 Release 0.3.10 - 2014/12/17
 * [maintenance] Update components.
 * [improve] Add fluentd default plugin settings.
 * [fixed] Fix #121. Change to allow utf-8 string instead of ascii.
+
 
 Release 0.3.9 - 2014/12/01
 

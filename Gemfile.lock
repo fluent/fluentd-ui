@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fluentd-ui (0.3.11)
+    fluentd-ui (0.3.12)
       addressable
       bundler
       draper (~> 1.3)
