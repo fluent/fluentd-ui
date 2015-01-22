@@ -14,6 +14,11 @@
  *= require sb-admin-v2/sb-admin
  *= require "sb-admin-v2/font-awesome/scss/font-awesome.scss"
  *= require bower/codemirror/lib/codemirror
+ *= require bower/codemirror/theme/neo
  *= require_tree .
  *= require_self
  */
+
+.CodeMirror {
+  height: auto;
+}

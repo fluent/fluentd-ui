@@ -19,5 +19,6 @@
 //= require bower/es6-promise/promise
 //= require bower/lodash/dist/lodash.compat
 //= require bower/codemirror/lib/codemirror
+//= require codemirror_fluentd
 //= require vue_common
 //= require_tree .
