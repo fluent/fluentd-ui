@@ -18,5 +18,6 @@
 //= require bower/vue/dist/vue
 //= require bower/es6-promise/promise
 //= require bower/lodash/dist/lodash.compat
+//= require bower/codemirror/lib/codemirror
 //= require vue_common
 //= require_tree .
