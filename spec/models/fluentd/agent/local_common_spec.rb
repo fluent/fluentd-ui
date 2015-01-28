@@ -48,8 +48,8 @@ describe 'Fluentd::Agent::LocalCommon' do
 
     before do
       ::Settings.max_backup_files_count.times do |i|
-        backpued_time = now - (i + 1).hours
-        FileUtils.touch File.join(daemon.agent.config_backup_dir , "#{backpued_time.strftime('%Y%m%d_%H%M%S')}.conf")
+        backuped_time = now - (i + 1).hours
+        FileUtils.touch File.join(daemon.agent.config_backup_dir , "#{backuped_time.strftime('%Y%m%d_%H%M%S')}.conf")
       end
 
       daemon.agent.config_write config_contents #add before conf
