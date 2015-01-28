@@ -15,7 +15,6 @@ $(function(){
 
 Vue.directive('config-editor', {
   bind: function(){
-    debugger;
     var $parent = this.vm;
     // NOTE: needed delay for waiting CodeMirror setup
     _.delay(function(textarea){
