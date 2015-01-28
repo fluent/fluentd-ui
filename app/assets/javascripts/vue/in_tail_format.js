@@ -120,9 +120,12 @@
         },
 
         preview: function(){
+          if(this.previewAjax) {
+            this.previewAjax.abort();
+          }
           var self = this;
           new Promise(function(resolve, reject) {
-            $.ajax({
+            self.previewAjax = $.ajax({
               method: "POST",
               url: "/api/regexp_preview",
               data: {
@@ -137,7 +140,9 @@
             self.regexpMatches = result.matches;
             self.updateHighlightedLines();
           })["catch"](function(error){
-            console.error(error.stack);
+            if(error.stack) {
+              console.error(error.stack);
+            }
           });
         },
       }
