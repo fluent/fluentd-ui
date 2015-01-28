@@ -9,7 +9,7 @@
   <div class='panel-body collapse' id='{{ id }}'>
     <pre v-if="mode != 'edit'">{{ content }}</pre>
     <p v-if="mode == 'edit'">
-      <textarea class="form-control" v-model="editContent" v-attr="disabled: processing"></textarea>
+      <textarea v-config-editor class="form-control" v-model="editContent" v-attr="disabled: processing"></textarea>
     </p>
     <p class="pull-right">
       <button v-if="mode != 'edit'" class="btn btn-default" v-on="click: onEdit"><%= t('terms.edit') %></button>
