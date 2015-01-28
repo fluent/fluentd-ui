@@ -1,3 +1,6 @@
 codemirror/*
 !codemirror/lib
 !codemirror/theme
+
+vue/*
+!vue/dist
