@@ -21,7 +21,11 @@ module FluentdUI
   end
 
   def self.data_dir
-    dir = ENV["FLUENTD_UI_DATA_DIR"].presence || ENV["HOME"] + "/.fluentd-ui/core_data"
+    if Rails.env.test?
+      dir = Rails.root.join("tmp", "core_data").to_s
+    else
+      dir = ENV["FLUENTD_UI_DATA_DIR"].presence || ENV["HOME"] + "/.fluentd-ui/core_data"
+    end
     FileUtils.mkdir_p(dir) # ensure directory exists
     dir
   end
