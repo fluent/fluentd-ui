@@ -1,3 +1,7 @@
+Release 0.3.13 - 2015/01/28
+* [improve] #143 Use CodeMirror for setting edit
+
+
 Release 0.3.12 - 2015/01/16
 * [maintenance] #126-#131, #135, #138,#139 #CodeClimate score is now 4.0! special thanks to @rthbound for many pull-requests.
 * [fixed] #133 Incompatible config generated on out_s3 version 0.5.x or newer.
