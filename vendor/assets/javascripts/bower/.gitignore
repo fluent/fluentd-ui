@@ -1,0 +1,3 @@
+codemirror/*
+!codemirror/lib
+!codemirror/theme
