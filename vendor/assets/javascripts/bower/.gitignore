@@ -1,0 +1,10 @@
+codemirror/*
+!codemirror/bower.json
+!codemirror/.bower.json
+!codemirror/lib
+!codemirror/theme
+
+vue/*
+!vue/bower.json
+!vue/.bower.json
+!vue/dist
