@@ -6,10 +6,10 @@
 
 fluentd-ui is a browser-based [fluentd](http://fluentd.org/) and [td-agent](http://docs.treasuredata.com/articles/td-agent) manager that supports following operations.
 
-* Install, uninstall, and upgrade fluentd plugins
+* Install, uninstall, and upgrade Fluentd plugins
 * start/stop/restart fluentd process
-* Configure fluentd settings such as config file content, pidfile path, etc
-* View fluentd log with simple error viewer
+* Configure Fluentd settings such as config file content, pid file path, etc
+* View Fluentd log with simple error viewer
 
 # Getting Started
 
