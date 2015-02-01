@@ -24,7 +24,7 @@ The default account is username="admin" and password="changeme"
 
 ![fluentd-ui](./docs/screenshots/fluentd-ui.gif)
 
-## TO Ubuntu 14.04 user (installed ruby by apt-get)
+## To Ubuntu 14.04 user (installed ruby by apt-get)
 
 You also need to install these packages:
 
