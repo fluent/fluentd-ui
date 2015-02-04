@@ -14,21 +14,20 @@
       %p= @backup_file.note.content
 
 .row
-  .col-xs-6
-    %h2 Current
-    %pre
-      = preserve do
-        = @current
-  .col-xs-6
-    %h2 Target
+  .col-xs-12
+    %h2
+      ="Target Config(#{params[:id]})"
     %pre
       = preserve do
         = @backup_file.content
 
   .col-xs-12.diff
     %h2
-      Diff: 
-      current
-      = ".."
-      = params[:id]
+      Diff:
+    %p
+      diff between
+      = " "
+      = link_to "current conf", daemon_setting_path(@fluentd)
+      = " and "
+      = "target conf(#{params[:id]})"
     = preserve render "diff"
