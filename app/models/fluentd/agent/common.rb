@@ -30,28 +30,6 @@ class Fluentd
         @extra_options = options
       end
 
-      def errors_since(since = 1.day.ago)
-        errors = []
-        logged_errors do |error|
-          break if Time.parse(error[:subject]) < since
-          errors << error
-        end
-        errors
-      end
-
-      def recent_errors(limit = 3)
-        errors = []
-        logged_errors do |error|
-          errors << error
-          break if errors.length >= limit
-        end
-        errors
-      end
-
-      def last_error_message
-        recent_errors(1).first.try(:[], :subject) || ""
-      end
-
       def pid_file
         extra_options[:pid_file] || self.class.default_options[:pid_file]
       end
@@ -89,9 +67,59 @@ class Fluentd
         end
       end
 
+      def dryrun(file_path = nil)
+        dryrun!(file_path)
+        true
+      rescue ::Fluentd::Agent::ConfigError
+        false
+      end
+
+      def errors_since(since = 1.day.ago)
+        errors = []
+        logged_errors do |error|
+          break if Time.parse(error[:subject]) < since
+          errors << error
+        end
+        errors
+      end
+
+      def recent_errors(limit = 3)
+        errors = []
+        logged_errors do |error|
+          errors << error
+          break if errors.length >= limit
+        end
+        errors
+      end
+
+      def last_error_message
+        recent_errors(1).first.try(:[], :subject) || ""
+      end
+
       def log
         return "" unless File.exists?(log_file)
         File.read(log_file) # TODO: large log file
+      end
+
+      def log_tail(limit = nil)
+        return [] unless File.exists?(log_file)
+
+        limit = limit.to_i rescue 0
+        limit = limit.zero? ? Settings.default_log_tail_count : limit
+        io = File.open(log_file)
+        buf = []
+        reader = ::FileReverseReader.new(io)
+        reader.each_line do |line|
+          buf << line
+          break if buf.length >= limit
+        end
+        buf
+      end
+
+      def pid
+        return unless File.exists?(pid_file)
+        return if File.zero?(pid_file)
+        File.read(pid_file).to_i rescue nil
       end
 
       def config
@@ -113,31 +141,10 @@ class Fluentd
         end
       end
 
-      def log_tail(limit = nil)
-        return [] unless File.exists?(log_file)
-
-        limit = limit.to_i rescue 0
-        limit = limit.zero? ? Settings.default_log_tail_count : limit
-        io = File.open(log_file)
-        buf = []
-        reader = ::FileReverseReader.new(io)
-        reader.each_line do |line|
-          buf << line
-          break if buf.length >= limit
-        end
-        buf
-      end
-
       def configuration
         if File.exists? config_file
           ::Fluentd::Agent::Configuration.new(config_file)
         end
-      end
-
-      def pid
-        return unless File.exists?(pid_file)
-        return if File.zero?(pid_file)
-        File.read(pid_file).to_i rescue nil
       end
 
       def backup_files
@@ -150,13 +157,6 @@ class Fluentd
 
       def backup_files_in_new_order
         backup_files_in_old_order.reverse
-      end
-
-      def dryrun(file_path = nil)
-        dryrun!(file_path)
-        true
-      rescue ::Fluentd::Agent::ConfigError
-        false
       end
 
       private
