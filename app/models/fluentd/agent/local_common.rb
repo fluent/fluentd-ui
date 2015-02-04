@@ -82,6 +82,13 @@ class Fluentd
 
       private
 
+      def exec_dryrun(exe, file_path = nil)
+        Bundler.with_clean_env do
+          system("#{exe} -q --dry-run #{options_to_argv(config_file: file_path)}", out: File::NULL, err: File::NULL)
+          raise ::Fluentd::Agent::ConfigError, last_error_message unless $?.exitstatus.zero?
+        end
+      end
+
       def backup_config
         return unless File.exists? config_file
 
