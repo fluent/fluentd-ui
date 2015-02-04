@@ -16,6 +16,13 @@ class Fluentd
         `/usr/sbin/td-agent --version`.strip
       end
 
+      def dryrun!(file_path = nil)
+        Bundler.with_clean_env do
+          system("/usr/sbin/td-agent --dry-run #{options_to_argv(config_file: file_path)}", out: File::NULL, err: File::NULL)
+          raise ::Fluentd::Agent::ConfigError, last_error_message unless $?.exitstatus.zero?
+        end
+      end
+
       case FluentdUI.platform
       when :macosx
         include Macosx

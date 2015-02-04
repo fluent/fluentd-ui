@@ -73,6 +73,13 @@ class Fluentd
         backup_files_in_old_order.reverse
       end
 
+      def dryrun(file_path = nil)
+        dryrun!(file_path)
+        true
+      rescue ::Fluentd::Agent::ConfigError
+        false
+      end
+
       private
 
       def backup_config
@@ -172,6 +179,15 @@ class Fluentd
         end
         thread.join
         thread.value.exitstatus.zero?
+      end
+
+      def options_to_argv(opts = {})
+        argv = ""
+        argv << " --use-v1-config"
+        argv << " -c #{opts[:config_file] || config_file}"
+        argv << " -d #{opts[:pid_file] || pid_file}"
+        argv << " -o #{opts[:log_file] || log_file}"
+        argv
       end
     end
   end

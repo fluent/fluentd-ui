@@ -96,32 +96,9 @@ describe Fluentd::Agent do
     describe "#restart" do
       it_should_behave_like "Restart strategy"
     end
-
-    describe "#dryrun" do
-      subject { instance.dryrun }
-
-      describe "valid/invalid" do
-        before { instance.stub(:system).and_return(ret) }
-
-        context "valid config" do
-          let(:ret) { true }
-          it { should be_truthy }
-        end
-
-        context "invalid config" do
-          let(:ret) { false }
-          it { should be_falsy }
-        end
-      end
-
-      it "invoke #system" do
-        instance.should_receive(:system).with(/--dry-run/)
-        subject
-      end
-    end
   end
 
-  describe "TdAgent" do
+  describe "TdAgent", td_agent_required: true do
     let(:described_class) { Fluentd::Agent::TdAgent } # override nested described_class behavior as https://github.com/rspec/rspec-core/issues/1114
 
     it_should_behave_like "Fluentd::Agent has common behavior"
@@ -151,30 +128,6 @@ describe Fluentd::Agent do
         backup_file = instance.running_config_backup_file
         expect(File.exists? backup_file).to be_truthy
         expect(File.read(backup_file)).to eq File.read(instance.config_file)
-      end
-    end
-
-    describe "#dryrun" do
-      subject { instance.dryrun }
-
-      describe "valid/invalid" do
-        before { instance.stub(:detached_command).and_return(ret) }
-
-        context "valid config" do
-          let(:ret) { true }
-          it { should be_truthy }
-        end
-
-        context "invalid config" do
-          let(:ret) { false }
-          it { should be_falsy }
-        end
-      end
-
-      it "invoke #system" do
-        # --dry-run check on Mac, configtest for Unix
-        instance.should_receive(:detached_command).with(/(--dry-run|configtest)/)
-        subject
       end
     end
   end

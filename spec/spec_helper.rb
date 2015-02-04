@@ -62,6 +62,12 @@ RSpec.configure do |config|
   # rspec 2.99
   config.infer_spec_type_from_file_location!
 
+  unless File.directory?("/opt/td-agent")
+    # including td-agent specific tests, so some tests will fail if the system has no td-agent
+    warn "\n\nSkipping td-agent specific tests (system has no td-agent)\n\n"
+    config.filter_run_excluding :td_agent_required => true
+  end
+
   config.after(:suite) do
     FileUtils.rm_rf FluentdUI.data_dir
   end

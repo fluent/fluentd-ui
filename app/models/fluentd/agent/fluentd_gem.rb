@@ -42,10 +42,18 @@ class Fluentd
         actual_reload
       end
 
-      def dryrun
+      def dryrun!(file_path = nil)
         Bundler.with_clean_env do
-          system("fluentd -q --dry-run #{options_to_argv}")
+          system("fluentd -q --dry-run #{options_to_argv(config_file: file_path)}", out: File::NULL, err: File::NULL)
+          raise ::Fluentd::Agent::ConfigError, last_error_message unless $?.exitstatus.zero?
         end
+      end
+
+      def config_syntax_check
+        Fluent::Config::V1Parser.parse(params[:config], config_file)
+        true
+      rescue Fluent::ConfigParseError
+        false
       end
 
       def version
@@ -55,15 +63,6 @@ class Fluentd
       end
 
       private
-
-      def options_to_argv
-        argv = ""
-        argv << " --use-v1-config"
-        argv << " -c #{config_file}"
-        argv << " -d #{pid_file}"
-        argv << " -o #{log_file}"
-        argv
-      end
 
       def validate_fluentd_options
         dryrun

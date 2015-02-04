@@ -23,5 +23,6 @@ class Fluentd
     #   td-agent: /etc/td-agent/td-agent.conf
     #   - https://github.com/treasure-data/td-agent/blob/master/debian/td-agent.postinst#L69
     #   fluentd: /etc/fluent/fluent.conf (by fluentd -s)
+    class ConfigError < StandardError; end
   end
 end
