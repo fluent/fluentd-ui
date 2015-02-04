@@ -38,7 +38,7 @@ describe Plugin do
         it { should_not be_valid }
       end
 
-      context "somthing filled is valid" do
+      context "something filled is valid" do
         let(:gem_name) { "foobar" }
         it { should be_valid }
       end
@@ -53,7 +53,7 @@ describe Plugin do
         it { should_not be_valid }
       end
 
-      context "somthing filled is valid" do
+      context "something filled is valid" do
         let(:version) { "0.0.1" }
         it { should be_valid }
       end
