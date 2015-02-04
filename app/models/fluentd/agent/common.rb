@@ -42,20 +42,10 @@ class Fluentd
         extra_options[:config_file] || self.class.default_options[:config_file]
       end
 
-      def config_backup_dir
-        dir = File.join(FluentdUI.data_dir, "#{Rails.env}_confg_backups")
-        FileUtils.mkdir_p(dir)
-        dir
-      end
-
-      def running_config_backup_dir
-        dir = File.join(FluentdUI.data_dir, "#{Rails.env}_running_confg_backup")
-        FileUtils.mkdir_p(dir)
-        dir
-      end
-
-      def running_config_backup_file
-        File.join(running_config_backup_dir, "running.conf")
+      def pid
+        return unless File.exists?(pid_file)
+        return if File.zero?(pid_file)
+        File.read(pid_file).to_i rescue nil
       end
 
       def running?
@@ -72,6 +62,12 @@ class Fluentd
         true
       rescue ::Fluentd::Agent::ConfigError
         false
+      end
+
+      # -- log
+      def log
+        return "" unless File.exists?(log_file)
+        File.read(log_file) # TODO: large log file
       end
 
       def errors_since(since = 1.day.ago)
@@ -96,11 +92,6 @@ class Fluentd
         recent_errors(1).first.try(:[], :subject) || ""
       end
 
-      def log
-        return "" unless File.exists?(log_file)
-        File.read(log_file) # TODO: large log file
-      end
-
       def log_tail(limit = nil)
         return [] unless File.exists?(log_file)
 
@@ -116,12 +107,7 @@ class Fluentd
         buf
       end
 
-      def pid
-        return unless File.exists?(pid_file)
-        return if File.zero?(pid_file)
-        File.read(pid_file).to_i rescue nil
-      end
-
+      # -- config
       def config
         File.read(config_file)
       end
@@ -147,6 +133,13 @@ class Fluentd
         end
       end
 
+      # -- backup methods
+      def config_backup_dir
+        dir = File.join(FluentdUI.data_dir, "#{Rails.env}_confg_backups")
+        FileUtils.mkdir_p(dir)
+        dir
+      end
+
       def backup_files
         Dir.glob(File.join("#{config_backup_dir}", "*.conf"))
       end
@@ -159,7 +152,25 @@ class Fluentd
         backup_files_in_old_order.reverse
       end
 
+      def running_config_backup_dir
+        dir = File.join(FluentdUI.data_dir, "#{Rails.env}_running_confg_backup")
+        FileUtils.mkdir_p(dir)
+        dir
+      end
+
+      def running_config_backup_file
+        File.join(running_config_backup_dir, "running.conf")
+      end
+
+      # -------------- private --------------
       private
+
+      def exec_dryrun(command, file_path = nil)
+        Bundler.with_clean_env do
+          system("#{command} -q --dry-run #{options_to_argv(config_file: file_path)}", out: File::NULL, err: File::NULL)
+          raise ::Fluentd::Agent::ConfigError, last_error_message unless $?.exitstatus.zero?
+        end
+      end
 
       def backup_running_config
         #back up config file only when start success
@@ -170,13 +181,6 @@ class Fluentd
         FileUtils.cp config_file, running_config_backup_file
 
         true
-      end
-
-      def exec_dryrun(command, file_path = nil)
-        Bundler.with_clean_env do
-          system("#{command} -q --dry-run #{options_to_argv(config_file: file_path)}", out: File::NULL, err: File::NULL)
-          raise ::Fluentd::Agent::ConfigError, last_error_message unless $?.exitstatus.zero?
-        end
       end
 
       def backup_config
