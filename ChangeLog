@@ -1,3 +1,12 @@
+Release 0.3.14 - 2015/02/04
+* [maintenance] #150, #151 minor fix in README.md.
+* [maintenance] #149 Make circle-ci result stable.
+* [maintenance] #147 Update gems.
+* [maintenance] #144 Ignore useless bower files
+* [fixed] #146 Fix to enable to too fast input in regex text box (#145 issue).
+* [improve] #152 Add dry-run to config edit.
+* [improve] #153 Show diff between current config and backup files.
+
 Release 0.3.13 - 2015/01/28
 * [improve] #143 Use CodeMirror for setting edit
 
