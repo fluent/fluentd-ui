@@ -37,6 +37,13 @@ describe "histories", stub: :daemon do
       page.should have_text(last_backup_file.content)
     end
 
+    it 'shows diff between current and target' do
+      page.should have_text("-   type http")
+      page.should have_text("+   type forward")
+      page.should have_text("-   port 8899")
+      page.should have_text("+   port 24224")
+    end
+
     it 'update config and redirect to setting#show' do
       click_link I18n.t("terms.reuse")
 
