@@ -20,7 +20,7 @@ class Fluentd
       attr_reader :extra_options
 
       # define these methods on each Agent class
-      %w(start stop restart version).each do |method|
+      %w(start stop restart version dryrun!).each do |method|
         define_method(method) do
           raise NotImplementedError, "'#{method}' method is required to be defined"
         end
