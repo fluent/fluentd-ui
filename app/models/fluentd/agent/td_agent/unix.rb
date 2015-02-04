@@ -17,10 +17,6 @@ class Fluentd
           # https://github.com/treasure-data/td-agent/blob/master/debian/td-agent.init#L156
           detached_command('/etc/init.d/td-agent restart')
         end
-
-        def dryrun
-          detached_command('/etc/init.d/td-agent configtest')
-        end
       end
     end
   end

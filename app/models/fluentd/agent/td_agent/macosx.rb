@@ -16,10 +16,6 @@ class Fluentd
           dryrun && stop && start
         end
 
-        def dryrun
-          detached_command("/usr/sbin/td-agent --dry-run -q --use-v1-config -c #{config_file}")
-        end
-
         private
 
         def plist

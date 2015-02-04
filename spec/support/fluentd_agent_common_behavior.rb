@@ -124,5 +124,58 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
       end
     end
   end
+
+  describe "#dryrun" do
+    let(:root) { FluentdUI.data_dir + "/tmp/agentspec/" }
+    let(:dummy_log_file) { root + "dummy.log" }
+    let(:dummy_pid_file) { root + "dummy.pid" }
+
+    before do
+      FileUtils.mkdir_p root
+      instance.stub(:log_file).and_return(dummy_log_file)
+      instance.stub(:pid_file).and_return(dummy_pid_file)
+    end
+
+    describe "valid/invalid" do
+      let(:config_path) { Rails.root.join("tmp", "fluent-test.conf").to_s }
+      before { File.write(config_path, config) }
+      after { File.unlink(config_path) }
+
+      context "valid config" do
+        let(:config) { <<-CONF.strip_heredoc }
+        <source>
+          type forward
+        </source>
+        CONF
+
+        context "with `!`" do
+          subject { instance.dryrun!(config_path) }
+          it { expect { subject }.to_not raise_error }
+        end
+
+        context "without `!`" do
+          subject { instance.dryrun(config_path) }
+          it { should be_truthy }
+        end
+      end
+
+      context "invalid config" do
+        let(:config) { <<-CONF.strip_heredoc }
+        <source>
+          type forward
+        CONF
+
+        context "with `!`" do
+          subject { instance.dryrun!(config_path) }
+          it { expect { subject }.to raise_error(Fluentd::Agent::ConfigError) }
+        end
+
+        context "without `!`" do
+          subject { instance.dryrun(config_path) }
+          it { should be_falsy }
+        end
+      end
+    end
+  end
 end
 

@@ -45,6 +45,10 @@ class Fluentd
         errors
       end
 
+      def last_error_message
+        recent_errors(1).first.try(:[], :subject) || ""
+      end
+
       def pid_file
         extra_options[:pid_file] || self.class.default_options[:pid_file]
       end

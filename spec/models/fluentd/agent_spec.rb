@@ -96,35 +96,6 @@ describe Fluentd::Agent do
     describe "#restart" do
       it_should_behave_like "Restart strategy"
     end
-
-    describe "#dryrun" do
-      describe "valid/invalid" do
-        let(:config_path) { Rails.root.join("tmp", "fluent-test.conf").to_s }
-        before { File.write(config_path, config) }
-        after { File.unlink(config_path) }
-
-        subject { instance.dryrun(config_path) }
-
-        context "valid config" do
-          let(:config) { <<-CONF.strip_heredoc }
-          <source>
-            type forward
-          </source>
-          CONF
-
-          it { should be_truthy }
-        end
-
-        context "invalid config" do
-          let(:config) { <<-CONF.strip_heredoc }
-          <source>
-            type forward
-          CONF
-
-          it { should be_falsy }
-        end
-      end
-    end
   end
 
   describe "TdAgent" do
@@ -157,30 +128,6 @@ describe Fluentd::Agent do
         backup_file = instance.running_config_backup_file
         expect(File.exists? backup_file).to be_truthy
         expect(File.read(backup_file)).to eq File.read(instance.config_file)
-      end
-    end
-
-    describe "#dryrun" do
-      subject { instance.dryrun }
-
-      describe "valid/invalid" do
-        before { instance.stub(:detached_command).and_return(ret) }
-
-        context "valid config" do
-          let(:ret) { true }
-          it { should be_truthy }
-        end
-
-        context "invalid config" do
-          let(:ret) { false }
-          it { should be_falsy }
-        end
-      end
-
-      it "invoke #system" do
-        # --dry-run check on Mac, configtest for Unix
-        instance.should_receive(:detached_command).with(/(--dry-run|configtest)/)
-        subject
       end
     end
   end

@@ -17,14 +17,24 @@ class Fluentd::SettingsController < ApplicationController
   end
 
   def  update
-    Fluent::Config::V1Parser.parse(params[:config], @fluentd.config_file)
-    @fluentd.agent.config_write params[:config]
-    @fluentd.agent.restart if @fluentd.agent.running?
-    redirect_to daemon_setting_path(@fluentd)
-  rescue Fluent::ConfigParseError => e
-    @config = params[:config]
-    @error = e.message
-    render "edit"
+    if params[:dryrun]
+      if dryrun(params[:config])
+        flash.now[:success] = I18n.t('messages.dryrun_is_passed')
+      else
+        flash.now[:danger] = @fluentd.agent.last_error_message
+      end
+      @config = params[:config]
+      render "edit"
+    else
+      begin
+        update_config(params[:config])
+        redirect_to daemon_setting_path(@fluentd)
+      rescue Fluent::ConfigParseError => e
+        @config = params[:config]
+        flash.now[:danger] = e.message
+        render "edit"
+      end
+    end
   end
 
   def source_and_output
@@ -36,5 +46,18 @@ class Fluentd::SettingsController < ApplicationController
 
   def set_config
     @config = @fluentd.agent.config
+  end
+
+  def dryrun(conf)
+    tmpfile = Tempfile.open("fluentd-test-config")
+    tmpfile.write params[:config]
+    tmpfile.close
+    @fluentd.agent.dryrun(tmpfile.path)
+  end
+
+  def update_config(conf)
+    Fluent::Config::V1Parser.parse(conf, @fluentd.config_file)
+    @fluentd.agent.config_write conf
+    @fluentd.agent.restart if @fluentd.agent.running?
   end
 end

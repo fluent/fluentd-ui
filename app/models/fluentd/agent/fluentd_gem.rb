@@ -42,14 +42,10 @@ class Fluentd
         actual_reload
       end
 
-      def dryrun(file_path = nil)
+      def dryrun!(file_path = nil)
         Bundler.with_clean_env do
-          tmpfile = Tempfile.open("fluentd-dryrun-")
-          tmpfile.close
-          system("fluentd -q --dry-run #{options_to_argv(config_file: file_path)}", out: tmpfile.path, err: tmpfile.path)
-          result = $?.exitstatus.zero?
-          File.unlink(tmpfile.path)
-          result
+          system("fluentd -q --dry-run #{options_to_argv(config_file: file_path)}", out: File::NULL, err: File::NULL)
+          raise ::Fluentd::Agent::ConfigError, last_error_message unless $?.exitstatus.zero?
         end
       end
 
@@ -67,15 +63,6 @@ class Fluentd
       end
 
       private
-
-      def options_to_argv(opts = {})
-        argv = ""
-        argv << " --use-v1-config"
-        argv << " -c #{opts[:config_file] || config_file}"
-        argv << " -d #{opts[:pid_file] || pid_file}"
-        argv << " -o #{opts[:log_file] || log_file}"
-        argv
-      end
 
       def validate_fluentd_options
         dryrun
