@@ -98,7 +98,7 @@ describe Fluentd::Agent do
     end
   end
 
-  describe "TdAgent" do
+  describe "TdAgent", td_agent_required: true do
     let(:described_class) { Fluentd::Agent::TdAgent } # override nested described_class behavior as https://github.com/rspec/rspec-core/issues/1114
 
     it_should_behave_like "Fluentd::Agent has common behavior"
