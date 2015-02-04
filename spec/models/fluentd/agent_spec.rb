@@ -98,25 +98,31 @@ describe Fluentd::Agent do
     end
 
     describe "#dryrun" do
-      subject { instance.dryrun }
-
       describe "valid/invalid" do
-        before { instance.stub(:system).and_return(ret) }
+        let(:config_path) { Rails.root.join("tmp", "fluent-test.conf").to_s }
+        before { File.write(config_path, config) }
+        after { File.unlink(config_path) }
+
+        subject { instance.dryrun(config_path) }
 
         context "valid config" do
-          let(:ret) { true }
+          let(:config) { <<-CONF.strip_heredoc }
+          <source>
+            type forward
+          </source>
+          CONF
+
           it { should be_truthy }
         end
 
         context "invalid config" do
-          let(:ret) { false }
+          let(:config) { <<-CONF.strip_heredoc }
+          <source>
+            type forward
+          CONF
+
           it { should be_falsy }
         end
-      end
-
-      it "invoke #system" do
-        instance.should_receive(:system).with(/--dry-run/)
-        subject
       end
     end
   end

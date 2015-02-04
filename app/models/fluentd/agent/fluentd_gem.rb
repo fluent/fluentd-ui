@@ -42,10 +42,22 @@ class Fluentd
         actual_reload
       end
 
-      def dryrun
+      def dryrun(file_path = nil)
         Bundler.with_clean_env do
-          system("fluentd -q --dry-run #{options_to_argv}")
+          tmpfile = Tempfile.open("fluentd-dryrun-")
+          tmpfile.close
+          system("fluentd -q --dry-run #{options_to_argv(config_file: file_path)}", out: tmpfile.path, err: tmpfile.path)
+          result = $?.exitstatus.zero?
+          File.unlink(tmpfile.path)
+          result
         end
+      end
+
+      def config_syntax_check
+        Fluent::Config::V1Parser.parse(params[:config], config_file)
+        true
+      rescue Fluent::ConfigParseError
+        false
       end
 
       def version
@@ -56,12 +68,12 @@ class Fluentd
 
       private
 
-      def options_to_argv
+      def options_to_argv(opts = {})
         argv = ""
         argv << " --use-v1-config"
-        argv << " -c #{config_file}"
-        argv << " -d #{pid_file}"
-        argv << " -o #{log_file}"
+        argv << " -c #{opts[:config_file] || config_file}"
+        argv << " -d #{opts[:pid_file] || pid_file}"
+        argv << " -o #{opts[:log_file] || log_file}"
         argv
       end
 
