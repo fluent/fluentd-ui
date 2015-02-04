@@ -16,7 +16,7 @@
 .row
   .col-xs-12
     %h2
-      ="Target Config(#{params[:id]})"
+      ="#{t('.target_config')}(#{params[:id]})"
     %pre
       = preserve do
         = @backup_file.content
@@ -24,10 +24,8 @@
   .col-xs-12.diff
     %h2
       Diff:
-    %p
-      diff between
-      = " "
-      = link_to "current conf", daemon_setting_path(@fluentd)
-      = " and "
-      = "target conf(#{params[:id]})"
+    %div
+      = t(".diff_discription", file_name: params[:id] )
+      %div.pull-right
+        = link_to t(".show_current"), daemon_setting_path(@fluentd)
     = preserve render "diff"

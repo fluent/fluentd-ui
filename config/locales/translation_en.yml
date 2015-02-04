@@ -261,6 +261,10 @@ en:
           page_title: "Setting Histories"
         show:
           page_title: "Reuse Setting History"
+          target_config: "Target Config"
+          current_config: "Current Config"
+          diff_discription: "diff between current config and target config(%{file_name})"
+          show_current: "> see current config"
       running_backup:
         title: "Running Config"
         show:
