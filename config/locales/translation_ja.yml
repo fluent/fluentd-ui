@@ -268,12 +268,14 @@ ja:
           page_title: "設定履歴 | 詳細"
           target_config: "対象設定"
           current_config: "現在の設定"
-          diff_discription: "現在の設定と対象設定(%{file_name})の差分"
+          diff_discription: "現在の設定と対象設定(%{file_name})の差分(+-で表示)"
           show_current: "> 現在の設定を見る"
       running_backup:
         title: "使用中の設定"
         show:
           page_title: "使用中の設定"
+          diff_discription: "現在の設定と使用中の設定の差分(+-で表示)"
+          show_current: "> 現在の設定を見る"
 
   misc:
     information:

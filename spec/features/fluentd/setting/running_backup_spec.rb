@@ -36,6 +36,12 @@ describe "running_backup", stub: :daemon do
         expect(page).to have_text(I18n.t("terms.reuse"))
       end
 
+      it 'has diff' do
+        expect(page).to have_text("-   type http")
+        expect(page).to have_text("-   port 8899")
+        expect(page).to have_text("+   Running backup file content")
+      end
+
       it 'update config and redirect to setting#show' do
         click_link I18n.t("terms.reuse")
 

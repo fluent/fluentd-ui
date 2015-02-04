@@ -12,9 +12,20 @@
 .row
   .col-xs-12
     - if @backup_file.content
+      %h2
+        = t('.page_title')
       %pre
         = preserve do
           = @backup_file.content
     - else
       %p
         =t('fluentd.common.never_started_yet', brand: fluentd_ui_brand)
+  - if @backup_file.content
+    .col-xs-12.diff
+      %h2
+        Diff:
+      %div
+        = t(".diff_discription")
+        %div.pull-right
+          = link_to t(".show_current"), daemon_setting_path(@fluentd)
+      = preserve render "/shared/settings/diff"
