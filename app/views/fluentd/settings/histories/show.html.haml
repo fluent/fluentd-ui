@@ -15,7 +15,17 @@
 
 .row
   .col-xs-12
+    %h2
+      ="#{t('.target_config')}(#{params[:id]})"
     %pre
       = preserve do
         = @backup_file.content
 
+  .col-xs-12.diff
+    %h2
+      Diff:
+    %div
+      = t(".diff_description", file_name: params[:id] )
+      .pull-right
+        = link_to t(".show_current"), daemon_setting_path(@fluentd)
+    = preserve render "/shared/settings/diff"

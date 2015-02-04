@@ -26,7 +26,8 @@ describe "histories", stub: :daemon do
   end
 
   describe 'show' do
-    let(:last_backup_file) { Fluentd::SettingArchive::BackupFile.new(daemon.agent.backup_files_in_new_order.first) }
+    let!(:last_backup_file) { Fluentd::SettingArchive::BackupFile.new(daemon.agent.backup_files_in_new_order.first) }
+    let!(:new_file) { Fluentd::SettingArchive::BackupFile.new(daemon.agent.backup_files_in_new_order[1]) }
 
     before do
       visit "/daemon/setting/histories/#{last_backup_file.file_id}"
@@ -35,6 +36,27 @@ describe "histories", stub: :daemon do
     it 'show histories#show' do
       page.should have_css('h1', text: I18n.t('fluentd.settings.histories.show.page_title'))
       page.should have_text(last_backup_file.content)
+    end
+
+    describe 'diff' do
+      context 'has diff' do
+        it 'shows diff between current and target' do
+          page.should have_text("-   type http")
+          page.should have_text("+   type forward")
+          page.should have_text("-   port 8899")
+          page.should have_text("+   port 24224")
+        end
+      end
+
+      context 'has no diff' do
+        before do
+          visit "/daemon/setting/histories/#{new_file.file_id}"
+        end
+
+        it 'shows no diff message' do
+          page.should have_text(I18n.t('messages.no_diff'))
+        end
+      end
     end
 
     it 'update config and redirect to setting#show' do

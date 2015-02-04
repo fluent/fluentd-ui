@@ -14,6 +14,7 @@ en:
     config_successfully_copied: "Config has been copied successfully. Please restart %{brand} to use the new config"
     note_updating_success: "Note successfully updated."
     dryrun_is_passed: config test passed
+    no_diff: There is no difference in files.
 
   terms: &terms
     name: Name
@@ -261,10 +262,16 @@ en:
           page_title: "Setting Histories"
         show:
           page_title: "Reuse Setting History"
+          target_config: "Target Config"
+          current_config: "Current Config"
+          diff_description: "diff between current config and target config(%{file_name}) (showing with '+' and '-' if any)"
+          show_current: "> see current config"
       running_backup:
         title: "Running Config"
         show:
           page_title: "Running Config"
+          diff_description: "diff between config and running config (showing with '+' and '-' if any)"
+          show_current: "> see current config"
 
   misc:
     information:
