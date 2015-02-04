@@ -1,15 +1,21 @@
-<pre>
-<% @sdiff.each do |diff| %>
-<% case diff.action %>
-<% when "=" %>
-<span class="stay"><%= diff.new_element %></span>
-<% when "!" %>
-<span class="deleted">- <%= diff.old_element %></span>
-<span class="added">+ <%= diff.new_element %></span>
-<% when "-" %>
-<span class="deleted">- <%= diff.old_element %></span>
-<% when "+" %>
-<span class="added">+ <%= diff.new_element %></span>
+<% if @changed %>
+  <pre>
+  <% @sdiff.each do |diff| %>
+  <% case diff.action %>
+  <% when "=" %>
+  <span class="stay"><%= diff.new_element %></span>
+  <% when "!" %>
+  <span class="deleted">- <%= diff.old_element %></span>
+  <span class="added">+ <%= diff.new_element %></span>
+  <% when "-" %>
+  <span class="deleted">- <%= diff.old_element %></span>
+  <% when "+" %>
+  <span class="added">+ <%= diff.new_element %></span>
+  <% end %>
+  <% end %>
+  </pre>
+<% else %>
+  <div class="frame-corner-radius">
+   <%= t('messages.no_diff') %>
+  </div>
 <% end %>
-<% end %>
-</pre>

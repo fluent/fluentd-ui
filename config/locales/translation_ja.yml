@@ -14,6 +14,7 @@ ja:
     config_successfully_copied: "設定をコピーしました。反映させるには、 %{brand}を再起動してください。"
     note_updating_success: "メモを更新しました。"
     dryrun_is_passed: この設定でのdry-runが成功しました
+    no_diff: ファイル間の差異はありません。
 
   terms: &terms
     name: アカウント名

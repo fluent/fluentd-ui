@@ -8,7 +8,7 @@ describe "running_backup", stub: :daemon do
     login_with exists_user
   end
 
-  context 'has running backup file' do
+  context 'has no running backup file' do
     before do
       visit '/daemon/setting/running_backup'
     end
@@ -36,10 +36,25 @@ describe "running_backup", stub: :daemon do
         expect(page).to have_text(I18n.t("terms.reuse"))
       end
 
-      it 'has diff' do
-        expect(page).to have_text("-   type http")
-        expect(page).to have_text("-   port 8899")
-        expect(page).to have_text("+   Running backup file content")
+      describe 'diff' do
+        context 'has diff' do
+          it 'shows diff between current and running' do
+            expect(page).to have_text("-   type http")
+            expect(page).to have_text("-   port 8899")
+            expect(page).to have_text("+   Running backup file content")
+          end
+        end
+
+        context 'has no diff' do
+          before do
+            daemon.agent.config_write backup_content
+            visit '/daemon/setting/running_backup'
+          end
+
+          it 'shows no diff message' do
+            page.should have_text(I18n.t('messages.no_diff'))
+          end
+        end
       end
 
       it 'update config and redirect to setting#show' do
