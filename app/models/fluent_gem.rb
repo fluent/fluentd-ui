@@ -17,9 +17,12 @@ module FluentGem
       #       but long living caching causes mismatch with actual status e.g. user install plugin from console (without fluentd-ui)
       #       So our decision is that cache `gem list` in 3 seconds
       Rails.cache.fetch(LIST_CACHE_KEY, expires_in: 3.seconds) do
-        output = `#{gem} list`
-        if $? && $?.exitstatus != 0 # NOTE: $? will be nil on CircleCI, so check $? at first
-          raise GemError, "failed command: `#{gem} list`"
+        last_status = $?
+        output = `#{gem} list 2>&1`
+        # https://github.com/fluent/fluentd-ui/pull/149#issuecomment-71954588
+        # Sometimes, $? wouldn't override with `#{gem} list` but I don't know why..
+        if $? && last_status != $? && $?.exitstatus != 0 # NOTE: $? will be nil on CircleCI, so check $? at first
+          raise GemError, "failed command: `#{gem} list` output: #{output}"
         end
         output.lines.to_a
       end

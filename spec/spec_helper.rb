@@ -61,4 +61,8 @@ RSpec.configure do |config|
 
   # rspec 2.99
   config.infer_spec_type_from_file_location!
+
+  config.after(:suite) do
+    FileUtils.rm_rf FluentdUI.data_dir
+  end
 end

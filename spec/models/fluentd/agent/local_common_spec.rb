@@ -47,6 +47,8 @@ describe 'Fluentd::Agent::LocalCommon' do
     CONF
 
     before do
+      # other specs could be write in this dir, so clean that in `before`
+      FileUtils.rm_r daemon.agent.config_backup_dir, force: true
       ::Settings.max_backup_files_count.times do |i|
         backuped_time = now - (i + 1).hours
         FileUtils.touch File.join(daemon.agent.config_backup_dir , "#{backuped_time.strftime('%Y%m%d_%H%M%S')}.conf")
