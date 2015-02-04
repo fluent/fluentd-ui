@@ -2,7 +2,6 @@ class Fluentd
   class Agent
     class FluentdGem
       include Common
-      include LocalCommon
 
       def self.default_options
         {
