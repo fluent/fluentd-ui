@@ -102,6 +102,10 @@ class Fluentd
           false
         end
       end
+
+      def wait_process_starting_seconds
+        10.seconds # wait time for fluentd pidfile created
+      end
     end
   end
 end

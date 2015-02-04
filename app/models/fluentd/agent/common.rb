@@ -30,10 +30,6 @@ class Fluentd
         @extra_options = options
       end
 
-      def wait_process_starting_seconds
-        10.seconds # wait time for fluentd pidfile created
-      end
-
       def errors_since(since = 1.day.ago)
         errors = []
         logged_errors do |error|
