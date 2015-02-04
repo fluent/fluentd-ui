@@ -18,22 +18,9 @@ class Fluentd::SettingsController < ApplicationController
 
   def  update
     if params[:dryrun]
-      if dryrun(params[:config])
-        flash.now[:success] = I18n.t('messages.dryrun_is_passed')
-      else
-        flash.now[:danger] = @fluentd.agent.last_error_message
-      end
-      @config = params[:config]
-      render "edit"
+      handle_dryrun
     else
-      begin
-        update_config(params[:config])
-        redirect_to daemon_setting_path(@fluentd)
-      rescue Fluent::ConfigParseError => e
-        @config = params[:config]
-        flash.now[:danger] = e.message
-        render "edit"
-      end
+      handle_update
     end
   end
 
@@ -46,6 +33,25 @@ class Fluentd::SettingsController < ApplicationController
 
   def set_config
     @config = @fluentd.agent.config
+  end
+
+  def handle_dryrun
+    if dryrun(params[:config])
+      flash.now[:success] = I18n.t('messages.dryrun_is_passed')
+    else
+      flash.now[:danger] = @fluentd.agent.last_error_message
+    end
+    @config = params[:config]
+    render "edit"
+  end
+
+  def handle_update
+    update_config(params[:config])
+    redirect_to daemon_setting_path(@fluentd)
+  rescue Fluent::ConfigParseError => e
+    @config = params[:config]
+    flash.now[:danger] = e.message
+    render "edit"
   end
 
   def dryrun(conf)
