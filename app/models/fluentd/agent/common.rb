@@ -43,7 +43,7 @@ class Fluentd
       end
 
       def log
-        @log ||= Fluentd::Agent::Log.new(log_file)
+        @log ||= FluentdLog.new(log_file)
       end
 
       def config_file
