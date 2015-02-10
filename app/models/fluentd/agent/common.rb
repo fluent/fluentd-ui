@@ -21,7 +21,6 @@ class Fluentd
 
       def self.included(base)
         base.include Fluentd::Agent::ProcessOperation
-        base.include Fluentd::Agent::Log
       end
 
       # define these methods on each Agent class
@@ -41,6 +40,10 @@ class Fluentd
 
       def log_file
         extra_options[:log_file] || self.class.default_options[:log_file]
+      end
+
+      def log
+        @log ||= Fluentd::Agent::Log.new(log_file)
       end
 
       def config_file

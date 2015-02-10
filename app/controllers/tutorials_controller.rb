@@ -5,7 +5,7 @@ class TutorialsController < ApplicationController
   helper_method :tutorial_ready?
 
   def index
-    @log = @fluentd.agent.log_tail.reverse if @fluentd
+    @log = @fluentd.agent.log.tail.reverse if @fluentd
   end
 
   def chapter1

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Fluentd::AgentsController do
+  let(:log) { double('log').as_null_object }
+
   before do
     allow(controller).to receive(:current_user).and_return true
     allow(controller).to receive(:find_fluentd).and_return(nil)
@@ -32,13 +34,15 @@ describe Fluentd::AgentsController do
 
     it "starts" do
       expect(@agent).to receive(:start).and_return false
-      expect(@agent).to receive(:log_tail).with(1).and_return ["some message"]
+      expect(@agent).to receive(:log).and_return(log)
+      expect(log).to receive(:tail).with(1)
       put :start
     end
 
     it "restarts" do
       expect(@agent).to receive(:restart).and_return false
-      expect(@agent).to receive(:log_tail).with(1).and_return ["some message"]
+      expect(@agent).to receive(:log).and_return(log)
+      expect(log).to receive(:tail).with(1)
       put :restart
     end
   end

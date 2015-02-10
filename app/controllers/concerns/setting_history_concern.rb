@@ -26,7 +26,7 @@ module SettingHistoryConcern
     if @fluentd.agent.dryrun
       flash = { success: t('messages.dryrun_is_passed') }
     else
-      flash = { danger: @fluentd.agent.log_tail(1).first }
+      flash = { danger: @fluentd.agent.log.tail(1).first }
     end
     redirect_to :back, flash: flash
   end

@@ -41,11 +41,11 @@ class FluentdController < ApplicationController
 
   def errors
     @error_duration_days = 5
-    @errors = @fluentd.agent.errors_since(@error_duration_days.days.ago)
+    @errors = @fluentd.agent.log.errors_since(@error_duration_days.days.ago)
   end
 
   def raw_log
-    send_data @fluentd.agent.log, type: "application/octet-stream", filename: File.basename(@fluentd.log_file)
+    send_data @fluentd.agent.log.to_s, type: "application/octet-stream", filename: File.basename(@fluentd.log_file)
   end
 
   private

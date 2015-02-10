@@ -35,7 +35,7 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
       before { Timecop.freeze(now) }
       after { Timecop.return }
 
-      subject { instance.errors_since(days.days.ago) }
+      subject { instance.log.errors_since(days.days.ago) }
 
       context "has no errors" do
         let(:logfile) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
@@ -73,7 +73,7 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
     describe "#recent_errors" do
       context "have 0 error log" do
         let(:logfile) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
-        subject { instance.recent_errors(2) }
+        subject { instance.log.recent_errors(2) }
 
         it "empty array" do
           should be_empty
@@ -82,10 +82,10 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
 
       context "have 2 error log" do
         let(:logfile) { File.expand_path("./spec/support/fixtures/error2.log", Rails.root) }
-        subject { instance.recent_errors(2) }
+        subject { instance.log.recent_errors(2) }
 
         describe "limit" do
-          subject { instance.recent_errors(limit).length }
+          subject { instance.log.recent_errors(limit).length }
 
           context "=1" do
             let(:limit) { 1 }
@@ -111,7 +111,7 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
 
       context "have 3 errors log includeing sequential 2 error log" do
         let(:logfile) { File.expand_path("./spec/support/fixtures/error3.log", Rails.root) }
-        subject { instance.recent_errors(3) }
+        subject { instance.log.recent_errors(3) }
 
         it "count 3 errors" do
           subject[0][:subject].should include("3 Address already in use - bind(2)")

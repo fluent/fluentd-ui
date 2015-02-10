@@ -1,7 +1,13 @@
 class Fluentd
   class Agent
-    module Log
-      def log
+    class Log
+      attr_reader :log_file
+
+      def initialize(path)
+        @log_file = path
+      end
+
+      def to_s
         return "" unless File.exists?(log_file)
         File.read(log_file) # TODO: large log file
       end
@@ -28,7 +34,7 @@ class Fluentd
         recent_errors(1).first.try(:[], :subject) || ""
       end
 
-      def log_tail(limit = nil)
+      def tail(limit = nil)
         return [] unless File.exists?(log_file)
 
         limit = limit.to_i rescue 0

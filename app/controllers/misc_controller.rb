@@ -38,7 +38,7 @@ class MiscController < ApplicationController
     File.unlink(path) if File.exists?(path)
 
     Zip::File.open(path, Zip::File::CREATE) do |zip|
-      zip.get_output_stream('fluentd.log') {|f| f.puts fluentd.agent.log }
+      zip.get_output_stream('fluentd.log') {|f| f.puts fluentd.agent.log.to_s }
       zip.add("fluentd-ui.log", log_path)
 
       add_env_file_to(zip)
