@@ -2,7 +2,6 @@ class Fluentd
   class Agent
     class FluentdGem
       include Common
-      include LocalCommon
 
       def self.default_options
         {
@@ -102,6 +101,10 @@ class Fluentd
         rescue TimeoutError
           false
         end
+      end
+
+      def wait_process_starting_seconds
+        10.seconds # wait time for fluentd pidfile created
       end
     end
   end

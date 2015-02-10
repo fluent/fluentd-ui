@@ -1,14 +1,14 @@
 require 'spec_helper'
 require 'fileutils'
 
-describe 'Fluentd::Agent::LocalCommon' do
+describe 'Fluentd::Agent::Common' do
   let!(:now) { Time.zone.now }
   before { Timecop.freeze(now) }
   after { Timecop.return }
 
   subject { target_class.new.tap{|t| t.pid_file = pid_file_path} }
 
-  let!(:target_class) { Struct.new(:pid_file){ include Fluentd::Agent::LocalCommon } }
+  let!(:target_class) { Struct.new(:pid_file){ include Fluentd::Agent::Common } }
   let!(:pid_file_path) { Rails.root.join('tmp', 'fluentd-test', 'local_common_test.pid').to_s }
 
   describe '#pid' do
