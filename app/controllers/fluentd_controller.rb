@@ -45,7 +45,7 @@ class FluentdController < ApplicationController
   end
 
   def raw_log
-    send_data @fluentd.agent.log.to_s, type: "application/octet-stream", filename: File.basename(@fluentd.log_file)
+    send_data @fluentd.agent.log.read, type: "application/octet-stream", filename: File.basename(@fluentd.log_file)
   end
 
   private
