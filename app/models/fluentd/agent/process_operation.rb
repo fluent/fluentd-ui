@@ -34,7 +34,7 @@ class Fluentd
       def exec_dryrun(command, file_path = nil)
         Bundler.with_clean_env do
           unless system("#{command} -q --dry-run #{options_to_argv(config_file: file_path)}", out: File::NULL, err: File::NULL)
-            raise ::Fluentd::Agent::ConfigError, "TODO"
+            raise ::Fluentd::Agent::ConfigError
           end
         end
       end
