@@ -1,32 +1,75 @@
-shared_examples_for "Fluentd::Agent has common behavior" do |klass|
-  describe "#extra_options" do
-    context "blank" do
-      let(:options) { {} }
-      it { instance.pid_file.should    == described_class.default_options[:pid_file] }
-      it { instance.log_file.should    == described_class.default_options[:log_file] }
-      it { instance.config_file.should == described_class.default_options[:config_file] }
+# coding: utf-8
+require "spec_helper"
+
+describe FluentdLog do
+  describe "#read" do
+    let(:log) { FluentdLog.new(logfile) }
+    let(:logfile) { Rails.root.join("tmp", "dummylog").to_s }
+
+    before { File.open(logfile, "wb"){|f| f.write content } }
+    subject { log.read }
+
+    context "compatible with utf-8" do
+      let(:content) { "utf8あいう\n" }
+      it { subject.should == content }
     end
 
-    context "given" do
-      let(:options) do
-        {
-          :pid_file => pid_file,
-          :log_file => log_file,
-          :config_file => config_file,
-        }
-      end
-      let(:pid_file) { "pid" }
-      let(:log_file) { "log" }
-      let(:config_file) { "config" }
+    context "incompatible with utf-8" do
+      let(:content) { "eucあいう\n".encode('euc-jp').force_encoding('ascii-8bit') }
+      it { subject.should == content }
+    end
+  end
 
-      it { instance.pid_file.should == pid_file }
-      it { instance.log_file.should == log_file }
-      it { instance.config_file.should == config_file }
+  describe "#tail" do
+    let(:log) { FluentdLog.new(logfile) }
+    let(:logfile) { Rails.root.join("tmp", "dummylog").to_s }
+
+    before { File.open(logfile, "wb"){|f| f.write content } }
+
+    context "5 lines log" do
+      let(:content) { 5.times.map{|n| "#{n}\n"}.join }
+
+      context "tail(5)" do
+        let(:limit) { 5 }
+        subject { log.tail(limit) }
+
+        it { should == %w(4 3 2 1 0) }
+      end
+
+      context "tail(3)" do
+        let(:limit) { 3 }
+        subject { log.tail(limit) }
+
+        it { should == %w(4 3 2) }
+      end
+
+      context "tail(99)" do
+        let(:limit) { 99 }
+        subject { log.tail(limit) }
+
+        it { should == %w(4 3 2 1 0) }
+      end
     end
   end
 
   describe "#logged_errors" do
-    before { instance.stub(:log_file).and_return(logfile) }
+    let(:log) { FluentdLog.new(logfile) }
+
+    describe "#last_error_message" do
+      subject { log.last_error_message }
+
+      context "have 0 error log" do
+        let(:logfile) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
+
+        it { should be_empty }
+      end
+
+      context "have 2 error log" do
+        let(:logfile) { File.expand_path("./spec/support/fixtures/error2.log", Rails.root) }
+
+        it { should == log.recent_errors(1).first[:subject] }
+      end
+    end
 
     describe "#errors_since" do
       let(:logged_time) { Time.parse('2014-05-27') }
@@ -35,7 +78,7 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
       before { Timecop.freeze(now) }
       after { Timecop.return }
 
-      subject { instance.log.errors_since(days.days.ago) }
+      subject { log.errors_since(days.days.ago) }
 
       context "has no errors" do
         let(:logfile) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
@@ -73,7 +116,7 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
     describe "#recent_errors" do
       context "have 0 error log" do
         let(:logfile) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
-        subject { instance.log.recent_errors(2) }
+        subject { log.recent_errors(2) }
 
         it "empty array" do
           should be_empty
@@ -82,10 +125,10 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
 
       context "have 2 error log" do
         let(:logfile) { File.expand_path("./spec/support/fixtures/error2.log", Rails.root) }
-        subject { instance.log.recent_errors(2) }
+        subject { log.recent_errors(2) }
 
         describe "limit" do
-          subject { instance.log.recent_errors(limit).length }
+          subject { log.recent_errors(limit).length }
 
           context "=1" do
             let(:limit) { 1 }
@@ -111,7 +154,7 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
 
       context "have 3 errors log includeing sequential 2 error log" do
         let(:logfile) { File.expand_path("./spec/support/fixtures/error3.log", Rails.root) }
-        subject { instance.log.recent_errors(3) }
+        subject { log.recent_errors(3) }
 
         it "count 3 errors" do
           subject[0][:subject].should include("3 Address already in use - bind(2)")
@@ -125,57 +168,4 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
     end
   end
 
-  describe "#dryrun" do
-    let(:root) { FluentdUI.data_dir + "/tmp/agentspec/" }
-    let(:dummy_log_file) { root + "dummy.log" }
-    let(:dummy_pid_file) { root + "dummy.pid" }
-
-    before do
-      FileUtils.mkdir_p root
-      instance.stub(:log_file).and_return(dummy_log_file)
-      instance.stub(:pid_file).and_return(dummy_pid_file)
-    end
-
-    describe "valid/invalid" do
-      let(:config_path) { Rails.root.join("tmp", "fluent-test.conf").to_s }
-      before { File.write(config_path, config) }
-      after { File.unlink(config_path) }
-
-      context "valid config" do
-        let(:config) { <<-CONF.strip_heredoc }
-        <source>
-          type forward
-        </source>
-        CONF
-
-        context "with `!`" do
-          subject { instance.dryrun!(config_path) }
-          it { expect { subject }.to_not raise_error }
-        end
-
-        context "without `!`" do
-          subject { instance.dryrun(config_path) }
-          it { should be_truthy }
-        end
-      end
-
-      context "invalid config" do
-        let(:config) { <<-CONF.strip_heredoc }
-        <source>
-          type forward
-        CONF
-
-        context "with `!`" do
-          subject { instance.dryrun!(config_path) }
-          it { expect { subject }.to raise_error(Fluentd::Agent::ConfigError) }
-        end
-
-        context "without `!`" do
-          subject { instance.dryrun(config_path) }
-          it { should be_falsy }
-        end
-      end
-    end
-  end
 end
-

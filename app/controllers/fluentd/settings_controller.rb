@@ -39,7 +39,7 @@ class Fluentd::SettingsController < ApplicationController
     if dryrun(params[:config])
       flash.now[:success] = I18n.t('messages.dryrun_is_passed')
     else
-      flash.now[:danger] = @fluentd.agent.last_error_message
+      flash.now[:danger] = @fluentd.agent.log.last_error_message
     end
     @config = params[:config]
     render "edit"

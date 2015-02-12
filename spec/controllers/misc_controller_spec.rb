@@ -5,7 +5,7 @@ describe MiscController do
 
   class DummyAagent
     def log
-      "dummy_log_content"
+      Struct.new(:read).new(read: "dummy_log_content")
     end
 
     def version
@@ -14,7 +14,7 @@ describe MiscController do
   end
 
   let!(:dummy_agent) { DummyAagent.new }
-  let!(:fluentd_log_content) { dummy_agent.log }
+  let!(:fluentd_log_content) { dummy_agent.log.read }
   let!(:fluentd_version) { dummy_agent.version }
   let(:fluentd_ui_log_content) { <<-LOG.strip_heredoc }
     log1
