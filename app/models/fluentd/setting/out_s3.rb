@@ -10,7 +10,7 @@ class Fluentd
         # :reduced_redundancy, :check_apikey_on_start, :command_parameter, # not configurable?
         :format, :include_time_key, :time_key, :delimiter, :label_delimiter, :add_newline, :output_tag, :output_time,
         :time_slice_format, :time_slice_wait, :time_format, :utc, :store_as, :proxy_uri, :use_ssl,
-        :buffer_type, :buffer_queue_limit, :buffer_chunk_limit, :flush_interval,
+        :buffer_type, :buffer_path, :buffer_queue_limit, :buffer_chunk_limit, :flush_interval,
         :retry_wait, :retry_limit, :max_retry_wait, :num_threads,
       ].freeze
 
@@ -24,6 +24,7 @@ class Fluentd
 
       validates :match, presence: true
       validates :s3_bucket, presence: true
+      validates :buffer_path, presence: true, if: ->{ buffer_type == "file" }
 
       def self.initial_params
         {
@@ -45,7 +46,7 @@ class Fluentd
         [
           :format, :output_tag, :output_time, :include_time_key, :time_key, :delimiter, :label_delimiter,
           :utc, :time_slice_format, :time_slice_wait, :store_as, :proxy_uri,
-          :buffer_type, :buffer_queue_limit, :buffer_chunk_limit, :flush_interval,
+          :buffer_type, :buffer_path, :buffer_queue_limit, :buffer_chunk_limit, :flush_interval,
           :retry_wait, :retry_limit, :max_retry_wait, :num_threads,
         ]
       end

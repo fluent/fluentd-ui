@@ -17,6 +17,7 @@ class Fluentd
       validates :match, presence: true
       validates :apikey, presence: true
       validates :auto_create_table, presence: true
+      validates :buffer_path, presence: true, if: ->{ buffer_type == "file" }
 
       def plugin_name
         "tdlog"
