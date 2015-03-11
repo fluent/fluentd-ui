@@ -1,3 +1,8 @@
+Release 0.3.15 - 2015/03/11
+* [fixed] #159 Fix latest out_s3 plugin compatibility
+* [fixed] #160 Add validation that `buffer_path` required if `buffer_type` is file
+* [maintenance] Minor refactors
+
 Release 0.3.14 - 2015/02/04
 * [maintenance] #150, #151 minor fix in README.md.
 * [maintenance] #149 Make circle-ci result stable.
