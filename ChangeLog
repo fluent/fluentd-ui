@@ -1,3 +1,6 @@
+Release 0.3.16 - 2015/03/23
+* [fixed] #163 Relax fluentd dependency
+
 Release 0.3.15 - 2015/03/11
 * [fixed] #159 Fix latest out_s3 plugin compatibility
 * [fixed] #160 Add validation that `buffer_path` required if `buffer_type` is file
