@@ -58,6 +58,12 @@
       },
 
       methods: {
+        onKeyup: function(ev){
+          var el = ev.target;
+          if(el.name.match(/\[format/)){
+            this.preview();
+          }
+        },
         updateHighlightedLines: function() {
           if(!this.regexpMatches) {
             this.highlightedLines = null;
@@ -132,6 +138,7 @@
                 regexp: self.params.setting.regexp,
                 time_format: self.params.setting.time_format,
                 format: _.isEmpty(self.format) ? "regexp" : self.format,
+                params: self.params.setting,
                 file: self.targetFile
               }
             }).done(resolve).fail(reject);
