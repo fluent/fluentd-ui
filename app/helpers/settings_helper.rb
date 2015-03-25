@@ -54,8 +54,8 @@ module SettingsHelper
   end
 
   def append_and_remove_links
-    %Q!<a class="btn btn-xs btn-default js-append">icon('fa-plus')}</a> ! +
-    %Q!<a class="btn btn-xs btn-default js-remove" style="display:none">icon('fa-minus')}</a> !
+    %Q!<a class="btn btn-xs btn-default js-append">#{icon('fa-plus')}</a> ! +
+    %Q!<a class="btn btn-xs btn-default js-remove" style="display:none">#{icon('fa-minus')}</a> !
   end
 
   def child_data(form, key)
