@@ -67,7 +67,8 @@ class Fluentd
       def actual_start
         return unless validate_fluentd_options
         Bundler.with_clean_env do
-          spawn("fluentd #{options_to_argv}")
+          pid = spawn("fluentd #{options_to_argv}")
+          Process.detach(pid)
         end
 
         wait_starting
