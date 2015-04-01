@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fluentd-ui (0.3.16)
+    fluentd-ui (0.3.17)
       addressable
       bundler
       diff-lcs
@@ -115,7 +115,7 @@ GEM
     i18n_generators (1.2.1)
       mechanize
       rails (>= 3.0.0)
-    jbuilder (2.2.6)
+    jbuilder (2.2.7)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.2)

@@ -1,3 +1,7 @@
+Release 0.3.17 - 2015/04/01
+* [fixed] #164 Display add/remove icons correctly in out_forward settings page
+* [fixed] #165 Fix zombie process is created by clicking start button in dashboard
+
 Release 0.3.16 - 2015/03/23
 * [fixed] #163 Relax fluentd dependency
 
