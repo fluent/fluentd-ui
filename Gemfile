@@ -8,7 +8,7 @@ group :development, :test do
   gem "rake"
   gem "pry"
   gem "pry-rails"
-  gem "rspec-rails", "~> 2.99"
+  gem "rspec-rails", "~> 3.0"
 end
 
 group :development do
