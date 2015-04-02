@@ -48,7 +48,7 @@ describe 'setting', stub: :daemon do
     page.should have_css('pre', text: 'YET ANOTHER CONFIG')
   end
 
-  describe "config test" do
+  describe "config" do
     before do
       daemon.agent.config_write conf
       click_link I18n.t('terms.edit')
