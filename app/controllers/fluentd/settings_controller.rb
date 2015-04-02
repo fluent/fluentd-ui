@@ -69,7 +69,7 @@ class Fluentd::SettingsController < ApplicationController
 
   def parse_config(conf)
     # V1Parser.parse could raise exception
-    Fluent::Config::V1Parser.parse(conf, @fluentd.config_file)
+    Fluent::Config::V1Parser.parse(conf, @fluentd.config_file, File.dirname(@fluentd.config_file), binding)
   end
 
   def update_config(conf)

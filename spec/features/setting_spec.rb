@@ -82,12 +82,12 @@ describe 'setting', stub: :daemon do
 
       it 'configtest' do
         click_button I18n.t('terms.configtest')
-        page.should have_css('.alert-danger')
+        page.should have_css('.alert-success')
       end
 
       it "update & restart check" do
         click_button I18n.t('terms.update')
-        page.should have_css('.alert-danger')
+        daemon.agent.config.gsub("\r\n", "\n").should == conf # CodeMirror exchange \n -> \r\n
       end
     end
   end
