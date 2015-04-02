@@ -47,4 +47,48 @@ describe 'setting', stub: :daemon do
     current_path.should == '/daemon/setting'
     page.should have_css('pre', text: 'YET ANOTHER CONFIG')
   end
+
+  describe "config test" do
+    before do
+      daemon.agent.config_write conf
+      click_link I18n.t('terms.edit')
+    end
+
+    context "plain config" do
+      let(:conf) { <<-'CONF' }
+      <source>
+        type forward
+      </source>
+      CONF
+
+      it 'configtest' do
+        click_button I18n.t('terms.configtest')
+        page.should have_css('.alert-success')
+      end
+
+      it "update & restart check" do
+        click_button I18n.t('terms.update')
+        daemon.agent.config.gsub("\r\n", "\n").should == conf # CodeMirror exchange \n -> \r\n
+      end
+    end
+
+    context "embedded config" do
+      let(:conf) { <<-'CONF' }
+      <source>
+        type forward
+        id "foo#{Time.now.to_s}"
+      </source>
+      CONF
+
+      it 'configtest' do
+        click_button I18n.t('terms.configtest')
+        page.should have_css('.alert-danger')
+      end
+
+      it "update & restart check" do
+        click_button I18n.t('terms.update')
+        page.should have_css('.alert-danger')
+      end
+    end
+  end
 end

@@ -37,7 +37,12 @@ class Fluentd::SettingsController < ApplicationController
 
   def handle_dryrun
     if dryrun(params[:config])
-      flash.now[:success] = I18n.t('messages.dryrun_is_passed')
+      begin
+        parse_test(params[:config])
+        flash.now[:success] = I18n.t('messages.dryrun_is_passed')
+      rescue Fluent::ConfigParseError => e
+        flash.now[:danger] = e.message
+      end
     else
       flash.now[:danger] = @fluentd.agent.log.last_error_message
     end
@@ -59,6 +64,10 @@ class Fluentd::SettingsController < ApplicationController
     tmpfile.write params[:config]
     tmpfile.close
     @fluentd.agent.dryrun(tmpfile.path)
+  end
+
+  def parse_test(conf)
+    Fluent::Config::V1Parser.parse(params[:config], @fluentd.config_file)
   end
 
   def update_config(conf)
