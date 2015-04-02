@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fluentd-ui (0.3.17)
+    fluentd-ui (0.3.18)
       addressable
       bundler
       diff-lcs
@@ -115,14 +115,14 @@ GEM
     i18n_generators (1.2.1)
       mechanize
       rails (>= 3.0.0)
-    jbuilder (2.2.7)
+    jbuilder (2.2.12)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.2)
-    kramdown (1.5.0)
+    kramdown (1.6.0)
     kramdown-haml (0.0.3)
       haml
     launchy (2.4.3)
@@ -160,7 +160,7 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
-    puma (2.11.0)
+    puma (2.11.1)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
     rack-test (0.6.3)
@@ -200,7 +200,7 @@ GEM
       rspec-core (~> 2.99.0)
       rspec-expectations (~> 2.99.0)
       rspec-mocks (~> 2.99.0)
-    rubyzip (1.1.6)
+    rubyzip (1.1.7)
     safe_yaml (1.0.4)
     sass (3.2.19)
     sass-rails (4.0.5)
@@ -234,7 +234,7 @@ GEM
     timers (1.1.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2014.10)
+    tzinfo-data (1.2015.2)
       tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext
