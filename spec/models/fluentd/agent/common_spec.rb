@@ -13,21 +13,27 @@ describe 'Fluentd::Agent::Common' do
 
   describe '#pid' do
     context 'no pid file exists' do
-      its(:pid) { should be_nil }
+      it "should be nil" do
+        expect(subject.pid).to be_nil
+      end
     end
 
     context 'empty pid file given' do
       before { FileUtils.touch pid_file_path }
       after  { FileUtils.rm pid_file_path }
 
-      its(:pid) { should be_nil }
+      it "should be nil" do
+        expect(subject.pid).to be_nil
+      end
     end
 
     context 'valid pid file given' do
       before { File.write pid_file_path, '9999' }
       after  { FileUtils.rm pid_file_path }
 
-      its(:pid) { should eq(9999) }
+      it "should be 9999" do
+        expect(subject.pid).to eq(9999)
+      end
     end
   end
 
