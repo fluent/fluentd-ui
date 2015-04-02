@@ -1,3 +1,7 @@
+Release 0.3.18 - 2015/04/02
+* [fixed] #167 Apply bootstrap css to inputboxes in signin form
+* [fixed] #168 Fix the behavor mismatch between configtest and update (update failed but configtest is OK)
+
 Release 0.3.17 - 2015/04/01
 * [fixed] #164 Display add/remove icons correctly in out_forward settings page
 * [fixed] #165 Fix zombie process is created by clicking start button in dashboard
