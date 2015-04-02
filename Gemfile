@@ -19,7 +19,7 @@ group :test do
   gem "rspec-its"
   gem "factory_girl_rails"
   gem "database_cleaner", "~> 1.2.0"
-  gem "capybara", "~> 2.2.1"
+  gem "capybara", "~> 2.4.0"
   gem "capybara-screenshot"
   gem "simplecov", "~> 0.7.1", require: false
   gem "webmock", "~> 1.18.0"
