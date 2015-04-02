@@ -4,9 +4,11 @@ class Api::SettingsController < ApplicationController
   before_action :set_config
   before_action :set_section, only: [:show, :update, :destroy]
   helper_method :element_id
-  respond_to :json
 
   def index
+    respond_to do |format|
+      format.json
+    end
   end
 
   def update
