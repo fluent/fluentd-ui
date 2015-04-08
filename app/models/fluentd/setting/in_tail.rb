@@ -74,8 +74,6 @@ class Fluentd
           end
         end
 
-        if format.to_sym == :multiline
-        end
         format_specific_conf
       end
 
