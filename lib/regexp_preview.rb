@@ -76,8 +76,8 @@ class RegexpPreview
   def multiline_detect(lines, regexps)
     whole = ""
     matches = []
-    lines.each_with_index do |line, j|
-      m = line.match(multiline_regexps[j])
+    lines.each_with_index do |line, i|
+      m = line.match(multiline_regexps[i])
       unless m
         return nil
       end
