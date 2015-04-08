@@ -58,7 +58,7 @@ class User
 
   def valid_password_confirmation
     unless password == password_confirmation
-      errors.add(:current_password, :wrong_password)
+      errors.add(:password, :confirmation, attribute: User.human_attribute_name(:password_confirmation))
     end
   end
 
