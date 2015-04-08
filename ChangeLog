@@ -1,3 +1,8 @@
+Release 0.3.19 - 2015/04/08
+* [maintenance] #170 Update some gems
+* [maintenance] #171 Update Rails to 4.2.1
+* [maintenance] #173 Add Rake task to clean files under tmp/ directory (for packaging)
+
 Release 0.3.18 - 2015/04/02
 * [fixed] #167 Apply bootstrap css to inputboxes in signin form
 * [fixed] #168 Fix the behavor mismatch between configtest and update (update failed but configtest is OK)
