@@ -27,7 +27,7 @@ describe "users" do
 
         fill_in 'user[password]', with: password
         fill_in 'user[password_confirmation]', with: password_confirmation
-        find('input[type="submit"]').click
+        click_button I18n.t("terms.update_password")
       end
 
       context 'when valid new password/confirmation is input' do
