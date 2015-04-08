@@ -5,11 +5,20 @@ describe User do
 
   describe "#valid?" do
     describe "password" do
-      it "password != password_confirmation is invalid" do
-        user.current_password = user.password
-        user.password = "aaaaaaaa"
-        user.password_confirmation = "bbbbbbbb"
-        user.should_not be_valid
+      before do
+        user.current_password = current_password
+        user.password = password
+        user.password_confirmation = password_confirmation
+      end
+
+      context 'when password != password_confirmation' do
+        let(:current_password) { user.password }
+        let(:password) { 'aaaaaaaa' }
+        let(:password_confirmation) { 'bbbbbbbb' }
+
+        it 'should be false' do
+          user.should_not be_valid
+        end
       end
     end
   end
