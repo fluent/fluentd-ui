@@ -6,8 +6,9 @@ describe User do
   describe "#valid?" do
     describe "password" do
       it "password != password_confirmation is invalid" do
-        user.password = "a"
-        user.password_confirmation = "b"
+        user.current_password = user.password
+        user.password = "aaaaaaaa"
+        user.password_confirmation = "bbbbbbbb"
         user.should_not be_valid
       end
     end
