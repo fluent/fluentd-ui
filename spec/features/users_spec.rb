@@ -19,11 +19,12 @@ describe "users" do
     end
 
     describe 'to change password' do
+      let(:current_password) { user.password }
       let(:password) { 'new_password' }
 
       before do
         visit user_path
-        fill_in 'user[current_password]', with: user.password
+        fill_in 'user[current_password]', with: current_password
 
         fill_in 'user[password]', with: password
         fill_in 'user[password_confirmation]', with: password_confirmation
@@ -35,6 +36,7 @@ describe "users" do
 
         it 'should update users password with new password' do
           expect(page).to have_css('.alert-success')
+          expect(user.stored_digest).to eq user.digest(password)
         end
       end
 
@@ -43,6 +45,7 @@ describe "users" do
 
         it 'should not update users password with new password' do
           expect(page).to have_css('.alert-danger')
+          expect(user.stored_digest).to eq user.digest(current_password)
         end
       end
     end
