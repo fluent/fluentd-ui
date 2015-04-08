@@ -57,7 +57,9 @@ class User
   end
 
   def valid_password_confirmation
-    password == password_confirmation
+    unless password == password_confirmation
+      errors.add(:current_password, :wrong_password)
+    end
   end
 
   def stretching_cost
