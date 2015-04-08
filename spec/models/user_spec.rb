@@ -27,14 +27,20 @@ describe User do
           let(:password) { 'a' * 7 }
           let(:password_confirmation) { password }
 
-          it { should be_falsey }
+          it 'should return false' do
+            should be_falsey
+            user.errors.keys.should == [:password]
+          end
         end
 
         context 'when password != password_confirmation' do
           let(:password) { 'a' * 8 }
           let(:password_confirmation) { 'b' * 8 }
 
-          it { should be_falsey }
+          it 'should return false' do
+            should be_falsey
+            user.errors.keys.should == [:password]
+          end
         end
       end
 
@@ -43,7 +49,10 @@ describe User do
         let(:password) { 'a' * 8 }
         let(:password_confirmation) { password }
 
-        it { should be_falsey }
+        it 'should return false' do
+          should be_falsey
+          user.errors.keys.should == [:current_password]
+        end
       end
     end
   end
