@@ -4,6 +4,8 @@ describe User do
   let(:user) { build(:user) }
 
   describe "#valid?" do
+    subject { user.valid? }
+
     describe "password" do
       before do
         user.current_password = current_password
@@ -16,9 +18,7 @@ describe User do
         let(:password) { 'aaaaaaaa' }
         let(:password_confirmation) { 'bbbbbbbb' }
 
-        it 'should be false' do
-          user.should_not be_valid
-        end
+        it { should be_falsey }
       end
     end
   end
