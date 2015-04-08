@@ -3,7 +3,7 @@ defaults: &defaults
   default_log_tail_count: 30
   histories_count_in_preview: 5
   max_backup_files_count: 100
-  in_tail_preview_target_line: 40
+  in_tail_preview_line_count: 40
   recommended_plugins:
     - category: filter
       name: "rewrite-tag-filter"

@@ -36,7 +36,7 @@ class RegexpPreview
 
   def matches_single_line
     reader = FileReverseReader.new(File.open(file))
-    matches = reader.tail(Settings.in_tail_preview_target_line).map do |line|
+    matches = reader.tail(Settings.in_tail_preview_line_count).map do |line|
       result = {
         :whole => line,
         :matches => [],
@@ -60,7 +60,7 @@ class RegexpPreview
     return [] if multiline_regexps.empty?
     reader = FileReverseReader.new(File.open(file))
     result = []
-    target_lines = reader.tail(Settings.in_tail_preview_target_line).map{|line| line << "\n" }
+    target_lines = reader.tail(Settings.in_tail_preview_line_count).map{|line| line << "\n" }
     target_lines.each_with_index do |line, line_no|
       if line.match(params[:format_firstline])
         lines = target_lines[line_no, multiline_regexps.length]
