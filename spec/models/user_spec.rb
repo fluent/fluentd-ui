@@ -17,22 +17,22 @@ describe User do
         let(:current_password) { user.password }
 
         context 'when password/confirmation is 8 characters' do
-          let(:password) { 'aaaaaaaa' }
+          let(:password) { 'a' * 8 }
           let(:password_confirmation) { password }
 
           it { should be_truthy }
         end
 
         context 'when password is 7 characters' do
-          let(:password) { 'aaaaaaa' }
+          let(:password) { 'a' * 7 }
           let(:password_confirmation) { password }
 
           it { should be_falsey }
         end
 
         context 'when password != password_confirmation' do
-          let(:password) { 'aaaaaaaa' }
-          let(:password_confirmation) { 'bbbbbbbb' }
+          let(:password) { 'a' * 8 }
+          let(:password_confirmation) { 'b' * 8 }
 
           it { should be_falsey }
         end
@@ -40,7 +40,7 @@ describe User do
 
       context 'when current_password is wrong' do
         let(:current_password) { 'invalid_password' }
-        let(:password) { 'aaaaaaaa' }
+        let(:password) { 'a' * 8 }
         let(:password_confirmation) { password }
 
         it { should be_falsey }
