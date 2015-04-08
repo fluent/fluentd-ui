@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "users" do
-  describe "unlogined" do
+  describe "visit edit page before login" do
     let(:url) { user_path }
     it_should_behave_like "login required"
   end
