@@ -15,7 +15,7 @@ describe "users" do
 
     after do
       # reset password to the default
-      FileUtils.rm_rf(User::ENCRYPTED_PASSWORD_FILE)
+      FileUtils.rm_f(User::ENCRYPTED_PASSWORD_FILE)
     end
 
     describe 'to change password' do
