@@ -10,7 +10,7 @@ module FluentdUI
     option :port, type: :numeric, default: 9292
     option :pidfile, type: :string, default: File.expand_path('tmp/fluentd-ui.pid', ROOT)
     option :daemonize, type: :boolean, default: false
-    option :host, type: :string, default: 'localhost'
+    option :host, type: :string, default: '0.0.0.0'
     def start
       trap(:INT) { puts "\nStopping..." }
       # NOTE: on Debian based distributions, td-agent uses start-stop-daemon with --exec option for stopping process
