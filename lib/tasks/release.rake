@@ -3,6 +3,9 @@ namespace :release do
   task :prepare do
     raise "Use this task in development only" unless Rails.env.development?
 
+    # Fetch remote
+    system("git fetch origin")
+
     # detect merged PR
     old_version = FluentdUI::VERSION
     pr_numbers = `git log v#{old_version}..master --oneline`.scan(/#[0-9]+/)
