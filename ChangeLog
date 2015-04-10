@@ -1,3 +1,7 @@
+Release 0.3.20 - 2015/04/10
+* [fixed] #175 Fix the bug password can be changed without match between new password and password confirmation.
+* [fixed] #177 Use '0.0.0.0' as host not 'localhost' (If you want to change host, you can use `--host` option with `start` command)
+
 Release 0.3.19 - 2015/04/08
 * [maintenance] #170 Update some gems
 * [maintenance] #171 Update Rails to 4.2.1
