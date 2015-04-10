@@ -44,6 +44,6 @@ HEADER
     # Update Gemfile.lock
     system("bundle install")
 
-    puts "Changelog, version and Gemfile.lock is updated. New version is #{new_version}."
+    puts "Changelog, version and Gemfile.lock were updated. New version is #{new_version}."
   end
 end
