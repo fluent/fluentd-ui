@@ -43,7 +43,7 @@ describe "sessions" do
 
     after do
       # reset password to the default
-      FileUtils.rm_rf(User::ENCRYPTED_PASSWORD_FILE)
+      FileUtils.rm_f(User::ENCRYPTED_PASSWORD_FILE)
     end
 
     context "correct password" do

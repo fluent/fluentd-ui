@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :find_user
+  before_action :set_user
 
   def show
   end
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   private
 
-  def find_user
+  def set_user
     @user = User.new(name: session[:user_name])
   end
 
