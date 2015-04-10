@@ -1,5 +1,5 @@
 namespace :release do
-  desc "Add header of now version release to Changelog and bump up version"
+  desc "Add header of now version release to ChangeLog and bump up version"
   task :prepare do
     raise "Use this task in development only" unless Rails.env.development?
 
@@ -20,8 +20,8 @@ namespace :release do
     old_revision = $1
     new_version = old_version.gsub(/\.#{old_revision}\z/, ".#{old_revision.to_i + 1}")
 
-    # Update Changelog
-    changelog_filename = Rails.root.join('Changelog')
+    # Update ChangeLog
+    changelog_filename = Rails.root.join('ChangeLog')
     changelog = File.read(changelog_filename)
 
     pr_descriptions = pr_numbers.map do |number|
@@ -47,6 +47,6 @@ HEADER
     # Update Gemfile.lock
     system("bundle install")
 
-    puts "Changelog, version and Gemfile.lock were updated. New version is #{new_version}."
+    puts "ChangeLog, version and Gemfile.lock were updated. New version is #{new_version}."
   end
 end
