@@ -4,8 +4,8 @@ namespace :release do
     raise "Use this task in development only" unless Rails.env.development?
 
     # detect merged PR
-    now_version = FluentdUI::VERSION
-    pr_numbers = `git log v#{now_version}..master --oneline`.scan(/#[0-9]+/)
+    old_version = FluentdUI::VERSION
+    pr_numbers = `git log v#{old_version}..master --oneline`.scan(/#[0-9]+/)
 
     if !$?.success? || pr_numbers.empty?
       puts "Detecting PR failed. Please confirm if any PR were merged after the latest release."
@@ -13,9 +13,9 @@ namespace :release do
     end
 
     # Generate new version
-    /\.([0-9]+)\z/.match(now_version)
-    now_revision = $1
-    new_version = now_version.gsub(/\.#{now_revision}\z/, ".#{now_revision.to_i + 1}")
+    /\.([0-9]+)\z/.match(old_version)
+    old_revision = $1
+    new_version = old_version.gsub(/\.#{old_revision}\z/, ".#{old_revision.to_i + 1}")
 
     # Update Changelog
     changelog_filename = Rails.root.join('Changelog')
@@ -37,7 +37,7 @@ HEADER
     # Update version.rb
     version_filename = Rails.root.join("lib", "fluentd-ui", "version.rb")
     version_class = File.read(version_filename)
-    new_version_class = version_class.gsub(/VERSION = \"#{now_version}\"/, "VERSION = \"#{new_version}\"")
+    new_version_class = version_class.gsub(/VERSION = \"#{old_version}\"/, "VERSION = \"#{new_version}\"")
 
     File.open(version_filename, 'w') {|f| f.write(new_version_class)}
 
