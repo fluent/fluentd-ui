@@ -8,7 +8,7 @@ namespace :release do
 
     # detect merged PR
     old_version = FluentdUI::VERSION
-    pr_numbers = `git log v#{old_version}..master --oneline`.scan(/#[0-9]+/)
+    pr_numbers = `git log v#{old_version}..origin/master --oneline`.scan(/#[0-9]+/)
 
     if !$?.success? || pr_numbers.empty?
       puts "Detecting PR failed. Please confirm if any PR were merged after the latest release."
