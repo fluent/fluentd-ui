@@ -1,17 +1,17 @@
 <script type="text/template" id="format-bundle">
     <div class="form-group">
       <label>format</label>
-      <select name="setting[format]" v-model="format">
+      <select name="setting[format]" v-model="format" class="form-control">
         <option v-repeat="selectableFormats" value="{{ $value }}" v-attr="selected: format==$value">{{ $value }}</option>
       </select>
     </div>
     <div class="form-group" v-repeat="options">
       <label>{{ $value }} </label>
-      <input type="text" name="setting[{{ $value }}]" v-model="params.setting[$value]" size="100%" />
+      <input type="text" name="setting[{{ $value }}]" v-model="params.setting[$value]" size="100%" class="form-control" />
     </div>
 </script>
 
-<div id="in_tail_format" class="form-group"
+<div id="in_tail_format"
   formatOptionsJson="<%= formats.to_json %>"
   initialSelected="<%= initialSelected %>"
   targetFile="<%= file %>"
