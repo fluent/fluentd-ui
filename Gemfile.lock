@@ -79,7 +79,6 @@ GEM
     cool.io (1.3.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
-    database_cleaner (1.2.0)
     diff-lcs (1.2.5)
     domain_name (0.5.23)
       unf (>= 0.0.5, < 1.0.0)
@@ -275,7 +274,6 @@ PLATFORMS
 DEPENDENCIES
   capybara (~> 2.4.0)
   capybara-screenshot
-  database_cleaner (~> 1.2.0)
   factory_girl_rails
   fluentd-ui!
   i18n_generators (= 1.2.1)

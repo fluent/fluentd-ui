@@ -17,7 +17,6 @@ end
 
 group :test do
   gem "factory_girl_rails"
-  gem "database_cleaner", "~> 1.2.0"
   gem "capybara", "~> 2.4.0"
   gem "capybara-screenshot"
   gem "simplecov", "~> 0.7.1", require: false
