@@ -62,6 +62,10 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.0)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
@@ -281,6 +285,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  better_errors
   capybara (~> 2.4.0)
   capybara-screenshot
   database_cleaner (~> 1.2.0)
