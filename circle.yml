@@ -1,6 +1,8 @@
 machine:
   environment:
     SPEC_OPTS: "-f d --color"
+  ruby:
+    version: 2.1.3
 
 checkout:
   post:
