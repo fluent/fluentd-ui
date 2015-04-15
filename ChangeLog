@@ -1,6 +1,6 @@
 Release 0.3.21 - 2015/04/15
 * [maintenance] #187 Remove needless gem
-* [fixed] #186 Fix the bug when server restart while logined and "Config File" page is visited
+* [fixed] #186 Fix the bug when server restart while logged in and "Config File" page is visited
 * [fixed] #184 Focus some inputboxes when its label is clicked
 * [improve] #180 #181 #183 #185 Tweak design
 
