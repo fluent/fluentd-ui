@@ -13,6 +13,8 @@ end
 
 group :development do
   gem 'i18n_generators', '1.2.1'
+  gem 'better_errors'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do
