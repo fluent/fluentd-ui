@@ -26,7 +26,7 @@ The default account is username="admin" and password="changeme"
 
 ## Dependency
 
-- ruby 2.1.3 or later
+- ruby 2.1.3 or later (since v0.4.0)
 
 ## To Ubuntu 14.04 user (installed ruby by apt-get)
 
