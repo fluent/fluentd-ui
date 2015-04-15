@@ -1,13 +1,13 @@
 <script type="text/template" id="format-bundle">
     <div class="form-inline form-group">
-      <label>format</label>
-      <select name="setting[format]" v-model="format" class="form-control">
+      <label for="in_tail_setting_format">format</label>
+      <select id="in_tail_setting_format" name="setting[format]" v-model="format" class="form-control">
         <option v-repeat="selectableFormats" value="{{ $value }}" v-attr="selected: format==$value">{{ $value }}</option>
       </select>
     </div>
     <div class="form-inline form-group" v-repeat="options">
-      <label>{{ $value }} </label>
-      <input type="text" name="setting[{{ $value }}]" v-model="params.setting[$value]" size="100%" class="form-control" />
+      <label for="in_tail_setting_{{ $value }}">{{ $value }} </label>
+      <input id="in_tail_setting_{{ $value }}" type="text" name="setting[{{ $value }}]" v-model="params.setting[$value]" size="100%" class="form-control" />
     </div>
 </script>
 
