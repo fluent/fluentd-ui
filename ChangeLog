@@ -1,3 +1,9 @@
+Release 0.3.21 - 2015/04/15
+* [maintenance] #187 Remove needless gem
+* [fixed] #186 Fix the bug when server restart while logined and "Config File" page is visited
+* [fixed] #184 Focus some inputboxes when its label is clicked
+* [improve] #180 #181 #183 #185 Tweak design
+
 Release 0.3.20 - 2015/04/10
 * [fixed] #175 Fix the bug password can be changed without match between new password and password confirmation.
 * [fixed] #177 Use '0.0.0.0' as host not 'localhost' (If you want to change host, you can use `--host` option with `start` command)
