@@ -1,3 +1,8 @@
+## Release 0.4.0 - 2015/04/15
+
+* [improved] [#190](https://github.com/fluent/fluentd-ui/pull/190) Use markdown format for ChangeLog.md
+* [maintenance] [#182](https://github.com/fluent/fluentd-ui/pull/182) [#188](https://github.com/fluent/fluentd-ui/pull/188) [#189](https://github.com/fluent/fluentd-ui/pull/189) fluentd-ui use ruby 2.1.3 or later. It broke backward compatible.
+
 ## Release 0.3.21 - 2015/04/15
 
 * [maintenance] [#187](https://github.com/fluent/fluentd-ui/pull/187) Remove needless gem
