@@ -21,15 +21,16 @@ namespace :release do
     new_version = old_version.gsub(/\.#{old_revision}\z/, ".#{old_revision.to_i + 1}")
 
     # Update ChangeLog
-    changelog_filename = Rails.root.join('ChangeLog')
+    changelog_filename = Rails.root.join('ChangeLog.md')
     changelog = File.read(changelog_filename)
 
     pr_descriptions = pr_numbers.map do |number|
-      "* [] #{number} https://github.com/fluent/fluentd-ui/pull/#{number.gsub('#', '')}"
+      "* [] [#{number}](https://github.com/fluent/fluentd-ui/pull/#{number.gsub('#', '')}) "
     end.join("\n")
 
     new_changelog = <<-HEADER
-Release #{new_version} - #{Time.now.strftime("%Y/%m/%d")}
+## Release #{new_version} - #{Time.now.strftime("%Y/%m/%d")}
+
 #{pr_descriptions}
 
 #{changelog.chomp}
