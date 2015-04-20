@@ -1,5 +1,6 @@
 (function(){
   "use strict";
+  var maxFormatCount = 20;
 
   $(function(){
     if($('#in_tail_format').length === 0) return;
@@ -30,7 +31,20 @@
         highlightedLines: null,
       },
 
+      computed: {
+        useTextArea: function() {
+          return this.format == "multiline";
+        }
+      },
+
       compiled: function(){
+        this.$watch('params.setting.formats', function(formats){
+          _.range(1, maxFormatCount).forEach(function(i) {params.setting["format" + String(i)] = "";});
+
+          _.compact(formats.split("\n")).forEach(function(formatLine, index) {
+            params.setting["format" + String(index + 1)] = formatLine;
+          });
+        }),
         this.$watch('params.setting.regexp', function(){
           this.preview();
         });
@@ -46,6 +60,10 @@
         if(!params.setting) {
           params.setting = {};
         }
+
+        var formats = _.map(_.range(1, maxFormatCount), function(i) {return params.setting["format" + String(i)];});
+        params.setting.formats = _.compact(formats).join("\n");
+
         _.each(this.formatOptions, function(options){
           _.each(options, function(key){
             if(!params.setting.hasOwnProperty(key)){
