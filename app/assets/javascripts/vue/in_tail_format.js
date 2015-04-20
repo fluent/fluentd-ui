@@ -33,7 +33,7 @@
 
       computed: {
         useTextArea: function() {
-          return this.format == "multiline";
+          return this.format === "multiline";
         }
       },
 
