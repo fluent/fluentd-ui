@@ -24,7 +24,7 @@ class Fluentd
           # :grok => [:grok_str],
         }
       end
-      attr_accessor *known_formats.values.flatten.compact
+      attr_accessor *known_formats.values.flatten.compact.uniq
 
       def known_formats
         self.class.known_formats
