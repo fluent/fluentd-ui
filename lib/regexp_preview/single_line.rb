@@ -17,6 +17,7 @@ module RegexpPreview
         raise "Unknown format '#{format}'" unless definition
         definition.configure({}) # NOTE: SyslogParser define @regexp in configure method so call it to grab Regexp object
         @regexp = definition.patterns["format"]
+        @time_format = definition.patterns["time_format"]
       end
     end
 
