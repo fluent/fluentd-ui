@@ -11,7 +11,10 @@ module RegexpPreview
       case format
       when "regexp"
         @regexp = Regexp.new(params[:regexp])
+        @time_format = nil
       when "ltsv", "json", "csv", "tsv"
+        @regexp = nil
+        @time_format = nil
       else # apache, nginx, etc
         definition = Fluent::TextParser::TEMPLATE_REGISTRY.lookup(format).call
         raise "Unknown format '#{format}'" unless definition
@@ -26,7 +29,7 @@ module RegexpPreview
         params: {
           setting: {
             # NOTE: regexp and time_format are used when format == 'apache' || 'nginx' || etc.
-            regexp: regexp.source,
+            regexp: regexp.try(:source),
             time_format: time_format,
           }
         },
