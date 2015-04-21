@@ -20,19 +20,8 @@ class ApiController < ApplicationController
 
   def regexp_preview
     preview = RegexpPreview.processor(params[:format]).new(params[:file], params[:format], params)
-    matches = preview.matches
 
-    render json: {
-      params: {
-        setting: {
-          # NOTE: regexp and timeformat are used when format == 'apache' || 'nginx' || etc.
-          # TODO: prepare rendered JSON by prcessor(RegexpPreview::{Signle,Multi}Line
-          regexp: preview.try(:regexp).try(:source),
-          time_format: preview.try(:time_format),
-        }
-      },
-      matches: matches.compact,
-    }
+    render json: preview.matches_json
   end
 
   def grok_to_regexp

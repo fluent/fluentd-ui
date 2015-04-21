@@ -8,6 +8,20 @@ module RegexpPreview
       @params = params[:params]
     end
 
+    def matches_json
+      {
+        params: {
+          setting: { # for vue.js
+            regexp: nil,
+            time_format: nil,
+          }
+        },
+        matches: matches.compact,
+      }
+    end
+
+    private
+
     def matches
       return [] if patterns.empty?
       reader = FileReverseReader.new(File.open(file))
