@@ -6,8 +6,21 @@
       </select>
     </div>
     <div class="form-inline form-group" v-repeat="options">
-      <label for="in_tail_setting_{{ $value }}">{{ $value }} </label>
-      <input id="in_tail_setting_{{ $value }}" type="text" name="setting[{{ $value }}]" v-model="params.setting[$value]" size="100%" class="form-control" />
+      <label for="in_tail_setting_{{ $value }}" v-if="!useTextArea">{{ $value }} </label>
+      <input id="in_tail_setting_{{ $value }}" type="{{ useTextArea ? 'hidden' : 'text' }}" name="setting[{{ $value }}]" v-model="params.setting[$value]" v-on="keyup: onKeyup" size="100%" class="form-control" />
+    </div>
+
+    <div v-if="useTextArea">
+      <div class="form-inline form-group">
+        <label for="in_tail_setting_format_firstline">format_firstline</label>
+        <input id="in_tail_setting_format_firstline" type="text" name="setting[format_firstline]" v-model="params.setting['format_firstline']" v-on="keyup: onKeyup" size="100%" class="form-control" />
+      </div>
+
+      <div class="form-group">
+       <p class="alert alert-warning"><%= t("fluentd.settings.in_tail.notice_for_multiline_limit") %></p>
+        <label for="in_tail_setting_formats">formats</label>
+        <textarea id="in_tail_setting_formats" type="text" name="setting[formats]" v-model="params.setting['formats']" v-on="keyup: onKeyup" rows='20' size='100%' class="form-control"></textarea>
+      </div>
     </div>
 </script>
 

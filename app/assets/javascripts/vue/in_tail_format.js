@@ -1,5 +1,6 @@
 (function(){
   "use strict";
+  var maxFormatCount = 20;
 
   $(function(){
     if($('#in_tail_format').length === 0) return;
@@ -30,7 +31,20 @@
         highlightedLines: null,
       },
 
+      computed: {
+        useTextArea: function() {
+          return this.format === "multiline";
+        }
+      },
+
       compiled: function(){
+        this.$watch('params.setting.formats', function(formats){
+          _.range(1, maxFormatCount + 1).forEach(function(i) {params.setting["format" + String(i)] = "";});
+
+          _.compact(formats.split("\n")).forEach(function(formatLine, index) {
+            params.setting["format" + String(index + 1)] = formatLine;
+          });
+        }),
         this.$watch('params.setting.regexp', function(){
           this.preview();
         });
@@ -46,6 +60,10 @@
         if(!params.setting) {
           params.setting = {};
         }
+
+        var formats = _.chain(_.range(1, maxFormatCount + 1)).map(function(i) {return params.setting["format" + String(i)];}).compact().value();
+        params.setting.formats = formats.join("\n");
+
         _.each(this.formatOptions, function(options){
           _.each(options, function(key){
             if(!params.setting.hasOwnProperty(key)){
@@ -58,6 +76,12 @@
       },
 
       methods: {
+        onKeyup: function(ev){
+          var el = ev.target;
+          if(el.name.match(/\[format/)){
+            this.preview();
+          }
+        },
         updateHighlightedLines: function() {
           if(!this.regexpMatches) {
             this.highlightedLines = null;
@@ -132,6 +156,7 @@
                 regexp: self.params.setting.regexp,
                 time_format: self.params.setting.time_format,
                 format: _.isEmpty(self.format) ? "regexp" : self.format,
+                params: self.params.setting,
                 file: self.targetFile
               }
             }).done(resolve).fail(reject);
