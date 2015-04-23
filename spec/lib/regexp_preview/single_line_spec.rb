@@ -7,8 +7,8 @@ describe RegexpPreview::SingleLine do
     describe "format" do
       let :params do
         {
-          regexp: "(?<regexp>regexp)",
           time_format: "time_format",
+          regexp: "(?<category>\[.+\])",
         }
       end
 
