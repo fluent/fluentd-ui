@@ -61,8 +61,8 @@
           params.setting = {};
         }
 
-        var formats = _.map(_.range(1, maxFormatCount), function(i) {return params.setting["format" + String(i)];});
-        params.setting.formats = _.compact(formats).join("\n");
+        var formats = _.chain(_.range(1, maxFormatCount)).map(function(i) {return params.setting["format" + String(i)];}).compact().value();
+        params.setting.formats = formats.join("\n");
 
         _.each(this.formatOptions, function(options){
           _.each(options, function(key){
