@@ -5,16 +5,16 @@ describe RegexpPreview::MultiLine do
     subject { RegexpPreview::MultiLine.new(File.expand_path("./spec/support/fixtures/error0.log", Rails.root), "multiline", params).matches_json }
 
     let :params do
-      tmp = {
+      params = {
         format_firstline: ".+",
         time_format: "time_format",
       }
-      tmp["format1"] = "(?<foo>foo)"
-      tmp["format2"] = "(?<bar>bar)"
+      params["format1"] = "(?<foo>foo)"
+      params["format2"] = "(?<bar>bar)"
       3.upto(Fluentd::Setting::InTail::MULTI_LINE_MAX_FORMAT_COUNT) do |i|
-        tmp["format#{i}"] = ""
+        params["format#{i}"] = ""
       end
-      { params: tmp }
+      { params: params }
     end
 
     it 'should not have regexp and time_format in [:params][:setting]' do
