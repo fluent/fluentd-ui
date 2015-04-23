@@ -40,7 +40,7 @@ module RegexpPreview
     private
 
     def matches
-      return [] unless @regexp # such as ltsv, json, apache, etc
+      return [] unless @regexp # such as ltsv, json, etc
       reader = FileReverseReader.new(File.open(file))
       matches = reader.tail(Settings.in_tail_preview_line_count).map do |line|
         result = {
