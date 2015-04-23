@@ -39,7 +39,7 @@
 
       compiled: function(){
         this.$watch('params.setting.formats', function(formats){
-          _.range(1, maxFormatCount).forEach(function(i) {params.setting["format" + String(i)] = "";});
+          _.range(1, maxFormatCount + 1).forEach(function(i) {params.setting["format" + String(i)] = "";});
 
           _.compact(formats.split("\n")).forEach(function(formatLine, index) {
             params.setting["format" + String(index + 1)] = formatLine;
