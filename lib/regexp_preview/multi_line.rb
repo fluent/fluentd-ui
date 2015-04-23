@@ -39,8 +39,6 @@ module RegexpPreview
       result
     end
 
-    private
-
     def detect_chunk(lines)
       whole = ""
       matches = []
