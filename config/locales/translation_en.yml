@@ -211,7 +211,7 @@ en:
           For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/in_tail" target="_blank">Tail input plugin</a> documentation page.
       in_tail:
         notice_for_permission: "Please check permission or group setting for %{user} user can read it."
-        notice_for_multiline_limit: "The number i of lines is assigned \"format#{i}\". Lines more than 20 are ignored."
+        notice_for_multiline_limit: "Please input Regexp(s) separated by newline. blank lines are ignored. Lines more than 20 are dropped."
         restart_from_first: Restart from first
         grok_manual: |
           <p>

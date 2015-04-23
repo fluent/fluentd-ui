@@ -216,7 +216,7 @@ ja:
         <a target="_blank" href="http://docs.fluentd.org/ja/articles/in_tail">in_tailプラグインの解説ページ</a>や
         <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。
       in_tail:
-        notice_for_multiline_limit: "i行目が\"format#{i}\"として設定されます。20行以上は無視します。"
+        notice_for_multiline_limit: "改行区切りで正規表現を入力してください。空行はカウントされません。21行目以降の入力は無視されます。"
         notice_for_permission: "※%{user}ユーザーが読み込み可能なようにパーミッションやグループの設定をご確認ください。"
         restart_from_first: 最初からやり直す
         grok_manual: |
