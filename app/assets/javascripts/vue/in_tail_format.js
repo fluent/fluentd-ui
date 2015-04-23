@@ -61,7 +61,7 @@
           params.setting = {};
         }
 
-        var formats = _.chain(_.range(1, maxFormatCount)).map(function(i) {return params.setting["format" + String(i)];}).compact().value();
+        var formats = _.chain(_.range(1, maxFormatCount + 1)).map(function(i) {return params.setting["format" + String(i)];}).compact().value();
         params.setting.formats = formats.join("\n");
 
         _.each(this.formatOptions, function(options){
