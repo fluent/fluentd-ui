@@ -1,3 +1,7 @@
+## Release 0.4.1 - 2015/04/24
+
+* [improved] [#162](https://github.com/fluent/fluentd-ui/pull/162) [#191](https://github.com/fluent/fluentd-ui/pull/191) Support multiline option for [in_tail](http://docs.fluentd.org/articles/in_tail) plugin
+
 ## Release 0.4.0 - 2015/04/15
 
 * [improved] [#190](https://github.com/fluent/fluentd-ui/pull/190) Use markdown format for ChangeLog.md

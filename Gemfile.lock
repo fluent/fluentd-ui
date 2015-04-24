@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fluentd-ui (0.4.0)
+    fluentd-ui (0.4.1)
       addressable
       bundler
       diff-lcs
