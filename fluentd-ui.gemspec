@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Web UI for Fluentd}
   spec.description   = %q{Web UI for Fluentd}
   spec.homepage      = "https://github.com/fluent/fluentd-ui"
-  spec.license       = "MIT"
+  spec.license       = "Apache"
 
   unless (ARGV & %w(rake build)).length.zero?
     # NOTE: `fluentd-ui start` will run `bundle exec ...`. so this gemspec file evaluated by bundler then exec `git ls-files`
