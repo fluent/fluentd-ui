@@ -189,3 +189,12 @@ label {
   margin: 10px 0px;
 }
 
+.recipe-conf {
+  margin-top: 40px;
+
+  .conf-body {
+    white-space: pre;
+    background-color: white;
+    border: 0;
+  }
+}

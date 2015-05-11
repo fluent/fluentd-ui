@@ -17,4 +17,13 @@
     = render partial: "plugin_form", locals: {fields: recipe_attributes.keys, f: f}
   = submit_tag "Apply", class: "btn btn-primary"
 
-- # TODO: here is conf
+.recipe-conf
+  #toggle.panel-group
+    .panel.panel-default
+      .panel-heading#header
+        %a.toggle{"data-toggle" => "collapse", "data-parent" => "toggle", "href" => "#conf", "aria-expanded" => "false", "aria-controls" => "conf"}
+          %i.fa.fa-file-o
+          Recipe Conf
+      %div.panel-collapse.collapse#conf{"aria-labelledby" => "header"}
+        %pre.panel-body.conf-body= @recipe.conf
+
