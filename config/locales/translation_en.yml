@@ -141,6 +141,8 @@ en:
     settings:
       recipe:
         page_title: Config recipes
+        required_plugins: Required plugins
+        plugin_parameters: Plugin Settings
       source_and_output:
         page_title: Add Source and Output
         in: Source

@@ -1,6 +1,6 @@
 - page_title @recipe.id
 
-%h2 required plugins
+%h2= t("fluentd.settings.recipe.required_plugins")
 %ul
   - @recipe.plugins.each do |pl|
     %li
@@ -8,8 +8,12 @@
       - unless pl.installed?
         (not installed)
 
+%h2= t("fluentd.settings.recipe.plugin_parameters")
 = form_for(@recipe, url: apply_daemon_recipe_path, method: :put) do |f|
   - @recipe.models.each do |model|
+    %h3= t("fluentd.common.setup_#{model.model_name.element}")
     - f.object = model.new(model.initial_params)
     = render partial: "plugin_form", locals: {model: model, f: f}
   = submit_tag "Apply", class: "btn btn-primary"
+
+- # TODO: here is conf

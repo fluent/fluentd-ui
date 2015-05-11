@@ -140,6 +140,8 @@ ja:
     settings:
       recipe:
         page_title: よくある設定の反映
+        required_plugins: 必要なプラグイン
+        plugin_parameters: プラグイン設定
       source_and_output:
         page_title: ソースと出力先の追加
         in: 入力
