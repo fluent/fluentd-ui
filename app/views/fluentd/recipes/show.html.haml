@@ -12,9 +12,9 @@
 = form_for(@recipe, url: apply_daemon_recipe_path, method: :put) do |f|
   - @recipe.models.each do |model|
     %h3= t("fluentd.common.setup_#{model.model_name.element}")
-    - f.object = model.new(model.initial_params)
-    - attributes = @recipe.required_attributes[model.model_name.element.classify]
-    = render partial: "plugin_form", locals: {attributes: attributes, f: f}
+    - recipe_attributes = @recipe.required_attributes[model.model_name.element.classify]
+    - f.object = model.new(model.initial_params.reverse_merge(recipe_attributes))
+    = render partial: "plugin_form", locals: {fields: recipe_attributes.keys, f: f}
   = submit_tag "Apply", class: "btn btn-primary"
 
 - # TODO: here is conf
