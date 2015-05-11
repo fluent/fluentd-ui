@@ -12,6 +12,8 @@ class Fluentd
 
       attr_accessor(*KEYS)
 
+      self.gem_name = "fluent-plugin-elasticsearch"
+
       booleans :logstash_format, :utc_index, :include_tag_key
 
       validates :match, presence: true

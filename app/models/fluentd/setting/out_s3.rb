@@ -16,6 +16,8 @@ class Fluentd
 
       attr_accessor(*KEYS)
 
+      self.gem_name = "fluent-plugin-s3"
+
       choice :format, %w(out_file json ltsv single_value)
       choice :store_as, %w(gzip lzo lzma2 json txt)
       choice :buffer_type, %w(memory file)

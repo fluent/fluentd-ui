@@ -14,6 +14,12 @@ Rails.application.routes.draw do
         get "log_tail"
       end
 
+      resources :recipes, only: [:index, :show] do
+        member do
+          put "apply"
+        end
+      end
+
       resource :setting, only: [:show, :edit, :update] do
         get "source_and_output"
 

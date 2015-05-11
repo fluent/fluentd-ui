@@ -8,6 +8,14 @@ module SettingsHelper
     html.html_safe
   end
 
+  def field_for_recipe(object, key, opts = {})
+    html = ""
+    form_for(object, url: "#dummy") do |f|
+      html << field(f, key, opts)
+    end
+    html.html_safe
+  end
+
   private
   def field_resolver(type, html, form, key, opts)
     case type

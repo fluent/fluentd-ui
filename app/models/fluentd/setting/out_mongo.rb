@@ -11,6 +11,8 @@ class Fluentd
 
       attr_accessor(*KEYS)
 
+      self.gem_name = "fluent-plugin-mongo"
+
       flags :capped, :tag_mapped
 
       validates :match, presence: true

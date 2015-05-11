@@ -47,6 +47,29 @@ class Fluentd
           set_type(:flag, keys)
         end
 
+        def gem_name
+          @gem_name
+        end
+
+        def gem_name=(name)
+          @gem_name ||= name
+        end
+
+        def required_fields
+          instance = new(initial_params)
+          # https://github.com/cowbell/active_model-errors_details
+          instance.valid?
+          details = instance.errors.details
+          details.keys.find_all do |key|
+            details[key].find{|error| error[:error] == :blank}
+          end
+        end
+
+        def plugin
+          return unless gem_name
+          Plugin.new(gem_name: gem_name)
+        end
+
         private
 
         def set_type(type, keys)

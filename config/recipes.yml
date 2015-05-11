@@ -1,0 +1,12 @@
+sample:
+  description: |
+    foo
+    bar
+  plugins:
+    - OutS3
+    - OutElasticsearch
+  settings:
+    OutS3:
+      bucket_name: s3_bucket_name
+    OutElasticsearch:
+      match: bar

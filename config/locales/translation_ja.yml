@@ -138,6 +138,8 @@ ja:
       page_title: エラーログ
       error_is_empty: エラーはありません
     settings:
+      recipe:
+        page_title: よくある設定の反映
       source_and_output:
         page_title: ソースと出力先の追加
         in: 入力

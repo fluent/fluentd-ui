@@ -21,6 +21,7 @@ require "settingslogic"
 require "kramdown-haml"
 require "jbuilder"
 require "diff/lcs"
+require "active_model/errors_details"
 
 module FluentdUi
   class Application < Rails::Application

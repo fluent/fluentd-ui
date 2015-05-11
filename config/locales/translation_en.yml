@@ -139,6 +139,8 @@ en:
       page_title: Error log
       error_is_empty: No errors
     settings:
+      recipe:
+        page_title: Config recipes
       source_and_output:
         page_title: Add Source and Output
         in: Source

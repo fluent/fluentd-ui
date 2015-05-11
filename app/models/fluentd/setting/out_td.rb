@@ -12,6 +12,8 @@ class Fluentd
 
       attr_accessor(*KEYS)
 
+      self.gem_name = "fluent-plugin-td"
+
       flags :auto_create_table
 
       validates :match, presence: true

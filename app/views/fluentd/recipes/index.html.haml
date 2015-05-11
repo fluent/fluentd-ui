@@ -1,0 +1,14 @@
+- page_title t('fluentd.settings.recipe.page_title')
+
+- # TODO: add description
+
+%ul
+  - @recipes.each do |recipe|
+    %li
+      = link_to recipe.id, daemon_recipe_path(id: recipe.id)
+      - recipe.plugins.each do |pl|
+        = pl.gem_name
+        - if pl.installed?
+          = "(installed)"
+        - else
+          = "(not installed)"
