@@ -13,7 +13,8 @@
   - @recipe.models.each do |model|
     %h3= t("fluentd.common.setup_#{model.model_name.element}")
     - f.object = model.new(model.initial_params)
-    = render partial: "plugin_form", locals: {model: model, f: f}
+    - attributes = @recipe.required_attributes[model.model_name.element.classify]
+    = render partial: "plugin_form", locals: {attributes: attributes, f: f}
   = submit_tag "Apply", class: "btn btn-primary"
 
 - # TODO: here is conf

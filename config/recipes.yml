@@ -7,6 +7,6 @@ sample:
     - OutElasticsearch
   settings:
     OutS3:
-      bucket_name: s3_bucket_name
+      s3_bucket: s3_bucket_name
     OutElasticsearch:
       match: bar

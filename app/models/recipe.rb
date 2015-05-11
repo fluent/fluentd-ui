@@ -27,6 +27,10 @@ class Fluentd
       end
     end
 
+    def required_attributes
+      @attributes ||= value["settings"]
+    end
+
     def plugins
       models.map do |model|
         model.plugin
