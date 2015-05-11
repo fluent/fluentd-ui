@@ -11,14 +11,12 @@ class Fluentd::RecipesController < ApplicationController
   end
 
   def apply
-    conf = ""
-    @recipe.models.each do |model_class|
-      model_params = params[model_class.model_name.param_key]
-      m = model_class.new(model_class.initial_params.merge(model_params))
-      conf << m.to_config
-      conf << $/
-    end
-    render text: conf, content_type: :text
+    settings = @recipe.models.map do |model_class|
+      [model_class.model_name.element, params[model_class.model_name.param_key]]
+    end.to_h
+
+    erb = ERB.new(@recipe.conf)
+    render text: erb.result(binding), content_type: :text
   end
 
   private

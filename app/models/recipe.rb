@@ -17,6 +17,10 @@ class Fluentd
       @value = self.class.definitions[@id]
     end
 
+    def conf
+      File.read(Rails.root.join("data", "recipes", "#{@id}.conf"))
+    end
+
     def description
       value["description"]
     end
