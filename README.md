@@ -11,7 +11,7 @@ fluentd-ui is a browser-based [fluentd](http://fluentd.org/) and [td-agent](http
 * Configure Fluentd settings such as config file content, pid file path, etc
 * View Fluentd log with simple error viewer
 
-[Official documentation](http://docs.fluentd.org/articles/fluentd-ui) \| [Changelog](./CHANGELOG.md)
+[Official documentation](http://docs.fluentd.org/articles/fluentd-ui) \| [Changelog](./ChangeLog.md)
 
 
 ## Requirements
