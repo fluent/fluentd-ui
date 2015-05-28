@@ -11,32 +11,22 @@ fluentd-ui is a browser-based [fluentd](http://fluentd.org/) and [td-agent](http
 * Configure Fluentd settings such as config file content, pid file path, etc
 * View Fluentd log with simple error viewer
 
+[Official documentation](http://docs.fluentd.org/articles/fluentd-ui) \| [Changelog](./CHANGELOG.md)
 
-# Getting Started
 
-```console
-$ gem install -V fluentd-ui
-$ fluentd-ui start
-```
-
-Open `http://localhost:9292/` by your browser.<br />
-The default account is username="admin" and password="changeme"
-
-![fluentd-ui](./docs/screenshots/fluentd-ui.gif)
-
-## Dependency
+## Requirements
 
 - ruby 2.1.3 or later (since v0.4.0)
 
-## To Ubuntu 14.04 user (installed ruby by apt-get)
-
-You also need to install these packages:
+And some additional packages (Debian / Ubuntu)
 
 - build-essential
 - libssl-dev
+- libxml2-dev
+- libxslt1-dev
 - ruby-dev
 
-## To the developer
+## Development
 
     $ git clone https://github.com/treasure-data/fluentd-ui
     $ cd fluentd-ui
@@ -51,40 +41,10 @@ Also you need a phantomjs for test.
 
 NOTE: `phantomjs` executable binary should be located under your `$PATH`.
 
-# Building fluentd-ui.gem
-
-fluentd-ui has the same tasks of `bundle gem foobar; cd foobar; rake -T`.
+## Building fluentd-ui.gem
 
     $ bundle exec rake build
     fluentd-ui X.X.X built to pkg/fluentd-ui-X.X.X.gem.
 
     $ bundle exec rake release
     # Push to rubygems.org
-
-
-# Screenshots
-
-(v0.3.9)
-
-## Dashboard
-
-![dashboard](./docs/screenshots/dashboard.gif)
-
-## Setting
-
-![setting](./docs/screenshots/setting.gif)
-
-### in_tail setting
-
-![in_tail](./docs/screenshots/in_tail.gif)
-
-## Plugin
-
-![plugin](./docs/screenshots/plugin.gif)
-
-
-![ss01](./docs/screenshots/01.png)
-![ss02](./docs/screenshots/02.png)
-![ss03](./docs/screenshots/03.png)
-![ss04](./docs/screenshots/04.png)
-![ss05](./docs/screenshots/05.png)
