@@ -1,3 +1,8 @@
+## Release 0.4.2 - 2015/05/28
+
+* [maintenance] Update httpclient as 2.5.x [#193](https://github.com/fluent/fluentd-ui/pull/193) 
+* [fixex] Fix confused license [#192](https://github.com/fluent/fluentd-ui/pull/192) 
+
 ## Release 0.4.1 - 2015/04/24
 
 * [improved] [#162](https://github.com/fluent/fluentd-ui/pull/162) [#191](https://github.com/fluent/fluentd-ui/pull/191) Support multiline option for [in_tail](http://docs.fluentd.org/articles/in_tail) plugin
