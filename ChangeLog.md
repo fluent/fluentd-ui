@@ -1,7 +1,7 @@
 ## Release 0.4.2 - 2015/05/28
 
 * [maintenance] Update httpclient as 2.5.x [#193](https://github.com/fluent/fluentd-ui/pull/193) 
-* [fixex] Fix confused license [#192](https://github.com/fluent/fluentd-ui/pull/192) 
+* [fixed] Fix confused license [#192](https://github.com/fluent/fluentd-ui/pull/192) 
 
 ## Release 0.4.1 - 2015/04/24
 
