@@ -1,11 +1,6 @@
 if ENV['RAILS_ENV'] == 'test'
   require 'simplecov'
   SimpleCov.start 'rails'
-
-  if ENV['CIRCLE_ARTIFACTS'] # https://circleci.com/docs/code-coverage
-    dir = File.join("..", "..", "..", ENV['CIRCLE_ARTIFACTS'], "coverage")
-    SimpleCov.coverage_dir(dir)
-  end
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
