@@ -1,6 +1,6 @@
 # fluentd-ui
 
-[![build status](https://circleci.com/gh/fluent/fluentd-ui.png?style=shield&circle-token=a739a52ae9ae6774ab2192d4236a5f93ac29e11e)](https://circleci.com/gh/fluent/fluentd-ui)
+[![Build Status](https://travis-ci.org/fluent/fluentd-ui.svg?branch=master)](https://travis-ci.org/fluent/fluentd-ui)
 [![Gem Version](https://badge.fury.io/rb/fluentd-ui.svg)](http://badge.fury.io/rb/fluentd-ui)
 [![Code Climate](https://codeclimate.com/github/fluent/fluentd-ui/badges/gpa.svg)](https://codeclimate.com/github/fluent/fluentd-ui)
 
