@@ -50,7 +50,6 @@ class Fluentd
 
       def options_to_argv(opts = {})
         argv = ""
-        argv << " --use-v1-config"
         argv << " -c #{opts[:config_file] || config_file}"
         argv << " -d #{opts[:pid_file] || pid_file}"
         argv << " -o #{opts[:log_file] || log_file}"

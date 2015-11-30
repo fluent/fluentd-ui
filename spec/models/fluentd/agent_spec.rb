@@ -18,7 +18,6 @@ describe Fluentd::Agent do
       it { should include("-c #{instance.config_file}") }
       it { should include("-d #{instance.pid_file}") }
       it { should include("-o #{instance.log_file}") }
-      it { should include("--use-v1-config") }
     end
 
     describe "#start" do
