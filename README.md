@@ -4,7 +4,7 @@
 [![Gem Version](https://badge.fury.io/rb/fluentd-ui.svg)](http://badge.fury.io/rb/fluentd-ui)
 [![Code Climate](https://codeclimate.com/github/fluent/fluentd-ui/badges/gpa.svg)](https://codeclimate.com/github/fluent/fluentd-ui)
 
-fluentd-ui is a browser-based [fluentd](http://fluentd.org/) and [td-agent](http://docs.treasuredata.com/articles/td-agent) manager that supports following operations.
+fluentd-ui is a browser-based [fluentd](http://www.fluentd.org) and [td-agent](https://docs.treasuredata.com/articles/td-agent) manager that supports following operations.
 
 * Install, uninstall, and upgrade Fluentd plugins
 * start/stop/restart fluentd process
@@ -28,7 +28,7 @@ And some additional packages (Debian / Ubuntu)
 
 ## Development
 
-    $ git clone https://github.com/treasure-data/fluentd-ui
+    $ git clone https://github.com/fluent/fluentd-ui
     $ cd fluentd-ui
     $ bundle install
     $ bundle exec rails s
