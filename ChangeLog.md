@@ -1,3 +1,8 @@
+## Release 0.4.3 - 2016/03/09
+
+* [fixed] Fix for latest fluentd [#200](https://github.com/fluent/fluentd-ui/pull/200)
+* [fixed] Fix some documentation [#195](https://github.com/fluent/fluentd-ui/pull/195)
+
 ## Release 0.4.2 - 2015/05/28
 
 * [maintenance] Update httpclient as 2.5.x [#193](https://github.com/fluent/fluentd-ui/pull/193) 
