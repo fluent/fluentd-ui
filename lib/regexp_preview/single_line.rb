@@ -18,7 +18,7 @@ module RegexpPreview
       else # apache, nginx, etc
         definition = Fluent::TextParser::TEMPLATE_REGISTRY.lookup(format).call
         raise "Unknown format '#{format}'" unless definition
-        definition.configure({}) # NOTE: SyslogParser define @regexp in configure method so call it to grab Regexp object
+        definition.configure(Fluent::Config::Element.new('ROOT', '', {}, [])) # NOTE: SyslogParser define @regexp in configure method so call it to grab Regexp object
         @regexp = definition.patterns["format"]
         @time_format = definition.patterns["time_format"]
       end
