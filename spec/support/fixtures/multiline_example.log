@@ -1,0 +1,5 @@
+2013-3-03 14:27:33 [main] INFO  Main - Start
+2013-3-03 14:27:33 [main] ERROR Main - Exception
+javax.management.RuntimeErrorException: null
+    at Main.main(Main.java:16) ~[bin/:na]
+2013-3-03 14:27:33 [main] INFO  Main - End
