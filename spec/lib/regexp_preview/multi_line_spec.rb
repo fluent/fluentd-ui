@@ -82,30 +82,30 @@ describe RegexpPreview::MultiLine do
         matches_info = 
           [
             {
-              :whole => "2013-3-03 14:27:33 [main] INFO  Main - Start\n",
-              :matches => [
-                {:key => "time", :matched => "2013-3-03 14:27:33", :pos => [0, 18]},
-                {:key => "thread", :matched => "main", :pos => [20, 24]},
-                {:key => "level", :matched => "INFO", :pos => [26, 30]},
-                {:key => "message", :matched => "  Main - Start\n", :pos => [30, 45]}
+              whole: "2013-3-03 14:27:33 [main] INFO  Main - Start\n",
+              matches: [
+                {key: "time", matched: "2013-3-03 14:27:33", pos: [0, 18]},
+                {key: "thread", matched: "main", pos: [20, 24]},
+                {key: "level", matched: "INFO", pos: [26, 30]},
+                {key: "message", matched: "  Main - Start\n", pos: [30, 45]}
               ]
             },
             {
-              :whole => "2013-3-03 14:27:33 [main] ERROR Main - Exception\njavax.management.RuntimeErrorException: null\n    at Main.main(Main.java:16) ~[bin/:na]\n",
-              :matches => [
-                {:key => "time", :matched => "2013-3-03 14:27:33", :pos => [0, 18]},
-                {:key => "thread", :matched => "main", :pos => [20, 24]},
-                {:key => "level", :matched => "ERROR", :pos => [26, 31]},
-                {:key => "message", :matched => " Main - Exception\njavax.management.RuntimeErrorException: null\n    at Main.main(Main.java:16) ~[bin/:na]\n", :pos => [31, 136]},
+              whole: "2013-3-03 14:27:33 [main] ERROR Main - Exception\njavax.management.RuntimeErrorException: null\n    at Main.main(Main.java:16) ~[bin/:na]\n",
+              matches: [
+                {key: "time", matched: "2013-3-03 14:27:33", pos: [0, 18]},
+                {key: "thread", matched: "main", pos: [20, 24]},
+                {key: "level", matched: "ERROR", pos: [26, 31]},
+                {key: "message", matched: " Main - Exception\njavax.management.RuntimeErrorException: null\n    at Main.main(Main.java:16) ~[bin/:na]\n", pos: [31, 136]},
               ]
             },
             {
-              :whole => "2013-3-03 14:27:33 [main] INFO  Main - End",
-              :matches => [
-                {:key => "time", :matched => "2013-3-03 14:27:33", :pos => [0, 18]},
-                {:key => "thread", :matched => "main", :pos => [20, 24]},
-                {:key => "level", :matched => "INFO", :pos => [26, 30]},
-                {:key => "message", :matched => "  Main - End", :pos => [30, 42]},
+              whole: "2013-3-03 14:27:33 [main] INFO  Main - End",
+              matches: [
+                {key: "time", matched: "2013-3-03 14:27:33", pos: [0, 18]},
+                {key: "thread", matched: "main", pos: [20, 24]},
+                {key: "level", matched: "INFO", pos: [26, 30]},
+                {key: "message", matched: "  Main - End", pos: [30, 42]},
               ]
             }
         ]
