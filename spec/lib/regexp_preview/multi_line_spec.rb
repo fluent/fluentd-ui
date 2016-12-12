@@ -22,7 +22,7 @@ describe RegexpPreview::MultiLine do
       end
 
       it 'should not have regexp and time_format in [:params][:setting]' do
-        expect(subject[:params][:setting]).to eq({ regexp: nil, time_format: nil })
+        expect(subject[:params][:setting]).to eq(regexp: nil, time_format: nil)
       end
 
       it "should include matches info" do
