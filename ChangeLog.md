@@ -1,3 +1,7 @@
+## Release 0.4.4 - 2017/04/25
+
+* [fixed] Fix multiline parser preview bug [#209](https://github.com/fluent/fluentd-ui/pull/209)
+
 ## Release 0.4.3 - 2016/03/09
 
 * [fixed] Fix for latest fluentd [#200](https://github.com/fluent/fluentd-ui/pull/200)
