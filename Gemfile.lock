@@ -289,7 +289,6 @@ DEPENDENCIES
   capybara (~> 2.4.0)
   capybara-screenshot
   factory_girl_rails
-  fluentd (~> 0.12.0)
   fluentd-ui!
   i18n_generators (= 1.2.1)
   poltergeist
