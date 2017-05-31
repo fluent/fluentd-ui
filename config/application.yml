@@ -180,7 +180,7 @@ defaults: &defaults
     - category: search
       name: "splunkapi"
     - category: notification
-      name: "boundio"
+      name: "twilio"
     - category: notification
       name: "growl"
 
