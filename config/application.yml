@@ -182,7 +182,7 @@ defaults: &defaults
     - category: notification
       name: "twilio"
     - category: notification
-      name: "growl"
+      name: "terminal_notifier"
 
 development:
   <<: *defaults
