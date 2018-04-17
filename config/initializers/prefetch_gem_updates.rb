@@ -1,1 +1,1 @@
-AllPluginCheckUpdate.new.async.perform
+AllPluginCheckUpdateJob.perform_later

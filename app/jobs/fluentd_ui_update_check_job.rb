@@ -1,5 +1,5 @@
-class FluentdUiUpdateCheck
-  include SuckerPunch::Job
+class FluentdUiUpdateCheckJob < ApplicationJob
+  queue_as :default
 
   def perform
     pl = Plugin.new(gem_name: "fluentd-ui")
@@ -7,9 +7,5 @@ class FluentdUiUpdateCheck
       FluentdUI.latest_version = pl.latest_version
     end
     later(3600) # will be checked every hour
-  end
-
-  def later(sec)
-    after(sec) { perform }
   end
 end
