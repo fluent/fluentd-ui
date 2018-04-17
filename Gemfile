@@ -21,7 +21,7 @@ group :test do
   gem "factory_girl_rails"
   gem "capybara", "~> 2.4.0"
   gem "capybara-screenshot"
-  gem "simplecov", "~> 0.7.1", require: false
+  gem "simplecov", "~> 0.16.1", require: false
   gem "webmock", "~> 1.18.0"
   gem "timecop"
   gem "poltergeist"
