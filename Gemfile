@@ -22,7 +22,7 @@ group :test do
   gem "capybara", "~> 2.18.0"
   gem "capybara-screenshot"
   gem "simplecov", "~> 0.16.1", require: false
-  gem "webmock", "~> 1.18.0"
+  gem "webmock", "~> 3.3.0"
   gem "timecop"
   gem "poltergeist"
 end

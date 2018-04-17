@@ -59,8 +59,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (6.0.4)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -142,6 +142,7 @@ GEM
       haml (>= 4.0.6, < 6.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
+    hashdiff (0.3.7)
     hike (1.2.3)
     hitimes (1.2.6)
     html2haml (2.2.0)
@@ -209,7 +210,7 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
-    public_suffix (2.0.5)
+    public_suffix (3.0.2)
     puma (3.11.4)
     rack (1.6.9)
     rack-test (0.6.3)
@@ -308,9 +309,10 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
-    webmock (1.18.0)
+    webmock (3.3.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
+      hashdiff
     webrobots (0.1.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
@@ -337,7 +339,7 @@ DEPENDENCIES
   simplecov (~> 0.16.1)
   timecop
   web-console (~> 2.0)
-  webmock (~> 1.18.0)
+  webmock (~> 3.3.0)
 
 BUNDLED WITH
    1.16.1
