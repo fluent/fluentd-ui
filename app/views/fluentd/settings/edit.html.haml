@@ -2,7 +2,7 @@
 
 = form_tag(daemon_setting_path(@fluentd), method: :patch) do
   .form-group
-    = text_area_tag "config", @config, class: "form-control", rows: 40, class: "js-fluentd-config-editor"
+    = text_area_tag "config", @config, class: "form-control js-fluentd-config-editor", rows: 40
   %p.text.text-danger= t('terms.notice_restart_for_config_edit', brand: fluentd_ui_brand)
   = submit_tag t("terms.update"), class: "btn btn-primary"
   = submit_tag t("terms.configtest"), class: "btn btn-default", name: "dryrun"
