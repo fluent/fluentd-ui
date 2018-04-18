@@ -5,7 +5,7 @@ PATH
       addressable
       bundler
       diff-lcs
-      draper (~> 1.3)
+      draper (~> 2.1)
       fluentd (>= 0.10.56, < 0.14)
       font-awesome-rails
       haml-rails (~> 1.0)
@@ -107,7 +107,7 @@ GEM
     docile (1.3.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
-    draper (1.4.0)
+    draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
       activesupport (>= 3.0)

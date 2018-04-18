@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "haml-rails", "~> 1.0"
   spec.add_dependency 'jquery-rails', "~> 4.3.1"
   spec.add_dependency 'jbuilder', '~> 2.0'
-  spec.add_dependency "draper", '~> 1.3'
+  spec.add_dependency "draper", '~> 2.1'
   spec.add_dependency "bundler"
   spec.add_dependency "httpclient", "~> 2.5" # same as td-agent
   spec.add_dependency "settingslogic"
