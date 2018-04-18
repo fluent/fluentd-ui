@@ -23,7 +23,7 @@ describe DummyController do
 
     context 'with params[:lang]' do
       before do
-        get 'index', lang: param_lang
+        get 'index', params: { lang: param_lang }
       end
 
       context 'and in available_locales' do
