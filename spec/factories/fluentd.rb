@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :fluentd do
     dir = Rails.root.join("tmp/fluentd-test").to_s
     FileUtils.mkdir_p(dir)

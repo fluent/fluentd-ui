@@ -27,8 +27,8 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 
-  # Syntax sugar to use the FactoryGirl methods directly instead FactoryGirl.create ete.
-  config.include FactoryGirl::Syntax::Methods
+  # Syntax sugar to use the FactoryBot methods directly instead FactoryBot.create ete.
+  config.include FactoryBot::Syntax::Methods
   config.include LoginMacro
   config.include JavascriptMacro
   config.include StubDaemon
