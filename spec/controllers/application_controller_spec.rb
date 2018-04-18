@@ -6,7 +6,7 @@ describe DummyController do
   controller DummyController do
     skip_before_action :login_required
     def index
-      render :text => "Hello World"
+      render plain: "Hello World"
     end
   end
 
