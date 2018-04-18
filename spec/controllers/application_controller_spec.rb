@@ -12,12 +12,8 @@ describe DummyController do
 
   describe '#set_locale' do
     let!(:default_locale) { :en }
-    let!(:available_locales) { [:en, :ja] }
 
     before do
-      I18n.stub(:default_locale).and_return(default_locale)
-      I18n.stub(:available_locales).and_return(available_locales)
-
       I18n.locale = I18n.default_locale #initialize
     end
 
