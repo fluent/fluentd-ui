@@ -1,9 +1,9 @@
-rvm: 2.1.3
+rvm: 2.1.10
 
 sudo: required
 
 install:
   - bundle -v
   - gem i bundler
-  - sudo sh -c 'curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-precise-td-agent2.sh | sh'
+  - sudo sh -c 'curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh'
   - bundle install --jobs=4 --retry=4
