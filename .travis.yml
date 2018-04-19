@@ -1,6 +1,8 @@
 rvm: 2.2.10
 
 sudo: required
+addons:
+  - chrome: stable
 
 install:
   - bundle -v
