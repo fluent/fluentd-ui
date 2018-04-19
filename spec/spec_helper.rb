@@ -9,8 +9,18 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
 WebMock.disable_net_connect!(allow_localhost: true)
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+require 'capybara/rspec'
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app,
+    browser: :chrome,
+    desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
+      chrome_options: {
+        args: %w(headless disable-gpu window-size=1920,1080),
+      },
+    )
+  )
+end
+Capybara.javascript_driver = :selenium
 require 'capybara-screenshot/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,

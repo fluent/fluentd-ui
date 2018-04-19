@@ -75,15 +75,15 @@ GEM
       rack (>= 0.9.0)
     bindex (0.5.0)
     builder (3.2.3)
-    capybara (2.18.0)
+    capybara (3.0.2)
       addressable
       mini_mime (>= 0.1.3)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (>= 2.0, < 4.0)
-    capybara-screenshot (1.0.14)
-      capybara (>= 1.0, < 3)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      xpath (~> 3.0)
+    capybara-screenshot (1.0.19)
+      capybara (>= 1.0, < 4)
       launchy
     celluloid (0.17.3)
       celluloid-essentials
@@ -102,7 +102,8 @@ GEM
       timers (>= 4.1.1)
     celluloid-supervision (0.20.6)
       timers (>= 4.1.1)
-    cliver (0.3.2)
+    childprocess (0.9.0)
+      ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     cool.io (1.5.3)
@@ -187,10 +188,6 @@ GEM
     nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
-    poltergeist (1.14.0)
-      capybara (~> 2.1)
-      cliver (~> 0.3.1)
-      websocket-driver (>= 0.2.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -263,6 +260,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    selenium-webdriver (3.11.0)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.2)
     settingslogic (2.0.9)
     sexp_processor (4.11.0)
     sigdump (0.2.4)
@@ -314,16 +314,16 @@ PLATFORMS
 
 DEPENDENCIES
   better_errors
-  capybara (~> 2.18.0)
+  capybara (~> 3.0.2)
   capybara-screenshot
   factory_bot_rails
   fluentd-ui!
   i18n_generators (= 2.1.1)
-  poltergeist
   pry
   pry-rails
   rake
   rspec-rails (~> 3.0)
+  selenium-webdriver (~> 3.11)
   simplecov (~> 0.16.1)
   timecop
   web-console (~> 3.6)

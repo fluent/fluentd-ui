@@ -19,10 +19,10 @@ end
 
 group :test do
   gem "factory_bot_rails"
-  gem "capybara", "~> 2.18.0"
+  gem "capybara", "~> 3.0.2"
   gem "capybara-screenshot"
   gem "simplecov", "~> 0.16.1", require: false
   gem "webmock", "~> 3.3.0"
   gem "timecop"
-  gem "poltergeist"
+  gem "selenium-webdriver", "~> 3.11"
 end
