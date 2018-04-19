@@ -6,7 +6,6 @@ class FluentdUiUpdateCheckJob < ApplicationJob
     if pl.gem_versions
       FluentdUI.latest_version = pl.latest_version
     end
-    # sucker_punch adapter does not implement enqueue_at
-    # FluentdUiUpdateCheckJob.set(wait: 1.hour).perfom_later # will be checked every hour
+    FluentdUiUpdateCheckJob.set(wait: 1.hour).perform_later # will be checked every hour
   end
 end
