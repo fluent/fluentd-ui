@@ -39,9 +39,10 @@ describe "running_backup", stub: :daemon do
       describe 'diff' do
         context 'has diff' do
           it 'shows diff between current and running' do
-            expect(page).to have_text("-   type http")
-            expect(page).to have_text("-   port 8899")
-            expect(page).to have_text("+   Running backup file content")
+            diff = page.first(".diff pre").native.inner_text
+            expect(diff).to include("-   type http")
+            expect(diff).to include("-   port 8899")
+            expect(diff).to include("+ Running backup file content")
           end
         end
 
