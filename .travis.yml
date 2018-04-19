@@ -8,6 +8,11 @@ env:
   global:
     DISPLAY: ":99.0"
 
+before_install:
+  - wget http://chromedriver.storage.googleapis.com/2.38/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - sudo mv chromedriver /usr/local/bin/chromedriver
+
 install:
   - bundle -v
   - gem i bundler
