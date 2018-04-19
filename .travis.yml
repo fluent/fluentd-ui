@@ -4,6 +4,10 @@ sudo: required
 addons:
   - chrome: stable
 
+env:
+  global:
+    DISPLAY: ":99.0"
+
 install:
   - bundle -v
   - gem i bundler
