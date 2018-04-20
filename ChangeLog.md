@@ -1,3 +1,9 @@
+## Release 0.4.5 - 2018/04/20
+
+* [maintenance] Use twilio instead of boundio [#212](https://github.com/fluent/fluentd-ui/pull/212)
+* [maintenance] Use terminal_notifier instead of Growl [#213](https://github.com/fluent/fluentd-ui/pull/213)
+* [maintenance] Use Rails 4.2.10 [#222](https://github.com/fluent/fluentd-ui/pull/222)
+
 ## Release 0.4.4 - 2017/04/25
 
 * [fixed] Fix multiline parser preview bug [#209](https://github.com/fluent/fluentd-ui/pull/209)
