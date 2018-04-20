@@ -66,7 +66,7 @@ describe RegexpPreview::SingleLine do
 
         include_examples "should set regexp and time_format from selected format" do
           let(:regexp) do
-            /^(?<time>[^ ]*\s*[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?(?:[^\:]*\:)? *(?<message>.*)$/
+            /^(?<time>[^ ]*\s*[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[^ :\[]*)(?:\[(?<pid>[0-9]+)\])?(?:[^\:]*\:)? *(?<message>.*)$/
           end
           let(:time_format) { "%b %d %H:%M:%S" }
         end
@@ -156,7 +156,7 @@ describe RegexpPreview::SingleLine do
 
         it 'should set regexp and time_format from syslog format' do
           setting_json = {
-            regexp: "^(?<time>[^ ]*\\s*[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_/\\.\\-]*)(?:\\[(?<pid>[0-9]+)\\])?(?:[^\\:]*\\:)? *(?<message>.*)$",
+            regexp: "^(?<time>[^ ]*\\s*[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[^ :\\[]*)(?:\\[(?<pid>[0-9]+)\\])?(?:[^\\:]*\\:)? *(?<message>.*)$",
             time_format: "%b %d %H:%M:%S",
           }
 
