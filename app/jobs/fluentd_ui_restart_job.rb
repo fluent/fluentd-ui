@@ -1,5 +1,5 @@
-class FluentdUiRestart
-  include SuckerPunch::Job
+class FluentdUiRestartJob < ApplicationJob
+  queue_as :default
 
   LOCK = []
 
@@ -20,7 +20,7 @@ class FluentdUiRestart
     lock!
 
     # NOTE: install will be failed before released fluentd-ui gem
-    SuckerPunch.logger.info "[restart] install new fluentd-ui"
+    logger.info "[restart] install new fluentd-ui"
     Plugin.new(gem_name: "fluentd-ui").install!
 
     if Rails.env.production?
@@ -29,7 +29,7 @@ class FluentdUiRestart
       cmd = %W(bundle exec rails s)
     end
 
-    SuckerPunch.logger.info "[restart] will restart"
+    logger.info "[restart] will restart"
     Bundler.with_clean_env do
       restarter = "#{Rails.root}/bin/fluentd-ui-restart"
       Process.spawn(*[restarter, $$.to_s, *cmd, *ARGV]) && Process.kill(:TERM, $$)

@@ -50,6 +50,7 @@ describe 'setting', stub: :daemon do
 
   describe "config" do
     before do
+      Fluentd::Agent::TdAgent.any_instance.stub(:dryrun).with(an_instance_of(String)).and_return(true)
       daemon.agent.config_write conf
       click_link I18n.t('terms.edit')
     end

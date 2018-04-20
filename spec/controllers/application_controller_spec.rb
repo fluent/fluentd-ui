@@ -6,24 +6,20 @@ describe DummyController do
   controller DummyController do
     skip_before_action :login_required
     def index
-      render :text => "Hello World"
+      render plain: "Hello World"
     end
   end
 
   describe '#set_locale' do
     let!(:default_locale) { :en }
-    let!(:available_locales) { [:en, :ja] }
 
     before do
-      I18n.stub(:default_locale).and_return(default_locale)
-      I18n.stub(:available_locales).and_return(available_locales)
-
       I18n.locale = I18n.default_locale #initialize
     end
 
     context 'with params[:lang]' do
       before do
-        get 'index', lang: param_lang
+        get 'index', params: { lang: param_lang }
       end
 
       context 'and in available_locales' do

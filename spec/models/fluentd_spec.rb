@@ -21,19 +21,19 @@ describe Fluentd do
       context "not writable" do
         before { FileUtils.chmod(0400, path) }
         it { should_not be_blank }
-        it { subject.get(column).should include(I18n.t('activerecord.errors.messages.lack_write_permission')) }
+        it { subject[column].should include(I18n.t('activerecord.errors.messages.lack_write_permission')) }
       end
 
       context "not readable" do
         before { FileUtils.chmod(0200, path) }
         it { should_not be_blank }
-        it { subject.get(column).should include(I18n.t('activerecord.errors.messages.lack_read_permission')) }
+        it { subject[column].should include(I18n.t('activerecord.errors.messages.lack_read_permission')) }
       end
 
       context "is directory" do
         before { fluentd.send("#{column}=", Rails.root + "tmp") }
         it { should_not be_blank }
-        it { subject.get(column).should include(I18n.t('activerecord.errors.messages.is_a_directory')) }
+        it { subject[column].should include(I18n.t('activerecord.errors.messages.is_a_directory')) }
       end
     end
 
@@ -50,7 +50,7 @@ describe Fluentd do
       context "not writable" do
         before { FileUtils.chmod(0500, dir) }
         it { should_not be_blank }
-        it { subject.get(column).should include(I18n.t('activerecord.errors.messages.lack_write_permission')) }
+        it { subject[column].should include(I18n.t('activerecord.errors.messages.lack_write_permission')) }
       end
     end
   end

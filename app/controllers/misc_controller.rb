@@ -19,7 +19,7 @@ class MiscController < ApplicationController
   end
 
   def upgrading_status
-    if FluentdUiRestart::LOCK.present?
+    if FluentdUiRestartJob::LOCK.present?
       return render text: "updating"
     end
 
@@ -73,6 +73,6 @@ class MiscController < ApplicationController
   end
 
   def update!
-    FluentdUiRestart.new.async.perform
+    FluentdUiRestart.perform_later
   end
 end

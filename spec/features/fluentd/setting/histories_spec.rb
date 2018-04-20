@@ -35,16 +35,17 @@ describe "histories", stub: :daemon do
 
     it 'show histories#show' do
       page.should have_css('h1', text: I18n.t('fluentd.settings.histories.show.page_title'))
-      page.should have_text(last_backup_file.content)
+
+      page.should has_text?(last_backup_file.content)
     end
 
     describe 'diff' do
       context 'has diff' do
         it 'shows diff between current and target' do
-          page.should have_text("-   type http")
-          page.should have_text("+   type forward")
-          page.should have_text("-   port 8899")
-          page.should have_text("+   port 24224")
+          page.should has_text?("-   type http")
+          page.should has_text?("+   type forward")
+          page.should has_text?("-   port 8899")
+          page.should has_text?("+   port 24224")
         end
       end
 
@@ -64,7 +65,7 @@ describe "histories", stub: :daemon do
 
       page.should have_css('h1', text: I18n.t('fluentd.settings.show.page_title'))
       page.should have_text(I18n.t('messages.config_successfully_copied', brand: 'fluentd') )
-      page.should have_text(last_backup_file.content)
+      page.should has_text?(last_backup_file.content)
     end
 
     describe "configtest" do

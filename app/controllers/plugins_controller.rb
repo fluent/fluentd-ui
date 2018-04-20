@@ -17,27 +17,27 @@ class PluginsController < ApplicationController
 
   def install
     params[:plugins].each do |gem_name|
-      GemInstaller.new.async.perform(gem_name)
+      GemInstallerJob.perform_later(gem_name)
     end
     redirect_to plugins_path
   end
 
   def uninstall
     params[:plugins].each do |gem_name|
-      GemUninstaller.new.async.perform(gem_name)
+      GemUninstallerJob.perform_later(gem_name)
     end
     redirect_to plugins_path
   end
 
   def upgrade
-    GemInstaller.new.async.perform(params[:plugins][:name], params[:plugins][:version])
+    GemInstallerJob.perform_later(params[:plugins][:name], params[:plugins][:version])
     redirect_to plugins_path
   end
 
   def bulk_upgrade
     params[:plugins].each do |gem_name|
       pl = Plugin.new(gem_name: gem_name)
-      GemInstaller.new.async.perform(gem_name, pl.latest_version)
+      GemInstallerJob.perform_later(gem_name, pl.latest_version)
     end
     redirect_to plugins_path
   end

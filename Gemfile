@@ -12,17 +12,17 @@ group :development, :test do
 end
 
 group :development do
-  gem 'i18n_generators', '1.2.1'
+  gem 'i18n_generators', '2.1.1'
   gem 'better_errors'
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 3.6'
 end
 
 group :test do
-  gem "factory_girl_rails"
-  gem "capybara", "~> 2.4.0"
+  gem "factory_bot_rails"
+  gem "capybara", "~> 3.0.2"
   gem "capybara-screenshot"
   gem "simplecov", "~> 0.16.1", require: false
-  gem "webmock", "~> 1.18.0"
+  gem "webmock", "~> 3.3.0"
   gem "timecop"
-  gem "poltergeist"
+  gem "selenium-webdriver", "~> 3.11"
 end

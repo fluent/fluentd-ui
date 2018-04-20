@@ -1,9 +1,21 @@
-rvm: 2.1.3
+rvm: 2.2.10
 
 sudo: required
+addons:
+  - chrome: stable
+
+env:
+  global:
+    DISPLAY: ":99.0"
+
+before_install:
+  - google-chrome-stable --version
+  - wget http://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - sudo mv chromedriver /usr/local/bin/chromedriver
 
 install:
   - bundle -v
   - gem i bundler
-  - sudo sh -c 'curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-precise-td-agent2.sh | sh'
+  - sudo sh -c 'curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh'
   - bundle install --jobs=4 --retry=4

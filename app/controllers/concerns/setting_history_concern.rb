@@ -28,7 +28,7 @@ module SettingHistoryConcern
     else
       flash = { danger: @fluentd.agent.log.tail(1).first }
     end
-    redirect_to :back, flash: flash
+    redirect_back fallback_location: root_url, flash: flash
   end
 
 end
