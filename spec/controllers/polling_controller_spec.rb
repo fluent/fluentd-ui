@@ -7,7 +7,7 @@ describe PollingController do
     end
 
     after do
-      response.should be_success
+      response.should be_successful
     end
 
     it 'may find nothing' do
