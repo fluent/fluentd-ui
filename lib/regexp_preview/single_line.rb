@@ -16,11 +16,11 @@ module RegexpPreview
         @regexp = nil
         @time_format = nil
       else # apache, nginx, etc
-        definition = Fluent::TextParser::TEMPLATE_REGISTRY.lookup(format).call
-        raise "Unknown format '#{format}'" unless definition
-        definition.configure(Fluent::Config::Element.new('ROOT', '', {}, [])) # NOTE: SyslogParser define @regexp in configure method so call it to grab Regexp object
-        @regexp = definition.patterns["format"]
-        @time_format = definition.patterns["time_format"]
+        parser_plugin = Fluent::Plugin.new_parser(format)
+        raise "Unknown format '#{format}'" unless parser_plugin
+        parser_plugin.configure(Fluent::Config::Element.new('ROOT', '', {}, [])) # NOTE: SyslogParser define @regexp in configure method so call it to grab Regexp object
+        @regexp = parser_plugin.instance_variable_get(:@regexp)
+        @time_format = parser_plugin.time_format
       end
     end
 
