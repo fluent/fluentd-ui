@@ -36,7 +36,7 @@ defaults: &defaults
     - category: filter
       name: "record-reformer"
     - category: storage
-      name: "zabbix-simple-bufferd"
+      name: "zabbix-simple"
     - category: processing
       name: "numeric-monitor"
     - category: notification
