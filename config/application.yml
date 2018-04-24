@@ -88,8 +88,6 @@ defaults: &defaults
     - category: storage
       name: "redis-counter"
     - category: storage
-      name: "kestrel"
-    - category: storage
       name: "forward-aws"
     - category: data_source
       name: "snmp"
