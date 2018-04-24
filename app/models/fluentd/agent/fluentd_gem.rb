@@ -36,7 +36,7 @@ class Fluentd
         end
       end
 
-      def reload # NOTE: does not used currently, and td-agent has no reload command
+      def reload # NOTE: does not used currently
         return false unless running?
         actual_reload
       end
