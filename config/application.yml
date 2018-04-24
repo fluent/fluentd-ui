@@ -11,8 +11,6 @@ defaults: &defaults
       name: "mongo"
     - category: storage
       name: "td"
-    - category: routing
-      name: "scribe"
     - category: search
       name: "elasticsearch"
     - category: storage
