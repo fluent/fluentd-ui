@@ -33,7 +33,7 @@ And some additional packages (Debian / Ubuntu)
     $ git clone https://github.com/fluent/fluentd-ui
     $ cd fluentd-ui
     $ bundle install
-    $ bundle exec rails s
+    $ bin/rails s
 
 Also you need a phantomjs for test.
 
