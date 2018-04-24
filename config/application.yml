@@ -11,8 +11,6 @@ defaults: &defaults
       name: "mongo"
     - category: security
       name: "secure-forward"
-    - category: routing
-      name: "forest"
     - category: storage
       name: "td"
     - category: routing
