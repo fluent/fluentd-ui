@@ -24,7 +24,7 @@ class Fluentd
       attr_reader :extra_options
 
       def self.included(base)
-        base.send(:include, Fluentd::Agent::ProcessOperation)
+        base.include(Fluentd::Agent::ProcessOperation)
       end
 
       # define these methods on each Agent class
