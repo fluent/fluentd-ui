@@ -25,6 +25,15 @@ class Fluentd
 
         hidden :type
         validates :path, presence: true
+
+        def print_if_present(key)
+          case key
+          when :type
+            send(key).present? ? "@#{key} #{send(key)}" : ""
+          else
+            super
+          end
+        end
       end
 
       include Common
