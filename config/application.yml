@@ -53,8 +53,6 @@ defaults: &defaults
       name: "map"
     - category: notification
       name: "notifier"
-    - category: filter
-      name: "grep"
     - category: processing
       name: "grepcounter"
     - category: processing
