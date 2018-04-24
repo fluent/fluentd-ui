@@ -33,7 +33,7 @@ describe Fluentd::Setting::OutMongo do
 
   describe "#to_config" do
     subject { instance.to_config }
-    it { should include("type mongo") }
+    it { should include("@type mongo") }
     it { should include("tag_mapped") }
   end
 end

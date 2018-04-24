@@ -58,7 +58,7 @@ describe 'setting', stub: :daemon do
     context "plain config" do
       let(:conf) { <<-'CONF' }
       <source>
-        type forward
+        @type forward
       </source>
       CONF
 
@@ -76,7 +76,7 @@ describe 'setting', stub: :daemon do
     context "embedded config" do
       let(:conf) { <<-'CONF' }
       <source>
-        type forward
+        @type forward
         id "foo#{Time.now.to_s}"
       </source>
       CONF

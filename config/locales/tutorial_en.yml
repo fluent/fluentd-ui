@@ -24,12 +24,12 @@ en:
         These settings are defined as following fluent.conf:
 
             <source>
-              type http
+              @type http
               port %{http_port}
             </source>
 
             <match debug.*>
-              type stdout
+              @type stdout
             </match>
     chapter3:
       page_title: "Chapter 3 | Build your fluentd!"
@@ -56,14 +56,14 @@ en:
         **config file example**
 
             <source>
-              type tail
+              @type tail
               format apache2
               path /var/log/apache2/access.log #This is the location of your Apache log
               tag apache.access
             </source>
 
             <match apache.access>
-              type grepcounter
+              @type grepcounter
               count_interval 3         # Time window to grep and count the # of events
               input_key code           # We look at the (http status) "code" field
               regexp ^5\d\d$           # This regexp matches 5xx status codes
@@ -80,7 +80,7 @@ en:
               #   "message":[500]
               # }
 
-              type mail
+              @type mail
               host smtp.gmail.com       # This is for Gmail and Google Apps. Any SMTP server should work
               port 587                  # port for smtp.gmail.com
               user example@gmail.com    # your Gmail here for login

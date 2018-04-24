@@ -103,7 +103,7 @@ class Fluentd
         # NOTE: Using strip_heredoc makes more complex for format_specific_conf indent
         <<-XML.gsub(/^[ ]*\n/m, "")
 <source>
-  type tail
+  @type tail
   path #{path}
   tag #{tag}
   #{certain_format_line}

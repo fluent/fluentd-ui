@@ -14,7 +14,7 @@ describe "out_forward", stub: :daemon do
   } }
 
   it "Updated config after submit" do
-    daemon.agent.config.should_not include("type file") # out_forward's Secondary hidden field
+    daemon.agent.config.should_not include("@type file") # out_forward's Secondary hidden field
     form_values.each_pair do |k,v|
       daemon.agent.config.should_not include(v)
     end
@@ -28,7 +28,7 @@ describe "out_forward", stub: :daemon do
     form_values.each_pair do |k,v|
       daemon.agent.config.should include(v)
     end
-    daemon.agent.config.should include("type file") # out_forward's Secondary hidden field
+    daemon.agent.config.should include("@type file") # out_forward's Secondary hidden field
   end
 
   it "Click to append Server fields", js: true do

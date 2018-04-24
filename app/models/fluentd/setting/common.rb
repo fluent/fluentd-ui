@@ -20,7 +20,7 @@ class Fluentd
         def nested(key, klass, options = {})
           # e.g.:
           #  <match>
-          #    type forward
+          #    @type forward
           #    <server>
           #      ..
           #    </server>
@@ -161,7 +161,7 @@ class Fluentd
           else
             config = "<match #{match}>\n"
           end
-          config << "#{indent}type #{plugin_type_name}\n"
+          config << "#{indent}@type #{plugin_type_name}\n"
         end
         self.class.const_get(:KEYS).each do |key|
           next if key == :match

@@ -42,8 +42,8 @@ describe "histories", stub: :daemon do
     describe 'diff' do
       context 'has diff' do
         it 'shows diff between current and target' do
-          page.should has_text?("-   type http")
-          page.should has_text?("+   type forward")
+          page.should has_text?("-   @type http")
+          page.should has_text?("+   @type forward")
           page.should has_text?("-   port 8899")
           page.should has_text?("+   port 24224")
         end
@@ -81,7 +81,7 @@ describe "histories", stub: :daemon do
       context "invalid configfile" do
         let(:config) { <<-CONFIG }
         <source>
-          type aaaaaaaaaaaa
+          @type aaaaaaaaaaaa
         </source>
         CONFIG
 
@@ -95,7 +95,7 @@ describe "histories", stub: :daemon do
       context "valid configfile" do
         let(:config) { <<-CONFIG }
         <source>
-          type syslog
+          @type syslog
           tag syslog
         </source>
         CONFIG

@@ -31,7 +31,7 @@ describe Fluentd::Setting::OutTd do
 
   describe "#to_config" do
     subject { instance.to_config }
-    it { should include("type tdlog") }
+    it { should include("@type tdlog") }
     it { should include("APIKEY") }
   end
 end

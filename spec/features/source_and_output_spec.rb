@@ -25,17 +25,17 @@ describe "source_and_output", js: true, stub: :daemon do
     let(:config_contents) { <<-CONF.strip_heredoc }
       <source>
         # http://docs.fluentd.org/articles/in_forward
-        type forward
+        @type forward
         port 24224
       </source>
 
       <match debug.*>
         # http://docs.fluentd.org/articles/out_stdout
-        type stdout
+        @type stdout
       </match>
 
       <match s3.*>
-        type s3
+        @type s3
         aws_key_id fofoaiofa
         aws_sec_key aaaaaaaaaaaaaae
         s3_bucket test
@@ -82,13 +82,13 @@ describe "source_and_output", js: true, stub: :daemon do
   describe "edit, update, delete" do
     let(:config_contents) { <<-CONF.strip_heredoc }
       <source>
-        type forward
+        @type forward
         port 24224
       </source>
     CONF
     let(:new_config) { <<-CONF.strip_heredoc }
       <source>
-        type http
+        @type http
         port 8899
       </source>
     CONF

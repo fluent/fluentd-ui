@@ -29,7 +29,7 @@ describe Fluentd::Setting::InSyslog do
 
   describe "#to_config" do
     subject { instance.to_config }
-    it { should include("type syslog") }
+    it { should include("@type syslog") }
   end
 end
 
