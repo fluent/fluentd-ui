@@ -31,8 +31,6 @@ defaults: &defaults
       name: "numeric-counter"
     - category: storage
       name: "webhdfs"
-    - category: storage
-      name: "file-alternative"
     - category: data_source
       name: "dstat"
     - category: filter
