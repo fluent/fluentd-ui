@@ -9,8 +9,6 @@ defaults: &defaults
       name: "rewrite-tag-filter"
     - category: storage
       name: "mongo"
-    - category: security
-      name: "secure-forward"
     - category: storage
       name: "td"
     - category: routing
