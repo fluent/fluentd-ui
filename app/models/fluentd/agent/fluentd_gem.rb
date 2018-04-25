@@ -36,7 +36,7 @@ class Fluentd
         end
       end
 
-      def reload # NOTE: does not used currently
+      def reload
         return false unless running?
         actual_reload
       end
