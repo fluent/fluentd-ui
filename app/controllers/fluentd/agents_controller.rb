@@ -16,6 +16,11 @@ class Fluentd::AgentsController < ApplicationController
     redirect_to daemon_path(@fluentd), status: 303 # 303 is change HTTP Verb GET
   end
 
+  def reload
+    run_action(__method__) { @fluentd.agent.log.tail(1).first }
+    redirect_to daemon_path(@fluentd), status: 303 # 303 is change HTTP Verb GET
+  end
+
   def log_tail
     @logs = @fluentd.agent.log.tail(params[:limit]).reverse if @fluentd
     render json: @logs

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         put "start"
         put "stop"
         put "restart"
+        put "reload"
         get "log_tail"
       end
 
