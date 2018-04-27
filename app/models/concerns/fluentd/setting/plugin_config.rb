@@ -25,11 +25,17 @@ class Fluentd
                    else
                      ""
                    end
-        config = config_element(name, argument, attributes.reject{ |key, value| value.nil? })
-        # TODO
-        # sections.to_h.each do |key, section_params|
-        #   config.add_element(config_element(key, "", section_params))
-        # end
+        build_config(name, argument, attributes)
+      end
+
+      def build_config(name, argument, attributes)
+        sections, params = attributes.partition do |key, _section_attributes|
+          config_definition.dig(key, :section)
+        end
+        config = config_element(name, argument, params.to_h.reject{|key, value| value.nil? })
+        sections.to_h.each do |key, section_params|
+          config.add_element(build_config(key, "", section_params))
+        end
         config
       end
 
