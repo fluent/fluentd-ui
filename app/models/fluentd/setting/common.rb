@@ -1,20 +1,15 @@
+require "fluent/command/plugin_config_formatter"
+
 class Fluentd
   module Setting
     module Common
       extend ActiveSupport::Concern
-      include ActiveModel::Model
 
       module ClassMethods
         attr_accessor :values, :types, :children, :hidden_values
 
-        def choice(key, values)
-          @values ||= {}
-          @values[key] = values
-          set_type(:choice, [key])
-        end
-
         def hidden(key)
-          set_type(:hidden, [key])
+          set_type(:hidden, key)
         end
 
         def nested(key, klass, options = {})
@@ -30,30 +25,14 @@ class Fluentd
             class: klass,
             options: options,
           }
-          set_type(:nested, [key])
-        end
-
-        def booleans(*keys)
-          # e.g.:
-          #   use_ssl true
-          #   include_time_key false
-          set_type(:boolean, keys)
-        end
-
-        def flags(*keys)
-          # e.g.:
-          #   tag_mapped
-          #   utc
-          set_type(:flag, keys)
+          set_type(:nested, key)
         end
 
         private
 
-        def set_type(type, keys)
+        def set_type(type, key)
           @types ||= {}
-          keys.each do |key|
-            @types[key] = type
-          end
+          @types[key] = type
         end
       end
 
@@ -83,8 +62,8 @@ class Fluentd
 
       def conf(key)
         case column_type(key)
-        when :boolean
-          boolenan(key)
+        when :bool
+          bool(key)
         when :flag
           flag(key)
         when :nested
@@ -121,13 +100,20 @@ class Fluentd
 
       def print_if_present(key)
         # e.g.:
+        #   @type file
+        #   @log_level debug
         #   path /var/log/td/aaa
         #   user nobody
         #   retry_limit 3
-        send(key).present? ? "#{key} #{send(key)}" : ""
+        case key
+        when :type, :log_level
+          send(key).present? ? "@#{key} #{send(key)}" : ""
+        else
+          send(key).present? ? "#{key} #{send(key)}" : ""
+        end
       end
 
-      def boolenan(key)
+      def bool(key)
         send(key).presence == "true" ? "#{key} true" : "#{key} false"
       end
 
