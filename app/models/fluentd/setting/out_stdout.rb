@@ -1,16 +1,9 @@
 class Fluentd
   module Setting
     class OutStdout
-      include Common
+      include Fluentd::Setting::Plugin
 
-      KEYS = [:match, :output_type].freeze
-
-      attr_accessor(*KEYS)
-
-      choice :output_type, %w(json hash)
-
-      validates :match, presence: true
-      validates :output_type, inclusion: { in: %w(json hash) }
+      register_plugin("output", "stdout")
 
       def self.initial_params
         {
@@ -27,10 +20,6 @@ class Fluentd
 
       def advanced_options
         []
-      end
-
-      def plugin_name
-        "stdout"
       end
     end
   end
