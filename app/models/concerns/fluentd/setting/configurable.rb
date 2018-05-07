@@ -51,9 +51,8 @@ class Fluentd
           if self._sections.key?(name)
             self._sections[name].merge(**options, &block)
           else
-            cattr_accessor name
+            attribute(name, :section)
             self._sections[name] = ::Fluentd::Setting::Section.new(name, **options, &block)
-            self.__send__("#{name}=", self._sections[name])
           end
         end
 

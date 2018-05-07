@@ -26,18 +26,26 @@ class Fluentd
                      ""
                    end
         _attributes = { "@type" => self.plugin_name }.merge(attributes)
-        build_config(name, argument, _attributes)
+        attrs, elements = parse_attributes(_attributes)
+        config_element(name, argument, attrs, elements)
       end
 
-      def build_config(name, argument, attributes)
+      def parse_attributes(attributes)
+        base_klasses = config_definition.keys
         sections, params = attributes.partition do |key, _section_attributes|
-          config_definition.dig(key, :section)
+          base_klasses.any? do |base_klass|
+            config_definition.dig(base_klass, key.to_sym, :section) || config_definition.dig(key.to_sym, :section)
+          end
         end
-        config = config_element(name, argument, params.to_h.reject{|key, value| value.nil? })
+        elements = []
         sections.to_h.each do |key, section_params|
-          config.add_element(build_config(key, "", section_params))
+          next if section_params.nil?
+          section_params.each do |index, _section_params|
+            sub_attrs, sub_elements = parse_attributes(_section_params)
+            elements << config_element(key, "", sub_attrs, sub_elements)
+          end
         end
-        config
+        return params.to_h.reject{|key, value| value.nil? }, elements
       end
 
       # copy from Fluent::Test::Helpers#config_element
