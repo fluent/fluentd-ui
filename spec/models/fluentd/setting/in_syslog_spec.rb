@@ -17,18 +17,18 @@ describe Fluentd::Setting::InSyslog do
     end
   end
 
-  describe "#plugin_type_name" do
-    subject { instance.plugin_type_name }
+  describe "#plugin_name" do
+    subject { instance.plugin_name }
     it { should == "syslog" }
   end
 
-  describe "#input_plugin" do
-    it { instance.should be_input_plugin }
-    it { instance.should_not be_output_plugin }
+  describe "#plugin_type" do
+    subject { instance.plugin_type }
+    it { should == "input" }
   end
 
   describe "#to_config" do
-    subject { instance.to_config }
+    subject { instance.to_config2.to_s }
     it { should include("@type syslog") }
   end
 end
