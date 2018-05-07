@@ -5,6 +5,8 @@ class Fluentd
 
       register_plugin("output", "mongo")
 
+      # NOTE: fluent-plugin-mongo defines database parameter as required parameter
+      #       But Fluentd tells us that the database parameter is not required.
       validates :database, presence: true
       validate :validate_collection
 
