@@ -4,13 +4,14 @@ class Fluentd
       extend ActiveSupport::Concern
 
       included do
-        class_attribute :_defaults, :_secrets, :_aliases
+        class_attribute :_defaults, :_secrets, :_aliases, :_required
         class_attribute :_deprecated_params, :_obsoleted_params, :_descriptions
         class_attribute :_list, :_value_types, :_symbolize_keys
         class_attribute :_argument_name, :_built_in_params, :_sections
         self._defaults = {}
         self._secrets = {}
         self._aliases = {}
+        self._required = {}
         self._deprecated_params = {}
         self._obsoleted_params = {}
         self._descriptions = {}
@@ -31,15 +32,18 @@ class Fluentd
           end
           if name.to_s.start_with?("@")
             _name = name.to_s[1..-1]
-            config_param(_name.to_sym, type, **options)
+            config_param(_name.to_sym, type, **options.merge(alias: name))
+            self._built_in_params << _name
+          elsif ["id", "type", "log_level"].include?(name.to_s)
             self._built_in_params << _name
           else
             attribute(name, type, **options.slice(:precision, :limit, :scale))
-            validates name, presence: true unless options.key?(:default)
+            validates(name, presence: true) if options[:required]
           end
           self._defaults[name] = options[:default] if options.key?(:default)
           self._secrets[name] = options[:secret] if options.key?(:secret)
           self._aliases[name] = options[:alias] if options.key?(:alias)
+          self._required[name] = options[:required] if options.key?(:required)
           self._deprecated_params[name] = options[:deprecated] if options.key?(:deprecated)
           self._obsoleted_params[name] = options[:obsoleted] if options.key?(:obsoleted)
           self._list[name] = options[:list] if options.key?(:list)
