@@ -7,10 +7,12 @@ class Fluentd
 
       def self.initial_params
         {
-          buffer_type: "file",
-          buffer_path: "/var/log/td-agent/buffer/td",
+          pattern: "td.*.*",
+          buffer: {
+            "@type" => "file",
+            "path" => "/var/log/td-agent/buffer/td",
+          },
           auto_create_table: true,
-          match: "td.*.*",
         }
       end
 
