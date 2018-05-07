@@ -26,6 +26,7 @@ class Fluentd
                      ""
                    end
         _attributes = { "@type" => self.plugin_name }.merge(attributes)
+        _attributes["@log_level"] = _attributes.delete("log_level")
         attrs, elements = parse_attributes(_attributes)
         config_element(name, argument, attrs, elements)
       end
