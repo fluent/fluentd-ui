@@ -9,7 +9,6 @@ class Fluentd
       include ActiveModel::Attributes
       include Fluentd::Setting::Configurable
       include Fluentd::Setting::PluginConfig
-      include Fluentd::Setting::Common
 
       included do
         cattr_accessor :plugin_type, :plugin_name, :config_definition
@@ -19,6 +18,10 @@ class Fluentd
         def register_plugin(type, name)
           self.plugin_type = type
           self.plugin_name = name
+
+          if ["filter", "output"].include?(type)
+            include Fluentd::Setting::Pattern
+          end
 
           self.load_plugin_config do |_name, params|
             params.each do |param_name, definition|
