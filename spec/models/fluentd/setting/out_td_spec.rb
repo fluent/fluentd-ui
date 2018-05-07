@@ -5,34 +5,44 @@ describe Fluentd::Setting::OutTd do
   let(:instance) { klass.new(valid_attributes) }
   let(:valid_attributes) {
     {
-      match: "td.*.*",
+      pattern: "td.*.*",
       apikey: "APIKEY",
       auto_create_table: "true",
     }
   }
 
   describe "#valid?" do
-    it "should be invalid if tag parameter lacked" do
+    it "should be invalid if apikey is missing" do
       params = valid_attributes.dup
-      params.delete(:match)
-      klass.new(params).should_not be_valid
+      params.delete(:apikey)
+      instance = klass.new(params)
+      instance.should_not be_valid
+      instance.errors.full_messages.should == ["Apikey can't be blank"]
     end
   end
 
-  describe "#plugin_type_name" do
-    subject { instance.plugin_type_name }
+  describe "#plugin_name" do
+    subject { instance.plugin_name }
     it { should == "tdlog" }
   end
 
-  describe "#input_plugin" do
-    it { instance.should_not be_input_plugin }
-    it { instance.should be_output_plugin }
+  describe "#plugin_type" do
+    subject { instance.plugin_type }
+    it { should == "output" }
   end
 
   describe "#to_config" do
-    subject { instance.to_config }
-    it { should include("@type tdlog") }
-    it { should include("APIKEY") }
+    subject { instance.to_config.to_s }
+    let(:expected) {
+      <<-CONFIG
+<match td.*.*>
+  @type tdlog
+  apikey APIKEY
+  auto_create_table true
+</match>
+      CONFIG
+    }
+    it { should == expected }
   end
 end
 
