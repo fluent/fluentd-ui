@@ -25,7 +25,8 @@ class Fluentd
                    else
                      ""
                    end
-        build_config(name, argument, attributes)
+        _attributes = { "@type" => self.plugin_name }.merge(attributes)
+        build_config(name, argument, _attributes)
       end
 
       def build_config(name, argument, attributes)
