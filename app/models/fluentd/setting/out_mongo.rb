@@ -5,13 +5,8 @@ class Fluentd
 
       register_plugin("output", "mongo")
 
-      validate :validate_capped
+      validates :database, presence: true
       validate :validate_collection
-
-      def validate_capped
-        return true if capped.blank?
-        errors.add(:capped_size, :blank) if capped_size.blank?
-      end
 
       def validate_collection
         if tag_mapped.blank? && collection.blank?
