@@ -137,7 +137,7 @@ class Fluentd
         not input_plugin?
       end
 
-      def to_config(elm_name = nil)
+      def to_config_old(elm_name = nil)
         indent = "  "
         if elm_name
           config = "<#{elm_name}>\n"

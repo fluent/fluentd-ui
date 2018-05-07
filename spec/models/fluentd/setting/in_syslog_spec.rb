@@ -28,7 +28,7 @@ describe Fluentd::Setting::InSyslog do
   end
 
   describe "#to_config" do
-    subject { instance.to_config2.to_s }
+    subject { instance.to_config.to_s }
     it { should include("@type syslog") }
   end
 
@@ -56,7 +56,7 @@ describe Fluentd::Setting::InSyslog do
 </source>
       CONFIG
     }
-    subject { instance.to_config2.to_s }
+    subject { instance.to_config.to_s }
     it { should == expected }
   end
 end

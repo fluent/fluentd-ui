@@ -3,7 +3,7 @@ class Fluentd
     module PluginConfig
       extend ActiveSupport::Concern
 
-      def to_config2
+      def to_config
         name = case plugin_type
                when "input"
                  "source"
