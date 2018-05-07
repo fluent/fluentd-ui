@@ -1,19 +1,11 @@
 class Fluentd
   module Setting
     class InTail
+      include Fluentd::Setting::Plugin
+
+      register_plugin("input", "tail")
+
       MULTI_LINE_MAX_FORMAT_COUNT = 20
-
-      include ActiveModel::Model
-      include Common
-
-      KEYS = [
-        :path, :tag, :format, :regexp, :time_format, :rotate_wait, :pos_file, :read_from_head, :refresh_interval
-      ]
-      attr_accessor(*KEYS)
-
-      validates :path, presence: true
-      validates :tag, presence: true
-      #validates :format, presence: true
 
       def self.known_formats
         {
