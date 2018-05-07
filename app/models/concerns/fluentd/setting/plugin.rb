@@ -28,6 +28,7 @@ class Fluentd
               if definition[:section]
                 config_section param_name, **definition.slice(:required, :multi, :alias) do
                   definition.except(:section, :argument, :required, :multi, :alias).each do |_param_name, _definition|
+                    next if _definition[:section]
                     config_param _param_name, _definition[:type], **_definition.except(:type)
                   end
                 end
