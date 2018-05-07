@@ -21,6 +21,18 @@ describe Fluentd::Setting::OutMongo do
       instance.should_not be_valid
       instance.errors.full_messages.should == ["Database can't be blank"]
     end
+
+    it "should be invalid if collection is missing" do
+      params = {
+        pattern: "mongo.*.*",
+        host: "example.com",
+        port: 12345,
+        database: "mongodb",
+      }
+      instance = klass.new(params)
+      instance.should_not be_valid
+      instance.errors.full_messages.should == ["Collection can't be blank"]
+    end
   end
 
   describe "#plugin_name" do
