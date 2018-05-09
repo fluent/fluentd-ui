@@ -1,11 +1,14 @@
+require "fluent/plugin/parser_multiline"
+
 class Fluentd
   module Setting
     class InTail
       include Fluentd::Setting::Plugin
 
       register_plugin("input", "tail")
+      # TODO support formatN ???
 
-      MULTI_LINE_MAX_FORMAT_COUNT = 20
+      MULTI_LINE_MAX_FORMAT_COUNT = ::Fluent::Plugin::MultilineParser::FORMAT_MAX_NUM
 
       def self.known_formats
         {
@@ -23,7 +26,7 @@ class Fluentd
           # :grok => [:grok_str],
         }
       end
-      attr_accessor *known_formats.values.flatten.compact.uniq
+      attr_accessor(*known_formats.values.flatten.compact.uniq)
 
       def known_formats
         self.class.known_formats
