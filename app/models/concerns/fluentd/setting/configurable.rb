@@ -28,6 +28,7 @@ class Fluentd
         super
         self._sections.each do |name, klass|
           if klass.multi
+            next if attributes[name].nil?
             attributes[name].each do |attr|
               next unless attr
               self._section_params[name] << klass.new(attr)
