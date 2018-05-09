@@ -9,6 +9,7 @@ class Fluentd
       include ActiveModel::Attributes
       include Fluentd::Setting::Configurable
       include Fluentd::Setting::PluginConfig
+      include Fluentd::Setting::SectionValidator
 
       included do
         cattr_accessor :plugin_type, :plugin_name, :config_definition

@@ -7,7 +7,7 @@ class Fluentd
         class_attribute :_defaults, :_secrets, :_aliases, :_required
         class_attribute :_deprecated_params, :_obsoleted_params, :_descriptions
         class_attribute :_list, :_value_types, :_symbolize_keys
-        class_attribute :_argument_name, :_built_in_params, :_sections
+        class_attribute :_argument_name, :_built_in_params, :_sections, :_section_params
         self._defaults = {}
         self._secrets = {}
         self._aliases = {}
@@ -21,6 +21,22 @@ class Fluentd
         self._argument_name = nil
         self._built_in_params = []
         self._sections = {}
+        self._section_params = Hash.new {|h, k| h[k] = [] }
+      end
+
+      def initialize(attributes = {})
+        super
+        self._sections.each do |name, klass|
+          if klass.multi
+            attributes[name].each do |attr|
+              next unless attr
+              self._section_params[name] << klass.new(attr)
+            end
+          else
+            attr = attributes.dig(name, "0")
+            self._section_params[name] << klass.new(attr) if attr
+          end
+        end
       end
 
       module ClassMethods
@@ -56,7 +72,14 @@ class Fluentd
             self._sections[name].merge(**options, &block)
           else
             attribute(name, :section)
-            self._sections[name] = ::Fluentd::Setting::Section.new(name, **options, &block)
+            section_class = Class.new(::Fluentd::Setting::Section)
+            section_class.name = name.to_s.classify
+            section_class.required = options[:required]
+            section_class.multi = options[:multi]
+            section_class.alias = options[:alias]
+            section_class._block = block
+            self.const_set(name.to_s.classify, section_class)
+            self._sections[name] = section_class
           end
         end
 
