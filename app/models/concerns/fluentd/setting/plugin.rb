@@ -46,7 +46,7 @@ class Fluentd
             dumped_config_definition = klass.dump_config_definition
             dumped_config[klass.name] = dumped_config_definition unless dumped_config_definition.empty?
           end
-          self.config_definition = config_definition = dumped_config
+          self.config_definition = dumped_config
           dumped_config.each do |name, config|
             yield name, config
           end
