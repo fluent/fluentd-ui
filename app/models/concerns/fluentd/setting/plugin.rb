@@ -26,14 +26,14 @@ class Fluentd
           self.load_plugin_config do |_name, params|
             params.each do |param_name, definition|
               if definition[:section]
-                config_section param_name, **definition.slice(:required, :multi, :alias) do
+                config_section(param_name, **definition.slice(:required, :multi, :alias)) do
                   definition.except(:section, :argument, :required, :multi, :alias).each do |_param_name, _definition|
                     next if _definition[:section]
-                    config_param _param_name, _definition[:type], **_definition.except(:type)
+                    config_param(_param_name, _definition[:type], **_definition.except(:type))
                   end
                 end
               else
-                config_param param_name, definition[:type], **definition.except(:type)
+                config_param(param_name, definition[:type], **definition.except(:type))
               end
             end
           end
