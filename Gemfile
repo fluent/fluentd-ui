@@ -9,6 +9,10 @@ group :development, :test do
   gem "pry"
   gem "pry-rails"
   gem "rspec-rails", "~> 3.0"
+  gem "fluent-plugin-td", "~> 1.0"
+  gem "fluent-plugin-mongo", "~> 1.1"
+  gem "fluent-plugin-elasticsearch", "~> 2.10"
+  gem "fluent-plugin-s3", "~> 1.1"
 end
 
 group :development do
