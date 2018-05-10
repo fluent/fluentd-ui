@@ -25,7 +25,7 @@ class Fluentd
       end
 
       def initialize(attributes = {})
-        super
+        super rescue ActiveModel::UnknownAttributeError # the superclass does not know specific attributes of the model
         self._sections.each do |name, klass|
           if klass.multi
             next if attributes[name].nil?
