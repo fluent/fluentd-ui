@@ -28,18 +28,17 @@ class Fluentd
       def initialize(attributes = {})
         super rescue ActiveModel::UnknownAttributeError # the superclass does not know specific attributes of the model
         self.class._sections.each do |name, klass|
+          klass.init
           if klass.multi
             next if attributes[name].nil?
             attributes[name].each do |attr|
               next unless attr
               attr.each do |index, _attr|
-                klass.init
                 self._section_params[name] << klass.new(_attr)
               end
             end
           else
             attr = attributes.dig(name, "0")
-            klass.init
             self._section_params[name] << klass.new(attr) if attr
           end
         end
