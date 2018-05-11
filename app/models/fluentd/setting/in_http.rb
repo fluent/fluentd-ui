@@ -12,8 +12,6 @@ class Fluentd
           body_size_limit: "32m",
           keepalive_timeout: "10s",
           add_http_headers: false,
-          format: "default",
-          log_level: "info",
         }
       end
 
@@ -23,9 +21,9 @@ class Fluentd
         ]
       end
 
-      def advanced_options
+      def hidden_options
         [
-          :body_size_limit, :keepalive_timeout, :add_http_headers, :format, :log_level
+          :parse
         ]
       end
     end
