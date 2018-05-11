@@ -9,6 +9,7 @@ class Fluentd
             include ActiveModel::Model
             include ActiveModel::Attributes
             include Fluentd::Setting::Configurable
+            include Fluentd::Setting::SectionParser
             include Fluentd::Setting::PluginParameter
 
             class_attribute :_klass, :_block

@@ -7,19 +7,21 @@ class Fluentd
 
       def self.initial_params
         {
-          match: "debug.**",
+          pattern: "debug.**",
           output_type: "json",
         }
       end
 
       def common_options
         [
-          :match, :output_type
+          :pattern, :output_type
         ]
       end
 
-      def advanced_options
-        []
+      def hidden_options
+        [
+          :secondary
+        ]
       end
     end
   end
