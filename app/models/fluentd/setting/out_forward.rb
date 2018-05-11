@@ -17,14 +17,14 @@ class Fluentd
 
       def common_options
         [
-          :match, :server, :secondary,
+          :pattern, :server, :secondary,
         ]
       end
 
-      def advanced_options
+      def hidden_options
         [
-          :send_timeout, :recover_wait, :heartbeat_type, :heartbeat_interval,
-          :phi_threshold, :hard_timeout,
+          :inject, :buffer,
+          :host, :port
         ]
       end
     end
