@@ -1,8 +1,6 @@
 class Fluentd
   module Setting
     class Section
-      attr_reader :name
-
       class << self
         def inherited(klass)
           klass.instance_eval do
@@ -13,7 +11,7 @@ class Fluentd
             include Fluentd::Setting::PluginParameter
 
             class_attribute :_klass, :_block
-            class_attribute :name, :required, :multi, :alias
+            class_attribute :section_name, :required, :multi, :alias
             self._klass = klass
           end
         end

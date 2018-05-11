@@ -79,7 +79,7 @@ class Fluentd
           else
             attribute(name, :section)
             section_class = Class.new(::Fluentd::Setting::Section)
-            section_class.name = name.to_s.classify
+            section_class.section_name = name
             section_class.required = options[:required]
             section_class.multi = options[:multi]
             section_class.alias = options[:alias]
