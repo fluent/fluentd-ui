@@ -27,15 +27,16 @@ class Fluentd
 
       def common_options
         [
-          :match, :host, :port, :database, :collection,
+          :pattern, :host, :port, :database, :collection,
           :tag_mapped, :user, :password,
         ]
       end
 
-      def advanced_options
+      def hidden_options
         [
-          :capped, :capped_size, :capped_max, :buffer_type, :buffer_path, :buffer_queue_limit, :buffer_chunk_limit,
-          :flush_interval, :retry_wait, :retry_limit, :max_retry_wait, :num_threads,
+          :secondary, :inject, :buffer,
+          :include_tag_key,
+          :include_time_key
         ]
       end
     end
