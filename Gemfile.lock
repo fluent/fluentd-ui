@@ -6,6 +6,10 @@ PATH
       bundler
       diff-lcs
       draper (~> 3.0)
+      fluent-plugin-elasticsearch (~> 2.10)
+      fluent-plugin-mongo (~> 1.1)
+      fluent-plugin-s3 (~> 1.1)
+      fluent-plugin-td (~> 1.0)
       fluentd (>= 1.0.0, < 2)
       font-awesome-rails
       haml-rails (~> 1.0)
@@ -363,10 +367,6 @@ DEPENDENCIES
   capybara (~> 3.0.2)
   capybara-screenshot
   factory_bot_rails
-  fluent-plugin-elasticsearch (~> 2.10)
-  fluent-plugin-mongo (~> 1.1)
-  fluent-plugin-s3 (~> 1.1)
-  fluent-plugin-td (~> 1.0)
   fluentd-ui!
   i18n_generators (= 2.1.1)
   pry
