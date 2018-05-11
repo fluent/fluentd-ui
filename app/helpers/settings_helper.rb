@@ -13,9 +13,7 @@ module SettingsHelper
   def field_resolver(html, form, key, opts)
     plugin_class = form.object.class
     type = plugin_class.column_type(key)
-    if plugin_class._sections[key]
-      section_field(html, form, key, opts)
-    else
+    if type && !@_used_param.key?(key)
       case type
       when :enum
         enum_field(html, form, key, opts)
@@ -24,6 +22,11 @@ module SettingsHelper
       else
         other_field(html, form, key, opts)
       end
+      @_used_param[key] = true
+    end
+    if plugin_class._sections[key] && !@_used_section.key?(key)
+      section_field(html, form, key, opts)
+      @_used_section[key] = true
     end
   end
 

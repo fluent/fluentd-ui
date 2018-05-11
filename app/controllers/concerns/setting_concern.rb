@@ -10,6 +10,8 @@ module SettingConcern
 
   def show
     @setting = target_class.new(initial_params)
+    @_used_param = {}
+    @_used_section = {}
     render "shared/settings/show"
   end
 
