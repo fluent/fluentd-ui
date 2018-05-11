@@ -29,10 +29,6 @@ class Fluentd
           true
         end
       end
-
-      def initialize(attributes = {})
-        super
-      end
     end
   end
 end
