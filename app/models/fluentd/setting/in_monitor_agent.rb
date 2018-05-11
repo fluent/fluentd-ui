@@ -17,10 +17,6 @@ class Fluentd
           :bind, :port
         ]
       end
-
-      def advanced_options
-        []
-      end
     end
   end
 end
