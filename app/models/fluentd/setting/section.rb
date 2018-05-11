@@ -1,30 +1,38 @@
 class Fluentd
   module Setting
     class Section
-      include ActiveModel::Model
-      include ActiveModel::Attributes
-      include Fluentd::Setting::Configurable
-
       attr_reader :name
 
-      def self.inherited(klass)
-        class_attribute :_klass, :_block
-        class_attribute :name, :required, :multi, :alias
-        self._klass = klass
-      end
+      class << self
+        def inherited(klass)
+          klass.instance_eval do
+            include ActiveModel::Model
+            include ActiveModel::Attributes
+            include Fluentd::Setting::Configurable
+            include Fluentd::Setting::PluginParameter
 
-      def self.model_name
-        ActiveModel::Name.new(self, Fluentd::Setting, "Section")
-      end
+            class_attribute :_klass, :_block
+            class_attribute :name, :required, :multi, :alias
+            self._klass = klass
+          end
+        end
 
-      # Don't overwrite options
-      def self.merge(**options)
-        self._klass.class_eval(&self._block)
+        def init
+          _klass.instance_eval(&_block)
+        end
+
+        # Don't overwrite options
+        def merge(**options)
+          _klass.instance_eval(&_block)
+        end
+
+        def section?
+          true
+        end
       end
 
       def initialize(attributes = {})
-        self._klass.class_eval(&self._block)
-        super(attributes)
+        super
       end
     end
   end
