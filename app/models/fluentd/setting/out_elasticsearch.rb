@@ -19,15 +19,14 @@ class Fluentd
 
       def common_options
         [
-          :match, :host, :port, :logstash_format,
+          :pattern, :host, :port, :logstash_format,
           :index_name, :type_name,
         ]
       end
 
-      def advanced_options
+      def hidden_options
         [
-          :hosts, :logstash_prefix, :logstash_dateformat,
-          :utc_index, :request_timeout, :include_tag_key,
+          :secondary, :inject, :buffer
         ]
       end
     end
