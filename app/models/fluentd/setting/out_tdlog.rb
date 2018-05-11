@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    class OutTd
+    class OutTdlog
       include Fluentd::Setting::Plugin
 
       register_plugin("output", "tdlog")

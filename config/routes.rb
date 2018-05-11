@@ -49,7 +49,7 @@ Rails.application.routes.draw do
           post "finish"
         end
 
-        resource :out_td, only: [:show], module: :settings, controller: :out_td do
+        resource :out_tdlog, only: [:show], module: :settings, controller: :out_tdlog do
           post "finish"
         end
 
