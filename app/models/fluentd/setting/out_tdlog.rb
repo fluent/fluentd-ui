@@ -18,13 +18,13 @@ class Fluentd
 
       def common_options
         [
-          :match, :apikey, :auto_create_table, :database, :table,
+          :pattern, :apikey, :auto_create_table, :database, :table,
         ]
       end
 
-      def advanced_options
+      def hidden_options
         [
-          :flush_interval, :buffer_type, :buffer_path,
+          :secondary
         ]
       end
     end

@@ -8,7 +8,12 @@ class Fluentd
       def self.initial_params
         {
           pattern: "debug.**",
-          output_type: "json",
+          format: {
+            "0" => {
+              "@type" => "stdout",
+              "output_type" => "json"
+            }
+          }
         }
       end
 
@@ -20,7 +25,7 @@ class Fluentd
 
       def hidden_options
         [
-          :secondary
+          :secondary, :inject, :buffer
         ]
       end
     end
