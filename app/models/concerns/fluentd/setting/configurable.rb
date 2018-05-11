@@ -4,10 +4,11 @@ class Fluentd
       extend ActiveSupport::Concern
 
       included do
-        class_attribute :_defaults, :_secrets, :_aliases, :_required
+        class_attribute :_types, :_defaults, :_secrets, :_aliases, :_required
         class_attribute :_deprecated_params, :_obsoleted_params, :_descriptions
         class_attribute :_list, :_value_types, :_symbolize_keys
         class_attribute :_argument_name, :_built_in_params, :_sections, :_section_params
+        self._types = {}
         self._defaults = {}
         self._secrets = {}
         self._aliases = {}
@@ -26,15 +27,19 @@ class Fluentd
 
       def initialize(attributes = {})
         super rescue ActiveModel::UnknownAttributeError # the superclass does not know specific attributes of the model
-        self._sections.each do |name, klass|
+        self.class._sections.each do |name, klass|
           if klass.multi
             next if attributes[name].nil?
             attributes[name].each do |attr|
               next unless attr
-              self._section_params[name] << klass.new(attr)
+              attr.each do |index, _attr|
+                klass.init
+                self._section_params[name] << klass.new(_attr)
+              end
             end
           else
             attr = attributes.dig(name, "0")
+            klass.init
             self._section_params[name] << klass.new(attr) if attr
           end
         end
@@ -57,6 +62,7 @@ class Fluentd
             attribute(name, type, **options.slice(:precision, :limit, :scale))
             validates(name, presence: true) if options[:required]
           end
+          self._types[name] = type
           self._defaults[name] = options[:default] if options.key?(:default)
           self._secrets[name] = options[:secret] if options.key?(:secret)
           self._aliases[name] = options[:alias] if options.key?(:alias)
