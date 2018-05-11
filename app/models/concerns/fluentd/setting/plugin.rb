@@ -9,6 +9,7 @@ class Fluentd
       include ActiveModel::Attributes
       include Fluentd::Setting::Configurable
       include Fluentd::Setting::PluginConfig
+      include Fluentd::Setting::PluginParameter
       include Fluentd::Setting::SectionValidator
 
       included do
@@ -27,12 +28,7 @@ class Fluentd
           self.load_plugin_config do |_name, params|
             params.each do |param_name, definition|
               if definition[:section]
-                config_section(param_name, **definition.slice(:required, :multi, :alias)) do
-                  definition.except(:section, :argument, :required, :multi, :alias).each do |_param_name, _definition|
-                    next if _definition[:section]
-                    config_param(_param_name, _definition[:type], **_definition.except(:type))
-                  end
-                end
+                parse_section(param_name, definition)
               else
                 config_param(param_name, definition[:type], **definition.except(:type))
               end
@@ -53,6 +49,18 @@ class Fluentd
           end
         end
 
+        def parse_section(name, definition)
+          config_section(name, **definition.slice(:required, :multi, :alias)) do
+            definition.except(:section, :argument, :required, :multi, :alias).each do |_param_name, _definition|
+              if _definition[:section]
+                parse_section(_param_name, _definition)
+              else
+                config_param(_param_name, _definition[:type], **_definition.except(:type))
+              end
+            end
+          end
+        end
+
         def plugin_instance
           @plugin_instance ||= Fluent::Plugin.__send__("new_#{plugin_type}", plugin_name)
         end
@@ -67,6 +75,10 @@ class Fluentd
                               else
                                 []
                               end
+        end
+
+        def section?
+          false
         end
       end
     end
