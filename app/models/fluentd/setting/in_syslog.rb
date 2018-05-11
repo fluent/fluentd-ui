@@ -20,14 +20,7 @@ class Fluentd
 
       def common_options
         [
-          :tag, :bind, :port,
-        ]
-      end
-
-      def advanced_options
-        [
-          :parse, :protocol_type, :source_hostname_key, :resolve_hostname,
-          :source_address_key, :priority_key, :facility_key, :message_length_limit
+          :tag, :bind, :port
         ]
       end
     end
