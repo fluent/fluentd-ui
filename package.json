@@ -1,0 +1,16 @@
+{
+  "name": "hello",
+  "private": true,
+  "dependencies": {
+    "@rails/webpacker": "3.5",
+    "codemirror": "^5.37.0",
+    "lodash": "^4.17.10",
+    "startbootstrap-sb-admin": "^4.0.0",
+    "vue": "^2.5.16",
+    "vue-loader": "14.2.2",
+    "vue-template-compiler": "^2.5.16"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
+  }
+}
