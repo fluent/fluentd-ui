@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "fluentd", [">= 1.0.0", "< 2"]
   spec.add_dependency 'rails', '~> 5.2.0'
+  spec.add_dependency 'bootsnap', ">= 1.1.0"
   spec.add_dependency 'sucker_punch', "~> 2.0.4"
   spec.add_dependency 'addressable'
   spec.add_dependency "font-awesome-rails"
