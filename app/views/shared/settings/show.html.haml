@@ -5,4 +5,7 @@
   .card-body.bg-light
     = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
 
-= render "shared/settings/form"
+- if lookup_context.exists?("form", controller.controller_path, true)
+  = render "#{controller.controller_path}/form"
+- else
+  = render "shared/settings/form"
