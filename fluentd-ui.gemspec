@@ -24,8 +24,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "fluentd", [">= 0.10.56", "< 0.14"]
+  spec.add_dependency "fluentd", [">= 1.0.0", "< 2"]
   spec.add_dependency 'rails', '~> 5.2.0'
+  spec.add_dependency 'bootsnap', ">= 1.1.0"
   spec.add_dependency 'sucker_punch', "~> 2.0.4"
   spec.add_dependency 'addressable'
   spec.add_dependency "font-awesome-rails"
@@ -43,4 +44,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "kramdown-haml"
   spec.add_dependency "rubyzip", "~> 1.1" # API changed as Zip::ZipFile -> Zip::File since v1.0.0
   spec.add_dependency "diff-lcs"
+  spec.add_dependency "fluent-plugin-td", "~> 1.0"
+  spec.add_dependency "fluent-plugin-mongo", "~> 1.1"
+  spec.add_dependency "fluent-plugin-elasticsearch", "~> 2.10"
+  spec.add_dependency "fluent-plugin-s3", "~> 1.1"
 end

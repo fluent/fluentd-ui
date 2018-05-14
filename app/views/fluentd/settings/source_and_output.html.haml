@@ -22,7 +22,7 @@
       .panel-heading
         %h4= t('.out')
       .panel-body
-        - %w|stdout td s3 mongo elasticsearch forward|.each do |type|
+        - %w|stdout tdlog s3 mongo elasticsearch forward|.each do |type|
           %p
             = link_to(send("daemon_setting_out_#{type}_path", @fluentd)) do
               = icon('fa-file-text-o fa-lg')

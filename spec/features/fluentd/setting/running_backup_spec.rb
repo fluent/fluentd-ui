@@ -40,7 +40,7 @@ describe "running_backup", stub: :daemon do
         context 'has diff' do
           it 'shows diff between current and running' do
             diff = page.first(".diff pre").native.inner_text
-            expect(diff).to include("-   type http")
+            expect(diff).to include("-   @type http")
             expect(diff).to include("-   port 8899")
             expect(diff).to include("+ Running backup file content")
           end
@@ -76,7 +76,7 @@ describe "running_backup", stub: :daemon do
         context "invalid configfile" do
           let(:config) { <<-CONFIG }
           <source>
-            type aaaaaaaaaaaa
+            @type aaaaaaaaaaaa
           </source>
           CONFIG
 
@@ -90,7 +90,7 @@ describe "running_backup", stub: :daemon do
         context "valid configfile" do
           let(:config) { <<-CONFIG }
           <source>
-            type syslog
+            @type syslog
             tag syslog
           </source>
           CONFIG

@@ -1,30 +1,14 @@
 class Fluentd
   module Setting
     class OutMongo
-      include Common
+      include Fluentd::Setting::Plugin
 
-      KEYS = [
-        :match,
-        :host, :port, :database, :collection, :capped, :capped_size, :capped_max, :user, :password, :tag_mapped,
-        :buffer_type, :buffer_path, :buffer_queue_limit, :buffer_chunk_limit, :flush_interval,  :retry_wait, :retry_limit, :max_retry_wait, :num_threads,
-      ].freeze
+      register_plugin("output", "mongo")
 
-      attr_accessor(*KEYS)
-
-      flags :capped, :tag_mapped
-
-      validates :match, presence: true
-      validates :host, presence: true
-      validates :port, presence: true
+      # NOTE: fluent-plugin-mongo defines database parameter as required parameter
+      #       But Fluentd tells us that the database parameter is not required.
       validates :database, presence: true
-      validate :validate_capped
       validate :validate_collection
-      validates :buffer_path, presence: true, if: ->{ buffer_type == "file" }
-
-      def validate_capped
-        return true if capped.blank?
-        errors.add(:capped_size, :blank) if capped_size.blank?
-      end
 
       def validate_collection
         if tag_mapped.blank? && collection.blank?
@@ -43,15 +27,16 @@ class Fluentd
 
       def common_options
         [
-          :match, :host, :port, :database, :collection,
+          :pattern, :host, :port, :database, :collection,
           :tag_mapped, :user, :password,
         ]
       end
 
-      def advanced_options
+      def hidden_options
         [
-          :capped, :capped_size, :capped_max, :buffer_type, :buffer_path, :buffer_queue_limit, :buffer_chunk_limit,
-          :flush_interval, :retry_wait, :retry_limit, :max_retry_wait, :num_threads,
+          :secondary, :inject, :buffer,
+          :include_tag_key,
+          :include_time_key
         ]
       end
     end

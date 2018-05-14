@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         put "start"
         put "stop"
         put "restart"
+        put "reload"
         get "log_tail"
       end
 
@@ -48,7 +49,7 @@ Rails.application.routes.draw do
           post "finish"
         end
 
-        resource :out_td, only: [:show], module: :settings, controller: :out_td do
+        resource :out_tdlog, only: [:show], module: :settings, controller: :out_tdlog do
           post "finish"
         end
 

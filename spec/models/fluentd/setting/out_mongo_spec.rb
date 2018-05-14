@@ -5,7 +5,7 @@ describe Fluentd::Setting::OutMongo do
   let(:instance) { klass.new(valid_attributes) }
   let(:valid_attributes) {
     {
-      match: "mongo.*.*",
+      pattern: "mongo.*.*",
       host: "example.com",
       port: 12345,
       database: "mongodb",
@@ -14,27 +14,50 @@ describe Fluentd::Setting::OutMongo do
   }
 
   describe "#valid?" do
-    it "should be invalid if tag parameter lacked" do
+    it "should be invalid if database parameter is missing" do
       params = valid_attributes.dup
-      params.delete(:match)
-      klass.new(params).should_not be_valid
+      params.delete(:database)
+      instance = klass.new(params)
+      instance.should_not be_valid
+      instance.errors.full_messages.should == ["Database can't be blank"]
+    end
+
+    it "should be invalid if collection is missing" do
+      params = {
+        pattern: "mongo.*.*",
+        host: "example.com",
+        port: 12345,
+        database: "mongodb",
+      }
+      instance = klass.new(params)
+      instance.should_not be_valid
+      instance.errors.full_messages.should == ["Collection can't be blank"]
     end
   end
 
-  describe "#plugin_type_name" do
-    subject { instance.plugin_type_name }
+  describe "#plugin_name" do
+    subject { instance.plugin_name }
     it { should == "mongo" }
   end
 
-  describe "#input_plugin" do
-    it { instance.should_not be_input_plugin }
-    it { instance.should be_output_plugin }
+  describe "#plugin_type" do
+    it { instance.plugin_type.should == "output" }
   end
 
   describe "#to_config" do
-    subject { instance.to_config }
-    it { should include("type mongo") }
-    it { should include("tag_mapped") }
+    subject { instance.to_config.to_s }
+    let(:expected) {
+      <<-CONFIG
+<match mongo.*.*>
+  @type mongo
+  database mongodb
+  host example.com
+  port 12345
+  tag_mapped true
+</match>
+      CONFIG
+    }
+    it { should == expected}
   end
 end
 

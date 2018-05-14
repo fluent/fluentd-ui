@@ -17,6 +17,7 @@
           = link_to icon("fa-play") << t("fluentd.common.start"), start_daemon_agent_path(@fluentd),     method: :put, class: "btn #{@fluentd.agent.running? ? "disabled btn-default" : "btn-primary"}"
           = link_to icon("fa-pause") << t("fluentd.common.stop"), stop_daemon_agent_path(@fluentd),       method: :put, class: "btn #{@fluentd.agent.running? ? "btn-danger" : "disabled btn-default"}"
           = link_to icon("fa-refresh") << t("fluentd.common.restart"), restart_daemon_agent_path(@fluentd), method: :put, class: "btn #{@fluentd.agent.running? ? "btn-warning" : "disabled btn-default"}"
+          = link_to icon("fa-refresh") << t("fluentd.common.reload"), reload_daemon_agent_path(@fluentd), method: :put, class: "btn #{@fluentd.agent.running? ? "btn-info" : "disabled btn-default"}"
     .col-xs-6
       .panel.panel-default
         .panel-heading

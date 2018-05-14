@@ -1,18 +1,22 @@
 # pidfile
 #   td-agent: /var/run/td-agent/td-agent.pid
-#   - https://github.com/treasure-data/td-agent/blob/master/td-agent.logrotate#L10
-#   - https://github.com/treasure-data/td-agent/blob/master/debian/td-agent.init#L25
+#   - https://github.com/treasure-data/omnibus-td-agent/blob/master/templates/etc/systemd/td-agent.service.erb#L18
+#   - https://github.com/treasure-data/omnibus-td-agent/blob/master/templates/etc/init.d/deb/td-agent#L24
+#   - https://github.com/treasure-data/omnibus-td-agent/blob/master/templates/etc/init.d/rpm/td-agent#L24
+#   - https://github.com/treasure-data/omnibus-td-agent/blob/master/templates/etc/td-agent/logrotate.d/td-agent.logrotate#L10
 #   fluentd:  nothing (or --daemon PIDFILE)
 #
 # logfile
 #   td-agent: /var/log/td-agent/td-agent.log
-#   - https://github.com/treasure-data/td-agent/blob/master/debian/td-agent.init#L28
+#   - https://github.com/treasure-data/omnibus-td-agent/blob/master/templates/etc/systemd/td-agent.service.erb#L21
+#   - https://github.com/treasure-data/omnibus-td-agent/blob/master/templates/etc/init.d/deb/td-agent#L23
+#   - https://github.com/treasure-data/omnibus-td-agent/blob/master/templates/etc/init.d/rpm/td-agent#L23
 #   fluentd: stdout (or --log LOGFILE)
 #
 # config file
 #   td-agent: /etc/td-agent/td-agent.conf
-#   - https://github.com/treasure-data/td-agent/blob/master/debian/td-agent.postinst#L69
-#   fluentd: /etc/fluent/fluent.conf (by fluentd -s)
+#   - https://github.com/treasure-data/omnibus-td-agent/blob/master/templates/etc/systemd/td-agent.service.erb#L14
+#   fluentd: /etc/fluent/fluent.conf (created by fluentd -s)
 
 class Fluentd
   class Agent
@@ -20,7 +24,7 @@ class Fluentd
       attr_reader :extra_options
 
       def self.included(base)
-        base.send(:include, Fluentd::Agent::ProcessOperation)
+        base.include(Fluentd::Agent::ProcessOperation)
       end
 
       # define these methods on each Agent class

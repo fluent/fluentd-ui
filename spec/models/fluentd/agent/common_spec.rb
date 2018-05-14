@@ -40,14 +40,14 @@ describe 'Fluentd::Agent::Common' do
   describe '#config_write', stub: :daemon do
     let(:config_contents) { <<-CONF.strip_heredoc }
       <source>
-        type forward
+        @type forward
         port 24224
       </source>
     CONF
 
     let(:new_config) { <<-CONF.strip_heredoc }
       <source>
-        type http
+        @type http
         port 8899
       </source>
     CONF

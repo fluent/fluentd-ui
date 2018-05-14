@@ -144,7 +144,7 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
       context "valid config" do
         let(:config) { <<-CONF.strip_heredoc }
         <source>
-          type forward
+          @type forward
         </source>
         CONF
 
@@ -162,7 +162,7 @@ shared_examples_for "Fluentd::Agent has common behavior" do |klass|
       context "invalid config" do
         let(:config) { <<-CONF.strip_heredoc }
         <source>
-          type forward
+          @type forward
         CONF
 
         context "with `!`" do
