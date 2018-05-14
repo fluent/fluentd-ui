@@ -39,13 +39,13 @@ class Fluentd
         end
         elements = []
         sections.to_h.each do |key, section_params|
-          next if section_params.nil?
+          next if section_params.blank?
           section_params.each do |index, _section_params|
             sub_attrs, sub_elements = parse_attributes(_section_params)
             elements << config_element(key, "", sub_attrs, sub_elements)
           end
         end
-        return params.to_h.reject{|key, value| value.nil? }, elements
+        return params.to_h.reject{|key, value| value.blank? }, elements
       end
 
       # copy from Fluent::Test::Helpers#config_element
