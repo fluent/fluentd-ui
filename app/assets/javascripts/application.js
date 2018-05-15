@@ -12,13 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require sb-admin-v2/bootstrap
-//= require sb-admin-v2/plugins/dataTables/jquery.dataTables
-//= require sb-admin-v2/plugins/dataTables/dataTables.bootstrap
-//= require bower/vue/dist/vue
-//= require bower/es6-promise/promise
-//= require bower/lodash/dist/lodash.compat
-//= require bower/codemirror/lib/codemirror
+//= require startbootstrap-sb-admin/js/sb-admin
+//= require startbootstrap-sb-admin/js/sb-admin-datatables
+//= require vue/dist/vue.esm
+//= require es6-promise/dist/es6-promise
+//= require lodash/lodash
+//= require codemirror/lib/codemirror
 //= require codemirror_fluentd
 //= require vue_common
 //= require_tree .
