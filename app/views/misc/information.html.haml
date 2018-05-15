@@ -1,23 +1,23 @@
 - page_title t('.page_title') do
-  - link_to misc_download_info_path, class: "btn btn-primary pull-right" do
+  - link_to misc_download_info_path, class: "btn btn-primary float-right" do
     = icon('fa-download')
     = t('.download_system_information')
 
 - if FluentdUI.update_available? && !FluentdUI.td_agent_ui?
   - # NOTE: td-agent-ui shouldn't have auto update feature
   .row
-    .col-xs-12
+    .col-xl-12
       %p
         = link_to misc_update_fluentd_ui_path, class: "btn btn-primary btn-lg", method: :post do
           = t('.update_fluentd_ui', version: FluentdUI.latest_version, title: fluentd_ui_title)
         = t('.update_fluentd_ui_caution', brand: fluentd_ui_brand)
 
 .row
-  .col-xs-6
-    .panel.panel-default
-      .panel-heading
+  .col-xl-6.col-sm-6.mb-3
+    .card.card-default
+      .card-header
         %h4= t("terms.version")
-      .panel-body
+      .card-body
         %dl{class: "dl-horizontal"}
           %dt ruby
           %dd= RUBY_DESCRIPTION
@@ -27,11 +27,11 @@
           %dt fluentd-ui
           %dd= FluentdUI::VERSION
 
-  .col-xs-6
-    .panel.panel-default
-      .panel-heading
+  .col-xl-6.col-sm-6.mb-3
+    .card.card-default
+      .card-header
         %h4= t('terms.installed_plugins')
-      .panel-body
+      .card-body
         - if @plugins.present?
           %table{class: "table table-hover", id: "plugins-table"}
             %thead
@@ -47,9 +47,9 @@
           = t "plugins.common.no_installed"
 
 .row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
+  .col-xl-12.col-sm-12
+    .card.card-default
+      .card-header
         %h4{"data-toggle" => "collapse", "href" => "#env-table"}
           = icon('fa-caret-down')
           = t('.env')
