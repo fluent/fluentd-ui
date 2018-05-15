@@ -44,4 +44,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "kramdown-haml"
   spec.add_dependency "rubyzip", "~> 1.1" # API changed as Zip::ZipFile -> Zip::File since v1.0.0
   spec.add_dependency "diff-lcs"
+  spec.add_dependency "webpacker"
 end
