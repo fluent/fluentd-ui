@@ -12,6 +12,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'i18n_generators', '2.1.1'
   gem 'better_errors'
   gem 'web-console', '~> 3.6'
