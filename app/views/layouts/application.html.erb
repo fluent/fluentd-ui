@@ -44,13 +44,13 @@
         <%= render partial: "shared/flash" %>
         <% if content_for?(:page_head) %>
           <div class="row">
-            <div class="col-xs-12">
-              <h1 class="page-header"><%= content_for(:page_head) %></h1>
+            <div class="col-xl-12 col-sm-12">
+              <h1 class="display-4"><%= content_for(:page_head) %></h1>
             </div>
           </div>
         <% end %>
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-xl-12 col-sm-12">
             <%= yield %>
           </div>
         </div>
