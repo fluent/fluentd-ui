@@ -1,13 +1,13 @@
 - page_title "fluentd"
 
 .row
-  .col-xs-6
+  .col-xl-6.col-sm-6
     .well
       %span= link_to icon("fa-cog") << t("terms.setup", target: "fluentd"), new_daemon_path(variant: "fluentd_gem"), class: "btn btn-primary btn-lg"
-  .col-xs-6
+  .col-xl-6.col-sm-6
     .well
       %span
-        = link_to icon("fa-cog") << t("terms.setup", target: "td-agent"), new_daemon_path(variant: "td-agent"), class: "btn btn-lg #{has_td_agent_system? ? "btn-primary" : "btn-default disabled"}"
+        = link_to icon("fa-cog") << t("terms.setup", target: "td-agent"), new_daemon_path(variant: "td-agent"), class: "btn btn-lg #{has_td_agent_system? ? "btn-primary" : "btn-secondary disabled"}"
         - unless has_td_agent_system?
           = link_to t('terms.install_it', target: "td-agent"), "http://docs.treasuredata.com/articles/td-agent"
 

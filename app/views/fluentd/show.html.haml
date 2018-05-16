@@ -1,9 +1,9 @@
 - if @fluentd.present?
   - page_title t('.page_title')
   .row
-    .col-xs-6
-      %div{class: "panel panel-#{@fluentd.agent.running? ? "success":"default"}"}
-        .panel-heading
+    .col-xl-6.col-sm-6
+      %div{class: "card card-#{@fluentd.agent.running? ? "primary":"secondary"}"}
+        .card-header
           %h4
             - if @fluentd.agent.running?
               = icon("fa-play")
@@ -11,16 +11,16 @@
             - else
               = icon("fa-pause")
               = t("fluentd.common.stopped")
-        .panel-body
+        .card-body
           - if flash[:error]
             .alert.alert-danger= flash[:error]
           = link_to icon("fa-play") << t("fluentd.common.start"), start_daemon_agent_path(@fluentd),     method: :put, class: "btn #{@fluentd.agent.running? ? "disabled btn-default" : "btn-primary"}"
           = link_to icon("fa-pause") << t("fluentd.common.stop"), stop_daemon_agent_path(@fluentd),       method: :put, class: "btn #{@fluentd.agent.running? ? "btn-danger" : "disabled btn-default"}"
           = link_to icon("fa-refresh") << t("fluentd.common.restart"), restart_daemon_agent_path(@fluentd), method: :put, class: "btn #{@fluentd.agent.running? ? "btn-warning" : "disabled btn-default"}"
-    .col-xs-6
-      .panel.panel-default
-        .panel-heading
-          .pull-right
+    .col-xl-6.col-sm-6
+      .card.card-default
+        .card-header
+          .float-right
             = link_to t('terms.edit'), edit_daemon_path, class: "btn btn-default"
             = link_to t('terms.destroy'), "#", class: "btn btn-danger", data: { toggle: "modal", target: "#setting-destroy-modal" }
           %h4= t('fluentd.common.fluentd_info')
@@ -40,7 +40,7 @@
                       Close
                     = submit_tag t('terms.destroy'), class: "btn btn-danger"
 
-        %table.table.table-hover
+        %table.table.table-hover.mb-0
           %tbody
             %tr
               %th= @fluentd.class.human_attribute_name(:pid_file)
@@ -52,7 +52,7 @@
               %th= @fluentd.class.human_attribute_name(:config_file)
               %td= @fluentd.agent.config_file
   .row
-    .col-xs-12
+    .col-xl-12
       = preserve do # partial containing <pre>, so shouldn't break indent
         = render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd }
 
