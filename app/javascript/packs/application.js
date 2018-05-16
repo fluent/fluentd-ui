@@ -10,11 +10,20 @@
 console.log('Hello World from Webpacker')
 
 import jQuery from 'jquery/dist/jquery'
+
+window.$ = jQuery
+window.jQuery = jQuery
+
 import 'popper.js/dist/popper'
 import 'bootstrap/dist/js/bootstrap'
 import 'datatables.net/js/jquery.dataTables'
 import 'startbootstrap-sb-admin/js/sb-admin'
 import 'startbootstrap-sb-admin/js/sb-admin-datatables'
 
-window.$ = jQuery
-window.jQuery = jQuery
+import Vue from 'vue/dist/vue.esm'
+
+Vue.filter('to_json', function (value) {
+    return JSON.stringify(value);
+})
+
+window.Vue = Vue

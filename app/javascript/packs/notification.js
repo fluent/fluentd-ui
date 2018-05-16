@@ -1,5 +1,3 @@
-import Vue from 'vue/dist/vue.esm'
-
 const POLLING_INTERVAL = 3 * 1000
 const POLLING_URL = "/polling/alerts"
 
