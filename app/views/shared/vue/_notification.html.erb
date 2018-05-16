@@ -13,11 +13,11 @@
         </div>
       </a>
     </li>
-    <li v-repeat="alerts">
+    <li v-for="alert in alerts">
       <a>
         <div>
           <%= icon("fa-cog fa-fw fa-lg fa-spin") %>
-          {{ text }}
+          {{ alert }}
         </div>
       </a>
     </li>
