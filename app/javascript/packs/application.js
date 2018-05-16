@@ -8,3 +8,13 @@
 // layout file, like app/views/layouts/application.html.erb
 
 console.log('Hello World from Webpacker')
+
+import jQuery from 'jquery/dist/jquery'
+import 'popper.js/dist/popper'
+import 'bootstrap/dist/js/bootstrap'
+import 'datatables.net/js/jquery.dataTables'
+import 'startbootstrap-sb-admin/js/sb-admin'
+import 'startbootstrap-sb-admin/js/sb-admin-datatables'
+
+window.$ = jQuery
+window.jQuery = jQuery
