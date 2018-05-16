@@ -1,14 +1,11 @@
 <!-- vue.js -->
 <li class="nav-item dropdown" id="vue-notification">
-  <a
-    class="dropdown-toggle"
-    data-toggle="dropdown" href="#"
-    >
+  <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
     <i class="fa fa-bell fa-fw"></i>
     <span class="badge" v-if="hasAlerts">{{ alertsCount }}</span>
     <i class="fa fa-caret-down"></i>
   </a>
-  <ul class="nav dropdown-menu dropdown-alerts">
+  <ul class="dropdown-menu" aria-labelledby="alertsDropdown">
     <li v-if="!hasAlerts">
       <a>
         <div class="nothing text text-success">
