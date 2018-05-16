@@ -1,23 +1,23 @@
 - page_title t('.page_title') do
-  - link_to edit_daemon_setting_path(@fluentd), class: "btn btn-primary pull-right" do
+  - link_to edit_daemon_setting_path(@fluentd), class: "btn btn-primary float-right" do
     = icon('fa-pencil')
     = t("terms.edit")
 
 .row
-  .col-xs-12
+  .col-xl-12
     %pre
       = preserve do
         = @config
 
 .row
-  .col-xs-12
+  .col-xl-12
     %h3= link_to(t('fluentd.settings.running_backup.title'), daemon_setting_running_backup_path)
     %p
       %label= t('terms.backup_time')
       = @running_backedup_file.ctime.try(:strftime, I18n.t('time.formats.default')) || t('fluentd.common.never_started_yet', brand: fluentd_ui_brand)
 
 .row
-  .col-xs-12
+  .col-xl-12
     %h3= t('fluentd.settings.history')
     = render '/fluentd/settings/histories/list'
     .link= link_to t('.link_to_histories'), daemon_setting_histories_path

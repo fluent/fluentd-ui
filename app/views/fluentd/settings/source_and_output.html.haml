@@ -1,27 +1,27 @@
 - page_title t('.page_title')
 
 .row.fluentd-setting-inout
-  .col-xs-4
-    .panel.panel-default
-      .panel-heading
+  .col-xl-4
+    .card.card-primary
+      .card-header
         %h4= t('.in')
-      .panel-body
+      .card-body
         - %w|tail syslog monitor_agent http forward|.each do |type|
           %p
             = link_to(send("daemon_setting_in_#{type}_path", @fluentd)) do
               = icon('fa-file-text-o fa-lg')
               = t("fluentd.common.setup_in_#{type}")
-  .col-xs-1.arrow-right
+  .col-xl-1.arrow-right
     = icon "fa-arrow-circle-right"
-  .col-xs-2
+  .col-xl-2
     = image_tag "/fluentd-logo.png", style: "max-width: 100%"
-  .col-xs-1.arrow-right
+  .col-xl-1.arrow-right
     = icon "fa-arrow-circle-right"
-  .col-xs-4
-    .panel.panel-default
-      .panel-heading
+  .col-xl-4
+    .card.card-primary
+      .card-header
         %h4= t('.out')
-      .panel-body
+      .card-body
         - %w|stdout td s3 mongo elasticsearch forward|.each do |type|
           %p
             = link_to(send("daemon_setting_out_#{type}_path", @fluentd)) do
@@ -33,16 +33,16 @@
 #vue-setting.current-settings
   %h2
     = t('.current')
-    .pull-right
+    .float-right
       %button.btn.btn-default.btn-sm{"v-on" => "click: update", "v-if" => "!loading"}= icon('fa-refresh')
       %button.btn.btn-default.btn-sm{"v-if" => "loading"}= icon('fa-spin fa-refresh')
   .row
-    .col-xs-6.input
+    .col-xl-6.input
       %h3= t('.in')
       %div{"v-if" => "loaded && sections.sources.length == 0"}
         %p.empty= t('.setting_empty')
       %div{"v-repeat" => "sections.sources", "v-component" => "section"}
-    .col-xs-6.output
+    .col-xl-6.output
       %h3= t('.out')
       %div{"v-if" => "loaded && sections.matches.length == 0"}
         %p.empty= t('.setting_empty')
