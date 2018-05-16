@@ -15,6 +15,7 @@
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>
     <%= javascript_pack_tag 'notification' %>
+    <%= content_for(:additional_javascript_pack_tag) %>
     <%= csrf_meta_tags %>
   </head>
   <body class="fixed-nav bg-light">

@@ -62,4 +62,10 @@ module ApplicationHelper
       head.html_safe + block.try(:call).to_s
     end
   end
+
+  def add_javascript_pack_tag(name, **options)
+    content_for(:additional_javascript_pack_tag) do
+      javascript_pack_tag(name, **options)
+    end
+  end
 end
