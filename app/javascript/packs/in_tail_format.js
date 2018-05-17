@@ -79,9 +79,6 @@ window.addEventListener('load', () => {
           this.preview();
         }
       },
-      updatePreview: function() {
-        this.preview();
-      },
       updateHighlightedLines: function() {
         if(!this.regexpMatches) {
           this.highlightedLines = null;
@@ -140,7 +137,7 @@ window.addEventListener('load', () => {
             selector: "[data-toggle=tooltip]",
             container: "body"
           })
-        },0);
+        }, 0);
       },
 
       preview: function(){
