@@ -12,8 +12,9 @@
     = f.text_field :path, class: "form-control", disabled: true
   = render partial: "shared/vue/in_tail_format", locals: { file: f.object.path, formats: @setting.known_formats, initialSelected: f.object.format || @setting.guess_format }
 
-  %pre= file_tail(@setting.path, Settings.in_tail_preview_line_count).join("\n")
+  .card
+    %pre.card-body= file_tail(@setting.path, Settings.in_tail_preview_line_count).join("\n")
 
   %p
     = f.submit t('terms.next'), class: "btn btn-lg btn-primary pull-right"
-    = link_to t('terms.prev'), daemon_setting_in_tail_path(@fluentd), class: "btn btn-lg btn-default"
+    = link_to t('terms.prev'), daemon_setting_in_tail_path(@fluentd), class: "btn btn-lg btn-secondary"
