@@ -146,11 +146,17 @@ window.addEventListener('load', () => {
         if(this.previewAjax) {
           this.previewAjax.abort();
         }
+
+        const token = document.getElementsByName("csrf-token")[0].getAttribute('content')
+
         var self = this;
         new Promise(function(resolve, reject) {
           self.previewAjax = $.ajax({
             method: "POST",
             url: "/api/regexp_preview",
+            headers: {
+              'X-CSRF-Token': token
+            },
             data: {
               regexp: self.params.setting.regexp,
               time_format: self.params.setting.time_format,
