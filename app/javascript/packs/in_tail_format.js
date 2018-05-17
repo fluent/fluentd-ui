@@ -134,12 +134,6 @@ window.addEventListener('load', () => {
         });
 
         this.highlightedLines = $container.html();
-        setTimeout(function(){
-          $('#in_tail_format').tooltip({
-            selector: "[data-toggle=tooltip]",
-            container: "body"
-          })
-        }, 0);
       },
 
       preview: function(){
