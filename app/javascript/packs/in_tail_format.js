@@ -51,6 +51,8 @@ window.addEventListener('load', () => {
         });
       });
       this.params = params;
+
+      this.targetFile = this.$el.attributes.targetFile.nodeValue;
     },
     mounted: function(){
       this.$emit("data-loaded");
