@@ -4,9 +4,15 @@ import 'lodash/lodash'
 window.addEventListener('load', () => {
   const maxFormatCount = 20;
 
-  var FormatBundle = Vue.component('format-bundle', {
-    template: "#format-bundle",
-    props: ["format", "formatOptions", "params"],
+  new Vue({
+    el: "#in_tail_format",
+    props: ["formatOptionsJson", "initialSelected", "targetFile", "paramsJson"],
+    data: {
+      previewProcessing: false,
+      format: "",
+      highlightedLines: null,
+    },
+
     computed: {
       options: {
         get: function(){
@@ -18,31 +24,6 @@ window.addEventListener('load', () => {
           return Object.keys(this.formatOptions);
         }
       },
-      useTextArea: function() {
-        return this.format === "multiline";
-      }
-    },
-    methods: {
-      onKeyup: function(ev) {
-        var el = ev.target;
-        if(el.name.match(/\[format/)){
-          this.$emit('update-preview', null);
-        }
-      }
-    }
-  });
-
-  new Vue({
-    el: "#in_tail_format",
-    props: ["formatOptionsJson", "initialSelected", "targetFile", "paramsJson"],
-    data: {
-      previewProcessing: false,
-      format: "",
-      highlightedLines: null,
-    },
-    components: { 'format-bundle': FormatBundle },
-
-    computed: {
       useTextArea: function() {
         return this.format === "multiline";
       }
@@ -72,21 +53,23 @@ window.addEventListener('load', () => {
       this.params = params;
     },
     mounted: function(){
-      this.$watch('params.setting.formats', (formats)=> {
+      this.$emit("data-loaded");
+    },
+
+    watch: {
+      'params.setting.formats': function(formats) {
         _.range(1, maxFormatCount + 1).forEach(()=> {params.setting["format" + String(i)] = "";});
 
         _.compact(formats.split("\n")).forEach((formatLine, index)=> {
           params.setting["format" + String(index + 1)] = formatLine;
-        });
-      }),
-      this.$watch('params.setting.regexp', ()=> {
+        })
+      },
+      'params.setting.regexp': function() {
         this.preview();
-      });
-      this.$watch('format', ()=> {
+      },
+      'format': function() {
         this.preview();
-      });
-
-      this.$emit("data-loaded");
+      },
     },
 
     methods: {
