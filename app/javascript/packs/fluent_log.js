@@ -10,7 +10,7 @@ $(document).ready(()=> {
       "processing": false
     },
 
-    compiled: function(){
+    mounted: function(){
       this.fetchLogs();
 
       var self = this;
