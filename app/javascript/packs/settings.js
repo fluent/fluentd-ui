@@ -11,8 +11,10 @@ $(document).ready(() => {
         }
       };
     },
-    ready: function() {
-      this.update();
+    mounted: function() {
+      this.$nextTick(() => {
+        this.update();
+      })
     },
     components: {
       configSection: {
@@ -56,8 +58,6 @@ $(document).ready(() => {
                 content: this.editContent
               }
             }).then(function(data){
-              // NOTE: self.$data = data doesn't work as well, so using _.each
-              //       whole $data swapping breaks mode switching..
               _.each(data, function(v,k){
                 self[k] = v;
               });
