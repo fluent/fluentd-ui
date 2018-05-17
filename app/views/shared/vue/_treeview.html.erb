@@ -4,7 +4,9 @@
 <% submit_button ||= "" %>
 <%= form_tag(action, method: :post) do %>
   <div id="treeview">
-    <pre class="card-body">{{ path }}</pre>
+    <div class="card">
+      <pre class="card-body pb-0">{{ path }}</pre>
+    </div>
     <input type="hidden" name="<%= name %>" v-model="path" />
     <div class="dirs">
       <span v-for="(dir, index) in currentDirs">
