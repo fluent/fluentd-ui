@@ -14,7 +14,7 @@
 <div id="chapter1">
   <form>
     <p v-repeat="payloads">
-      <input type="button" class="btn btn-default" v-on="click: sendRequest($data)" value="<%= t ".send" %>" />
+      <input type="button" class="btn btn-primary" v-on="click: sendRequest($data)" value="<%= t ".send" %>" />
       <code>
         $ curl -X POST http://localhost:<%= @in_http["port"] %>{{ path }} -F 'json={{ data | to_json }}'
       </code>
@@ -28,4 +28,3 @@
 <p class="clearfix">
   <%= link_to t('tutorials.chapter2.page_title') << " >>", tutorials_chapter2_path, class: "pull-right" %>
 </p>
-

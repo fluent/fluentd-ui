@@ -28,7 +28,7 @@
                   = t('terms.confirm_body', action: t('terms.uninstall'))
                 .modal-footer
                   = form_tag(uninstall_plugins_path, method: :patch) do
-                    %button.btn.btn-default{"data-dismiss" => "modal"}
+                    %button.btn.btn-secondary{"data-dismiss" => "modal"}
                       Close
                     = hidden_field_tag("plugins[]", plugin.gem_name)
                     = submit_tag t('terms.uninstall'), class: "btn btn-danger"
