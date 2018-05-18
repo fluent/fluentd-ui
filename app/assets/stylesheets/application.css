@@ -10,8 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require font-awesome
  *= require bootstrap/dist/css/bootstrap
- *= require font-awesome/css/font-awesome.css
  *= require startbootstrap-sb-admin/css/sb-admin.css
  *= require datatables.net-bs4/css/dataTables.bootstrap4.css
  *= require codemirror/lib/codemirror
