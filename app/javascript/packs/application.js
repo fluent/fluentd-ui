@@ -27,3 +27,5 @@ Vue.filter('to_json', function (value) {
 })
 
 window.Vue = Vue
+
+import '../stylesheets/application.scss'
