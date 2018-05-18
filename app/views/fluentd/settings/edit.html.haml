@@ -1,4 +1,5 @@
 - page_title t('.page_title', label: @fluentd.label)
+- add_javascript_pack_tag("codemirror")
 
 = form_tag(daemon_setting_path(@fluentd), method: :patch) do
   .form-group
