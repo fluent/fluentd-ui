@@ -27,11 +27,13 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <%= render partial: "shared/global_nav" %>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item fluentd-status">
-            <a href="<%= daemon_path %>" data-toggle="tooltip" data-placement="bottom" title="fluentd <%= fluentd_status_message %>">
-              <%= fluentd_status_icon %>
-            </a>
-          </li>
+          <%- if @fluentd %>
+            <li class="nav-item fluentd-status">
+              <a href="<%= daemon_path %>" data-toggle="tooltip" data-placement="bottom" title="fluentd <%= fluentd_status_message %>">
+                <%= fluentd_status_icon %>
+              </a>
+            </li>
+          <%- end %>
 
           <%= render partial: "shared/vue/notification" %>
 
