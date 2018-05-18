@@ -2,12 +2,17 @@
 $(document).ready(()=> {
   new Vue({
     el: "#fluent-log",
-    paramAttributes: ["logUrl", "initialAutoReload"],
+    props: ["logUrl", "initialAutoReload"],
     data: {
       "autoFetch": false,
       "logs": [],
       "limit": 30,
       "processing": false
+    },
+
+    beforeMount: function() {
+      this.logUrl = this.$el.attributes.logUrl.nodeValue;
+      this.initialAutoReload = this.$el.attributes.initialAutoReload.nodeValue;
     },
 
     mounted: function(){
