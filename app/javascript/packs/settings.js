@@ -90,22 +90,21 @@ $(document).ready(() => {
     methods: {
       update: function() {
         this.loading = true;
-        var self = this;
-        $.getJSON("/api/settings", function(data){
+        $.getJSON("/api/settings", (data)=> {
           var sources = [];
           var matches = [];
-          data.forEach(function(v){
+          data.forEach((v)=> {
             if(v.name === "source"){
               sources.push(v);
             }else{
               matches.push(v);
             }
           });
-          self.sections.sources = sources;
-          self.sections.matches = matches;
-          self.loaded = true;
-          setTimeout(function(){
-            self.loading = false;
+          this.sections.sources = sources;
+          this.sections.matches = matches;
+          this.loaded = true;
+          setTimeout(()=> {
+            this.loading = false;
           }, 500);
         });
       }
