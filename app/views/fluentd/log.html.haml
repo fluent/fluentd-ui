@@ -3,7 +3,6 @@
     = icon('fa-download')
     = t('fluentd.common.raw_log_link')
 
-.row
-  .col-xl-12.col-sm-12
-    = preserve do # partial containing <pre>, so shouldn't break indent
-      = render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd }
+.row.ml-3
+  = preserve do # partial containing <pre>, so shouldn't break indent
+    = render partial: "shared/vue/fluent_log", locals: { fluentd: @fluentd }

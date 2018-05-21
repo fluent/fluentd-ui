@@ -14,8 +14,8 @@
     <span v-if="processing"><%= icon('fa-spin fa-refresh') %></span>
   </div>
 
-<pre v-if="isPresentedLogs"><!-- be careful indent -->
-<div class="log"><span v-for="log in logs">{{ log }}
+<pre v-if="isPresentedLogs" class="card bg-light"><!-- be careful indent -->
+<div class="log card-body"><span v-for="log in logs">{{ log }}
 </span></div></pre>
 
   <div v-if="!isPresentedLogs && !processing">
