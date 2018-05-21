@@ -1,4 +1,5 @@
 import CodeMirror from 'codemirror/lib/codemirror'
+import 'lodash/lodash'
 
 // See: http://codemirror.net/doc/manual.html#modeapi
 // and sample mode files: https://github.com/codemirror/CodeMirror/tree/master/mode
@@ -75,16 +76,15 @@ $(function(){
 });
 
 Vue.directive('config-editor', {
-  bind: function(){
-    var $parent = this.vm;
+  bind: function(el, binding, vnode, oldVnode){
     // NOTE: needed delay for waiting CodeMirror setup
     _.delay(function(textarea){
-      var cm = codemirrorify(textarea);
+      let cm = codemirrorify(textarea);
       // textarea.codemirror = cm; // for test, but doesn't work for now (working on Chrome, but Poltergeist not)
       cm.on('change', function(code_mirror){
         // bridge Vue - CodeMirror world
-        $parent.editContent = code_mirror.getValue();
+        el.dataset.content = code_mirror.getValue();
       });
-    }, 0, this.el);
+    }, 0, el);
   }
 });

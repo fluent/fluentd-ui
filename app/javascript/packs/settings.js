@@ -5,8 +5,7 @@ $(document).ready(() => {
     data: function() {
       return {
         mode: 'default',
-        processing: false,
-        editContent: null
+        processing: false
       };
     },
     created: function() {
@@ -33,13 +32,14 @@ $(document).ready(() => {
       onSubmit: function(ev) {
         const token = document.getElementsByName("csrf-token")[0].getAttribute('content');
         this.processing = true;
+        this.content = $(`#${this.id} textarea.form-control`)[0].dataset.content;
         $.ajax({
           url: this.endpoint,
           method: "POST",
           data: {
             _method: "PATCH",
             id: this.id,
-            content: this.editContent
+            content: this.content
           },
           headers: {
             'X-CSRF-Token': token
@@ -56,7 +56,6 @@ $(document).ready(() => {
       initialState: function(){
         this.processing = false;
         this.mode = 'default';
-        this.editContent = this.content;
       },
       destroy: function(){
         const token = document.getElementsByName("csrf-token")[0].getAttribute('content');
