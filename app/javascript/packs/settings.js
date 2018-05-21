@@ -1,7 +1,7 @@
 $(document).ready(() => {
   const SettingSection = {
     template: '#vue-setting-section',
-    props: ['id', 'content', 'type', 'name', 'arg', 'settings'],
+    props: ['id', 'content', 'type', 'name', 'arg'],
     data: function() {
       return {
         mode: 'default',
