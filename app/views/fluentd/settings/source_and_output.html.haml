@@ -42,9 +42,21 @@
       %h3= t('.in')
       %div{"v-if" => "loaded && sections.sources.length == 0"}
         %p.empty= t('.setting_empty')
-      %div{"v-for" => "source in sections.sources"}
+      %setting-section{"v-if" => "loaded && sections.sources.length > 0",
+                       "v-for" => "source in sections.sources",
+                       "v-bind:id" => "source.id",
+                       "v-bind:content" => "source.content",
+                       "v-bind:type" => "source.type",
+                       "v-bind:name" => "source.name",
+                       "v-bind:arg" => "source.arg"}
     .col-xl-6.output
       %h3= t('.out')
       %div{"v-if" => "loaded && sections.matches.length == 0"}
         %p.empty= t('.setting_empty')
-      %div{"v-for" => "match in sections.matches"}
+      %setting-section{"v-if" => "loaded && sections.matches.length > 0",
+                       "v-for" => "match in sections.matches",
+                       "v-bind:id" => "match.id",
+                       "v-bind:content" => "match.content",
+                       "v-bind:type" => "match.type",
+                       "v-bind:name" => "match.name",
+                       "v-bind:arg" => "match.arg"}

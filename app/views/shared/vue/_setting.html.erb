@@ -1,15 +1,15 @@
-<script type="text/template" id="vue-setting-section">
+<script type="text/x-template" id="vue-setting-section">
 
-<div class='card card-primary'>
-  <div class='card-header' data-toggle='collapse' href='#{{ id }}' title='{{ content }}'>
+<div class="card card-primary mb-3">
+  <div class="card-header" data-toggle="collapse" v-bind:href="'#'+id" v-bind:title="content">
     {{ type }}
     <span v-if="name == 'match'">({{ arg }})</span>
     <i class="fa fa-caret-down"></i>
   </div>
-  <div class='card-body collapse' id='{{ id }}'>
+  <div class="card-body collapse" v-bind:id="id">
     <pre v-if="mode != 'edit'">{{ content }}</pre>
     <p v-if="mode == 'edit'">
-      <textarea v-config-editor class="form-control" v-model="editContent" v-attr="disabled: processing"></textarea>
+      <textarea v-config-editor class="form-control" v-model="editContent" v-bind:disabled="processing"></textarea>
     </p>
     <p class="float-right">
       <button v-if="mode != 'edit'" class="btn btn-secondary" v-on:click="onEdit"><%= t('terms.edit') %></button>
