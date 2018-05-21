@@ -1,10 +1,10 @@
 - page_title t('.page_title') do
-  - link_to edit_daemon_setting_path(@fluentd), class: "btn btn-primary float-right" do
+  - link_to edit_daemon_setting_path(@fluentd), class: "btn btn-primary float-right mt-3" do
     = icon('fa-pencil')
     = t("terms.edit")
 
 .row.mb-3
-  .card.col-xl-12
+  .card.col-xl-12.bg-light.ml-3
     %pre.card-body
       = preserve do
         = @config
