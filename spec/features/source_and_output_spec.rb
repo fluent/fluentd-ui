@@ -137,7 +137,7 @@ describe "source_and_output", js: true, stub: :daemon do
 
     it "click delete button transform textarea" do
       page.should have_css('.input .card-body')
-      confirm_dialog(true) do
+      accept_confirm do
         find(".btn", text: I18n.t('terms.destroy')).click
       end
       page.should_not have_css('.input .card-body')
@@ -146,7 +146,7 @@ describe "source_and_output", js: true, stub: :daemon do
 
     it "click delete button then cancel it" do
       page.should have_css('.input .card-body')
-      confirm_dialog(false) do
+      dismiss_confirm do
         find(".btn", text: I18n.t('terms.destroy')).click
       end
       page.should have_css('.input .card-body')
