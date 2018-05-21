@@ -22,4 +22,4 @@ install:
   - bundle -v
   - gem i bundler
   - sudo sh -c 'curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh'
-  - bundle install --jobs=4 --retry=4
+  - bin/setup

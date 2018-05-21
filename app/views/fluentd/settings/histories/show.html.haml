@@ -1,7 +1,7 @@
 - page_title t('.page_title', label: @fluentd.label)
 
-%p.pull-right
-  = link_to configtest_daemon_setting_history_path(id: @backup_file.file_id), method: "post", class: "btn btn-default" do
+%p.float-right
+  = link_to configtest_daemon_setting_history_path(id: @backup_file.file_id), method: "post", class: "btn btn-secondary" do
     = icon('fa-legal')
     = t("terms.configtest")
   = link_to reuse_daemon_setting_history_path(id: @backup_file.file_id), method: 'post', class: "btn btn-primary" do
@@ -10,22 +10,22 @@
 
 - if @backup_file.note.content.present?
   .row
-    .col-xs-12
+    .col-xl-12
       %p= @backup_file.note.content
 
 .row
-  .col-xs-12
+  .col-xl-12
     %h2
       ="#{t('.target_config')}(#{params[:id]})"
     %pre
       = preserve do
         = @backup_file.content
 
-  .col-xs-12.diff
+  .col-xl-12.diff
     %h2
       Diff:
     %div
       = t(".diff_description", file_name: params[:id] )
-      .pull-right
+      .float-right
         = link_to t(".show_current"), daemon_setting_path(@fluentd)
     = preserve render "/shared/settings/diff"

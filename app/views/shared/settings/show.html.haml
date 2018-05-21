@@ -1,6 +1,8 @@
 - page_title t("fluentd.settings.#{target_plugin_name}.show.page_title")
+- add_javascript_pack_tag("nested_settings")
 
-.well
-  = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
+.card.mb-3
+  .card-body.bg-light
+    = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
 
 = render "shared/settings/form"

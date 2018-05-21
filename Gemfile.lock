@@ -22,6 +22,7 @@ PATH
       settingslogic
       sucker_punch (~> 2.0.4)
       thor
+      webpacker
 
 GEM
   remote: https://rubygems.org/
@@ -194,6 +195,8 @@ GEM
     public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.4)
+    rack-proxy (0.6.4)
+      rack
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rails (5.2.0)
@@ -299,6 +302,10 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    webpacker (3.5.3)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)

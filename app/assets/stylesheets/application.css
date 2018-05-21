@@ -10,11 +10,12 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require sb-admin-v2/bootstrap.css
- *= require sb-admin-v2/sb-admin
- *= require "sb-admin-v2/font-awesome/scss/font-awesome.scss"
- *= require bower/codemirror/lib/codemirror
- *= require bower/codemirror/theme/neo
+ *= require font-awesome
+ *= require bootstrap/dist/css/bootstrap
+ *= require startbootstrap-sb-admin/css/sb-admin.css
+ *= require datatables.net-bs4/css/dataTables.bootstrap4.css
+ *= require codemirror/lib/codemirror
+ *= require codemirror/theme/neo
  *= require_tree .
  *= require_self
  */

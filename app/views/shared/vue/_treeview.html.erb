@@ -1,30 +1,33 @@
+<% add_javascript_pack_tag("treeview") %>
 <% name ||= "" %>
 <% action ||= "" %>
 <% submit_button ||= "" %>
 <%= form_tag(action, method: :post) do %>
-  <div id="treeview" initialPath="/var/log">
-    <pre>{{ path }}</pre>
+  <div id="treeview">
+    <div class="card">
+      <pre class="card-body pb-0">{{ path }}</pre>
+    </div>
     <input type="hidden" name="<%= name %>" v-model="path" />
     <div class="dirs">
-      <span v-repeat="currentDirs">
-        <span v-if="$index > 0">
+      <span v-for="(dir, index) in currentDirs">
+        <span v-if="index > 0">
           <%= icon('fa-caret-right') %>
         </span>
-        <span v-on="click: selectPath($value)" class="dir">{{ basename($value) }}</span>
+        <span v-on:click="selectPath(dir)" class="dir">{{ basename(dir) }}</span>
      </span>
    </div>
    <div class="tree">
-     <span v-on="click: selectPath(path)" class="vue-path" v-class="selected: isSelected(path)" v-repeat="paths">
-       <span v-if="is_dir"><%= icon("fa-folder") %></span>
-       <span v-if="!is_dir"><%= icon("fa-file-o") %></span>
-       {{ basename(path) }}
+     <span v-on:click="selectPath(value.path)" class="vue-path" v-bind:class="{ selected: isSelected(value.path) }" v-for="value in paths">
+       <span v-if="value.is_dir"><%= icon("fa-folder") %></span>
+       <span v-if="!value.is_dir"><%= icon("fa-file-o") %></span>
+       {{ basename(value.path) }}
        <br />
      </span>
    </div>
 
    <pre v-if="preview" class="preview">{{ preview }}</pre>
    <p>
-     <%= submit_tag submit_button, class: "btn btn-lg btn-primary pull-right", "v-attr" => "disabled: selectedIsDir", "v-class" => "btn-disable: selectedIsDir" %>
+     <%= submit_tag submit_button, class: "btn btn-lg btn-primary float-right", "v-bind:disabled" => "selectedIsDir" %>
    </p>
   </div>
 <% end %>

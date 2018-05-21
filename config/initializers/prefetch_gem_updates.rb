@@ -1,2 +1,4 @@
 require "plugin" # Avoid: RuntimeError Circular dependency detected while autoloading constant Plugin
-AllPluginCheckUpdateJob.perform_later
+unless Rails.env.test?
+  AllPluginCheckUpdateJob.perform_later
+end

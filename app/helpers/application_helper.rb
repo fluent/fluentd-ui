@@ -37,12 +37,12 @@ module ApplicationHelper
     raw html
   end
 
-  def link_to_other(text, path)
+  def link_to_other(text, path, **options)
     if current_page?(path)
       # NOTE: sb-admin set style for element name instead of class name, such as ".nav a". So use "a" element even if it isn't a link.
       content_tag(:a, text, class: "current")
     else
-      link_to text, path
+      link_to text, path, class: "nav-link"
     end
   end
 
@@ -60,6 +60,12 @@ module ApplicationHelper
   def page_head(head, &block)
     content_for(:page_head) do
       head.html_safe + block.try(:call).to_s
+    end
+  end
+
+  def add_javascript_pack_tag(name, **options)
+    content_for(:additional_javascript_pack_tag) do
+      javascript_pack_tag(name, **options)
     end
   end
 end

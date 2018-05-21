@@ -1,8 +1,8 @@
 - page_title t('.page_title', label: @fluentd.label)
 
 - if @backup_file.content
-  %p.pull-right
-    = link_to configtest_daemon_setting_running_backup_path, method: 'post', class: "btn btn-default" do
+  %p.float-right
+    = link_to configtest_daemon_setting_running_backup_path, method: 'post', class: "btn btn-secondary" do
       = icon('fa-legal')
       = t("terms.configtest")
     = link_to reuse_daemon_setting_running_backup_path, method: 'post', class: "btn btn-primary" do
@@ -10,7 +10,7 @@
       = t("terms.reuse")
 
 .row
-  .col-xs-12
+  .col-xl-12
     - if @backup_file.content
       %h2
         = t('.page_title')
@@ -21,11 +21,11 @@
       %p
         =t('fluentd.common.never_started_yet', brand: fluentd_ui_brand)
   - if @backup_file.content
-    .col-xs-12.diff
+    .col-xl-12.diff
       %h2
         Diff:
       %div
         = t(".diff_description")
-        .pull-right
+        .float-right
           = link_to t(".show_current"), daemon_setting_path(@fluentd)
       = preserve render "/shared/settings/diff"

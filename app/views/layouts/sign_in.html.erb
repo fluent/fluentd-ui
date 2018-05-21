@@ -3,26 +3,19 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Fluentd-UI</title>
-  <%= stylesheet_link_tag    'application', media: 'all'%>
-  <%= javascript_include_tag 'application' %>
+  <title>Fluentd-UI</title>
+  <%= stylesheet_link_tag 'application', media: 'all'%>
+  <%= javascript_pack_tag 'application' %>
   <%= csrf_meta_tags %>
-
 </head>
 
-<body>
-
-     <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-              <%= yield %>
-            </div>
-        </div>
-    </div>
-
+<body class="bg-light">
+  <div class="container">
+    <%= yield %>
+  </div>
 </body>
 
 </html>

@@ -10,71 +10,56 @@
       <% end %>
       <%= fluentd_ui_title %>
     </title>
-    <%= stylesheet_link_tag    'application', media: 'all'%>
-    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag 'application', media: 'all'%>
+    <%= stylesheet_pack_tag 'application', media: 'all'%>
+    <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag 'notification' %>
+    <%= content_for(:additional_javascript_pack_tag) %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
-    <div id="wrapper">
-      <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <%= link_to fluentd_ui_logo, root_path, class: "navbar-brand fluentd-ui-logo" %>
-        </div>
-        <!-- /.navbar-header -->
+  <body class="fixed-nav bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
+      <%= link_to fluentd_ui_logo, root_path, class: "navbar-brand fluentd-ui-logo" %>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <%= render partial: "shared/global_nav" %>
+        <ul class="navbar-nav ml-auto">
+          <%- if @fluentd %>
+            <li class="nav-item fluentd-status">
+              <a class="nav-link" href="<%= daemon_path %>" data-toggle="tooltip" data-placement="bottom" title="fluentd <%= fluentd_status_message %>">
+                <%= fluentd_status_icon %>
+              </a>
+            </li>
+          <%- end %>
 
-        <ul class="nav navbar-top-links navbar-right">
-          <% if @fluentd %>
-          <li class="fluentd-status">
-            <a href="<%= daemon_path %>" data-toggle="tooltip" data-placement="bottom" title="fluentd <%= fluentd_status_message %>">
-              <%= fluentd_status_icon %>
-            </a>
-          </li>
-          <% end %>
           <%= render partial: "shared/vue/notification" %>
 
-          <li class="dropdown">
-            <%= link_to(t("terms.sign_out"), sessions_path, method: :delete) %>
+          <li class="nav-item">
+            <%= link_to(icon("fa-fw fa-sign-out") + t("terms.sign_out"), sessions_path, method: :delete, class: "nav-link") %>
           </li>
         </ul>
-        <!-- /.navbar-top-links -->
+      </div>
+    </nav>
 
-        <div class="navbar-default navbar-static-side" role="navigation">
-          <div class="sidebar-collapse">
-            <%= render partial: "shared/global_nav" %>
-            <!-- /#side-menu -->
-          </div>
-          <!-- /.sidebar-collapse -->
-        </div>
-        <!-- /.navbar-static-side -->
-      </nav>
-
-      <div id="page-wrapper">
+    <div class="content-wrapper">
+      <div class="container-fluid">
         <%= render partial: "shared/flash" %>
         <% if content_for?(:page_head) %>
           <div class="row">
-            <div class="col-xs-12">
-              <h1 class="page-header"><%= content_for(:page_head) %></h1>
+            <div class="col-xl-12 col-sm-12">
+              <h1 class="display-4 border-bottom mb-3"><%= content_for(:page_head) %></h1>
             </div>
-            <!-- /.col-xs-12 -->
           </div>
-          <!-- /.row -->
         <% end %>
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-xl-12 col-sm-12">
             <%= yield %>
           </div>
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /#page-wrapper -->
-
     </div>
-    <!-- /#wrapper -->
+
   </body>
 </html>

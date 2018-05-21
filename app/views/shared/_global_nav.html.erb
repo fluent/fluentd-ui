@@ -1,9 +1,9 @@
-<ul class="nav" id="side-menu">
-  <li>
+<ul class="navbar-nav navbar-sidenav" id="side-menu">
+  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Fluentd">
     <a class="section">
       <%= icon("fa-puzzle-piece fa-fw") << "fluentd" %>
     </a>
-    <ul class="nav nav-second-level">
+    <ul class="sidenav-second-level">
       <% if fluentd_exists? %>
         <li>
           <%= link_to_other t('fluentd.show.page_title'), daemon_path %>
@@ -29,11 +29,11 @@
   </li>
 
   <% if fluentd_exists? %>
-  <li>
+  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Plugins">
     <a class="section">
       <%= icon("fa-cogs fa-fw") << t('terms.plugins') %>
     </a>
-    <ul class="nav nav-second-level">
+    <ul class="sidenav-second-level">
       <li>
         <%= link_to_other t("plugins.installed.page_title"), installed_plugins_path %>
       </li>
@@ -47,11 +47,11 @@
   </li>
   <% end %>
 
-  <li>
+  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Misc">
     <a class="section">
       <%= icon('fa-coffee fa-fw') << t('terms.misc') %>
     </a>
-    <ul class="nav nav-second-level">
+    <ul class="sidenav-second-level">
       <li>
         <%= link_to_other t("misc.information.page_title"), misc_information_path %>
       </li>
@@ -67,11 +67,11 @@
     </ul>
   </li>
 
-  <li>
+  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Language">
     <a class="section">
       <%= icon('fa-font') << t('terms.languages') %>
     </a>
-    <ul class="nav nav-second-level">
+    <ul class="sidenav-second-level">
       <li>
         <%= language_menu %>
       </li>

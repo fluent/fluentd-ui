@@ -3,11 +3,11 @@
 %table{class: "table table-striped table-hover", id: "plugins-table"}
   %thead
     %tr
-      %th{width: "24"}
-      %th= t('plugins.common.name')
-      %th= t('plugins.common.category')
-      %th= t('plugins.common.status')
-      %th
+      %th{scope: "col", width: "24"}
+      %th{scope: "col"}= t('plugins.common.name')
+      %th{scope: "col"}= t('plugins.common.category')
+      %th{scope: "col"}= t('plugins.common.status')
+      %th{scope: "col"}
   %tbody
     - @plugins.each do |plugin|
       %tr

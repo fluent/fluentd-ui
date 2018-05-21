@@ -54,17 +54,17 @@ describe "source_and_output", js: true, stub: :daemon do
     it do
       page.should_not have_content(I18n.t("fluentd.settings.source_and_output.setting_empty"))
 
-      page.should have_css('.input .panel .panel-heading')
-      page.should have_css('.output .panel .panel-heading')
+      page.should have_css('.input .card .card-header')
+      page.should have_css('.output .card .card-header')
     end
 
-    it ".panel-body is hidden by default and click .panel-heading for display"  do
-      page.should_not have_css('.input .panel .panel-body')
-      page.should_not have_css('.output .panel .panel-body')
-      all(".input .panel .panel-heading").first.click
-      page.should have_css('.input .panel .panel-body')
-      all(".output .panel .panel-heading").first.click
-      page.should have_css('.output .panel .panel-body')
+    it ".card-body is hidden by default and click .card-header for display"  do
+      page.should_not have_css('.input .card .card-body')
+      page.should_not have_css('.output .card .card-body')
+      all(".input .card .card-header").first.click
+      page.should have_css('.input .card .card-body')
+      all(".output .card .card-header").first.click
+      page.should have_css('.output .card .card-body')
     end
 
     it "display plugin name" do
@@ -94,7 +94,7 @@ describe "source_and_output", js: true, stub: :daemon do
     CONF
 
     before do
-      all(".input .panel .panel-heading").first.click
+      all(".input .card .card-header").first.click
     end
 
     it "click edit button transform textarea, then click cancel button to be reset" do
@@ -136,20 +136,20 @@ describe "source_and_output", js: true, stub: :daemon do
     end
 
     it "click delete button transform textarea" do
-      page.should have_css('.input .panel-body')
-      confirm_dialog(true) do
+      page.should have_css('.input .card-body')
+      accept_confirm do
         find(".btn", text: I18n.t('terms.destroy')).click
       end
-      page.should_not have_css('.input .panel-body')
+      page.should_not have_css('.input .card-body')
       daemon.agent.config.strip.should == ""
     end
 
     it "click delete button then cancel it" do
-      page.should have_css('.input .panel-body')
-      confirm_dialog(false) do
+      page.should have_css('.input .card-body')
+      dismiss_confirm do
         find(".btn", text: I18n.t('terms.destroy')).click
       end
-      page.should have_css('.input .panel-body')
+      page.should have_css('.input .card-body')
       daemon.agent.config.strip.should == config_contents.strip
     end
   end

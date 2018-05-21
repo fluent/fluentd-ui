@@ -1,20 +1,21 @@
+<%- add_javascript_pack_tag("fluent_log") %>
 <!-- vue.js -->
 <% auto_reload ||= true %>
 <div id="fluent-log" logUrl="<%= log_tail_daemon_agent_path(fluentd) %>" initialAutoReload="<%= auto_reload ? "true" : "" %>">
   <div class="bottom-margin form-inline">
-    <button class="btn btn-primary" v-on="click: fetchLogs">
+    <button class="btn btn-primary mr-3" v-on:click="fetchLogs">
       <%= t "terms.reload_log" %>
     </button>
-    <input type="text" v-model="limit" size="4" v-on="keyup: fetchLogs | key enter" class="form-control"/>
+    <input type="text" v-model="limit" size="4" v-on:keyup.enter="fetchLogs" class="form-control"/>
     <%= t('terms.lines') %>
-    <label>
+    <label class="ml-3">
       <input type="checkbox" v-model="autoFetch" /> <%= t "terms.auto_reload", seconds: 1 %>
     </label>
     <span v-if="processing"><%= icon('fa-spin fa-refresh') %></span>
   </div>
 
-<pre v-if="isPresentedLogs"><!-- be careful indent -->
-<div class="log"><span v-repeat="logs">{{ $value }}
+<pre v-if="isPresentedLogs" class="card bg-light"><!-- be careful indent -->
+<div class="log card-body"><span v-for="log in logs">{{ log }}
 </span></div></pre>
 
   <div v-if="!isPresentedLogs && !processing">
@@ -22,4 +23,3 @@
   </div>
 </div>
 <!-- /vue.js -->
-
