@@ -33,15 +33,17 @@ And some additional packages (Debian / Ubuntu)
     $ git clone https://github.com/fluent/fluentd-ui
     $ cd fluentd-ui
     $ bundle install
-    $ bundle exec rails s
+    $ bin/rails s
 
-Also you need a phantomjs for test.
+Also you need a [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) or chromiumdriver for test.
 
-    $ npm install -g phantomjs
+    $ npm install -g chromedriver
     Or,
-    $ brew install phantomjs
+    $ brew install chromedriver
+    Or,
+    $ sudo apt install chromium-driver
 
-NOTE: `phantomjs` executable binary should be located under your `$PATH`.
+NOTE: `chromedriver` executable binary should be located under your `$PATH`.
 
 ## Building fluentd-ui.gem
 
