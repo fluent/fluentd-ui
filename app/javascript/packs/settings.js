@@ -14,7 +14,7 @@ $(document).ready(() => {
     },
     computed: {
       endpoint: function() {
-        return '/api/setting/' + this.id;
+        return '/api/settings/' + this.id;
       }
     },
     methods: {
