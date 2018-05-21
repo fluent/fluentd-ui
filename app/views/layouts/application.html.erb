@@ -28,7 +28,7 @@
         <ul class="navbar-nav ml-auto">
           <%- if @fluentd %>
             <li class="nav-item fluentd-status">
-              <a href="<%= daemon_path %>" data-toggle="tooltip" data-placement="bottom" title="fluentd <%= fluentd_status_message %>">
+              <a class="nav-link" href="<%= daemon_path %>" data-toggle="tooltip" data-placement="bottom" title="fluentd <%= fluentd_status_message %>">
                 <%= fluentd_status_icon %>
               </a>
             </li>
