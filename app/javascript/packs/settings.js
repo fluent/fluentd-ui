@@ -32,7 +32,6 @@ $(document).ready(() => {
       },
       onSubmit: function(ev) {
         this.processing = true;
-        var self = this;
         $.ajax({
           url: this.endpoint,
           method: "POST",
@@ -41,13 +40,13 @@ $(document).ready(() => {
             id: this.id,
             content: this.editContent
           }
-        }).then(function(data){
+        }).then((data)=> {
           _.each(data, function(v,k){
-            self[k] = v;
+            this[k] = v;
           });
-          self.initialState();
-        }).always(function(){
-          self.processing = false;
+          this.initialState();
+        }).always(()=> {
+          this.processing = false;
         });
       },
       initialState: function(){
@@ -56,7 +55,6 @@ $(document).ready(() => {
         this.editContent = this.content;
       },
       destroy: function(){
-        var self = this;
         $.ajax({
           url: this.endpoint,
           method: "POST",
@@ -64,8 +62,8 @@ $(document).ready(() => {
             _method: "DELETE",
             id: this.id
           }
-        }).then(function(){
-          self.$parent.update();
+        }).then(()=> {
+          this.$parent.update();
         });
       }
     }
