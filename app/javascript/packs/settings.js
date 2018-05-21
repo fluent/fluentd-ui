@@ -31,6 +31,7 @@ $(document).ready(() => {
         this.destroy();
       },
       onSubmit: function(ev) {
+        const token = document.getElementsByName("csrf-token")[0].getAttribute('content');
         this.processing = true;
         $.ajax({
           url: this.endpoint,
@@ -39,6 +40,9 @@ $(document).ready(() => {
             _method: "PATCH",
             id: this.id,
             content: this.editContent
+          },
+          headers: {
+            'X-CSRF-Token': token
           }
         }).then((data)=> {
           _.each(data, function(v,k){
@@ -55,12 +59,16 @@ $(document).ready(() => {
         this.editContent = this.content;
       },
       destroy: function(){
+        const token = document.getElementsByName("csrf-token")[0].getAttribute('content');
         $.ajax({
           url: this.endpoint,
           method: "POST",
           data: {
             _method: "DELETE",
             id: this.id
+          },
+          headers: {
+            'X-CSRF-Token': token
           }
         }).then(()=> {
           this.$parent.update();
