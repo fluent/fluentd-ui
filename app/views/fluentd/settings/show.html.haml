@@ -3,13 +3,13 @@
     = icon('fa-pencil')
     = t("terms.edit")
 
-.row
+.row.mb-3
   .card.col-xl-12
     %pre.card-body
       = preserve do
         = @config
 
-.row
+.row.mb-3
   .col-xl-12
     %h3= link_to(t('fluentd.settings.running_backup.title'), daemon_setting_running_backup_path)
     %p
