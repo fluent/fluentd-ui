@@ -1,4 +1,76 @@
 $(document).ready(() => {
+  const SettingSection = {
+    template: '#vue-setting-section',
+    props: ['id', 'content', 'type', 'name', 'arg', 'settings'],
+    data: function() {
+      return {
+        mode: 'default',
+        processing: false,
+        editContent: null
+      };
+    },
+    created: function() {
+      this.initialState();
+    },
+    computed: {
+      endpoint: function() {
+        return '/api/setting/' + this.id;
+      }
+    },
+    methods: {
+      onCancel: function(event) {
+        this.initialState();
+      },
+      onEdit: function(ev) {
+        this.mode = "edit";
+      },
+      onDelete: function(ev) {
+        if (!confirm("really?")) {
+          return;
+        }
+        this.destroy();
+      },
+      onSubmit: function(ev) {
+        this.processing = true;
+        var self = this;
+        $.ajax({
+          url: this.endpoint,
+          method: "POST",
+          data: {
+            _method: "PATCH",
+            id: this.id,
+            content: this.editContent
+          }
+        }).then(function(data){
+          _.each(data, function(v,k){
+            self[k] = v;
+          });
+          self.initialState();
+        }).always(function(){
+          self.processing = false;
+        });
+      },
+      initialState: function(){
+        this.processing = false;
+        this.mode = 'default';
+        this.editContent = this.content;
+      },
+      destroy: function(){
+        var self = this;
+        $.ajax({
+          url: this.endpoint,
+          method: "POST",
+          data: {
+            _method: "DELETE",
+            id: this.id
+          }
+        }).then(function(){
+          self.$parent.update();
+        });
+      }
+    }
+  };
+
   new Vue({
     el: "#vue-setting",
     data: function(){
@@ -17,75 +89,7 @@ $(document).ready(() => {
       })
     },
     components: {
-      configSection: {
-        inherit: true,
-        template: "#vue-setting-section",
-        data: function(){
-          return {
-            mode: "default",
-            processing: false,
-            editContent: null
-          };
-        },
-        created: function(){
-          this.initialState();
-        },
-        computed: {
-          endpoint: function(){
-            return "/api/settings/" + this.id;
-          }
-        },
-        methods: {
-          onCancel: function(ev) {
-            this.initialState();
-          },
-          onEdit: function(ev) {
-            this.mode = "edit";
-          },
-          onDelete: function(ev) {
-            if(!confirm("really?")) return;
-            this.destroy();
-          },
-          onSubmit: function(ev) {
-            this.processing = true;
-            var self = this;
-            $.ajax({
-              url: this.endpoint,
-              method: "POST",
-              data: {
-                _method: "PATCH",
-                id: this.id,
-                content: this.editContent
-              }
-            }).then(function(data){
-              _.each(data, function(v,k){
-                self[k] = v;
-              });
-              self.initialState();
-            }).always(function(){
-              self.processing = false;
-            });
-          },
-          initialState: function(){
-            this.$set('processing', false);
-            this.$set('mode', 'default');
-            this.$set('editContent', this.content);
-          },
-          destroy: function(){
-            var self = this;
-            $.ajax({
-              url: this.endpoint,
-              method: "POST",
-              data: {
-                _method: "DELETE",
-                id: this.id
-              }
-            }).then(function(){
-              self.$parent.update();
-            });
-          }
-        }
-      }
+      'setting-section': SettingSection
     },
     methods: {
       update: function() {
