@@ -101,7 +101,7 @@ class Fluentd
 
       def to_conf
         # NOTE: Using strip_heredoc makes more complex for format_specific_conf indent
-        <<-XML.gsub(/^[ ]*\n/m, "")
+        <<-CONFIG.gsub(/^[ ]*\n/m, "")
 <source>
   type tail
   path #{path}
@@ -114,7 +114,7 @@ class Fluentd
   #{rotate_wait.present? ? "rotate_wait #{rotate_wait}" : ""}
   #{refresh_interval.present? ? "refresh_interval #{refresh_interval}" : ""}
 </source>
-        XML
+        CONFIG
       end
     end
   end

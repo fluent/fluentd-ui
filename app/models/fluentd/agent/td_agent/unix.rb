@@ -4,18 +4,20 @@ class Fluentd
       module Unix
         def start
           backup_running_config do
-            detached_command('/etc/init.d/td-agent start')
+            detached_command("systemctl start td-agent.service")
           end
         end
 
         def stop
-          detached_command('/etc/init.d/td-agent stop')
+          detached_command("systemctl stop td-agent.service")
         end
 
         def restart
-          # NOTE: td-agent has no reload command
-          # https://github.com/treasure-data/td-agent/blob/master/debian/td-agent.init#L156
-          detached_command('/etc/init.d/td-agent restart')
+          detached_command("systemctl restart td-agent.service")
+        end
+
+        def reload
+          detached_command("systemctl reload td-agent.service")
         end
       end
     end

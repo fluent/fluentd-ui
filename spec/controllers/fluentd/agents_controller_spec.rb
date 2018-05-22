@@ -24,6 +24,11 @@ describe Fluentd::AgentsController do
       expect(@agent).to receive(:restart).and_return true
       put :restart
     end
+
+    it "reaload" do
+      expect(@agent).to receive(:reload).and_return true
+      put :reload
+    end
   end
 
   describe "when the action does not succeed" do
@@ -44,6 +49,13 @@ describe Fluentd::AgentsController do
       expect(@agent).to receive(:log).and_return(log)
       expect(log).to receive(:tail).with(1)
       put :restart
+    end
+
+    it "reload" do
+      expect(@agent).to receive(:reload).and_return false
+      expect(@agent).to receive(:log).and_return(log)
+      expect(log).to receive(:tail).with(1)
+      put :reload
     end
   end
 end
