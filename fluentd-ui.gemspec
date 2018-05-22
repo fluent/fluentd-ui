@@ -19,6 +19,15 @@ Gem::Specification.new do |spec|
     #       And spec.files required for building a .gem only.
     #       Thus git ls-files only invoked with `rake build` command
     spec.files         = `git ls-files`.split($/)
+    # Add pre-compiled assets
+    Dir.chdir(__dir__) do
+      Dir.glob("public/assets/.sprockets-manifest-*.json") do |file|
+        spec.files << file
+      end
+      Dir.glob("public/{assets,packs}/*") do |file|
+        spec.files << file
+      end
+    end
   end
   spec.executables   = ["fluentd-ui"]
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
