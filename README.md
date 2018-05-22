@@ -47,8 +47,11 @@ NOTE: `chromedriver` executable binary should be located under your `$PATH`.
 
 ## Building fluentd-ui.gem
 
-    $ bundle exec rake build
-    fluentd-ui X.X.X built to pkg/fluentd-ui-X.X.X.gem.
+    # Generate pre-compiled assets
+    $ RAILS_ENV=production bin/rails assets:precompile
 
-    $ bundle exec rake release
+    # fluentd-ui X.X.X built to pkg/fluentd-ui-X.X.X.gem.
+    $ RAILS_ENV=production bin/rails build
+
     # Push to rubygems.org
+    $ bin/rails release

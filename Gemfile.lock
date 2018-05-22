@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fluentd-ui (0.4.5)
+    fluentd-ui (1.0.0.alpha.1)
       addressable
       bootsnap (>= 1.1.0)
       bundler

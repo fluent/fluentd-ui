@@ -1,3 +1,3 @@
 module FluentdUI
-  VERSION = "0.4.5"
+  VERSION = "1.0.0.alpha.1"
 end
