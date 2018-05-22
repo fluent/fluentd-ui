@@ -1,3 +1,8 @@
+## Release 1.0.0-alpha.1 - 2018/05/22
+
+* [maintenance] Use Rails 5.2.0 [#223](https://github.com/fluent/fluentd-ui/pull/223)
+* [maintenance] Use Fluentd 1.2.0 [#232](https://github.com/fluent/fluentd-ui/pull/232)
+
 ## Release 0.4.5 - 2018/04/20
 
 * [maintenance] Use twilio instead of boundio [#212](https://github.com/fluent/fluentd-ui/pull/212)
@@ -15,8 +20,8 @@
 
 ## Release 0.4.2 - 2015/05/28
 
-* [maintenance] Update httpclient as 2.5.x [#193](https://github.com/fluent/fluentd-ui/pull/193) 
-* [fixed] Fix confused license [#192](https://github.com/fluent/fluentd-ui/pull/192) 
+* [maintenance] Update httpclient as 2.5.x [#193](https://github.com/fluent/fluentd-ui/pull/193)
+* [fixed] Fix confused license [#192](https://github.com/fluent/fluentd-ui/pull/192)
 
 ## Release 0.4.1 - 2015/04/24
 
