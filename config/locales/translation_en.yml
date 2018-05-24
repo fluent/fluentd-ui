@@ -98,6 +98,7 @@ en:
       start: Start
       stop: Stop
       restart: Restart
+      reload: Reload
       log: Log
       stopped: Stopped
       running: Running
