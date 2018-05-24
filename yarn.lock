@@ -4741,6 +4741,10 @@ querystringify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.0.0.tgz#fa3ed6e68eb15159457c89b37bc6472833195755"
 
+rails-ujs@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/rails-ujs/-/rails-ujs-5.2.0.tgz#d93f7a969a226c0ae67044172955be8c1cdf49fc"
+
 randomatic@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.0.0.tgz#d35490030eb4f7578de292ce6dfb04a91a128923"

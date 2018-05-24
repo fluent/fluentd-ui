@@ -14,6 +14,11 @@ import jQuery from 'jquery/dist/jquery'
 window.$ = jQuery
 window.jQuery = jQuery
 
+import Rails from 'rails-ujs/lib/assets/compiled/rails-ujs.js'
+
+window.Rails = Rails
+Rails.start()
+
 import 'popper.js/dist/popper'
 import 'bootstrap/dist/js/bootstrap'
 import 'datatables.net/js/jquery.dataTables'
