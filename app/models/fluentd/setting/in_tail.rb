@@ -1,14 +1,14 @@
+require "fluent/plugin/parser_multiline"
+
 class Fluentd
   module Setting
     class InTail
-      MULTI_LINE_MAX_FORMAT_COUNT = 20
+      include Fluentd::Setting::Plugin
 
-      include ActiveModel::Model
-      attr_accessor :path, :tag, :format, :regexp, :time_format, :rotate_wait, :pos_file, :read_from_head, :refresh_interval
+      register_plugin("input", "tail")
+      # TODO support formatN ???
 
-      validates :path, presence: true
-      validates :tag, presence: true
-      #validates :format, presence: true
+      MULTI_LINE_MAX_FORMAT_COUNT = ::Fluent::Plugin::MultilineParser::FORMAT_MAX_NUM
 
       def self.known_formats
         {
@@ -26,7 +26,7 @@ class Fluentd
           # :grok => [:grok_str],
         }
       end
-      attr_accessor *known_formats.values.flatten.compact.uniq
+      attr_accessor(*known_formats.values.flatten.compact.uniq)
 
       def known_formats
         self.class.known_formats
@@ -103,7 +103,7 @@ class Fluentd
         # NOTE: Using strip_heredoc makes more complex for format_specific_conf indent
         <<-CONFIG.gsub(/^[ ]*\n/m, "")
 <source>
-  type tail
+  @type tail
   path #{path}
   tag #{tag}
   #{certain_format_line}
