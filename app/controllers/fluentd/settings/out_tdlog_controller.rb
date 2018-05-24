@@ -1,10 +1,10 @@
-class Fluentd::Settings::OutTdController < ApplicationController
+class Fluentd::Settings::OutTdlogController < ApplicationController
   include SettingConcern
 
   private
 
   def target_class
-    Fluentd::Setting::OutTd
+    Fluentd::Setting::OutTdlog
   end
 
   def initial_params

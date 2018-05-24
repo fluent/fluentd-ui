@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Fluentd::Setting::OutTd do
+describe Fluentd::Setting::OutTdlog do
   let(:klass) { described_class }
   let(:instance) { klass.new(valid_attributes) }
   let(:valid_attributes) {
@@ -45,4 +45,3 @@ describe Fluentd::Setting::OutTd do
     it { should == expected }
   end
 end
-
