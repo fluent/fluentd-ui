@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fluentd-ui (1.0.0.alpha.1)
+    fluentd-ui (1.0.0.alpha.2)
       addressable
       bootsnap (>= 1.1.0)
       bundler
@@ -120,7 +120,7 @@ GEM
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     ffi (1.9.23)
-    fluentd (1.2.0)
+    fluentd (1.2.1)
       cool.io (>= 1.4.5, < 2.0.0)
       dig_rb (~> 1.0.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
