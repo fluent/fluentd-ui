@@ -98,6 +98,7 @@ ja:
       start: 開始
       stop: 停止
       restart: 再起動
+      reload: リロード
       log: ログ
       stopped: 停止中
       running: 稼働中
