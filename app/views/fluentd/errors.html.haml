@@ -7,7 +7,7 @@
   .col-xl-12.col-sm-12
     - @errors.each do |error|
       .card.card-primary
-        .card-heading
+        .card-header
           %h4= error[:subject]
         - if error[:notes].present?
           .card-body
