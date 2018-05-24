@@ -1,3 +1,8 @@
+## Release 1.0.0-alpha.2 - 2018/05/24
+
+* [fixed] Update HTML classes [#234](https://github.com/fluent/fluentd-ui/pull/234)
+  * Use rails-ujs npm package
+
 ## Release 1.0.0-alpha.1 - 2018/05/22
 
 * [maintenance] Use Rails 5.2.0 [#223](https://github.com/fluent/fluentd-ui/pull/223)
