@@ -2,26 +2,62 @@ module SettingsHelper
   def field(form, key, opts = {})
     html = '<div class="form-group">'
 
-    field_resolver(form.object.column_type(key), html, form, key, opts)
+    field_resolver(html, form, key, opts)
 
     html << "</div>"
     html.html_safe
   end
 
   private
-  def field_resolver(type, html, form, key, opts)
-    case type
-    when :hidden
-      html << form.hidden_field(key)
-    when :boolean, :flag
-      boolean_field(html, form, key, opts)
-    when :choice
-      choice_field(html, form, key, opts)
-    when :nested
-      nested_field(html, form, key, opts)
-    else
-      other_field(html, form, key, opts)
+
+  def field_resolver(html, form, key, opts)
+    plugin_class = form.object.class
+    type = plugin_class.column_type(key)
+    if type && !@_used_param.key?(key)
+      case type
+      when :enum
+        enum_field(html, form, key, opts)
+      when :bool
+        bool_field(html, form, key, opts)
+      else
+        other_field(html, form, key, opts)
+      end
+      @_used_param[key] = true
     end
+    if plugin_class._sections[key] && !@_used_section.key?(key)
+      section_field(html, form, key, opts)
+      @_used_section[key] = true
+    end
+  end
+
+  def section_field(html, form, key, opts = {})
+    klass = form.object.class._sections[key]
+    children = form.object.__send__(key) || { "0" => {} }
+
+    children.each do |index, child|
+      open_section_div(html, klass.multi) do |_html|
+        _html << append_and_remove_links if klass.multi
+        _html << h(form.label(key))
+        _html << section_fields(form, key, index, klass, child)
+      end
+    end
+  end
+
+  def open_section_div(html, multi)
+    html << %Q!<div class="js-nested-column #{ multi ? "js-multiple" : "" } well well-sm">!
+    yield html
+    html << "</div>"
+  end
+
+  def section_fields(form, key, index, klass, child)
+    html = ""
+    object = klass.new(child)
+    form.fields_for("#{key}[#{index}]", object) do |ff|
+      klass._types.keys.each do |kk|
+        html << field(ff, kk)
+      end
+    end
+    html
   end
 
   def nested_field(html, form, key, opts = {})
@@ -54,27 +90,28 @@ module SettingsHelper
   end
 
   def append_and_remove_links
-    %Q!<a class="btn btn-sm btn-outline-secondary js-append">#{icon('fa-plus')}</a> ! +
-    %Q!<a class="btn btn-sm btn-outline-secondary js-remove" style="display:none">#{icon('fa-minus')}</a> !
+    %Q!<a class="btn btn-xs btn-default js-append">#{icon('fa-plus')}</a> ! +
+    %Q!<a class="btn btn-xs btn-default js-remove" style="display:none">#{icon('fa-minus')}</a> !
   end
 
   def child_data(form, key)
     form.object.class.children[key]
   end
 
-  def choice_field(html, form, key, opts = {})
+  def enum_field(html, form, key, opts = {})
     html << h(form.label(key))
     html << " " # NOTE: Adding space for padding
-    html << form.select(key, form.object.values_of(key), opts)
+    html << form.select(key, form.object.list_of(key), opts)
   end
 
-  def boolean_field(html, form, key, opts = {})
+  def bool_field(html, form, key, opts = {})
     html << form.check_box(key, {}, "true", "false")
     html << " " # NOTE: Adding space for padding
     html << h(form.label(key))
   end
 
   def other_field(html, form, key, opts = {})
+    return unless form.object.respond_to?(key)
     html << h(form.label(key))
     html << form.text_field(key, class: "form-control")
   end
