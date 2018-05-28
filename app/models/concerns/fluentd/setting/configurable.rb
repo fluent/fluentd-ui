@@ -26,7 +26,12 @@ class Fluentd
       end
 
       def initialize(attributes = {})
-        super rescue ActiveModel::UnknownAttributeError # the superclass does not know specific attributes of the model
+        # the superclass does not know specific attributes of the model
+        begin
+          super
+        rescue ActiveModel::UnknownAttributeError => ex
+          Rails.logger.warn(ex)
+        end
         self.class._sections.each do |name, klass|
           klass.init
           if klass.multi
