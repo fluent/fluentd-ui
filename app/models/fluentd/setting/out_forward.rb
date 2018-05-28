@@ -5,6 +5,10 @@ class Fluentd
 
       register_plugin("output", "forward")
 
+      config_section :secondary do
+        config_param :path, :string
+      end
+
       def self.initial_params
         {
           secondary: {
