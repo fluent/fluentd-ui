@@ -61,7 +61,11 @@ class Fluentd
             config_param(_name.to_sym, type, **options.merge(alias: name))
             self._built_in_params << _name
           elsif ["id", "type", "log_level"].include?(name.to_s)
-            self._built_in_params << _name
+            self._built_in_params << name
+            unless name == "type"
+              attribute(name, type, **options.slice(:precision, :limit, :scale))
+              validates(name, presence: true) if options[:required]
+            end
           else
             attribute(name, type, **options.slice(:precision, :limit, :scale))
             validates(name, presence: true) if options[:required]
