@@ -37,6 +37,23 @@ class Fluentd
         def list_of(name)
           self._list[name]
         end
+
+        def permit_params
+          self.new # init
+          keys = self._types.keys
+          self._sections.each do |key, section|
+            keys << _permit_section(key, section)
+          end
+          keys
+        end
+
+        def _permit_section(key, section)
+          keys = { key => section._types.keys }
+          section._sections.each do |_key, _section|
+            keys << _permit_section(_key, _section)
+          end
+          keys
+        end
       end
     end
   end

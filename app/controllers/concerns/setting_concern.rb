@@ -36,7 +36,7 @@ module SettingConcern
   private
 
   def setting_params
-    params.require(target_class.to_s.underscore.gsub("/", "_")).permit(*target_plugin_params)
+    params.require(target_class.to_s.underscore.gsub("/", "_")).permit(*target_class.permit_params)
   end
 
   def initial_params
@@ -57,37 +57,5 @@ module SettingConcern
 
   def plugin_setting_form_action_url(*args)
     send("finish_daemon_setting_#{target_plugin_name}_path", *args)
-  end
-
-  def target_plugin_params
-    keys = []
-    target_class.config_definition.each do |name, definition|
-      if definition[:section]
-        keys.concat(parse_section_definition(definition))
-      else
-        keys.concat(definition.keys)
-      end
-    end
-    # <match TAG>/<filter TAG> TAG is not appeared in config_definition
-    if ["output", "filter"].include?(target_class.plugin_type)
-      keys.push(:pattern)
-    end
-    keys
-  end
-
-  def parse_section_definition(definition)
-    keys = []
-    definition.except(:section, :argument, :required, :multi, :alias).each do |name, _definition|
-      _keys = []
-      _definition.each do |key, __definition|
-        if __definition[:section]
-          _keys.push({ name => parse_section_definition(__definition) })
-        else
-          _keys.push(key)
-        end
-      end
-      keys.push({ name => _keys })
-    end
-    keys
   end
 end
