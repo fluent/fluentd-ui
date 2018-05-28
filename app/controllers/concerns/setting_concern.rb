@@ -68,6 +68,10 @@ module SettingConcern
         keys.concat(definition.keys)
       end
     end
+    # <match TAG>/<filter TAG> TAG is not appeared in config_definition
+    if ["output", "filter"].include?(target_class.plugin_type)
+      keys.push(:pattern)
+    end
     keys
   end
 
