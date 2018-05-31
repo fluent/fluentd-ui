@@ -17,9 +17,9 @@ fluentd-ui is a browser-based [fluentd](http://www.fluentd.org) and [td-agent](h
 ## Requirements
 
 - ruby 2.2.2 or later (since v1.0.0)
-- fluentd v1.0.0 or later
+- fluentd v1.0.0 or later (also supports td-agent 3)e
+  - Currently, fluentd v1 and td-agent 3 support is in alpha state
 
-Currently, fluentd-ui doesn't support fleuntd v1 and td-agent 3.
 And some additional packages (Debian / Ubuntu)
 
 - build-essential
