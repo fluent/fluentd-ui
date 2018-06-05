@@ -33,10 +33,16 @@ module SettingsHelper
   def section_field(html, form, key, opts = {})
     klass = form.object.class._sections[key]
     children = form.object.__send__(key) || { "0" => {} }
+    # <parse>/<format> section is not multiple in most cases
+    multi = if [:parse, :format].include?(key)
+              false
+            else
+              klass.multi
+            end
 
     children.each do |index, child|
-      open_section_div(html, klass.multi) do |_html|
-        _html << append_and_remove_links if klass.multi
+      open_section_div(html, multi) do |_html|
+        _html << append_and_remove_links if multi
         _html << h(form.label(key))
         _html << section_fields(form, key, index, klass, child)
       end
@@ -54,7 +60,11 @@ module SettingsHelper
     object = klass.new(child)
     form.fields_for("#{key}[#{index}]", object) do |ff|
       klass._types.keys.each do |kk|
-        html << field(ff, kk)
+        if kk == :type
+          html << owned_plugin_type_field(ff, kk, key)
+        else
+          html << field(ff, kk)
+        end
       end
     end
     html
@@ -114,5 +124,15 @@ module SettingsHelper
     return unless form.object.respond_to?(key)
     html << h(form.label(key))
     html << form.text_field(key, class: "form-control")
+  end
+
+  def owned_plugin_type_field(form, key, plugin_type)
+    plugin_registry = Fluent::Plugin.const_get("#{plugin_type.to_s.upcase}_REGISTRY")
+    html = '<div class="form-group">'
+    html << form.label(key)
+    html << " " # NOTE: Adding space for padding
+    html << form.select(key, plugin_registry.map.keys)
+    html << '</div>'
+    html
   end
 end
