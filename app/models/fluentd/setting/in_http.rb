@@ -17,13 +17,15 @@ class Fluentd
 
       def common_options
         [
-          :bind, :port
+          :bind, :port, :add_http_headers, :add_remote_addr
         ]
       end
 
       def hidden_options
         [
-          :parse
+          :parse,
+          :backlog,
+          :blocking_timeout,
         ]
       end
     end
