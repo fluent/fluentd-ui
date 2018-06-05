@@ -29,6 +29,16 @@ class Fluentd
         self.class._types.keys + self.class._sections.keys
       end
 
+      def reformat_value(name, value)
+        type = column_type(name)
+        type_name = if type.is_a?(Fluentd::Setting::Type::Time)
+                      :time
+                    else
+                      type
+                    end
+        Fluent::Config::REFORMAT_VALUE.call(type_name, value)
+      end
+
       module ClassMethods
         def column_type(name)
           self._types[name]

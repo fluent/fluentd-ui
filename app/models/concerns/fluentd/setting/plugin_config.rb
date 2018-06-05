@@ -45,12 +45,21 @@ class Fluentd
             elements << config_element(key, "", sub_attrs, sub_elements)
           end
         end
-        return params.to_h.reject{|key, value| value.blank? }, elements
+        return params.to_h.reject{|key, value| skip?(key.to_sym, value) }, elements
       end
 
       # copy from Fluent::Test::Helpers#config_element
       def config_element(name = 'test', argument = '', params = {}, elements = [])
         Fluent::Config::Element.new(name, argument, params, elements)
+      end
+
+      def skip?(key, value)
+        return true if value.blank?
+        if self._defaults.key?(key)
+          reformat_value(key, self._defaults[key]) == reformat_value(key, value)
+        else
+          false
+        end
       end
     end
   end
