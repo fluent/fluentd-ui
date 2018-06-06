@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module FormatterMsgpack
+    class FormatterMsgpack
       include Fluentd::Setting::Plugin
 
       register_plugin("formatter", "msgpack")

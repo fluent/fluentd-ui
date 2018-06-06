@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module ParserNginx
+    class ParserNginx
       include Fluentd::Setting::Plugin
 
       register_plugin("parser", "nginx")

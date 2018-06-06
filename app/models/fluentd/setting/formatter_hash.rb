@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module FormatterHash
+    class FormatterHash
       include Fluentd::Setting::Plugin
 
       register_plugin("formatter", "hash")

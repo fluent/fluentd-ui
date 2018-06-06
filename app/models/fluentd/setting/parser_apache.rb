@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module ParserApache
+    class ParserApache
       include Fluentd::Setting::Plugin
 
       register_plugin("parser", "apache")

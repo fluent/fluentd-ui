@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module ParserTsv
+    class ParserTsv
       include Fluentd::Setting::Plugin
 
       register_plugin("parser", "tsv")

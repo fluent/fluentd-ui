@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module ParserSyslog
+    class ParserSyslog
       include Fluentd::Setting::Plugin
 
       register_plugin("parser", "syslog")

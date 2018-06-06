@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module FormatterTsv
+    class FormatterTsv
       include Fluentd::Setting::Plugin
 
       register_plugin("formatter", "tsv")

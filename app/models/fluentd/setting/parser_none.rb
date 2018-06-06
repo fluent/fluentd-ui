@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module ParserNone
+    class ParserNone
       include Fluentd::Setting::Plugin
 
       register_plugin("parser", "none")

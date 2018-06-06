@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module ParserApacheError
+    class ParserApacheError
       include Fluentd::Setting::Plugin
 
       register_plugin("parser", "apache_error")

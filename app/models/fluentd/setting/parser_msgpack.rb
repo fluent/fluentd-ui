@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module ParserMsgpack
+    class ParserMsgpack
       include Fluentd::Setting::Plugin
 
       register_plugin("parser", "msgpack")

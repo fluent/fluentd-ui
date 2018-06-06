@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module FormatterOutFile
+    class FormatterOutFile
       include Fluentd::Setting::Plugin
 
       register_plugin("formatter", "out_file")

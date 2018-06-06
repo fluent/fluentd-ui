@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module FormatterSingleValue
+    class FormatterSingleValue
       include Fluentd::Setting::Plugin
 
       register_plugin("formatter", "single_value")

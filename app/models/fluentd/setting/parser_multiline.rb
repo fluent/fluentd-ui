@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module ParserMultiline
+    class ParserMultiline
       include Fluentd::Setting::Plugin
 
       register_plugin("parser", "multiline")

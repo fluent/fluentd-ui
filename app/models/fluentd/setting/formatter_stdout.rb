@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    module FormatterStdout
+    class FormatterStdout
       include Fluentd::Setting::Plugin
 
       register_plugin("formatter", "stdout")
