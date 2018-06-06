@@ -111,7 +111,7 @@ module SettingsHelper
   def enum_field(html, form, key, opts = {})
     html << h(form.label(key))
     html << " " # NOTE: Adding space for padding
-    html << form.select(key, form.object.list_of(key), opts)
+    html << form.select(key, form.object.list_of(key), opts, { class: "enum" })
   end
 
   def bool_field(html, form, key, opts = {})
@@ -137,7 +137,7 @@ module SettingsHelper
     html = '<div class="form-group">'
     html << form.label(key)
     html << " " # NOTE: Adding space for padding
-    html << form.select(key, plugin_registry.map.keys)
+    html << form.select(key, plugin_registry.map.keys, {}, { class: "owned" })
     html << '</div>'
     html
   end
