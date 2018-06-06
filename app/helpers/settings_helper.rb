@@ -127,7 +127,13 @@ module SettingsHelper
   end
 
   def owned_plugin_type_field(form, key, plugin_type)
-    plugin_registry = Fluent::Plugin.const_get("#{plugin_type.to_s.upcase}_REGISTRY")
+    registry_type = case plugin_type
+                    when :parse
+                      "PARSER_REGISTRY"
+                    when :format
+                      "FORMATTER_REGISTRY"
+                    end
+    plugin_registry = Fluent::Plugin.const_get("#{registry_type}")
     html = '<div class="form-group">'
     html << form.label(key)
     html << " " # NOTE: Adding space for padding
