@@ -10,8 +10,18 @@ module SettingConcern
 
   def show
     @setting = target_class.new(initial_params)
+    @parser = @setting.create_parser
+    @formatter = @setting.create_formatter
     @_used_param = {}
     @_used_section = {}
+    render "shared/settings/show"
+  end
+
+  def configure
+    owned_keys = %i(parse_type format_type)
+    @setting = target_class.new(initial_params.merge(params.permit(*owned_keys).slice(*owned_keys)))
+    @parser = @setting.create_parser
+    @formatter = @setting.create_formatter
     render "shared/settings/show"
   end
 
