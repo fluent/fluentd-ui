@@ -30,6 +30,9 @@ class Fluentd
             params.each do |param_name, definition|
               if definition[:section]
                 parse_section(param_name, definition)
+                if %i(parse format).include?(param_name)
+                  attribute("#{param_name}_type", :string)
+                end
               else
                 config_param(param_name, definition[:type], **definition.except(:type))
               end
