@@ -9,9 +9,10 @@ class Fluentd
         {
           bind: "0.0.0.0",
           port: 5140,
+          parse_type: "syslog",
           parse: {
             "0" => {
-              type: :syslog
+              "type" => "syslog"
             }
           },
           protocol_type: :udp,
@@ -21,6 +22,12 @@ class Fluentd
       def common_options
         [
           :tag, :bind, :port
+        ]
+      end
+
+      def hidden_options
+        [
+          :parse
         ]
       end
     end

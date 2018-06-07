@@ -12,6 +12,12 @@ class Fluentd
           body_size_limit: "32m",
           keepalive_timeout: "10s",
           add_http_headers: false,
+          parse_type: "in_http",
+          parse: {
+            "0" => {
+              "type" => "in_http"
+            }
+          }
         }
       end
 
@@ -23,6 +29,7 @@ class Fluentd
 
       def hidden_options
         [
+          :parse,
           :backlog,
           :blocking_timeout,
         ]
