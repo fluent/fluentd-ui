@@ -12,6 +12,19 @@ class Fluentd
           label_delimiter: ":"
         }
       end
+
+      def common_options
+        [
+          :delimiter,
+          :label_delimiter
+        ]
+      end
+
+      def advanced_options
+        [
+          :delimiter_pattern
+        ]
+      end
     end
   end
 end
