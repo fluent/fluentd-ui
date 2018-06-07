@@ -51,6 +51,8 @@ class Fluentd
 
       def reformat_value(name, value)
         type = column_type(name)
+        return value if type == :enum
+        return value if type == :regexp
         type_name = if type.is_a?(Fluentd::Setting::Type::Time)
                       :time
                     else
