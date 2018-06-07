@@ -29,6 +29,26 @@ class Fluentd
         self.class._types.keys + self.class._sections.keys
       end
 
+      def have_parse_section?
+        self.class._sections.key?(:parse)
+      end
+
+      def have_format_section?
+        self.class._sections.key?(:format)
+      end
+
+      def create_parser
+        return unless have_parse_section?
+        parser_class = Fluentd::Setting.const_get("parser_#{parse_type}".classify)
+        parser_class.new(parse["0"].except("type"))
+      end
+
+      def create_formatter
+        return unless have_format_section?
+        formatter_class = Fluentd::Setting.const_get("formatter_#{format_type}".classify)
+        formatter_class.new(format["0"].except("type"))
+      end
+
       def reformat_value(name, value)
         type = column_type(name)
         type_name = if type.is_a?(Fluentd::Setting::Type::Time)
