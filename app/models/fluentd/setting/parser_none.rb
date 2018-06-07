@@ -8,6 +8,12 @@ class Fluentd
       def self.initial_params
         {}
       end
+
+      def common_options
+        [
+          :message_key
+        ]
+      end
     end
   end
 end
