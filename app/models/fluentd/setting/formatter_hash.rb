@@ -8,6 +8,12 @@ class Fluentd
       def self.initial_params
         {}
       end
+
+      def common_options
+        [
+          :add_newline
+        ]
+      end
     end
   end
 end

@@ -8,6 +8,14 @@ class Fluentd
       def self.initial_params
         {}
       end
+
+      def common_options
+        [
+          :output_time,
+          :output_tag,
+          :delimiter
+        ]
+      end
     end
   end
 end
