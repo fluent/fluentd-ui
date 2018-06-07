@@ -8,6 +8,19 @@ class Fluentd
       def self.initial_params
         {}
       end
+
+      def common_options
+        [
+          :expression
+        ]
+      end
+
+      def hidden_options
+        [
+          :ignorecase,
+          :multiline
+        ]
+      end
     end
   end
 end
