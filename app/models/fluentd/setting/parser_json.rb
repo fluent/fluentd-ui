@@ -10,6 +10,16 @@ class Fluentd
           json_parser: "oj"
         }
       end
+
+      def common_options
+        []
+      end
+
+      def advanced_options
+        [
+          :json_parser
+        ]
+      end
     end
   end
 end
