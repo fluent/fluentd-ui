@@ -46,7 +46,7 @@ module FluentdUi
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = 'en'
     config.i18n.available_locales = %i(en ja)
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib #{Rails.root}/app/form_builders)
 
     config.active_job.queue_adapter = :sucker_punch
 
