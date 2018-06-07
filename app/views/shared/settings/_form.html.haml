@@ -1,9 +1,15 @@
 = render "shared/setting_errors"
 
 - # NOTE: plugin_setting_form_action_url is defined at SettingConcern
-= form_for(@setting, url: plugin_setting_form_action_url(@fluentd), html: {class: "ignore-rails-error-div"}) do |f|
+= form_with(model: @setting, url: plugin_setting_form_action_url(@fluentd), class: "ignore-rails-error-div", builder: FluentdFormBuilder) do |form|
   - @setting.common_options.each do |key|
-    = field(f, key)
+    = form.field(key)
+
+  - if @setting.have_parse_section?
+    = render "shared/settings/parser_form", form: form, parser: @parser
+
+  - if @setting.have_format_section?
+    = render "shared/settings/formatter_form", form: form, formatter: @formatter
 
   - if @setting.advanced_options.present?
     .card.bg-light
@@ -13,5 +19,6 @@
           = t('terms.advanced_setting')
         #advanced-setting.collapse
           - @setting.advanced_options.each do |key|
-            = field(f, key)
-  = f.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary float-right mt-3"
+            = form.field(key)
+
+  = form.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary float-right mt-3"
