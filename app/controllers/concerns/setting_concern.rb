@@ -50,7 +50,7 @@ module SettingConcern
   private
 
   def setting_params
-    params.require(target_class.to_s.underscore.gsub("/", "_")).permit(*target_class.permit_params)
+    params.require(:setting).permit(*target_class.permit_params)
   end
 
   def initial_params
