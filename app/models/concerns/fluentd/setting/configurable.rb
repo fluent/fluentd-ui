@@ -71,6 +71,7 @@ class Fluentd
             validates(name, presence: true) if options[:required]
           end
           self._types[name] = type
+          self._descriptions[name] = options[:desc] if options.key?(:desc)
           self._defaults[name] = options[:default] if options.key?(:default)
           self._secrets[name] = options[:secret] if options.key?(:secret)
           self._aliases[name] = options[:alias] if options.key?(:alias)

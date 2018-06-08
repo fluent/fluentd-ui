@@ -13,6 +13,10 @@ class Fluentd
         self.class._list[name]
       end
 
+      def desc(name)
+        self.class._descriptions[name]
+      end
+
       def common_options
         []
       end

@@ -29,16 +29,19 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def enum_field(key, options)
-    label(key) + select(key, object.list_of(key), options, { class: "enum" })
+    label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key)) +
+      select(key, object.list_of(key), options, { class: "enum" })
   end
 
   def bool_field(key, options)
-    check_box(key, {}, "true", "false") + " " + label(key)
+    check_box(key, {}, "true", "false") + " " +
+      label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key))
   end
 
   def other_field(key, options)
     return unless object.respond_to?(key)
-    label(key) + text_field(key, class: "form-control")
+    label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key)) +
+      text_field(key, class: "form-control")
   end
 
   def render_section(key, options)
@@ -50,7 +53,7 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
       html << content_tag("div", class: "js-nested-column #{section_class.multi ? "js-multiple" : ""}") do
         _html = ""
         _html << append_and_remove_links if section_class.multi
-        _html << label(key)
+        _html << label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key))
         _html << section_fields(key, index, section_class, child)
         _html.html_safe
       end
