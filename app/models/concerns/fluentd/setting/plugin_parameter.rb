@@ -33,6 +33,10 @@ class Fluentd
         self.class._sections.key?(:buffer)
       end
 
+      def have_storage_section?
+        self.class._sections.key?(:storage)
+      end
+
       def have_parse_section?
         self.class._sections.key?(:parse)
       end
@@ -45,6 +49,12 @@ class Fluentd
         return unless have_buffer_section?
         buffer_class = Fluentd::Setting.const_get("buffer_#{buffer_type}".classify)
         buffer_class.new(buffer["0"].except("type"))
+      end
+
+      def create_storage
+        return unless have_storage_section?
+        storage_class = Fluentd::Setting.const_get("storage_#{storage_type}".classify)
+        storage_class.new(storage["0"].except("type"))
       end
 
       def create_parser

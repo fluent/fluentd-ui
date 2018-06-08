@@ -8,6 +8,9 @@
   - if @setting.have_buffer_section?
     = render "shared/settings/buffer_form", form: form, buffer: @buffer
 
+  - if @setting.have_storage_section?
+    = render "shared/settings/storage_form", form: form, storage: @storage
+
   - if @setting.have_parse_section?
     = render "shared/settings/parser_form", form: form, parser: @parser
 

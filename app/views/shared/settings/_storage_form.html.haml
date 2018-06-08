@@ -1,0 +1,7 @@
+#storage-section.form-group.card.bg-light.mb-3
+  .card-body
+    = form.label(:storage_type, "Storage")
+    = form.select(:storage_type, Fluent::Plugin::STORAGE_REGISTRY.map.keys, {}, { class: "storage form-control" })
+    = form.fields("storage[0]", model: storage, class: ".form-group", builder: FluentdFormBuilder) do |storage_form|
+      - storage_form.object.common_options.each do |key|
+        = storage_form.field(key)
