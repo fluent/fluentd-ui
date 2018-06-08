@@ -98,24 +98,6 @@ class Fluentd
             grok
           end
       end
-
-      def to_conf
-        # NOTE: Using strip_heredoc makes more complex for format_specific_conf indent
-        <<-CONFIG.gsub(/^[ ]*\n/m, "")
-<source>
-  @type tail
-  path #{path}
-  tag #{tag}
-  #{certain_format_line}
-#{format_specific_conf}
-
-  #{read_from_head.to_i.zero? ? "" : "read_from_head true"}
-  #{pos_file.present? ? "pos_file #{pos_file}" : ""}
-  #{rotate_wait.present? ? "rotate_wait #{rotate_wait}" : ""}
-  #{refresh_interval.present? ? "refresh_interval #{refresh_interval}" : ""}
-</source>
-        CONFIG
-      end
     end
   end
 end
