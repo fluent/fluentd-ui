@@ -29,12 +29,22 @@ class Fluentd
         self.class._types.keys + self.class._sections.keys
       end
 
+      def have_buffer_section?
+        self.class._sections.key?(:buffer)
+      end
+
       def have_parse_section?
         self.class._sections.key?(:parse)
       end
 
       def have_format_section?
         self.class._sections.key?(:format)
+      end
+
+      def create_buffer
+        return unless have_buffer_section?
+        buffer_class = Fluentd::Setting.const_get("buffer_#{buffer_type}".classify)
+        buffer_class.new(buffer["0"].except("type"))
       end
 
       def create_parser

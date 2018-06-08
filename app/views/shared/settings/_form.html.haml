@@ -5,6 +5,9 @@
   - @setting.common_options.each do |key|
     = form.field(key)
 
+  - if @setting.have_buffer_section?
+    = render "shared/settings/buffer_form", form: form, buffer: @buffer
+
   - if @setting.have_parse_section?
     = render "shared/settings/parser_form", form: form, parser: @parser
 

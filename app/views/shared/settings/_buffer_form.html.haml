@@ -1,0 +1,7 @@
+#buffer-section.form-group.card.bg-light.mb-3
+  .card-body
+    = form.label(:buffer_type, "Buffer")
+    = form.select(:buffer_type, Fluent::Plugin::BUFFER_REGISTRY.map.keys, {}, { class: "buffer form-control" })
+    = form.fields("buffer[0]", model: buffer, class: ".form-group", builder: FluentdFormBuilder) do |buffer_form|
+      - buffer_form.object.common_options.each do |key|
+        = buffer_form.field(key)
