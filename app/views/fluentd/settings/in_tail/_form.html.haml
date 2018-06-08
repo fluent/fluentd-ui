@@ -6,17 +6,17 @@
   = f.hidden_field :path
   = f.text_field :path, class: "form-control", disabled: true
 .form-group
-  = f.label :format
-  = f.hidden_field :format
-  = f.text_field :format, class: "form-control", disabled: true
-- if @setting.known_formats[@setting.format.to_sym]
-  - @setting.known_formats[@setting.format.to_sym].each do |key|
+  = f.label :parse_type
+  = f.hidden_field :parse_type
+  = f.text_field :parse_type, class: "form-control", disabled: true
+- if @setting.known_formats[@setting.parse_type&.to_sym || "syslog"]
+  - @setting.known_formats[@setting.parse_type&.to_sym || "syslog"].each do |key|
     %label= key
     = f.hidden_field key
     = @setting.send(key)
     %br
 - else
-  %label= @setting.format
+  %label= @setting.parse_type
   = f.hidden_field :regexp
   = @setting.regexp
 .form-group
@@ -39,4 +39,3 @@
     .form-group
       = f.label :refresh_interval
       = f.text_field :refresh_interval, class: "form-control"
-
