@@ -1,7 +1,0 @@
-#parse-section.form-group.card.bg-light.mb-3
-  .card-body
-    = form.label(:parse_type, "Parse")
-    = form.select(:parse_type, Fluent::Plugin::PARSER_REGISTRY.map.keys, {}, { class: "parse form-control" })
-    = form.fields("parse[0]", model: parser, class: ".form-group", builder: FluentdFormBuilder) do |parser_form|
-      - parser_form.object.common_options.each do |key|
-        = parser_form.field(key)
