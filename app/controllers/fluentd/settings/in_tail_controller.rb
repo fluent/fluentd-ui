@@ -4,8 +4,8 @@ class Fluentd::Settings::InTailController < ApplicationController
 
   def after_file_choose
     @setting = Fluentd::Setting::InTail.new({
-      :path => params[:path],
-      :tag => nil,
+      path: params[:path],
+      tag: nil
     })
   end
 
