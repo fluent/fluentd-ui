@@ -1,0 +1,44 @@
+%script{type: "text/x-template", id: "vue-owned-plugin-form"}
+  .form-group.card.bg-light.mb-3{"v-bind:id" => "id"}
+    .card-body
+      %label{"v-bind:for" => "selectId(pluginType)"}
+        {{ pluginLabel }}
+      %select{"v-bind:id" => "selectId(pluginType)",
+              "v-bind:class" => "selectClass(pluginType)",
+              "v-bind:name" => "selectName(pluginType)",
+              "v-model" => "pluginName",
+              "v-on:change" => "onChange"}
+        %option{"v-for" => "option in options",
+                "v-bind:value" => "option",
+                "v-bind:selected" => "pluginName===option"}
+          {{ option }}
+      .form-group{ "v-for" => "option in commonOptions" }
+        %template{"v-if" => 'option.type==="enum"'}
+          %label{"v-bind:for" => "inputId(pluginName, option)",
+                 "data-toggle" => "tooltip",
+                 "data-placement" => "right",
+                 "v-bind:title" => "option.desc"}
+            {{ option.name }}
+          %input{"v-bind:id" => "inputId(pluginName, option)",
+                 "v-bind:name" => "inputName(pluginName, option)",
+                 "type" => "text",
+                 "class" => "form-control"}
+        %template{"v-else-if" => 'option.type==="bool"'}
+          %input{"v-bind:id" => "inputId(pluginName, option)",
+                 "v-bind:name" => "inputName(pluginName, option)",
+                 "type" => "checkbox"}
+          %label{"v-bind:for" => "inputId(pluginName, option)",
+                 "data-toggle" => "tooltip",
+                 "data-placement" => "right",
+                 "v-bind:title" => "option.desc"}
+            {{ option.name }}
+        %template(v-else)
+          %label{"v-bind:for" => "inputId(pluginName, option)",
+                 "data-toggle" => "tooltip",
+                 "data-placement" => "right",
+                 "v-bind:title" => "option.desc"}
+            {{ option.name }}
+          %input{"v-bind:id" => "inputId(pluginName, option)",
+                 "v-bind:name" => "inputName(pluginName, option)",
+                 "type" => "text",
+                 "class" => "form-control"}

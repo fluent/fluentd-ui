@@ -1,30 +1,50 @@
 = render "shared/setting_errors"
+= render "shared/vue/owned_plugin_form"
 
-- # NOTE: plugin_setting_form_action_url is defined at SettingConcern
-= form_with(model: @setting, scope: :setting, url: plugin_setting_form_action_url(@fluentd), class: "ignore-rails-error-div", builder: FluentdFormBuilder) do |form|
-  - @setting.common_options.each do |key|
-    = form.field(key)
+= javascript_pack_tag("plugin_setting")
 
-  - if @setting.have_buffer_section?
-    = render "shared/settings/buffer_form", form: form, buffer: @buffer
+#plugin-setting
+  - # NOTE: plugin_setting_form_action_url is defined at SettingConcern
+  = form_with(model: @setting, scope: :setting, url: plugin_setting_form_action_url(@fluentd), class: "ignore-rails-error-div", builder: FluentdFormBuilder) do |form|
+    - @setting.common_options.each do |key|
+      = form.field(key)
 
-  - if @setting.have_storage_section?
-    = render "shared/settings/storage_form", form: form, storage: @storage
+    - if @setting.have_buffer_section?
+      %owned-plugin-form{"v-bind:id" => "'buffer-section'",
+                         "v-bind:options-json" => "'#{Fluent::Plugin::BUFFER_REGISTRY.map.keys.to_json}'",
+                         "v-bind:initial-plugin-name" => "'#{@setting.buffer_type}'",
+                         "v-bind:plugin-type" => "'buffer'",
+                         "v-bind:plugin-label" => "'Buffer'"}
 
-  - if @setting.have_parse_section?
-    = render "shared/settings/parser_form", form: form, parser: @parser
+    - if @setting.have_storage_section?
+      %owned-plugin-form{"v-bind:id" => "'storage-section'",
+                         "v-bind:options-json" => "'#{Fluent::Plugin::STORAGE_REGISTRY.map.keys.to_json}'",
+                         "v-bind:initial-plugin-name" => "'#{@setting.storage_type}'",
+                         "v-bind:plugin-type" => "'storage'",
+                         "v-bind:plugin-label" => "'Storage'"}
 
-  - if @setting.have_format_section?
-    = render "shared/settings/formatter_form", form: form, formatter: @formatter
+    - if @setting.have_parse_section?
+      %owned-plugin-form{"v-bind:id" => "'parse-section'",
+                         "v-bind:options-json" => "'#{Fluent::Plugin::PARSER_REGISTRY.map.keys.to_json}'",
+                         "v-bind:initial-plugin-name" => "'#{@setting.parse_type}'",
+                         "v-bind:plugin-type" => "'parse'",
+                         "v-bind:plugin-label" => "'Parse'"}
 
-  - if @setting.advanced_options.present?
-    .card.bg-light
-      .card-body
-        %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
-          = icon('fa-caret-down')
-          = t('terms.advanced_setting')
-        #advanced-setting.collapse
-          - @setting.advanced_options.each do |key|
-            = form.field(key)
+    - if @setting.have_format_section?
+      %owned-plugin-form{"v-bind:id" => "'format-section'",
+                         "v-bind:options-json" => "'#{Fluent::Plugin::FORMATTER_REGISTRY.map.keys.to_json}'",
+                         "v-bind:initial-plugin-name" => "'#{@setting.format_type}'",
+                         "v-bind:plugin-type" => "'format'",
+                         "v-bind:plugin-label" => "'Format'"}
 
-  = form.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary float-right mt-3"
+    - if @setting.advanced_options.present?
+      .card.bg-light
+        .card-body
+          %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
+            = icon('fa-caret-down')
+            = t('terms.advanced_setting')
+          #advanced-setting.collapse
+            - @setting.advanced_options.each do |key|
+              = form.field(key)
+
+    = form.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary float-right mt-3"
