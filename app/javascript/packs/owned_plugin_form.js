@@ -72,6 +72,13 @@ const OwnedPluginForm = {
     },
     inputName: function(pluginType, option) {
       return `setting[${pluginType}[0]][${option.name}]`
+    },
+    checked: function(checked) {
+      if (checked === true || checked === "true") {
+        return "checked"
+      } else {
+        return ""
+      }
     }
   }
 }

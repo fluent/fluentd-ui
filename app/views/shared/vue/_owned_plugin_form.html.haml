@@ -19,13 +19,17 @@
                  "data-placement" => "right",
                  "v-bind:title" => "option.desc"}
             {{ option.name }}
-          %input{"v-bind:id" => "inputId(pluginType, option)",
-                 "v-bind:name" => "inputName(pluginType, option)",
-                 "type" => "text",
-                 "class" => "form-control"}
+          %select{"v-bind:id" => "inputId(pluginType, option)",
+                  "v-bind:name" => "inputName(pluginType, option)",
+                  "class" => "form-control"}
+            %option{"v-for" => "item in option.list",
+                    "v-bind:value" => "item",
+                    "v-bind:selected" => "option.default === item"}
+              {{ item }}
         %template{"v-else-if" => 'option.type==="bool"'}
           %input{"v-bind:id" => "inputId(pluginType, option)",
                  "v-bind:name" => "inputName(pluginType, option)",
+                 "v-bind:checked" => "checked(option.default)",
                  "type" => "checkbox"}
           %label{"v-bind:for" => "inputId(pluginType, option)",
                  "data-toggle" => "tooltip",
@@ -40,5 +44,6 @@
             {{ option.name }}
           %input{"v-bind:id" => "inputId(pluginType, option)",
                  "v-bind:name" => "inputName(pluginType, option)",
+                 "v-bind:value" => "option.default",
                  "type" => "text",
                  "class" => "form-control"}
