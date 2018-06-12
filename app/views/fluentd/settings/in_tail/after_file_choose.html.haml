@@ -10,7 +10,7 @@
     = f.label :path
     = f.hidden_field :path
     = f.text_field :path, class: "form-control", disabled: true
-  = render partial: "shared/vue/in_tail_format", locals: { file: f.object.path, formats: @setting.known_formats, initialSelected: f.object.parse_type || @setting.guess_format }
+  = render "shared/vue/in_tail_parse", setting: @setting
 
   .card
     %pre.card-body= file_tail(@setting.path, Settings.in_tail_preview_line_count).join("\n")
