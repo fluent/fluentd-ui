@@ -10,8 +10,7 @@ class Fluentd
 
       MULTI_LINE_MAX_FORMAT_COUNT = ::Fluent::Plugin::MultilineParser::FORMAT_MAX_NUM
 
-
-      def guess_format
+      def guess_parse_type
         case path
         when /\.json$/
           :json
