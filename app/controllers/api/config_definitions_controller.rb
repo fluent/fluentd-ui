@@ -26,7 +26,8 @@ class Api::ConfigDefinitionsController < ApplicationController
       h = {
         name: key,
         type: target.column_type(key),
-        desc: target.desc(key)
+        desc: target.desc(key),
+        default: target.default(key)
       }
       h[:list] = target.list_of(key) if target.column_type(key) == :enum
       h
@@ -36,7 +37,8 @@ class Api::ConfigDefinitionsController < ApplicationController
       h = {
         name: key,
         type: target.column_type(key),
-        desc: target.desc(key)
+        desc: target.desc(key),
+        default: target.default(key)
       }
       h[:list] = target.list_of(key) if target.column_type(key) == :enum
       h

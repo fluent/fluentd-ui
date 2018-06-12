@@ -17,6 +17,10 @@ class Fluentd
         self.class._descriptions[name]
       end
 
+      def default(name)
+        reformat_value(name, self.class._defaults[name])
+      end
+
       def common_options
         []
       end
