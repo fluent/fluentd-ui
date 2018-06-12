@@ -10,27 +10,6 @@ class Fluentd
 
       MULTI_LINE_MAX_FORMAT_COUNT = ::Fluent::Plugin::MultilineParser::FORMAT_MAX_NUM
 
-      def self.known_formats
-        {
-          :apache2 => [:time_format],
-          :nginx => [:time_format],
-          :syslog => [:time_format],
-          :tsv => [:keys, :time_key],
-          :csv => [:keys, :time_key],
-          :ltsv => [:delimiter, :time_key],
-          :json => [:time_key],
-          :regexp => [:time_format, :regexp],
-          :multiline => [:format_firstline] + (1..MULTI_LINE_MAX_FORMAT_COUNT).map{|n| "format#{n}".to_sym }
-          # TODO: Grok could generate Regexp including \d, \s, etc. fluentd config parser raise error with them for escape sequence check.
-          #       TBD How to handle Grok/Regexp later, just comment out for hide
-          # :grok => [:grok_str],
-        }
-      end
-      attr_accessor(*known_formats.values.flatten.compact.uniq)
-
-      def known_formats
-        self.class.known_formats
-      end
 
       def guess_format
         case path
