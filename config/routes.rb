@@ -20,14 +20,12 @@ Rails.application.routes.draw do
 
         resource :in_tail, only: [:show], module: :settings, controller: :in_tail do
           post "after_file_choose"
-          # get "configure"
           post "after_format"
           post "confirm"
           post "finish"
         end
 
         resource :in_syslog, only: [:show], module: :settings, controller: :in_syslog do
-          get "configure"
           post "finish"
         end
 
@@ -36,7 +34,6 @@ Rails.application.routes.draw do
         end
 
         resource :in_http, only: [:show], module: :settings, controller: :in_http do
-          get "configure"
           post "finish"
         end
 
@@ -45,7 +42,6 @@ Rails.application.routes.draw do
         end
 
         resource :out_stdout, only: [:show], module: :settings, controller: :out_stdout do
-          get "configure"
           post "finish"
         end
 
@@ -58,7 +54,6 @@ Rails.application.routes.draw do
         end
 
         resource :out_s3, only: [:show], module: :settings, controller: :out_s3 do
-          get "configure"
           post "finish"
         end
 
