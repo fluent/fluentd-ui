@@ -67,11 +67,11 @@ const OwnedPluginForm = {
     selectName: function(pluginType) {
       return `setting[${pluginType}_type]`
     },
-    inputId: function(pluginName, option) {
-      return `setting_${pluginName}_0__${option.name}`
+    inputId: function(pluginType, option) {
+      return `setting_${pluginType}_0__${option.name}`
     },
-    inputName: function(pluginName, option) {
-      return `setting[${pluginName}[0]][${option.name}]`
+    inputName: function(pluginType, option) {
+      return `setting[${pluginType}[0]][${option.name}]`
     }
   }
 }
