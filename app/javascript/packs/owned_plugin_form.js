@@ -13,7 +13,11 @@ const OwnedPluginForm = {
       pluginName: "",
       options: [],
       commonOptions: [],
-      advancedOptions: []
+      advancedOptions: [],
+      expression: null,
+      timeFormat: null,
+      unwatchExpression: null,
+      unwatchTimeFormat: null
     }
   },
 
@@ -40,6 +44,9 @@ const OwnedPluginForm = {
   methods: {
     onChange: function() {
       this.updateSection()
+      if (this.pluginType === "parse") {
+        this.$emit("change-plugin-name", this.pluginName)
+      }
     },
 
     updateSection: function() {
@@ -55,6 +62,43 @@ const OwnedPluginForm = {
         }
       }).then((data) => {
         this.commonOptions = data.commonOptions
+        let foundExpression = false
+        let foundTimeFormat = false
+        _.each(this.commonOptions, (option) => {
+          if (option.name === "expression") {
+            foundExpression = true
+            this.expression = option.default
+            this.unwatchExpression = this.$watch("expression", (newValue, oldValue) => {
+              console.log(newValue)
+              this.$emit("change-parse-config", {
+                expression: this.expression,
+                timeFormat: this.timeFormat
+              })
+            })
+          }
+          if (option.name === "time_format") {
+            foundTimeFormat = true
+            this.timeFormat = option.default
+            this.unwatchTimeFormat = this.$watch("timeFormat", (newValue, oldValue) => {
+              console.log({"watch time_format": newValue})
+              this.$emit("change-parse-config", {
+                expression: this.expression,
+                timeFormat: this.timeFormat
+              })
+            })
+          }
+
+          if (!foundExpression && this.unwatchExpression) {
+            this.expression = null
+            this.unwatchExpression()
+            this.unwatchExpression = null
+          }
+          if (!foundTimeFormat && this.unwatchTimeFormat) {
+            this.timeFormat = null
+            this.unwatchTimeFormat()
+            this.unwatchTimeFormat = null
+          }
+        })
       })
     },
 

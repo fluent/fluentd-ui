@@ -25,14 +25,31 @@ $(document).ready(() => {
       'owned-plugin-form': OwnedPluginForm
     },
     watch: {
-      'params.setting.regexp': function() {
-        this.preview();
+      'parse.expression': function() {
+        console.log('parse.expression')
+        this.preview()
+      },
+      'parse.timeFormat': function() {
+        console.log('parse.timeFormat')
+        this.preview()
       },
       'parseType': function() {
-        this.preview();
+        this.preview()
       },
     },
+    mounted: function() {
+      this.parse = {}
+    },
     methods: {
+      onChangePluginName: function(name) {
+        console.log("onChangePluginName")
+        this.parseType = name
+      },
+      onChangeParseConfig: function(data) {
+        console.log("onChangeParseConfig")
+        _.merge(this.parse, data)
+        this.preview()
+      },
       updateHighlightedLines: function(matches) {
         if (!matches) {
           this.highlightedLines = null
@@ -91,17 +108,21 @@ $(document).ready(() => {
       },
 
       preview: function() {
-        $.ajax({
+        console.log("preview!!!!")
+        if (this.previewAjax) {
+          this.previewAjax.abort()
+        }
+
+        this.previewAjax = $.ajax({
           method: "POST",
           url: "/api/regexp_preview",
           headers: {
-            'X-CSRF-Token': token
+            'X-CSRF-Token': this.token
           },
           data: {
-            regexp: this.params.setting.regexp,
-            time_format: this.params.setting.time_format,
-            format: _.isEmpty(this.parseType) ? "regexp" : this.parseType,
-            params: this.params.setting,
+            expression: this.parse.expression,
+            time_format: this.parse.timeFormat,
+            parse_type: _.isEmpty(this.parseType) ? "regexp" : this.parseType,
             file: this.targetFile
           }
         }).then(

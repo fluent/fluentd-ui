@@ -7,7 +7,9 @@
                      "v-bind:options-json" => "'#{Fluent::Plugin::PARSER_REGISTRY.map.keys.to_json}'",
                      "v-bind:initial-plugin-name" => "'#{setting.parse_type || setting.guess_parse_type}'",
                      "v-bind:plugin-type" => "'parse'",
-                     "v-bind:plugin-label" => "'Parse'"}
+                     "v-bind:plugin-label" => "'Parse'",
+                     "v-on:change-parse-config" => "onChangeParseConfig",
+                     "v-on:change-plugin-name" => "onChangePluginName"}
 
   .card.mb-3
     %pre{"class" => "card-body", "v-html" => "highlightedLines"}
