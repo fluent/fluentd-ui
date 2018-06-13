@@ -42,8 +42,21 @@
                  "data-placement" => "right",
                  "v-bind:title" => "option.desc"}
             {{ option.name }}
-          %input{"v-bind:id" => "inputId(pluginType, option)",
-                 "v-bind:name" => "inputName(pluginType, option)",
-                 "v-bind:value" => "option.default",
-                 "type" => "text",
-                 "class" => "form-control"}
+          %template{"v-if" => 'option.name === "expression"'}
+            %input{"v-bind:id" => "inputId(pluginType, option)",
+                   "v-bind:name" => "inputName(pluginType, option)",
+                   "v-model.lazy" => "expression",
+                   "type" => "text",
+                   "class" => "form-control"}
+          %template{"v-else-if" => 'option.name === "time_format"'}
+            %input{"v-bind:id" => "inputId(pluginType, option)",
+                   "v-bind:name" => "inputName(pluginType, option)",
+                   "v-model.lazy" => "timeFormat",
+                   "type" => "text",
+                   "class" => "form-control"}
+          %template(v-else)
+            %input{"v-bind:id" => "inputId(pluginType, option)",
+                   "v-bind:name" => "inputName(pluginType, option)",
+                   "v-bind:value" => "option.default",
+                   "type" => "text",
+                   "class" => "form-control"}
