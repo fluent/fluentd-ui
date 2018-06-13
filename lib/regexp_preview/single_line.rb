@@ -2,13 +2,13 @@ module RegexpPreview
   class SingleLine
     attr_reader :file, :format, :params, :regexp, :time_format
 
-    def initialize(file, format, params = {})
+    def initialize(file, parse_type, params = {})
       @file = file
-      @format = format
+      @parse_type = parse_type
       @time_format = params[:time_format]
       @params = params
 
-      case format
+      case parse_type
       when "regexp"
         @regexp = Regexp.new(params[:regexp])
         @time_format = nil
@@ -16,8 +16,8 @@ module RegexpPreview
         @regexp = nil
         @time_format = nil
       else # apache, nginx, etc
-        parser_plugin = Fluent::Plugin.new_parser(format)
-        raise "Unknown format '#{format}'" unless parser_plugin
+        parser_plugin = Fluent::Plugin.new_parser(parse_type)
+        raise "Unknown parse type '#{parse_type}'" unless parser_plugin
         parser_plugin.configure(Fluent::Config::Element.new('ROOT', '', {}, [])) # NOTE: SyslogParser define @regexp in configure method so call it to grab Regexp object
         @regexp = parser_plugin.instance_variable_get(:@regexp)
         @time_format = parser_plugin.time_format
@@ -28,7 +28,7 @@ module RegexpPreview
       {
         params: {
           setting: {
-            # NOTE: regexp and time_format are used when format == 'apache' || 'nginx' || etc.
+            # NOTE: regexp and time_format are used when parse_type == 'apache' || 'nginx' || etc.
             regexp: regexp.try(:source),
             time_format: time_format,
           }

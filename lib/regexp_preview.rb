@@ -6,7 +6,7 @@ require "regexp_preview/single_line"
 require "regexp_preview/multi_line"
 
 module RegexpPreview
-  def self.processor(format)
+  def self.processor(parse_type)
     case format
     when "multiline"
       RegexpPreview::MultiLine

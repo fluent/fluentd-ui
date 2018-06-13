@@ -19,7 +19,7 @@ class ApiController < ApplicationController
   end
 
   def regexp_preview
-    preview = RegexpPreview.processor(params[:format]).new(params[:file], params[:format], params)
+    preview = RegexpPreview.processor(params[:parse_type]).new(params[:file], params[:parse_type], params)
 
     render json: preview.matches_json
   end
@@ -30,4 +30,3 @@ class ApiController < ApplicationController
     render text: grok.convert_to_regexp(params[:grok_str]).source
   end
 end
-
