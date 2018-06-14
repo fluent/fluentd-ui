@@ -137,6 +137,8 @@ $(document).ready(() => {
             this.updateHighlightedLines(result.matches)
           },
           (error) => {
+            this.highlightedLines = null
+            console.error(error.responseText)
             if (error.stack) {
               console.error(error.stack)
             }
