@@ -11,7 +11,7 @@ $(document).ready(() => {
       "targetFile",
       "parseType",
     ],
-    data: () => {
+    data: function() {
       return {
         highlightedLines: null
       }
