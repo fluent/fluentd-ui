@@ -127,7 +127,7 @@ $(document).ready(() => {
           }
         }).then(
           (result) => {
-            this.params = _merge(this.params, result.params)
+            this.params = _.merge(this.params, result.params)
             this.updateHighlightedLines(result.matches)
           },
           (error) => {
