@@ -38,7 +38,7 @@ module RegexpPreview
             record.each do |key, value|
               start = line.index(value, last_pos)
               finish = start + value.bytesize
-              last_pos = finish + 1
+              last_pos = finish
               parsed[:matches] << {
                 key: key,
                 matched: value,
