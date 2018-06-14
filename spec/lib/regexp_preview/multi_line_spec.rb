@@ -1,33 +1,29 @@
 require 'spec_helper'
 
 describe RegexpPreview::MultiLine do
-  describe "#matches_json" do
-    subject { parser.matches_json }
-    let(:parser) { RegexpPreview::MultiLine.new(target_path, "multiline", params) }
+  describe "#matches" do
+    subject { parser.matches }
+    let(:parser) { RegexpPreview::MultiLine.new(target_path, "multiline", plugin_config) }
 
     describe "simple usage" do
       let(:target_path) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
 
-      let :params do
-        params = {
-          format_firstline: "foo",
-          time_format: "time_format",
+      let :plugin_config do
+        plugin_config = {
+          "format_firstline" => "/foo/",
+          "time_format" => "time_format",
         }
-        params["format1"] = "(?<foo>foo)\n"
-        params["format2"] = "(?<bar>bar)"
+        plugin_config["format1"] = "/(?<foo>foo)\n/"
+        plugin_config["format2"] = "/(?<bar>bar)/"
         3.upto(Fluentd::Setting::InTail::MULTI_LINE_MAX_FORMAT_COUNT) do |i|
-          params["format#{i}"] = ""
+          plugin_config["format#{i}"] = "//"
         end
-        { params: params }
-      end
-
-      it 'should not have regexp and time_format in [:params][:setting]' do
-        expect(subject[:params][:setting]).to eq(regexp: nil, time_format: nil)
+        plugin_config
       end
 
       it "should include matches info" do
         matches_info = {
-          whole: "foo\nbar",
+          whole: "foo\nbar\nbaz\n1\n2\n3\n4\n5\n6\n10\n11\n12",
           matches: [
             {
               key: "foo", matched: "foo", pos: [0, 3]
@@ -37,24 +33,23 @@ describe RegexpPreview::MultiLine do
             }
           ]
         }
-
         expect(subject[:matches]).to include matches_info
       end
     end
 
     describe "detect only continuos patterns" do
       let(:target_path) { File.expand_path("./spec/support/fixtures/error0.log", Rails.root) }
-      let(:params) do
-        params = {
-          format_firstline: "foo",
-          time_format: "time_format",
+      let(:plugin_config) do
+        plugin_config = {
+          "format_firstline" => "/foo/",
+          "time_format" => "time_format",
         }
-        params["format1"] = "(?<foo>foo)\n"
-        params["format2"] = "(?<bar>baz)"
+        plugin_config["format1"] = "/(?<foo>foo)\n/"
+        plugin_config["format2"] = "/(?<bar>baz)/"
         3.upto(Fluentd::Setting::InTail::MULTI_LINE_MAX_FORMAT_COUNT) do |i|
-          params["format#{i}"] = ""
+          plugin_config["format#{i}"] = "//"
         end
-        { params: params }
+        plugin_config
       end
 
       it "shouldn't match" do
@@ -66,21 +61,21 @@ describe RegexpPreview::MultiLine do
       # http://docs.fluentd.org/articles/in_tail
       let(:target_path) { File.expand_path("./spec/support/fixtures/multiline_example.log", Rails.root) }
 
-      let :params do
-        params = {
-          format_firstline: "\\d{4}-\\d{1,2}-\\d{1,2}",
-          "format1" => "^(?<time>\\d{4}-\\d{1,2}-\\d{1,2} \\d{1,2}:\\d{1,2}:\\d{1,2}) \\[(?<thread>.*)\\] (?<level>[^\\s]+)(?<message>.*)",
-          time_format: "time_format",
+      let :plugin_config do
+        plugin_config = {
+          "format_firstline" => "/\\d{4}-\\d{1,2}-\\d{1,2}/",
+          "format1" => "/^(?<time>\\d{4}-\\d{1,2}-\\d{1,2} \\d{1,2}:\\d{1,2}:\\d{1,2}) \\[(?<thread>.*)\\] (?<level>[^\\s]+)(?<message>.*)/",
+          "time_format" => "%Y-%m-%d %H:%M:%S",
+          "keep_time_key" => true
         }
         2.upto(Fluentd::Setting::InTail::MULTI_LINE_MAX_FORMAT_COUNT) do |i|
-          params["format#{i}"] = ""
+          plugin_config["format#{i}"] = "//"
         end
-        { params: params }
+        plugin_config
       end
 
       it "should include matches info" do
-        matches_info = 
-          [
+        matches_info = [
             {
               whole: "2013-3-03 14:27:33 [main] INFO  Main - Start\n",
               matches: [
