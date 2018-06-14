@@ -130,7 +130,6 @@ $(document).ready(() => {
           }
         }).then(
           (result) => {
-            this.params = _.merge(this.params, result.params)
             this.updateHighlightedLines(result.matches)
           },
           (error) => {
