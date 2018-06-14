@@ -86,14 +86,13 @@ $(document).ready(() => {
               "class": "regexp-preview",
               "data-toggle": "tooltip",
               "data-placement": "top",
-              "title": match.key,
+              "title": m.key,
               'style': 'background-color:' + currentColor
             })
             let highlightedHtml = $highlighted.wrap("<div>").parent().html()
-
             let pos = {
-              start: match.pos[0],
-              end: match.pos[1]
+              start: m.pos[0],
+              end: m.pos[1]
             }
             if (pos.start > 0) {
               html += _.escape(whole.substring(lastPos, pos.start))
