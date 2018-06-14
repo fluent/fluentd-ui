@@ -90,7 +90,7 @@ $(document).ready(() => {
 
             let pos = {
               start: match.pos[0],
-              ent: match.pos[1]
+              end: match.pos[1]
             }
             if (pos.start > 0) {
               html += _.escape(whole.substring(lastPos, pos.start))
