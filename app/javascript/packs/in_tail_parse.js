@@ -116,7 +116,7 @@ $(document).ready(() => {
 
       preview: function() {
         console.log("preview!!!!")
-        if (this.previewAjax) {
+        if (this.previewAjax && this.previewAjax.state() === "pending") {
           this.previewAjax.abort()
         }
 
