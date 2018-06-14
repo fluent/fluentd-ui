@@ -8,8 +8,8 @@ $(document).ready(() => {
   new Vue({
     el: '#in-tail-parse',
     props: [
-      "targetFile",
-      "parseType",
+      "path",
+      "parseType"
     ],
     data: function() {
       return {
@@ -36,6 +36,9 @@ $(document).ready(() => {
       'parseType': function() {
         this.preview()
       },
+    },
+    beforeMount: function() {
+      this.path = this.$el.attributes.path.nodeValue;
     },
     mounted: function() {
       this.parse = {}
@@ -123,7 +126,7 @@ $(document).ready(() => {
             expression: this.parse.expression,
             time_format: this.parse.timeFormat,
             parse_type: _.isEmpty(this.parseType) ? "regexp" : this.parseType,
-            file: this.targetFile
+            file: this.path
           }
         }).then(
           (result) => {

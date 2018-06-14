@@ -2,7 +2,7 @@
 
 = render "shared/vue/owned_plugin_form"
 
-#in-tail-parse{"v-bind:target-file" => "'#{setting.path}'"}
+#in-tail-parse{"path" => setting.path}
   %owned-plugin-form{"v-bind:id" => "'parse-section'",
                      "v-bind:options-json" => "'#{Fluent::Plugin::PARSER_REGISTRY.map.keys.to_json}'",
                      "v-bind:initial-plugin-name" => "'#{setting.parse_type || setting.guess_parse_type}'",
