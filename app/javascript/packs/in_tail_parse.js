@@ -42,6 +42,10 @@ $(document).ready(() => {
     },
     mounted: function() {
       this.parse = {}
+      this.$on("hook:updated", () => {
+        $("[data-toggle=tooltip]").tooltip("dispose")
+        $("[data-toggle=tooltip]").tooltip("enable")
+      })
     },
     methods: {
       onChangePluginName: function(name) {
@@ -107,6 +111,7 @@ $(document).ready(() => {
         })
 
         this.highlightedLines = $container.html()
+        this.$emit("hook:updated")
       },
 
       preview: function() {
