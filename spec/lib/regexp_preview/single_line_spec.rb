@@ -2,123 +2,109 @@ require 'spec_helper'
 
 describe RegexpPreview::SingleLine do
   describe ".initialize" do
-    subject { RegexpPreview::SingleLine.new("log_file.log", format, params) }
+    subject { RegexpPreview::SingleLine.new("log_file.log", plugin_name, plugin_config) }
 
-    describe "format" do
-      let :params do
-        {
-          regexp: "(?<category>\[.+\])",
-          time_format: "%y/%m/%d",
-        }
+    describe "parse" do
+      let :plugin_config do
+        {}
       end
 
-      shared_examples "should set regexp and time_format from selected format" do
+      shared_examples "should create parser plugin instance from selected plugin name" do
         it do
-          expect(subject.regexp).to eq regexp
-          expect(subject.time_format).to eq time_format
-          expect(subject.params).to eq params
-        end
-      end
-
-      shared_examples "should set params only" do
-        include_examples "should set regexp and time_format from selected format" do
-          let(:regexp) { nil }
-          let(:time_format) { nil }
+          expect(subject.plugin).to(be_an_instance_of(plugin_class))
         end
       end
 
       context "regexp" do
-        let(:format) { "regexp" }
-
-        it 'should set regexp from params' do
-          expect(subject.regexp).to eq /#{params[:regexp]}/
-          expect(subject.time_format).to be_nil
-          expect(subject.params).to eq params
+        let(:plugin_name) { "regexp" }
+        let(:plugin_class) { Fluent::Plugin::RegexpParser }
+        let :plugin_config do
+          {
+            "expression" => "(?<category>\[.+\])",
+            "time_format" => "%y/%m/%d",
+          }
         end
+        include_examples("should create parser plugin instance from selected plugin name")
       end
 
       context "ltsv" do
-        let(:format) { "ltsv" }
+        let(:plugin_name) { "ltsv" }
+        let(:plugin_class) { Fluent::Plugin::LabeledTSVParser }
 
-        include_examples "should set params only"
+        include_examples("should create parser plugin instance from selected plugin name")
       end
 
       context "json" do
-        let(:format) { "json" }
+        let(:plugin_name) { "json" }
+        let(:plugin_class) { Fluent::Plugin::JSONParser }
 
-        include_examples "should set params only"
+        include_examples("should create parser plugin instance from selected plugin name")
       end
 
       context "csv" do
-        let(:format) { "csv" }
+        let(:plugin_name) { "csv" }
+        let(:plugin_class) { Fluent::Plugin::CSVParser }
+        let(:plugin_config) do
+          {
+            "keys" => "column1,column2"
+          }
+        end
 
-        include_examples "should set params only"
+        include_examples("should create parser plugin instance from selected plugin name")
       end
 
       context "tsv" do
-        let(:format) { "tsv" }
+        let(:plugin_name) { "tsv" }
+        let(:plugin_class) { Fluent::Plugin::TSVParser }
+        let(:plugin_config) do
+          {
+            "keys" => "column1,column2"
+          }
+        end
 
-        include_examples "should set params only"
+        include_examples("should create parser plugin instance from selected plugin name")
       end
 
       context "syslog" do # "apache", "nginx", etc
-        let(:format) { "syslog" }
+        let(:plugin_name) { "syslog" }
+        let(:plugin_class) { Fluent::Plugin::SyslogParser }
 
-        include_examples "should set regexp and time_format from selected format" do
-          let(:regexp) do
-            /^(?<time>[^ ]*\s*[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[^ :\[]*)(?:\[(?<pid>[0-9]+)\])?(?:[^\:]*\:)? *(?<message>.*)$/
-          end
-          let(:time_format) { "%b %d %H:%M:%S" }
-        end
+        include_examples("should create parser plugin instance from selected plugin name")
       end
 
       context "apache" do
-        let(:format) { "apache" }
+        let(:plugin_name) { "apache" }
+        let(:plugin_class) { Fluent::Plugin::ApacheParser }
 
-        include_examples "should set regexp and time_format from selected format" do
-          let(:regexp) do
-            /^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^ ]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
-          end
-          let(:time_format) { "%d/%b/%Y:%H:%M:%S %z" }
-        end
+        include_examples("should create parser plugin instance from selected plugin name")
       end
 
       context "nginx" do
-        let(:format) { "nginx" }
+        let(:plugin_name) { "nginx" }
+        let(:plugin_class) { Fluent::Plugin::NginxParser }
 
-        include_examples "should set regexp and time_format from selected format" do
-          let(:regexp) do
-            /^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*?)(?: +\S*)?)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)"(?:\s+(?<http_x_forwarded_for>[^ ]+))?)?$/
-          end
-          let(:time_format) { "%d/%b/%Y:%H:%M:%S %z" }
-        end
+        include_examples("should create parser plugin instance from selected plugin name")
       end
     end
   end
 
-  describe "#matches_json" do
+  describe "#matches" do
     let(:logfile) { File.expand_path(logfile_path, Rails.root) }
-    let :params do
-      {
-        regexp: "(?<regexp>bar)", # bar from error0.log
-        time_format: "time_format",
-      }
-    end
+    subject { RegexpPreview::SingleLine.new(logfile, plugin_name, plugin_config).matches }
 
-    subject { RegexpPreview::SingleLine.new(logfile, format, params).matches_json }
-
-    describe "format" do
+    describe "parse" do
       context "regexp" do
-        let(:format) { "regexp" }
+        let(:plugin_name) { "regexp" }
         let(:logfile_path) { "./spec/support/fixtures/error0.log" }
+        let :plugin_config do
+          {
+            "expression" => "(?<regexp>bar)", # bar from error0.log
+            "time_format" => "time_format",
+          }
+        end
 
         it 'should have regexp only in [:params][:setting]' do
-          setting_json = {
-            regexp: params[:regexp],
-            time_format: nil
-          }
-
-          expect(subject[:params][:setting]).to eq setting_json
+          expect(subject[:pluginConfig]).to eq plugin_config
         end
 
         it 'should include matches info' do
@@ -133,16 +119,12 @@ describe RegexpPreview::SingleLine do
       end
 
       context "csv" do
-        let(:format) { "csv" }
+        let(:plugin_name) { "csv" }
         let(:logfile_path) { "./spec/support/fixtures/error0.log" }
-
-        it 'should not have regexp and time_format in [:params][:setting]' do
-          setting_json = {
-            regexp: nil,
-            time_format: nil
+        let :plugin_config do
+          {
+            "keys" => "column1,column2"
           }
-
-          expect(subject[:params][:setting]).to eq setting_json
         end
 
         it 'should not have matches_info' do
@@ -151,16 +133,13 @@ describe RegexpPreview::SingleLine do
       end
 
       context "syslog" do
-        let(:format) { "syslog" }
         let(:logfile_path) { "./spec/support/fixtures/error4.log" }
-
-        it 'should set regexp and time_format from syslog format' do
-          setting_json = {
-            regexp: "^(?<time>[^ ]*\\s*[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[^ :\\[]*)(?:\\[(?<pid>[0-9]+)\\])?(?:[^\\:]*\\:)? *(?<message>.*)$",
-            time_format: "%b %d %H:%M:%S",
+        let(:plugin_name) { "syslog" }
+        let(:plugin_config) do
+          {
+            "time_format" => "%Y-%m-%d %H:%M:%S %z",
+            "keep_time_key" => true
           }
-
-          expect(subject[:params][:setting]).to eq setting_json
         end
 
         it 'should include matches info' do
@@ -170,7 +149,30 @@ describe RegexpPreview::SingleLine do
               { key: "time", matched: "2014-05-27 10:54:37 +0900", pos: [0, 25] },
               { key: "host", matched: "[info]:", pos: [26, 33] },
               { key: "ident", matched: "listening", pos: [34, 43] },
-              { key: "pid", matched: nil, pos: [nil, nil] },
+              { key: "message", matched: "24224", pos: [69, 74] }
+            ]
+          }
+
+          expect(subject[:matches]).to include matches_info
+        end
+      end
+
+      context "syslog when keep_time_key is false" do
+        let(:logfile_path) { "./spec/support/fixtures/error4.log" }
+        let(:plugin_name) { "syslog" }
+        let(:plugin_config) do
+          {
+            "time_format" => "%Y-%m-%d %H:%M:%S %z",
+            "keep_time_key" => false
+          }
+        end
+
+        it 'should include matches info' do
+          matches_info = {
+            whole: "2014-05-27 10:54:37 +0900 [info]: listening fluent socket on 0.0.0.0:24224",
+            matches: [
+              { key: "host", matched: "[info]:", pos: [26, 33] },
+              { key: "ident", matched: "listening", pos: [34, 43] },
               { key: "message", matched: "24224", pos: [69, 74] }
             ]
           }

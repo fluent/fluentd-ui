@@ -1,65 +1,59 @@
 module RegexpPreview
   class SingleLine
-    attr_reader :file, :format, :params, :regexp, :time_format
+    attr_reader :path, :plugin_name, :plugin_config, :plugin
 
-    def initialize(file, parse_type, params = {})
-      @file = file
-      @parse_type = parse_type
-      @time_format = params[:time_format]
-      @params = params
+    def initialize(path, plugin_name, plugin_config = {})
+      @path = path
+      @plugin_name = plugin_name.to_sym
+      @plugin_config = plugin_config
 
-      case parse_type
-      when "regexp"
-        @regexp = Regexp.new(params[:regexp])
-        @time_format = nil
-      when "ltsv", "json", "csv", "tsv"
-        @regexp = nil
-        @time_format = nil
-      else # apache, nginx, etc
-        parser_plugin = Fluent::Plugin.new_parser(parse_type)
-        raise "Unknown parse type '#{parse_type}'" unless parser_plugin
-        parser_plugin.configure(Fluent::Config::Element.new('ROOT', '', {}, [])) # NOTE: SyslogParser define @regexp in configure method so call it to grab Regexp object
-        @regexp = parser_plugin.instance_variable_get(:@regexp)
-        @time_format = parser_plugin.time_format
+      config = Fluent::Config::Element.new("ROOT", "", @plugin_config, [])
+      @plugin = Fluent::Plugin.new_parser(@plugin_name).tap do |instance|
+        instance.configure(config)
       end
     end
 
-    def matches_json
+    def matches
       {
-        params: {
-          setting: {
-            # NOTE: regexp and time_format are used when parse_type == 'apache' || 'nginx' || etc.
-            regexp: regexp.try(:source),
-            time_format: time_format,
-          }
-        },
-        matches: matches.compact,
+        pluginConfig: @plugin_config,
+        matches: _matches
       }
     end
 
     private
 
-    def matches
-      return [] unless @regexp # such as ltsv, json, etc
-      reader = FileReverseReader.new(File.open(file))
-      matches = reader.tail(Settings.in_tail_preview_line_count).map do |line|
-        result = {
-          :whole => line,
-          :matches => [],
-        }
-        match = line.match(regexp)
-        next result unless match
-
-        match.names.each_with_index do |name, index|
-          result[:matches] << {
-            key: name,
-            matched: match[name],
-            pos: match.offset(index + 1),
+    def _matches
+      return [] if %i(json csv tsv ltsv).include?(@plugin_name)
+      begin
+        io = File.open(path)
+        reader = FileReverseReader.new(io)
+        parsed_lines = reader.tail(Settings.in_tail_preview_line_count).map do |line|
+          parsed = {
+            whole: line,
+            matches: []
           }
+          @plugin.parse(line) do |time, record|
+            next unless record
+            last_pos = 0
+            record.each do |key, value|
+              start = line.index(value, last_pos)
+              finish = start + value.bytesize
+              last_pos = finish + 1
+              parsed[:matches] << {
+                key: key,
+                matched: value,
+                pos: [start, finish]
+              }
+            end
+          end
+          parsed
         end
-        result
+        parsed_lines.reject do |parsed|
+          parsed[:matches].blank?
+        end
+      ensure
+        io.close
       end
-      matches
     end
   end
 end
