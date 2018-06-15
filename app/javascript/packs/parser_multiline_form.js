@@ -19,12 +19,6 @@ const ParserMultilineForm = {
   },
 
   methods: {
-    hiddenId: function(pluginType, n) {
-      return `setting_${pluginType}_0__format${n}`
-    },
-    hiddenName: function(pluginType, n) {
-      return `setting[${pluginType}[0]][format${n}]`
-    },
     textareaId: function(pluginType) {
       return `setting_${pluginType}_0__formats`
     },
