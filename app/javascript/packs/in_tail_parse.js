@@ -51,6 +51,7 @@ $(document).ready(() => {
       onChangePluginName: function(name) {
         console.log("onChangePluginName")
         this.parseType = name
+        this.parse = {} // clear parser plugin configuration
       },
       onChangeParseConfig: function(data) {
         console.log(`onChangeParseConfig: ${data}`)
