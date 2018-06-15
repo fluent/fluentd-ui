@@ -44,6 +44,9 @@ class Fluentd
         end
         elements = []
         sections.to_h.each do |key, section_params|
+          if %w(parse format buffer storage).include?(key)
+            section_params["0"] = { "@type" => self.attributes["#{key}_type"] }.merge(section_params["0"])
+          end
           next if section_params.blank?
           section_params.each do |index, _section_params|
             sub_attrs, sub_elements = parse_attributes(_section_params)
