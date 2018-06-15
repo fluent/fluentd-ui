@@ -17,6 +17,8 @@ class Fluentd
                  "format"
                when "buffer"
                  "buffer"
+               when "storage"
+                 "storage"
                end
         _attributes = { "@type" => self.plugin_name }.merge(attributes)
         _attributes["@log_level"] = _attributes.delete("log_level")
