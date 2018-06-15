@@ -57,6 +57,11 @@ $(document).ready(() => {
         _.merge(this.parse, data)
         this.preview()
       },
+      onChangeFormats: function(formats) {
+        console.log(`in_tail_parse:onChangeFormats: ${formats}`)
+        this.parse.formats = formats
+        this.preview()
+      },
       updateHighlightedLines: function(matches) {
         if (!matches) {
           this.highlightedLines = null
@@ -130,7 +135,8 @@ $(document).ready(() => {
             expression: this.parse.expression,
             time_format: this.parse.timeFormat,
             parse_type: _.isEmpty(this.parseType) ? "regexp" : this.parseType,
-            file: this.path
+            file: this.path,
+            plugin_config: this.parse
           }
         }).then(
           (result) => {
@@ -138,7 +144,7 @@ $(document).ready(() => {
           },
           (error) => {
             this.highlightedLines = null
-            console.error(error.responseText)
+            // console.error(error.responseText)
             if (error.stack) {
               console.error(error.stack)
             }

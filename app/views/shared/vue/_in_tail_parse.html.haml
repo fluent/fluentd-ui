@@ -9,7 +9,8 @@
                      "v-bind:plugin-type" => "'parse'",
                      "v-bind:plugin-label" => "'Parse'",
                      "v-on:change-parse-config" => "onChangeParseConfig",
-                     "v-on:change-plugin-name" => "onChangePluginName"}
+                     "v-on:change-plugin-name" => "onChangePluginName",
+                     "v-on:change-formats" => "onChangeFormats"}
 
   .card.mb-3
     %pre{"class" => "card-body", "v-html" => "highlightedLines"}

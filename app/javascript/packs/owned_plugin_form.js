@@ -55,6 +55,11 @@ const OwnedPluginForm = {
       }
     },
 
+    onChangeFormats: function(newValue, oldValue) {
+      console.log(`ownedPluginForm:onChangeFormats: ${newValue}`)
+      this.$emit("change-formats", newValue)
+    },
+
     updateSection: function() {
       $.ajax({
         method: "GET",
