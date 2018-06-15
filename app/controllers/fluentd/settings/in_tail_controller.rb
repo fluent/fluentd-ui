@@ -38,12 +38,12 @@ class Fluentd::Settings::InTailController < ApplicationController
       return render "after_format"
     end
 
-    if @fluentd.agent.configuration.to_s.include?(@setting.to_conf.strip)
+    if @fluentd.agent.configuration.to_s.include?(@setting.to_config.to_s.strip)
       @setting.errors.add(:base, :duplicated_conf)
       return render "after_format"
     end
 
-    @fluentd.agent.config_append @setting.to_conf
+    @fluentd.agent.config_append @setting.to_config.to_s
     @fluentd.agent.restart if @fluentd.agent.running?
     redirect_to daemon_setting_path(@fluentd)
   end
