@@ -19,7 +19,7 @@ class ApiController < ApplicationController
   end
 
   def regexp_preview
-    plugin_config = prepare_plugin_config
+    plugin_config = prepare_plugin_config || {}
     preview = RegexpPreview.processor(params[:parse_type]).new(params[:file], params[:parse_type], plugin_config)
 
     render json: preview.matches
