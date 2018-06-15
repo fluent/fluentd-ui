@@ -16,6 +16,7 @@
           {{ option }}
       %parser-multiline-form{"v-if" => 'pluginName==="multiline"',
                              "v-bind:plugin-type" => "pluginType",
+                             "v-bind:common-options" => "commonOptions",
                              "v-on:change-formats" => "onChangeFormats"}
       .form-group(v-else){"v-for" => "option in commonOptions"}
         %template{"v-if" => 'option.type==="enum"'}

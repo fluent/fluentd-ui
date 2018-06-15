@@ -1,14 +1,17 @@
 'use strict'
+import 'lodash/lodash'
 const ParserMultilineForm = {
   template: "#vue-parser-multiline-form",
   props: [
-    "pluginType"
+    "pluginType",
+    "commonOptions"
   ],
 
   data: function() {
     return {
       formatFirstline: "",
-      formats: ""
+      formats: "",
+      formatFirstlineDesc: ""
     }
   },
 
@@ -26,6 +29,12 @@ const ParserMultilineForm = {
         "format_firstline": this.formatFirstline,
         "formats": this.formats
       })
+    },
+    "commonOptions": function(newValue, oldValue) {
+      const option = _.find(newValue, (o) => {
+        return o.name === "format_firstline"
+      })
+      this.formatFirstlineDesc = option.desc
     }
   },
 

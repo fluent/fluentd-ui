@@ -1,6 +1,9 @@
 %script{type: "text/x-template", id: "vue-parser-multiline-form"}
   .form-group
-    %label{"for" => "setting_parse_0__format_firstline"}
+    %label{"for" => "setting_parse_0__format_firstline",
+           "data-toggle" => "tooltip",
+           "data-placement" => "right",
+           "v-bind:title" => "formatFirstlineDesc"}
       Format first line
     %input.form-control{"type" => "text",
                         "id" => "setting_parse_0__format_firstline",
@@ -8,6 +11,8 @@
                         "v-model.lazy" => "formatFirstline"}
     %label.mt-3{"v-bind:for" => "textareaId(pluginType)"}
       Formats
+    %p.alert.alert-warning
+      = t("fluentd.settings.in_tail.notice_for_multiline_limit")
     %textarea.form-control{"v-bind:id" => "textareaId(pluginType)",
                            "v-bind:name" => "textareaName(pluginType)",
                            "v-model.lazy" => "formats",
