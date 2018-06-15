@@ -9,26 +9,22 @@
   = f.label :parse_type
   = f.hidden_field :parse_type
   = f.text_field :parse_type, class: "form-control", disabled: true
-%label= setting.parse_type
-= f.hidden_field :regexp
-= setting.regexp
+
 .form-group
-  = f.label :tag
-  = f.text_field :tag, class: "form-control"
+  %label= setting.parse_type
+
 .form-group
-  = f.label :pos_file
-  = f.text_field :pos_file, class: "form-control"
+  = f.field(:tag)
+.form-group
+  = f.field(:pos_file)
 .well.well-sm
   %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
     = icon('fa-caret-down')
     = t('terms.advanced_setting')
   #advanced-setting.collapse
     .form-group
-      = f.label :rotate_wait
-      = f.text_field :rotate_wait, class: "form-control"
+      = f.field(:rotate_wait)
     .form-group
-      = f.check_box :read_from_head
-      = f.label :read_from_head
+      = f.field(:read_from_head)
     .form-group
-      = f.label :refresh_interval
-      = f.text_field :refresh_interval, class: "form-control"
+      = f.field(:refresh_interval)
