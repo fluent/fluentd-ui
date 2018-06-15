@@ -20,7 +20,10 @@ class Fluentd
                when "storage"
                  "storage"
                end
-        _attributes = { "@type" => self.plugin_name }.merge(attributes)
+        _attributes = attributes.reject do |key, value|
+          %w(parse_type format_type buffer_type storage_type).include?(key.to_s)
+        end
+        _attributes = { "@type" => self.plugin_name }.merge(_attributes)
         _attributes["@log_level"] = _attributes.delete("log_level")
         argument = case plugin_type
                    when "output", "filter", "buffer"
