@@ -13,6 +13,7 @@
 .form-group
   %label= setting.parse_type
   - parse_config = setting.create_parser
+  = hidden_field_tag("setting[parse[0]][type]", form.object.parse_type)
   = form.fields("parse[0]", model: parse_config, builder: FluentdFormBuilder) do |f|
     - f.object.common_options.each do |key|
       = f.hidden_field(key)
