@@ -34,14 +34,14 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def bool_field(key, options)
-    check_box(key, {}, "true", "false") + " " +
+    check_box(key, options, "true", "false") + " " +
       label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key))
   end
 
   def other_field(key, options)
     return unless object.respond_to?(key)
     label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key)) +
-      text_field(key, class: "form-control")
+      text_field(key, class: "form-control", **options)
   end
 
   def render_section(key, options)
