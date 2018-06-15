@@ -12,6 +12,10 @@
 
 .form-group
   %label= setting.parse_type
+  - parse_config = setting.create_parser
+  = form.fields("parse[0]", model: parse_config, builder: FluentdFormBuilder) do |f|
+    - f.object.common_options.each do |key|
+      = f.field(key, disabled: true)
 
 .form-group
   = form.field(:tag)
