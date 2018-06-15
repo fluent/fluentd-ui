@@ -1,0 +1,8 @@
+%script{type: "text/x-template", id: "vue-parser-multiline-form"}
+  .form-group
+    %label.mt-3{"v-bind:for" => "textareaId(pluginType)"}
+      Formats
+    %textarea.form-control{"v-bind:id" => "textareaId(pluginType)",
+                           "v-bind:name" => "textareaName(pluginType)",
+                           "v-model.lazy" => "formats",
+                           "rows" => 20}
