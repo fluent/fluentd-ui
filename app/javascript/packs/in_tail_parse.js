@@ -26,7 +26,7 @@ $(document).ready(() => {
     },
     watch: {
       'parse.expression': function() {
-        console.log('parse.expression')
+        console.log(`parse.expression: ${this.parse.expression}`)
         this.preview()
       },
       'parse.time_format': function() {
@@ -53,7 +53,7 @@ $(document).ready(() => {
         this.parseType = name
       },
       onChangeParseConfig: function(data) {
-        console.log("onChangeParseConfig")
+        console.log(`onChangeParseConfig: ${data}`)
         _.merge(this.parse, data)
         this.preview()
       },
@@ -132,8 +132,6 @@ $(document).ready(() => {
             'X-CSRF-Token': this.token
           },
           data: {
-            expression: this.parse.expression,
-            time_format: this.parse.timeFormat,
             parse_type: _.isEmpty(this.parseType) ? "regexp" : this.parseType,
             file: this.path,
             plugin_config: this.parse
