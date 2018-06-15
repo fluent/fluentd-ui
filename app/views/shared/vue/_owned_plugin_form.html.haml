@@ -1,3 +1,5 @@
+= render "shared/vue/parser_multiline_form"
+
 %script{type: "text/x-template", id: "vue-owned-plugin-form"}
   .form-group.card.bg-light.mb-3{"v-bind:id" => "id"}
     .card-body
@@ -12,7 +14,10 @@
                 "v-bind:value" => "option",
                 "v-bind:selected" => "pluginName===option"}
           {{ option }}
-      .form-group{ "v-for" => "option in commonOptions" }
+      %parser-multiline-form{"v-if" => 'pluginName==="multiline"',
+                             "v-bind:plugin-type" => "pluginType",
+                             "v-on:change-formats" => "onChangeFormats"}
+      .form-group(v-else){"v-for" => "option in commonOptions"}
         %template{"v-if" => 'option.type==="enum"'}
           %label{"v-bind:for" => "inputId(pluginType, option)",
                  "data-toggle" => "tooltip",

@@ -1,6 +1,12 @@
 'use strict'
+
+import ParserMultilineForm from './parser_multiline_form'
+
 const OwnedPluginForm = {
   template: "#vue-owned-plugin-form",
+  components: {
+    "parser-multiline-form": ParserMultilineForm,
+  },
   props: [
     "id",
     "optionsJson",
