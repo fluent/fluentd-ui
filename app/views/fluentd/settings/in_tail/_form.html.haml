@@ -2,29 +2,29 @@
   .alert.alert-danger= e
 
 .form-group
-  = f.label :path
-  = f.hidden_field :path
-  = f.text_field :path, class: "form-control", disabled: true
+  = form.label :path
+  = form.hidden_field :path
+  = form.text_field :path, class: "form-control", disabled: true
 .form-group
-  = f.label :parse_type
-  = f.hidden_field :parse_type
-  = f.text_field :parse_type, class: "form-control", disabled: true
+  = form.label :parse_type
+  = form.hidden_field :parse_type
+  = form.text_field :parse_type, class: "form-control", disabled: true
 
 .form-group
   %label= setting.parse_type
 
 .form-group
-  = f.field(:tag)
+  = form.field(:tag)
 .form-group
-  = f.field(:pos_file)
+  = form.field(:pos_file)
 .well.well-sm
   %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
     = icon('fa-caret-down')
     = t('terms.advanced_setting')
   #advanced-setting.collapse
     .form-group
-      = f.field(:rotate_wait)
+      = form.field(:rotate_wait)
     .form-group
-      = f.field(:read_from_head)
+      = form.field(:read_from_head)
     .form-group
-      = f.field(:refresh_interval)
+      = form.field(:refresh_interval)
