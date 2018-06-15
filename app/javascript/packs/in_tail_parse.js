@@ -54,13 +54,13 @@ $(document).ready(() => {
         this.parse = {} // clear parser plugin configuration
       },
       onChangeParseConfig: function(data) {
-        console.log(`onChangeParseConfig: ${data}`)
+        console.log("onChangeParseConfig", data)
         _.merge(this.parse, data)
         this.preview()
       },
-      onChangeFormats: function(formats) {
-        console.log(`in_tail_parse:onChangeFormats: ${formats}`)
-        this.parse.formats = formats
+      onChangeFormats: function(data) {
+        console.log("in_tail_parse:onChangeFormats", data)
+        _.merge(this.parse, data)
         this.preview()
       },
       updateHighlightedLines: function(matches) {

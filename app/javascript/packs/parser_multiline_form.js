@@ -13,9 +13,19 @@ const ParserMultilineForm = {
   },
 
   watch: {
+    "formatFirstLine": function(newValue, oldValue) {
+      console.log(`watch formatFirstLine: ${newValue}`)
+      this.$emit("change-formats", {
+        "format_firstline": this.formatFirstline,
+        "formats": this.formats
+      })
+    },
     "formats": function(newValue, oldValue) {
       console.log(`watch formats: ${newValue}`)
-      this.$emit("change-formats", newValue)
+      this.$emit("change-formats", {
+        "format_firstline": this.formatFirstline,
+        "formats": this.formats
+      })
     }
   },
 

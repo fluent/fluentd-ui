@@ -55,9 +55,9 @@ const OwnedPluginForm = {
       }
     },
 
-    onChangeFormats: function(newValue, oldValue) {
-      console.log(`ownedPluginForm:onChangeFormats: ${newValue}`)
-      this.$emit("change-formats", newValue)
+    onChangeFormats: function(data) {
+      console.log("ownedPluginForm:onChangeFormats", data)
+      this.$emit("change-formats", data)
     },
 
     updateSection: function() {
