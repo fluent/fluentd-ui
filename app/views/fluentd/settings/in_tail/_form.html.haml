@@ -17,10 +17,9 @@
     - f.object.common_options.each do |key|
       = f.field(key, disabled: true)
 
-.form-group
-  = form.field(:tag)
-.form-group
-  = form.field(:pos_file)
+= form.field(:tag)
+= form.field(:pos_file)
+
 .well.well-sm
   %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
     = icon('fa-caret-down')
