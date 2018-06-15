@@ -29,8 +29,8 @@ $(document).ready(() => {
         console.log('parse.expression')
         this.preview()
       },
-      'parse.timeFormat': function() {
-        console.log('parse.timeFormat')
+      'parse.time_format': function() {
+        console.log(`parse.time_format: ${this.parse.time_format}`)
         this.preview()
       },
       'parseType': function() {

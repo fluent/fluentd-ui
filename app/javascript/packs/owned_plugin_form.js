@@ -82,8 +82,8 @@ const OwnedPluginForm = {
             this.unwatchExpression = this.$watch("expression", (newValue, oldValue) => {
               console.log(newValue)
               this.$emit("change-parse-config", {
-                expression: this.expression,
-                timeFormat: this.timeFormat
+                "expression": this.expression,
+                "time_format": this.timeFormat
               })
             })
           }
@@ -93,8 +93,8 @@ const OwnedPluginForm = {
             this.unwatchTimeFormat = this.$watch("timeFormat", (newValue, oldValue) => {
               console.log({"watch time_format": newValue})
               this.$emit("change-parse-config", {
-                expression: this.expression,
-                timeFormat: this.timeFormat
+                "expression": this.expression,
+                "time_format": this.timeFormat
               })
             })
           }
