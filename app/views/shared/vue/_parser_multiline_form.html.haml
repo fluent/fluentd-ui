@@ -1,5 +1,11 @@
 %script{type: "text/x-template", id: "vue-parser-multiline-form"}
   .form-group
+    %label{"for" => "setting_parse_0__format_firstline"}
+      Format first line
+    %input.form-control{"type" => "text",
+                        "id" => "setting_parse_0__format_firstline",
+                        "name" => "setting[parse[0]][format_firstline]",
+                        "v-model.lazy" => "formatFirstline"}
     %label.mt-3{"v-bind:for" => "textareaId(pluginType)"}
       Formats
     %textarea.form-control{"v-bind:id" => "textareaId(pluginType)",

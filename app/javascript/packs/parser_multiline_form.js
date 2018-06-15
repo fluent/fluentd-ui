@@ -7,6 +7,7 @@ const ParserMultilineForm = {
 
   data: function() {
     return {
+      formatFirstline: "",
       formats: ""
     }
   },
