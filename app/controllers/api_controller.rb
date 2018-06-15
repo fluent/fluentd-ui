@@ -23,6 +23,8 @@ class ApiController < ApplicationController
     preview = RegexpPreview.processor(params[:parse_type]).new(params[:file], params[:parse_type], plugin_config)
 
     render json: preview.matches
+  rescue Fluent::ConfigError => ex
+    render json: { error: "#{ex.class}: #{ex.message}" }
   end
 
   def grok_to_regexp

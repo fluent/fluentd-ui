@@ -139,7 +139,12 @@ $(document).ready(() => {
           }
         }).then(
           (result) => {
-            this.updateHighlightedLines(result.matches)
+            if (result.matches) {
+              this.updateHighlightedLines(result.matches)
+            } else {
+              console.error(result.error)
+              this.previewError = result.error
+            }
           },
           (error) => {
             this.highlightedLines = null
