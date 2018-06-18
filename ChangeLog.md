@@ -1,3 +1,8 @@
+## Release 1.0.0.alpha.3 - 2018/06/18
+
+* [improvement] Support Fluentd v1 [#238](https://github.com/fluent/fluentd-ui/pull/238)
+* [maintenance] Update document [#237](https://github.com/fluent/fluentd-ui/pull/237)
+
 ## Release 1.0.0-alpha.2 - 2018/05/24
 
 * [fixed] Update HTML classes [#234](https://github.com/fluent/fluentd-ui/pull/234)
