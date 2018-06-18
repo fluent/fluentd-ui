@@ -76,4 +76,8 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
     %Q!<a class="btn btn-xs btn-default js-append">#{icon('fa-plus')}</a> ! +
     %Q!<a class="btn btn-xs btn-default js-remove" style="display:none">#{icon('fa-minus')}</a> !
   end
+
+  def icon(classes, inner=nil)
+    %Q!<i class="fa #{classes}">#{inner}</i> !.html_safe
+  end
 end
