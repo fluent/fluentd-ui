@@ -24,7 +24,9 @@ class Fluentd
       def hidden_options
         [
           # We don't support TLS configuration via fluentd-ui for now.
-          :transport
+          :transport,
+          :backlog,
+          :blocking_timeout,
         ]
       end
     end
