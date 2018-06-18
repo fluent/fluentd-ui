@@ -4,9 +4,9 @@
 
 <div class="card card-primary mb-3">
   <div class="card-header" data-toggle="collapse" v-bind:href="'#'+id" v-bind:title="content">
+    <i class="fa fa-caret-down"></i>
     {{ type }}
     <span v-if="name == 'match'">({{ arg }})</span>
-    <i class="fa fa-caret-down"></i>
   </div>
   <div class="card-body collapse" v-bind:id="id">
     <pre v-if="mode != 'edit'">{{ content }}</pre>

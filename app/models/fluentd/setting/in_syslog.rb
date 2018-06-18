@@ -1,32 +1,34 @@
 class Fluentd
   module Setting
     class InSyslog
-      include ActiveModel::Model
-      include Common
+      include Fluentd::Setting::Plugin
 
-      KEYS = [
-        :port, :bind, :tag, :types
-      ].freeze
-
-      attr_accessor(*KEYS)
-
-      validates :tag, presence: true
+      register_plugin("input", "syslog")
 
       def self.initial_params
         {
           bind: "0.0.0.0",
           port: 5140,
+          parse_type: "syslog",
+          parse: {
+            "0" => {
+              "type" => "syslog"
+            }
+          },
+          protocol_type: :udp,
         }
       end
 
       def common_options
         [
-          :tag, :bind, :port, :types,
+          :tag, :bind, :port
         ]
       end
 
-      def advanced_options
-        []
+      def hidden_options
+        [
+          :parse
+        ]
       end
     end
   end

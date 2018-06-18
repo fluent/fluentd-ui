@@ -1,17 +1,9 @@
 class Fluentd
   module Setting
     class InHttp
-      include ActiveModel::Model
-      include Common
+      include Fluentd::Setting::Plugin
 
-      KEYS = [
-        :bind, :port, :body_size_limit, :keepalive_timeout, :add_http_headers, :format, :log_level
-      ].freeze
-
-      attr_accessor(*KEYS)
-
-      validates :bind, presence: true
-      validates :port, presence: true
+      register_plugin("input", "http")
 
       def self.initial_params
         {
@@ -20,25 +12,27 @@ class Fluentd
           body_size_limit: "32m",
           keepalive_timeout: "10s",
           add_http_headers: false,
-          format: "default",
-          log_level: "info",
+          parse_type: "in_http",
+          parse: {
+            "0" => {
+              "type" => "in_http"
+            }
+          }
         }
       end
 
       def common_options
         [
-          :bind, :port
+          :bind, :port, :add_http_headers, :add_remote_addr
         ]
       end
 
-      def advanced_options
+      def hidden_options
         [
-          :body_size_limit, :keepalive_timeout, :add_http_headers, :format, :log_level
+          :parse,
+          :backlog,
+          :blocking_timeout,
         ]
-      end
-
-      def plugin_name
-        "http"
       end
     end
   end

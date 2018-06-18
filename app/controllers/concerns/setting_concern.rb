@@ -10,11 +10,19 @@ module SettingConcern
 
   def show
     @setting = target_class.new(initial_params)
+    @buffer = @setting.create_buffer
+    @storage = @setting.create_storage
+    @parser = @setting.create_parser
+    @formatter = @setting.create_formatter
+    @_used_param = {}
+    @_used_section = {}
     render "shared/settings/show"
   end
 
   def finish
     @setting = target_class.new(setting_params)
+    @_used_param = {}
+    @_used_section = {}
     unless @setting.valid?
       return render "shared/settings/show"
     end
@@ -32,7 +40,7 @@ module SettingConcern
   private
 
   def setting_params
-    params.require(target_class.to_s.underscore.gsub("/", "_")).permit(*target_class.const_get(:KEYS))
+    params.require(:setting).permit(*target_class.permit_params)
   end
 
   def initial_params
@@ -40,7 +48,15 @@ module SettingConcern
   end
 
   def target_plugin_name
-    target_class.to_s.split("::").last.underscore
+    prefix = case target_class.plugin_type
+             when "input"
+               "in"
+             when "output"
+               "out"
+             else
+               target_class.plugin_type
+             end
+    "#{prefix}_#{target_class.plugin_name}"
   end
 
   def plugin_setting_form_action_url(*args)

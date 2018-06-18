@@ -2,9 +2,9 @@
 
 = link_to t('fluentd.settings.in_tail.restart_from_first'), daemon_setting_in_tail_path(@fluentds)
 
-= form_for(@setting, as: "setting", url: confirm_daemon_setting_in_tail_path(@fluentd)) do |f|
-  = render partial: "form", locals: { f: f }
+= form_with(model: @setting, scope: "setting", url: confirm_daemon_setting_in_tail_path(@fluentd), local: true, builder: FluentdFormBuilder) do |form|
+  = render partial: "form", locals: { form: form, setting: @setting }
 
   %p
-    = f.submit t('terms.next'), class: "btn btn-lg btn-primary float-right"
-    = f.submit t('terms.prev'), class: "btn btn-lg btn-secondary", name: "back"
+    = form.submit t('terms.next'), class: "btn btn-lg btn-primary float-right"
+    = form.submit t('terms.prev'), class: "btn btn-lg btn-secondary", name: "back"

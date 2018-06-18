@@ -1,91 +1,47 @@
 class Fluentd
   module Setting
     class OutForward
-      class Server
-        include Common
-        KEYS = [
-          :name, :host, :port, :weight, :standby
-        ].freeze
+      include Fluentd::Setting::Plugin
 
-        attr_accessor(*KEYS)
+      register_plugin("output", "forward")
 
-        flags :standby
-
-        validates :host, presence: true
-        validates :port, presence: true
-      end
-
-      class Secondary
-        include Common
-        KEYS = [
-          :type, :path
-        ].freeze
-
-        attr_accessor(*KEYS)
-
-        hidden :type
-        validates :path, presence: true
-      end
-
-      include Common
-
-      KEYS = [
-        :match,
-        :send_timeout, :recover_wait, :heartbeat_type, :heartbeat_interval,
-        :phi_threshold, :hard_timeout,
-        :server, :secondary
-      ].freeze
-
-      attr_accessor(*KEYS)
-      choice :heartbeat_type, %w(udp tcp)
-      nested :server, Server, multiple: true
-      nested :secondary, Secondary
-
-      validates :match, presence: true
-      validate :validate_has_at_least_one_server
-      validate :validate_nested_values
-
-      def validate_has_at_least_one_server
-        if children_of(:server).reject{|s| s.empty_value? }.blank?
-          errors.add(:base, :out_forward_blank_server)
-        end
-      end
-
-      def validate_nested_values
-        self.class.children.inject(true) do |result, (key, _)|
-          children_of(key).each do |child|
-            if !child.empty_value? && !child.valid?
-              child.errors.full_messages.each do |message|
-                errors.add(:base, "(#{key})#{message}")
-              end
-              result = false
-            end
-            result
-          end
-          result
-        end
+      config_section :secondary do
+        config_param :path, :string
       end
 
       def self.initial_params
         {
+          buffer_type: "memory",
+          buffer: {
+            "0" => {
+              "type" => "memory",
+            }
+          },
           secondary: {
             "0" => {
-              type: "file",
+              "type" => "file",
             }
           }
         }
       end
 
+      # TODO overwrite this method to support transport parameter and transport section
+      # def self.permit_params
+      #   super
+      # end
+
       def common_options
         [
-          :match, :server, :secondary,
+          :pattern, :server, :secondary,
         ]
       end
 
-      def advanced_options
+      def hidden_options
         [
-          :send_timeout, :recover_wait, :heartbeat_type, :heartbeat_interval,
-          :phi_threshold, :hard_timeout,
+          :inject, :buffer,
+          :host, :port,
+          # We don't support TLS configuration via fluentd-ui for now.
+          :transport, :tls_version, :tls_ciphers, :tls_insecure_mode, :tls_verify_hostname, :tls_cert_path
         ]
       end
     end

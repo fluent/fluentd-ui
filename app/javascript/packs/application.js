@@ -34,3 +34,7 @@ Vue.filter('to_json', function (value) {
 window.Vue = Vue
 
 import '../stylesheets/application.scss'
+
+$(document).ready(() => {
+  $("[data-toggle=tooltip]").tooltip()
+})

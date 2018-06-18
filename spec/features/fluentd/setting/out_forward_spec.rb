@@ -6,7 +6,7 @@ describe "out_forward", stub: :daemon do
   let(:type) { "out_forward" }
   let(:page_url) { send("daemon_setting_#{type}_path") }
   let(:form_values) { {
-    Match: "*",
+    Pattern: "*",
     Name: "name",
     Host: "host",
     Port: "9999",

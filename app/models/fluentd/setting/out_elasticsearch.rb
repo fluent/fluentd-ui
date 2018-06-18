@@ -1,24 +1,9 @@
 class Fluentd
   module Setting
     class OutElasticsearch
-      include Common
+      include Fluentd::Setting::Plugin
 
-      KEYS = [
-        :match,
-        :host, :port, :index_name, :type_name,
-        :logstash_format, :logstash_prefix, :logstash_dateformat, :utc_index,
-        :hosts, :request_timeout, :include_tag_key
-      ].freeze
-
-      attr_accessor(*KEYS)
-
-      booleans :logstash_format, :utc_index, :include_tag_key
-
-      validates :match, presence: true
-      validates :host, presence: true
-      validates :port, presence: true
-      validates :index_name, presence: true
-      validates :type_name, presence: true
+      register_plugin("output", "elasticsearch")
 
       def self.initial_params
         {
@@ -29,20 +14,26 @@ class Fluentd
           logstash_format: true,
           include_tag_key: false,
           utc_index: true,
+          buffer_type: "file",
+          buffer: {
+            "0" => {
+              "type" => "file",
+              "path" => "/var/log/td-agent/buffer/elasticsearch",
+             }
+          },
         }
       end
 
       def common_options
         [
-          :match, :host, :port, :logstash_format,
+          :pattern, :host, :port, :logstash_format,
           :index_name, :type_name,
         ]
       end
 
-      def advanced_options
+      def hidden_options
         [
-          :hosts, :logstash_prefix, :logstash_dateformat,
-          :utc_index, :request_timeout, :include_tag_key,
+          :secondary, :inject, :buffer
         ]
       end
     end

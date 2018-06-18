@@ -1,17 +1,9 @@
 class Fluentd
   module Setting
     class InForward
-      include ActiveModel::Model
-      include Common
+      include Fluentd::Setting::Plugin
 
-      KEYS = [
-        :bind, :port, :linger_timeout, :chunk_size_limit, :chunk_size_warn_limit, :log_level
-      ].freeze
-
-      attr_accessor(*KEYS)
-
-      validates :bind, presence: true
-      validates :port, presence: true
+      register_plugin("input", "forward")
 
       def self.initial_params
         {
@@ -20,7 +12,6 @@ class Fluentd
           linger_timeout: 0,
           chunk_size_limit: nil,
           chunk_size_warn_limit: nil,
-          log_level: "info",
         }
       end
 
@@ -30,14 +21,13 @@ class Fluentd
         ]
       end
 
-      def advanced_options
+      def hidden_options
         [
-          :linger_timeout, :chunk_size_limit, :chunk_size_warn_limit, :log_level
+          # We don't support TLS configuration via fluentd-ui for now.
+          :transport,
+          :backlog,
+          :blocking_timeout,
         ]
-      end
-
-      def plugin_name
-        "forward"
       end
     end
   end

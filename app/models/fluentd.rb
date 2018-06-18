@@ -14,28 +14,28 @@ class Fluentd
   DEFAULT_CONF = <<-CONF.strip_heredoc
     <source>
       # http://docs.fluentd.org/articles/in_forward
-      type forward
+      @type forward
       port 24224
     </source>
 
     <source>
       # http://docs.fluentd.org/articles/in_http
-      type http
+      @type http
       port 9880
     </source>
 
     <source>
-      type monitor_agent
+      @type monitor_agent
       port 24220
     </source>
     <source>
-      type debug_agent
+      @type debug_agent
       port 24230
     </source>
 
     <match debug.*>
       # http://docs.fluentd.org/articles/out_stdout
-      type stdout
+      @type stdout
     </match>
   CONF
 

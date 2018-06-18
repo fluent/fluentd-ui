@@ -19,9 +19,12 @@ class ApiController < ApplicationController
   end
 
   def regexp_preview
-    preview = RegexpPreview.processor(params[:format]).new(params[:file], params[:format], params)
+    plugin_config = prepare_plugin_config || {}
+    preview = RegexpPreview.processor(params[:parse_type]).new(params[:file], params[:parse_type], plugin_config)
 
-    render json: preview.matches_json
+    render json: preview.matches
+  rescue Fluent::ConfigError => ex
+    render json: { error: "#{ex.class}: #{ex.message}" }
   end
 
   def grok_to_regexp
@@ -29,5 +32,19 @@ class ApiController < ApplicationController
     grok.load_patterns
     render text: grok.convert_to_regexp(params[:grok_str]).source
   end
-end
 
+  private
+
+  def prepare_plugin_config
+    plugin_config = params[:plugin_config]
+    case params[:parse_type]
+    when "multiline"
+      plugin_config[:formats].lines.each.with_index do |line, index|
+        plugin_config["format#{index + 1}"] = line.chomp
+      end
+      plugin_config
+    else
+      plugin_config
+    end
+  end
+end

@@ -53,4 +53,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rubyzip", "~> 1.1" # API changed as Zip::ZipFile -> Zip::File since v1.0.0
   spec.add_dependency "diff-lcs"
   spec.add_dependency "webpacker"
+
+  spec.add_dependency "fluent-plugin-td", "~> 1.0"
+  spec.add_dependency "fluent-plugin-mongo", "~> 1.1"
+  spec.add_dependency "fluent-plugin-elasticsearch", "~> 2.10"
+  spec.add_dependency "fluent-plugin-s3", "~> 1.1"
 end

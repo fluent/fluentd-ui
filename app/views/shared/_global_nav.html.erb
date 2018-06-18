@@ -1,6 +1,6 @@
 <ul class="navbar-nav navbar-sidenav" id="side-menu">
-  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Fluentd">
-    <a class="section">
+  <li class="nav-item">
+    <a class="section" data-toggle="tooltip" data-placement="right" title="Fluentd">
       <%= icon("fa-puzzle-piece fa-fw") << "fluentd" %>
     </a>
     <ul class="sidenav-second-level">
@@ -29,8 +29,8 @@
   </li>
 
   <% if fluentd_exists? %>
-  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Plugins">
-    <a class="section">
+  <li class="nav-item">
+    <a class="section" data-toggle="tooltip" data-placement="right" title="Plugins">
       <%= icon("fa-cogs fa-fw") << t('terms.plugins') %>
     </a>
     <ul class="sidenav-second-level">
@@ -47,8 +47,8 @@
   </li>
   <% end %>
 
-  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Misc">
-    <a class="section">
+  <li class="nav-item">
+    <a class="section" data-toggle="tooltip" data-placement="right" title="Misc">
       <%= icon('fa-coffee fa-fw') << t('terms.misc') %>
     </a>
     <ul class="sidenav-second-level">
@@ -67,8 +67,8 @@
     </ul>
   </li>
 
-  <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Language">
-    <a class="section">
+  <li class="nav-item">
+    <a class="section" data-toggle="tooltip" data-placement="right" title="Language">
       <%= icon('fa-font') << t('terms.languages') %>
     </a>
     <ul class="sidenav-second-level">

@@ -49,7 +49,7 @@ Rails.application.routes.draw do
           post "finish"
         end
 
-        resource :out_td, only: [:show], module: :settings, controller: :out_td do
+        resource :out_tdlog, only: [:show], module: :settings, controller: :out_tdlog do
           post "finish"
         end
 
@@ -124,5 +124,6 @@ Rails.application.routes.draw do
     post "grok_to_regexp"
 
     resources :settings, only: [:index, :show, :update, :destroy], defaults: { format: "json" }
+    resources :config_definitions, only: [:index], defaults: { format: "json" }
   end
 end
