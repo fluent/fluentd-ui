@@ -8,6 +8,13 @@ class Fluentd
       def self.initial_params
         {
           pattern: "debug.**",
+          buffer_type: "memory",
+          buffer: {
+            "0" => {
+              "type" => "memory",
+            }
+          },
+          format_type: "stdout",
           format: {
             "0" => {
               "@type" => "stdout",

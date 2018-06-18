@@ -11,9 +11,15 @@ class Fluentd
 
       def self.initial_params
         {
+          buffer_type: "memory",
+          buffer: {
+            "0" => {
+              "type" => "memory",
+            }
+          },
           secondary: {
             "0" => {
-              type: "file",
+              "type" => "file",
             }
           }
         }

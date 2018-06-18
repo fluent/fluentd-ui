@@ -6,7 +6,9 @@ class Fluentd
       register_plugin("buffer", "file")
 
       def self.initial_params
-        {}
+        {
+          path: ""
+        }
       end
 
       def common_options

@@ -14,6 +14,13 @@ class Fluentd
           logstash_format: true,
           include_tag_key: false,
           utc_index: true,
+          buffer_type: "file",
+          buffer: {
+            "0" => {
+              "type" => "file",
+              "path" => "/var/log/td-agent/buffer/elasticsearch",
+             }
+          },
         }
       end
 

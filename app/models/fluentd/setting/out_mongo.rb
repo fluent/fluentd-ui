@@ -4,6 +4,8 @@ class Fluentd
       include Fluentd::Setting::Plugin
 
       register_plugin("output", "mongo")
+      config_param(:capped, :bool, default: false)
+      config_param(:capped_size, :size, default: nil)
 
       # NOTE: fluent-plugin-mongo defines database parameter as required parameter
       #       But Fluentd tells us that the database parameter is not required.
@@ -12,7 +14,7 @@ class Fluentd
 
       def validate_collection
         if tag_mapped.blank? && collection.blank?
-          errors.add(:collection, :blank) 
+          errors.add(:collection, :blank)
         end
       end
 
@@ -22,7 +24,14 @@ class Fluentd
           port: 27017,
           capped: true,
           capped_size: "100m",
-        }
+          buffer_type: "file",
+          buffer: {
+            "0" => {
+              "type" => "file",
+              "path" => "/var/log/td-agent/buffer/mongo",
+            }
+          },
+         }
       end
 
       def common_options

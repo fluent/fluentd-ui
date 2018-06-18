@@ -8,7 +8,19 @@ class Fluentd
       def self.initial_params
         {
           s3_region: "us-west-1",
-          use_ssl: true,
+          buffer_type: "file",
+          buffer: {
+            "0" => {
+              "type" => "file",
+              "path" => "/var/log/td-agent/buffer/s3",
+            }
+          },
+          format_type: "out_file",
+          format: {
+            "0" => {
+              "type" => "out_file"
+            }
+          }
         }
       end
 

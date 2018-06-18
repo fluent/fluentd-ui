@@ -8,9 +8,12 @@ class Fluentd
       def self.initial_params
         {
           pattern: "td.*.*",
+          buffer_type: "file",
           buffer: {
-            "@type" => "file",
-            "path" => "/var/log/td-agent/buffer/td",
+            "0" => {
+              "@type" => "file",
+              "path" => "/var/log/td-agent/buffer/td",
+            }
           },
           auto_create_table: true,
         }
