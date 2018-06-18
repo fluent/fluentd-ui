@@ -111,7 +111,7 @@ class Fluentd
         def _permit_section(key, section)
           keys = { key => section._types.keys }
           section._sections.each do |_key, _section|
-            keys << _permit_section(_key, _section)
+            keys[key] << _permit_section(_key, _section)
           end
           keys
         end
