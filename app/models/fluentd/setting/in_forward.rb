@@ -20,6 +20,13 @@ class Fluentd
           :bind, :port
         ]
       end
+
+      def hidden_options
+        [
+          # We don't support TLS configuration via fluentd-ui for now.
+          :transport
+        ]
+      end
     end
   end
 end
