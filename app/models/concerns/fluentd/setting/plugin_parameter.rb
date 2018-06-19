@@ -6,19 +6,19 @@ class Fluentd
       include Fluentd::Setting::Configurable
 
       def column_type(name)
-        self.class._types[name]
+        self.class.column_type(name)
       end
 
       def list_of(name)
-        self.class._list[name]
+        self.class.list_of(name)
       end
 
       def desc(name)
-        self.class._descriptions[name]
+        self.class.desc(name)
       end
 
       def default(name)
-        reformat_value(name, self.class._defaults[name])
+        self.class.reformat_value(name, self.class.default(name))
       end
 
       def common_options
@@ -77,19 +77,6 @@ class Fluentd
         formatter_class.new(format["0"].except("type"))
       end
 
-      def reformat_value(name, value)
-        type = column_type(name)
-        return value if type.nil? # name == :time_key
-        return value if type == :enum
-        return value if type == :regexp
-        type_name = if type.is_a?(Fluentd::Setting::Type::Time)
-                      :time
-                    else
-                      type
-                    end
-        Fluent::Config::REFORMAT_VALUE.call(type_name, value)
-      end
-
       module ClassMethods
         def column_type(name)
           self._types[name]
@@ -97,6 +84,14 @@ class Fluentd
 
         def list_of(name)
           self._list[name]
+        end
+
+        def desc(name)
+          self._descriptions[name]
+        end
+
+        def default(name)
+          reformat_value(name, self._defaults[name])
         end
 
         def have_buffer_section?
@@ -136,6 +131,19 @@ class Fluentd
             keys[key] << _permit_section(_key, _section)
           end
           keys
+        end
+
+        def reformat_value(name, value)
+          type = column_type(name)
+          return value if type.nil? # name == :time_key
+          return value if type == :enum
+          return value if type == :regexp
+          type_name = if type.is_a?(Fluentd::Setting::Type::Time)
+                        :time
+                      else
+                        type
+                      end
+          Fluent::Config::REFORMAT_VALUE.call(type_name, value)
         end
       end
     end

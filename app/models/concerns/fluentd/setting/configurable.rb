@@ -89,6 +89,7 @@ class Fluentd
           else
             attribute(name, :section)
             section_class = Class.new(::Fluentd::Setting::Section)
+            section_class.include(Fluentd::Setting::PluginParameter)
             section_class.section_name = name
             section_class.required = options[:required]
             section_class.multi = options[:multi]

@@ -22,27 +22,8 @@ class Api::ConfigDefinitionsController < ApplicationController
     target_class = Fluentd::Setting.const_get("#{prefix}_#{name}".classify)
     target = target_class.new
 
-    common_options = target.common_options.map do |key|
-      h = {
-        name: key,
-        type: target.column_type(key),
-        desc: target.desc(key),
-        default: target.default(key)
-      }
-      h[:list] = target.list_of(key) if target.column_type(key) == :enum
-      h
-    end
-
-    advanced_options = target.advanced_options.map do |key|
-      h = {
-        name: key,
-        type: target.column_type(key),
-        desc: target.desc(key),
-        default: target.default(key)
-      }
-      h[:list] = target.list_of(key) if target.column_type(key) == :enum
-      h
-    end
+    common_options = build_options(target, target.common_options)
+    advanced_options = build_options(target, target.advanced_options)
 
     options = {
       type: type,
@@ -50,6 +31,31 @@ class Api::ConfigDefinitionsController < ApplicationController
       commonOptions: common_options,
       advancedOptions: advanced_options
     }
+
+    if type == "input" && ["forward", "syslog"].include?(name)
+      transport = target.class._sections[:transport]
+      transport_common_options = build_options(transport, target.transport_common_options)
+      transport_advanced_options = build_options(transport, target.transport_advanced_options)
+      options[:transport] = {
+        commonOptions: transport_common_options,
+        advancedOptions: transport_advanced_options
+      }
+    end
     render json: options
+  end
+
+  private
+
+  def build_options(target, keys)
+    keys.map do |key|
+      h = {
+        name: key,
+        type: target.column_type(key),
+        desc: target.desc(key),
+        default: target.default(key)
+      }
+      h[:list] = target.list_of(key) if target.column_type(key) == :enum
+      h
+    end
   end
 end
