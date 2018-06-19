@@ -40,8 +40,10 @@ const OwnedPluginForm = {
     this.pluginName = this.initialPluginName
     this.$on("hook:updated", () => {
       console.log("hook:updated")
-      $("[data-toggle=tooltip]").tooltip("dispose")
-      $("[data-toggle=tooltip]").tooltip("enable")
+      this.$nextTick(() => {
+        $("[data-toggle=tooltip]").tooltip("dispose")
+        $("[data-toggle=tooltip]").tooltip("enable")
+      })
     })
     this.$once("data-loaded", () => {
       this.updateSection()

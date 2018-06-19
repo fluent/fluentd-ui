@@ -43,8 +43,10 @@ $(document).ready(() => {
     mounted: function() {
       this.parse = {}
       this.$on("hook:updated", () => {
-        $("[data-toggle=tooltip]").tooltip("dispose")
-        $("[data-toggle=tooltip]").tooltip("enable")
+        this.$nextTick(() => {
+          $("[data-toggle=tooltip]").tooltip("dispose")
+          $("[data-toggle=tooltip]").tooltip("enable")
+        })
       })
     },
     methods: {

@@ -20,9 +20,11 @@ const ConfigField = {
     this.expression = this.initialExpression
     this.timeFormat = this.initialTimeFormat
     this.$on("hook:updated", () => {
-      console.log("hook:updated")
-      $("[data-toggle=tooltip]").tooltip("dispose")
-      $("[data-toggle=tooltip]").tooltip("enable")
+      this.$nextTick(() => {
+        console.log("config-field hook:updated")
+        $("[data-toggle=tooltip]").tooltip("dispose")
+        $("[data-toggle=tooltip]").tooltip("enable")
+      })
     })
   },
 
