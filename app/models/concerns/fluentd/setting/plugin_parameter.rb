@@ -38,19 +38,19 @@ class Fluentd
       end
 
       def have_buffer_section?
-        self.class._sections.key?(:buffer)
+        self.class.have_buffer_section?
       end
 
       def have_storage_section?
-        self.class._sections.key?(:storage)
+        self.class.have_storage_section?
       end
 
       def have_parse_section?
-        self.class._sections.key?(:parse)
+        self.class.have_parse_section?
       end
 
       def have_format_section?
-        self.class._sections.key?(:format)
+        self.class.have_format_section?
       end
 
       def create_buffer
@@ -99,12 +99,34 @@ class Fluentd
           self._list[name]
         end
 
+        def have_buffer_section?
+          self._sections.key?(:buffer)
+        end
+
+        def have_storage_section?
+          self._sections.key?(:storage)
+        end
+
+        def have_parse_section?
+          self._sections.key?(:parse)
+        end
+
+        def have_format_section?
+          self._sections.key?(:format)
+        end
+
         def permit_params
           self.new # init
           keys = self._types.keys
           self._sections.each do |key, section|
             keys << _permit_section(key, section)
           end
+
+          keys << :buffer_type if have_buffer_section?
+          keys << :storage_type if have_storage_section?
+          keys << :parse_type if have_parse_section?
+          keys << :format_type if have_format_section?
+
           keys
         end
 

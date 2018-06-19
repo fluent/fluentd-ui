@@ -5,7 +5,7 @@
 
 #plugin-setting
   - # NOTE: plugin_setting_form_action_url is defined at SettingConcern
-  = form_with(model: @setting, scope: :setting, url: plugin_setting_form_action_url(@fluentd), class: "ignore-rails-error-div", builder: FluentdFormBuilder) do |form|
+  = form_with(model: @setting, scope: :setting, url: plugin_setting_form_action_url(@fluentd), local: true, class: "ignore-rails-error-div", builder: FluentdFormBuilder) do |form|
     - @setting.common_options.each do |key|
       = form.field(key)
 
