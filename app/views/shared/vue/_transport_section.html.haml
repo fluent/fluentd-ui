@@ -1,0 +1,30 @@
+- add_javascript_pack_tag("transport_section")
+
+= render "shared/vue/config_field"
+
+#transport-section.form-group.card.card-body.bg-light{"pluginType" => setting.plugin_type,
+                                                      "pluginName" => setting.plugin_name}
+  %label
+    Transport
+  .form-group
+    %select{"class" => "form-control",
+            "v-model" => "transportType",
+            "v-on:change" => "onChange"}
+      %option{"v-for" => "option in options",
+              "v-bind:value" => "option",
+              "v-bind:selected" => "transportType === option"}
+        {{ option | toUpper }}
+    %p{"v-if" => 'transportType === "tcp"'}
+      Nothing to configure
+    %template(v-else)
+      %template{"v-for" => "option in commonOptions"}
+        %config-field{"v-bind:plugin-type" => "pluginType",
+                      "v-bind:option" => "option"}
+      .card.card-body.bg-light
+        %h4{"data-toggle" => "collapse", "href" => "#transport-advanced-setting"}
+          = icon('fa-caret-down')
+          = t('terms.advanced_setting') + '(TLS)'
+        #transport-advanced-setting.collapse
+          %template{"v-for" => "option in advancedOptions"}
+            %config-field{"v-bind:plugin-type" => "pluginType",
+                          "v-bind:option" => "option"}
