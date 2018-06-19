@@ -24,7 +24,11 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
     when :bool
       bool_field(key, options)
     else
-      other_field(key, options)
+      if key.to_sym == :log_level
+        log_level_field(key, options)
+      else
+        other_field(key, options)
+      end
     end
   end
 
@@ -42,6 +46,12 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
     return unless object.respond_to?(key)
     label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key)) +
       text_field(key, class: "form-control", **options)
+  end
+
+  def log_level_field(key, options)
+    return unless object.respond_to?(key)
+    label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key)) +
+      select(key, Fluent::Log::LEVEL_TEXT, { include_blank: true }, { class: "form-control" })
   end
 
   def render_section(key, options)
