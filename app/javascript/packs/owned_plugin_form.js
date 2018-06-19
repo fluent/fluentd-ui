@@ -1,11 +1,13 @@
 'use strict'
 
 import ParserMultilineForm from './parser_multiline_form'
+import ConfigField from './config_field'
 
 const OwnedPluginForm = {
   template: "#vue-owned-plugin-form",
   components: {
     "parser-multiline-form": ParserMultilineForm,
+    "config-field": ConfigField
   },
   props: [
     "id",
@@ -60,6 +62,12 @@ const OwnedPluginForm = {
       this.$emit("change-formats", data)
     },
 
+    onChangeParseConfig: function(data) {
+      console.log("ownedPluginForm:onChangeParseConfig", data)
+      this.expression = data.expression
+      this.timeFormat = data.timeFormat
+    },
+
     updateSection: function() {
       $.ajax({
         method: "GET",
@@ -90,6 +98,7 @@ const OwnedPluginForm = {
           if (option.name === "time_format") {
             foundTimeFormat = true
             this.timeFormat = option.default
+            console.log(this.timeFormat)
             this.unwatchTimeFormat = this.$watch("timeFormat", (newValue, oldValue) => {
               console.log({"watch time_format": newValue})
               this.$emit("change-parse-config", {

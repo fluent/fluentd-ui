@@ -49,12 +49,12 @@ $(document).ready(() => {
     },
     methods: {
       onChangePluginName: function(name) {
-        console.log("onChangePluginName")
+        console.log("#in-tail-parse onChangePluginName", name)
         this.parseType = name
         this.parse = {} // clear parser plugin configuration
       },
       onChangeParseConfig: function(data) {
-        console.log("onChangeParseConfig", data)
+        console.log("#in-tail-parse onChangeParseConfig", data)
         _.merge(this.parse, data)
         this.preview()
       },
