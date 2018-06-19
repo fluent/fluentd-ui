@@ -121,6 +121,12 @@ class Fluentd
           self._sections.each do |key, section|
             keys << _permit_section(key, section)
           end
+
+          keys << :buffer_type if have_buffer_section?
+          keys << :storage_type if have_storage_section?
+          keys << :parse_type if have_parse_section?
+          keys << :format_type if have_format_section?
+
           keys
         end
 
