@@ -56,20 +56,17 @@ describe Fluentd::Setting::InForward do
   end
 
   describe "with invalid security section" do
-    let(:valid_attributes) {
-      {
+    it do
+      params = {
         security: {
           "0" => {
             self_hostname: "test.fluentd",
           }
         }
       }
-    }
-    it { instance.should_not be_valid }
-    it {
-      instance.validate
-      instance.errors.full_messages.should include("Security Shared key can't be blank")
-    }
+      object = klass.new(params)
+      object.validate
+      object.errors.full_messages.should include("Security Shared key can't be blank")
+    end
   end
 end
-

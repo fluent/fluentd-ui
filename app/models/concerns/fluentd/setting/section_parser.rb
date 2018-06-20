@@ -11,7 +11,7 @@ class Fluentd
                 parse_section(_param_name, _definition)
               else
                 if self._types.key?(_param_name)
-                  if _definition.key?(:default)
+                  if _definition.key?(:default) && self._required[_param_name] && _definition[:default].present?
                     self._defaults[_param_name] = _definition[:default]
                     self._required[_param_name] = false
                     self.clear_validators! # We register PresenceValidator only
