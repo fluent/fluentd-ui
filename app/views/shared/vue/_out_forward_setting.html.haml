@@ -1,0 +1,13 @@
+- add_javascript_pack_tag("out_forward_setting")
+
+= render "shared/vue/owned_plugin_form"
+= render "shared/vue/transport_config"
+
+#out-forward-setting
+  %owned-plugin-form{"v-bind:id" => "'buffer-section'",
+                     "v-bind:options-json" => "'#{Fluent::Plugin::BUFFER_REGISTRY.map.keys.to_json}'",
+                     "v-bind:initial-plugin-name" => "'#{setting.buffer_type}'",
+                     "v-bind:plugin-type" => "'buffer'",
+                     "v-bind:plugin-label" => "'Buffer'"}
+  %transport-config{"v-bind:plugin-type" => "'#{setting.plugin_type}'",
+                    "v-bind:plugin-name" => "'#{setting.plugin_name}'"}

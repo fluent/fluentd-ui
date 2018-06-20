@@ -5,7 +5,7 @@
   - setting.common_options.each do |key|
     = f.field(key)
 
-  = render "shared/vue/transport_section", setting: setting, form: f
+  = render "shared/vue/out_forward_setting", setting: setting
 
   .card.card-body.bg-light
     %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}

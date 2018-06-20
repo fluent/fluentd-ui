@@ -41,6 +41,12 @@ class Api::ConfigDefinitionsController < ApplicationController
         advancedOptions: transport_advanced_options
       }
     end
+
+    if type == "output" && name == "forward"
+      tls_options = build_options(target, target.tls_options)
+      options[:tlsOptions] = tls_options
+    end
+
     render json: options
   end
 

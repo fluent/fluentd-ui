@@ -1,4 +1,5 @@
 'use strict'
+import 'lodash/lodash'
 
 const ConfigField = {
   template: "#vue-config-field",
@@ -16,15 +17,32 @@ const ConfigField = {
     }
   },
 
+  filters: {
+    humanize: function(value) {
+      return _.capitalize(value.replace(/_/g, " "))
+    }
+  },
+
   mounted: function() {
-    this.expression = this.initialExpression
-    this.timeFormat = this.initialTimeFormat
-    this.$on("hook:updated", () => {
-      this.$nextTick(() => {
-        console.log("config-field hook:updated")
-        $("[data-toggle=tooltip]").tooltip("dispose")
-        $("[data-toggle=tooltip]").tooltip("enable")
-      })
+    if (this.option.name === "expression") {
+      this.expression = this.initialExpression
+    }
+    if (this.option.name === "time_format") {
+      this.timeFormat = this.initialTimeFormat
+    }
+  },
+
+  updated: function() {
+    if (this.option.name === "expression") {
+      this.expression = this.initialExpression
+    }
+    if (this.option.name === "time_format") {
+      this.timeFormat = this.initialTimeFormat
+    }
+    this.$nextTick(() => {
+      console.log("config-field updated")
+      $("[data-toggle=tooltip]").tooltip("dispose")
+      $("[data-toggle=tooltip]").tooltip("enable")
     })
   },
 
@@ -45,10 +63,19 @@ const ConfigField = {
 
   methods: {
     inputId: function(pluginType, option) {
-      return `setting_${pluginType}_0__${option.name}`
+      if (pluginType === "output") {
+        return `setting_${option.name}`
+      } else {
+        return `setting_${pluginType}_0__${option.name}`
+      }
+
     },
     inputName: function(pluginType, option) {
-      return `setting[${pluginType}[0]][${option.name}]`
+      if (pluginType === "output") {
+        return `setting[${option.name}]`
+      } else {
+        return `setting[${pluginType}[0]][${option.name}]`
+      }
     },
     checked: function(checked) {
       if (checked === true || checked === "true") {

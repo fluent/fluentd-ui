@@ -136,7 +136,7 @@ class Fluentd
         def reformat_value(name, value)
           type = column_type(name)
           return value if type.nil? # name == :time_key
-          return value if type == :enum
+          return value.to_sym if type == :enum
           return value if type == :regexp
           type_name = if type.is_a?(Fluentd::Setting::Type::Time)
                         :time

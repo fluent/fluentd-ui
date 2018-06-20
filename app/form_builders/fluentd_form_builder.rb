@@ -34,7 +34,7 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
 
   def enum_field(key, options)
     label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key)) +
-      select(key, object.list_of(key), options, { class: "enum" })
+      select(key, object.list_of(key), options, { class: "enum form-control" })
   end
 
   def bool_field(key, options)
@@ -58,9 +58,10 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
     section_class = object.class._sections[key]
     children = object.__send__(key) || { "0" => {} }
     html = ""
+    html_class = "js-nested-column #{section_class.multi ? "js-multiple" : ""}"
 
     children.each do |index, child|
-      html << content_tag("div", class: "js-nested-column #{section_class.multi ? "js-multiple" : ""}") do
+      html << content_tag("div", class: html_class) do
         _html = ""
         _html << append_and_remove_links if section_class.multi
         _html << label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key))
@@ -83,8 +84,8 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def append_and_remove_links
-    %Q!<a class="btn btn-xs btn-default js-append">#{icon('fa-plus')}</a> ! +
-    %Q!<a class="btn btn-xs btn-default js-remove" style="display:none">#{icon('fa-minus')}</a> !
+    %Q!<a class="btn btn-xs js-append">#{icon('fa-plus')}</a> ! +
+    %Q!<a class="btn btn-xs js-remove" style="display:none">#{icon('fa-minus')}</a> !
   end
 
   def icon(classes, inner=nil)

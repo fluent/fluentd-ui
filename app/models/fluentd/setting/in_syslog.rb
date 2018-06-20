@@ -27,7 +27,9 @@ class Fluentd
 
       def hidden_options
         [
-          :parse
+          :parse,
+          :transport,
+          :blocking_timeout
         ]
       end
     end

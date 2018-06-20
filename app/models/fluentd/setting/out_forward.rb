@@ -39,9 +39,20 @@ class Fluentd
       def hidden_options
         [
           :inject, :buffer,
+          # Deprecated options
           :host, :port,
-          # We don't support TLS configuration via fluentd-ui for now.
-          :transport, :tls_version, :tls_ciphers, :tls_insecure_mode, :tls_verify_hostname, :tls_cert_path
+          :transport
+        ].concat(tls_options) # Hide TLS related options to customize view
+      end
+
+      def tls_options
+        [
+          :tls_version,
+          :tls_ciphers,
+          :tls_insecure_mode,
+          :tls_allow_self_signed_cert,
+          :tls_verify_hostname,
+          :tls_cert_path
         ]
       end
     end

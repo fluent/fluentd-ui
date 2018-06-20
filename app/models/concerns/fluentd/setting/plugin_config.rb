@@ -56,7 +56,9 @@ class Fluentd
           next if section_params.blank?
           section_params.each do |index, _section_params|
             sub_attrs, sub_elements = parse_attributes(_section_params)
-            elements << config_element(key, "", sub_attrs, sub_elements)
+            if sub_attrs.present? || sub_elements.present? # skip empty section
+              elements << config_element(key, "", sub_attrs, sub_elements)
+            end
           end
         end
         return params.to_h.reject{|key, value| skip?(key.to_sym, value) }, elements
@@ -70,7 +72,7 @@ class Fluentd
       def skip?(key, value)
         return true if value.blank?
         if self._defaults.key?(key)
-          reformat_value(key, self._defaults[key]) == reformat_value(key, value)
+          self.class.reformat_value(key, self._defaults[key]) == self.class.reformat_value(key, value)
         else
           false
         end
