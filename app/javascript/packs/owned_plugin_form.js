@@ -132,19 +132,6 @@ const OwnedPluginForm = {
     },
     selectName: function(pluginType) {
       return `setting[${pluginType}_type]`
-    },
-    inputId: function(pluginType, option) {
-      return `setting_${pluginType}_0__${option.name}`
-    },
-    inputName: function(pluginType, option) {
-      return `setting[${pluginType}[0]][${option.name}]`
-    },
-    checked: function(checked) {
-      if (checked === true || checked === "true") {
-        return "checked"
-      } else {
-        return ""
-      }
     }
   }
 }
