@@ -30,13 +30,6 @@ const ConfigField = {
     if (this.option.name === "time_format") {
       this.timeFormat = this.initialTimeFormat
     }
-    this.$on("hook:updated", () => {
-      this.$nextTick(() => {
-        console.log("config-field hook:updated")
-        $("[data-toggle=tooltip]").tooltip("dispose")
-        $("[data-toggle=tooltip]").tooltip("enable")
-      })
-    })
   },
 
   updated: function() {
