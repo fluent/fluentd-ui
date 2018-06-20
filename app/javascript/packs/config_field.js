@@ -24,8 +24,12 @@ const ConfigField = {
   },
 
   mounted: function() {
-    this.expression = this.initialExpression
-    this.timeFormat = this.initialTimeFormat
+    if (this.option.name === "expression") {
+      this.expression = this.initialExpression
+    }
+    if (this.option.name === "time_format") {
+      this.timeFormat = this.initialTimeFormat
+    }
     this.$on("hook:updated", () => {
       this.$nextTick(() => {
         console.log("config-field hook:updated")
