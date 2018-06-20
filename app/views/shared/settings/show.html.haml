@@ -6,6 +6,6 @@
     = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
 
 - if lookup_context.exists?("form", controller.controller_path, true)
-  = render "#{controller.controller_path}/form"
+  = render "#{controller.controller_path}/form", setting: @setting, fluentd: @fluentd
 - else
-  = render "shared/settings/form"
+  = render "shared/settings/form", setting: @setting, fluentd: @fluentd
