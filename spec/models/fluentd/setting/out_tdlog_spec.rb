@@ -38,7 +38,6 @@ describe Fluentd::Setting::OutTdlog do
 <match td.*.*>
   @type tdlog
   apikey APIKEY
-  auto_create_table true
 </match>
       CONFIG
     }
