@@ -39,6 +39,20 @@ const ConfigField = {
     })
   },
 
+  updated: function() {
+    if (this.option.name === "expression") {
+      this.expression = this.initialExpression
+    }
+    if (this.option.name === "time_format") {
+      this.timeFormat = this.initialTimeFormat
+    }
+    this.$nextTick(() => {
+      console.log("config-field updated")
+      $("[data-toggle=tooltip]").tooltip("dispose")
+      $("[data-toggle=tooltip]").tooltip("enable")
+    })
+  },
+
   watch: {
     "expression": function(newValue, oldValue) {
       this.$emit("change-parse-config", {
