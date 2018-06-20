@@ -63,10 +63,19 @@ const ConfigField = {
 
   methods: {
     inputId: function(pluginType, option) {
-      return `setting_${pluginType}_0__${option.name}`
+      if (pluginType === "output") {
+        return `setting_${option.name}`
+      } else {
+        return `setting_${pluginType}_0__${option.name}`
+      }
+
     },
     inputName: function(pluginType, option) {
-      return `setting[${pluginType}[0]][${option.name}]`
+      if (pluginType === "output") {
+        return `setting[${option.name}]`
+      } else {
+        return `setting[${pluginType}[0]][${option.name}]`
+      }
     },
     checked: function(checked) {
       if (checked === true || checked === "true") {
