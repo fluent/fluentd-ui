@@ -34,7 +34,7 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
 
   def enum_field(key, options)
     label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key)) +
-      select(key, object.list_of(key), options, { class: "enum" })
+      select(key, object.list_of(key), options, { class: "enum form-control" })
   end
 
   def bool_field(key, options)
