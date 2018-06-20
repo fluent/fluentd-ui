@@ -1,22 +1,20 @@
-- add_javascript_pack_tag("transport_config")
-
 = render "shared/vue/config_field"
 
-#transport-config.form-group.card.card-body.bg-light{"pluginType" => setting.plugin_type,
-                                                     "pluginName" => setting.plugin_name}
-  %h4
-    Transport
-  .form-group
-    %select{"class" => "form-control",
-            "v-model" => "transportType",
-            "v-on:change" => "onChange"}
-      %option{"v-for" => "option in options",
-              "v-bind:value" => "option",
-              "v-bind:selected" => "transportType === option"}
-        {{ option | toUpper }}
-  %p{"v-if" => 'transportType === "tcp"'}
-    Nothing to configure
-  %template(v-else)
-    %template{"v-for" => "option in tlsOptions"}
-      %config-field{"v-bind:plugin-type" => "pluginType",
-                    "v-bind:option" => "option"}
+%script{type: "text/x-template", id: "vue-transport-config"}
+  .form-group.card.card-body.bg-light
+    %h4
+      Transport
+    .form-group
+      %select{"class" => "form-control",
+              "v-model" => "transportType",
+              "v-on:change" => "onChange"}
+        %option{"v-for" => "option in options",
+                "v-bind:value" => "option",
+                "v-bind:selected" => "transportType === option"}
+          {{ option | toUpper }}
+    %p{"v-if" => 'transportType === "tcp"'}
+      Nothing to configure
+    %template(v-else)
+      %template{"v-for" => "option in tlsOptions"}
+        %config-field{"v-bind:plugin-type" => "pluginType",
+                      "v-bind:option" => "option"}
