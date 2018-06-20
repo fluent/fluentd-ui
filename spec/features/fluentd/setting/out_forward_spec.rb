@@ -19,7 +19,7 @@ describe "out_forward", stub: :daemon do
       daemon.agent.config.should_not include(v)
     end
     visit page_url
-    within("#new_fluentd_setting_#{type}") do
+    within("form") do
       form_values.each_pair do |k,v|
         fill_in k, with: v
       end

@@ -10,7 +10,7 @@ describe "out_forward", stub: :daemon do
 
   it "Shown form" do
     visit daemon_setting_out_forward_path
-    page.should have_css('input[name="fluentd_setting_out_forward[match]"]')
+    page.should have_css('input[name="setting[pattern]"]')
   end
 
   it "Appendable server setting", js: true do
@@ -23,10 +23,10 @@ describe "out_forward", stub: :daemon do
   it "Updated config after submit", js: true do
     daemon.agent.config.should_not include(match)
     visit daemon_setting_out_forward_path
-    within('#new_fluentd_setting_out_forward') do
-      fill_in "Match", with: match
-      fill_in "fluentd_setting_out_forward_server_0__host", with: "foobar"
-      fill_in "fluentd_setting_out_forward_server_0__port", with: "9999"
+    within('form') do
+      fill_in "Pattern", with: match
+      fill_in "setting_server_0__host", with: "foobar"
+      fill_in "setting_server_0__port", with: "9999"
       fill_in "Path", with: "/tmp/foo"
     end
     click_button I18n.t("fluentd.common.finish")

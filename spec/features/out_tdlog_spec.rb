@@ -16,7 +16,7 @@ describe "out_tdlog", stub: :daemon do
   it "Updated config after submit" do
     daemon.agent.config.should_not include(api_key)
     visit daemon_setting_out_tdlog_path
-    within('#new_fluentd_setting_out_td') do
+    within('form') do
       fill_in "Apikey", with: api_key
     end
     click_button I18n.t("fluentd.common.finish")
