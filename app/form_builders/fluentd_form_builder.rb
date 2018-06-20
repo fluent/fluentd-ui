@@ -58,9 +58,10 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
     section_class = object.class._sections[key]
     children = object.__send__(key) || { "0" => {} }
     html = ""
+    html_class = "js-nested-column #{section_class.multi ? "js-multiple" : ""}"
 
     children.each do |index, child|
-      html << content_tag("div", class: "js-nested-column #{section_class.multi ? "js-multiple" : ""}") do
+      html << content_tag("div", class: html_class) do
         _html = ""
         _html << append_and_remove_links if section_class.multi
         _html << label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key))
