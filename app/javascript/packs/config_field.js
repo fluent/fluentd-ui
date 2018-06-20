@@ -1,4 +1,5 @@
 'use strict'
+import 'lodash/lodash'
 
 const ConfigField = {
   template: "#vue-config-field",
@@ -13,6 +14,12 @@ const ConfigField = {
     return {
       expression: null,
       timeFormat: null
+    }
+  },
+
+  filters: {
+    humanize: function(value) {
+      return _.capitalize(value.replace("_", " "))
     }
   },
 

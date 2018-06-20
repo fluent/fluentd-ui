@@ -5,7 +5,7 @@
              "data-toggle" => "tooltip",
              "data-placement" => "right",
              "v-bind:title" => "option.desc"}
-        {{ option.name }}
+        {{ option.name | humanize }}
       %select{"v-bind:id" => "inputId(pluginType, option)",
               "v-bind:name" => "inputName(pluginType, option)",
               "class" => "form-control"}
@@ -22,13 +22,13 @@
              "data-toggle" => "tooltip",
              "data-placement" => "right",
              "v-bind:title" => "option.desc"}
-        {{ option.name }}
+        {{ option.name | humanize }}
     %template(v-else)
       %label{"v-bind:for" => "inputId(pluginType, option)",
              "data-toggle" => "tooltip",
              "data-placement" => "right",
              "v-bind:title" => "option.desc"}
-        {{ option.name }}
+        {{ option.name | humanize }}
       %template{"v-if" => 'option.name === "expression"'}
         %input{"v-bind:id" => "inputId(pluginType, option)",
                "v-bind:name" => "inputName(pluginType, option)",
