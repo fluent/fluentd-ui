@@ -19,7 +19,7 @@ const ConfigField = {
 
   filters: {
     humanize: function(value) {
-      return _.capitalize(value.replace("_", " "))
+      return _.capitalize(value.replace(/_/g, " "))
     }
   },
 
