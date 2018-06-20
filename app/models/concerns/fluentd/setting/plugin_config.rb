@@ -70,7 +70,7 @@ class Fluentd
       def skip?(key, value)
         return true if value.blank?
         if self._defaults.key?(key)
-          reformat_value(key, self._defaults[key]) == reformat_value(key, value)
+          self.class.reformat_value(key, self._defaults[key]) == self.class.reformat_value(key, value)
         else
           false
         end
