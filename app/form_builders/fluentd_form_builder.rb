@@ -84,8 +84,8 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def append_and_remove_links
-    %Q!<a class="btn btn-xs btn-default js-append">#{icon('fa-plus')}</a> ! +
-    %Q!<a class="btn btn-xs btn-default js-remove" style="display:none">#{icon('fa-minus')}</a> !
+    %Q!<a class="btn btn-xs js-append">#{icon('fa-plus')}</a> ! +
+    %Q!<a class="btn btn-xs js-remove" style="display:none">#{icon('fa-minus')}</a> !
   end
 
   def icon(classes, inner=nil)
