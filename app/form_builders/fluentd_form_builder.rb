@@ -38,7 +38,8 @@ class FluentdFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def bool_field(key, options)
-    check_box(key, options, "true", "false") + " " +
+    return unless object.respond_to?(key)
+    check_box(key, options, true, false) + " " +
       label(key, nil, data: { toggle: "tooltip", placement: "right" }, title: object.desc(key))
   end
 
