@@ -11,7 +11,9 @@ class Fluentd
         end
         argument = _attributes.delete(self._argument_name.to_s) || ""
         attrs, elements = parse_attributes(_attributes)
-        config_element(section_name, argument, attrs, elements)
+        if attrs.present? || elements.present?
+          config_element(section_name, argument, attrs, elements)
+        end
       end
 
       def parse_attributes(attributes)

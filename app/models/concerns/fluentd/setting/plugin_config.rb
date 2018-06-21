@@ -72,7 +72,7 @@ class Fluentd
           end
           elements = section_params.map do |index, _section_params|
             section_class.new(_section_params).to_config
-          end
+          end.compact
         end
         attrs = params.to_h.reject do |key, value|
           skip?(key.to_sym, value)
