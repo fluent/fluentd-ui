@@ -17,7 +17,7 @@ describe Fluentd::Setting::OutTdlog do
       params.delete(:apikey)
       instance = klass.new(params)
       instance.should_not be_valid
-      instance.errors.full_messages.should == ["Apikey can't be blank"]
+      instance.errors.full_messages.should == ["'apikey' parameter is required"]
     end
   end
 

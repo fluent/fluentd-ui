@@ -66,7 +66,7 @@ describe Fluentd::Setting::InForward do
       }
       object = klass.new(params)
       object.validate
-      object.errors.full_messages.should include("Security Shared key can't be blank")
+      object.errors.full_messages.should == ["'shared_key' parameter is required, in section security"]
     end
   end
 end

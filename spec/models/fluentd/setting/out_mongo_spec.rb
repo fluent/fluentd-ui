@@ -19,7 +19,7 @@ describe Fluentd::Setting::OutMongo do
       params.delete(:database)
       instance = klass.new(params)
       instance.should_not be_valid
-      instance.errors.full_messages.should == ["Database can't be blank"]
+      instance.errors.full_messages.should == ["connection_string or database parameter is required"]
     end
 
     it "should be invalid if collection is missing" do
@@ -31,7 +31,7 @@ describe Fluentd::Setting::OutMongo do
       }
       instance = klass.new(params)
       instance.should_not be_valid
-      instance.errors.full_messages.should == ["Collection can't be blank"]
+      instance.errors.full_messages.should == ["normal mode requires collection parameter"]
     end
   end
 
@@ -60,4 +60,3 @@ describe Fluentd::Setting::OutMongo do
     it { should == expected}
   end
 end
-

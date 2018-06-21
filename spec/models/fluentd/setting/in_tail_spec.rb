@@ -7,6 +7,11 @@ describe Fluentd::Setting::InTail do
     {
       tag: "dummy.log",
       path: "/tmp/log/dummy.log",
+      parse: {
+        "0" => {
+          "@type" => "none"
+        }
+      }
     }
   }
 
