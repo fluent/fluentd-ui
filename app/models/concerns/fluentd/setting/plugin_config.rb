@@ -3,6 +3,21 @@ class Fluentd
     module PluginConfig
       extend ActiveSupport::Concern
 
+      included do
+        validate :validate_configuration
+      end
+
+      def validate_configuration
+        original_log = $log
+        $log = DummyLogger.logger
+        config = to_config.to_s.lines[1..-2].join
+        self.class.create_driver(config)
+      rescue Fluent::ConfigError => ex
+        errors.add(:base, :invalid, message: ex.message)
+      ensure
+        $log = original_log
+      end
+
       def to_config
         name = case plugin_type
                when "input"
