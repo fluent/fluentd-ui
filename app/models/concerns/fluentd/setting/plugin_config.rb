@@ -63,10 +63,10 @@ class Fluentd
           section_class = self._sections[key.to_sym]
           if %w(parse format buffer storage).include?(key)
             if section_params && section_params.key?("0")
-              section_params["0"] = { "@type" => self.attributes["#{key}_type"] }.merge(section_params["0"])
+              section_params["0"] = { "type" => self.attributes["#{key}_type"] }.merge(section_params["0"])
             else
               section_params = {
-                "0" => { "@type" => self.attributes["#{key}_type"] }
+                "0" => { "type" => self.attributes["#{key}_type"] }
               }
             end
           end
