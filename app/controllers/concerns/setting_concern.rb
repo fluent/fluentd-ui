@@ -14,15 +14,11 @@ module SettingConcern
     @storage = @setting.create_storage
     @parser = @setting.create_parser
     @formatter = @setting.create_formatter
-    @_used_param = {}
-    @_used_section = {}
     render "shared/settings/show"
   end
 
   def finish
     @setting = target_class.new(setting_params)
-    @_used_param = {}
-    @_used_section = {}
     unless @setting.valid?
       return render "shared/settings/show"
     end
