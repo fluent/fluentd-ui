@@ -59,6 +59,8 @@ class Fluentd
         end
         elements = []
         sections.to_h.each do |key, section_params|
+          next if section_params.blank?
+          section_class = self._sections[key.to_sym]
           if %w(parse format buffer storage).include?(key)
             if section_params && section_params.key?("0")
               section_params["0"] = { "@type" => self.attributes["#{key}_type"] }.merge(section_params["0"])
@@ -68,15 +70,14 @@ class Fluentd
               }
             end
           end
-          next if section_params.blank?
-          section_params.each do |index, _section_params|
-            sub_attrs, sub_elements = parse_attributes(_section_params)
-            if sub_attrs.present? || sub_elements.present? # skip empty section
-              elements << config_element(key, "", sub_attrs, sub_elements)
-            end
+          elements = section_params.map do |index, _section_params|
+            section_class.new(_section_params).to_config
           end
         end
-        return params.to_h.reject{|key, value| skip?(key.to_sym, value) }, elements
+        attrs = params.to_h.reject do |key, value|
+          skip?(key.to_sym, value)
+        end
+        return attrs, elements
       end
 
       # copy from Fluent::Test::Helpers#config_element

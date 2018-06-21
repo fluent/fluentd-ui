@@ -9,6 +9,7 @@ class Fluentd
             include Fluentd::Setting::Configurable
             include Fluentd::Setting::SectionParser
             include Fluentd::Setting::PluginParameter
+            include Fluentd::Setting::SectionConfig
 
             class_attribute :_klass, :_block, :_blocks
             class_attribute :section_name, :required, :multi, :alias
