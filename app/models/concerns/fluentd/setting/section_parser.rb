@@ -14,7 +14,6 @@ class Fluentd
                   if _definition.key?(:default) && self._required[_param_name] && _definition[:default].present?
                     self._defaults[_param_name] = _definition[:default]
                     self._required[_param_name] = false
-                    self.clear_validators! # We register PresenceValidator only
                   end
                   self._secrets[_param_name] = _definition[:secret] if _definition.key?(:secret)
                   self._aliases[name] = _definition[:alias] if _definition.key?(:alias)

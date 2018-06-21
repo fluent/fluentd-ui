@@ -11,7 +11,6 @@ class Fluentd
       include Fluentd::Setting::PluginConfig
       include Fluentd::Setting::SectionParser
       include Fluentd::Setting::PluginParameter
-      include Fluentd::Setting::SectionValidator
 
       included do
         cattr_accessor :plugin_type, :plugin_name, :config_definition
