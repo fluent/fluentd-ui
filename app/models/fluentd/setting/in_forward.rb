@@ -6,13 +6,14 @@ class Fluentd
       register_plugin("input", "forward")
 
       def self.initial_params
-        {
+        params = {
           bind: "0.0.0.0",
           port: 24224,
           linger_timeout: 0,
           chunk_size_limit: nil,
           chunk_size_warn_limit: nil,
         }
+        super.compact.deep_merge(params)
       end
 
       def common_options
