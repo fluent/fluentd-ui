@@ -23,7 +23,11 @@ class Fluentd
                   self._value_types[name] = _definition[:value_types] if _definition.key?(:value_types)
                   self._symbolize_keys = _definition[:symbolize_keys] if _definition.key?(:symbolize_keys)
                 else
-                  config_param(_param_name, _definition[:type], **_definition.except(:type))
+                  if _definition[:argument]
+                    config_argument(_param_name, _definition[:type], **_definition.except(:type))
+                  else
+                    config_param(_param_name, _definition[:type], **_definition.except(:type))
+                  end
                 end
               end
             end
