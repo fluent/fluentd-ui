@@ -8,7 +8,7 @@ describe "out_forward", stub: :daemon do
   let(:form_values) { {
     Pattern: "*",
     Name: "name",
-    Host: "host",
+    Host: "localhost",
     Port: "9999",
     Path: "/dev/null",
   } }
