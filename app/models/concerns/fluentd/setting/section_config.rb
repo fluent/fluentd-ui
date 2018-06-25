@@ -29,7 +29,7 @@ class Fluentd
           skip?(key.to_sym, value)
         end
         unless attrs.blank?
-          attrs["@type"] = params.to_h["@type"]
+          attrs["@type"] = params.to_h["@type"] if params.to_h.key?("@type")
         end
         return attrs, elements
       end
