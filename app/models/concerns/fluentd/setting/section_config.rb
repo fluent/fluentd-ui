@@ -12,7 +12,7 @@ class Fluentd
         argument = _attributes.delete(self._argument_name.to_s) || ""
         attrs, elements = parse_attributes(_attributes)
         if attrs.present? || elements.present?
-          config_element(section_name, argument, attrs, elements)
+          config_element(section_name, argument, attrs.sort.to_h, elements)
         end
       end
 
@@ -27,6 +27,9 @@ class Fluentd
         end.compact
         attrs = params.to_h.reject do |key, value|
           skip?(key.to_sym, value)
+        end
+        unless attrs.blank?
+          attrs["@type"] = params.to_h["@type"]
         end
         return attrs, elements
       end
