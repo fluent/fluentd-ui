@@ -6,6 +6,9 @@ class Fluentd
       module ClassMethods
         def parse_section(name, definition)
           config_section(name, **definition.slice(:required, :multi, :alias)) do
+            if %i(buffer storage parse format).include?(name)
+              define_all_attributes(name)
+            else
             definition.except(:section, :argument, :required, :multi, :alias).each do |_param_name, _definition|
               if _definition[:section]
                 parse_section(_param_name, _definition)
@@ -30,6 +33,7 @@ class Fluentd
                   end
                 end
               end
+            end
             end
           end
         end
