@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "out_forward", stub: :daemon do
+describe "out_forward", js: true, stub: :daemon do
   before { login_with exists_user }
 
   let(:type) { "out_forward" }
