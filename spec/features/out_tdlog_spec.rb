@@ -10,7 +10,7 @@ describe "out_tdlog", stub: :daemon do
 
   it "Shown form with filled in td.*.* on match" do
     visit daemon_setting_out_tdlog_path
-    page.should have_css('input[name="fluentd_setting_out_td[match]"]')
+    page.should have_css('input[name="setting[pattern]"]')
   end
 
   it "Updated config after submit" do
