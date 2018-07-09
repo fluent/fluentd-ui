@@ -162,7 +162,7 @@ class Fluentd
                       else
                         type
                       end
-          Fluent::Config::REFORMAT_VALUE.call(type_name, value)
+          Fluent::Config::REFORMAT_VALUE.call(type_name, value.dup)
         end
       end
     end
