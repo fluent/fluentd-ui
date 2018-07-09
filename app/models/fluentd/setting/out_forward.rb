@@ -10,7 +10,7 @@ class Fluentd
       end
 
       def self.initial_params
-        {
+        params = {
           buffer_type: "memory",
           buffer: {
             "0" => {
@@ -23,6 +23,7 @@ class Fluentd
             }
           }
         }
+        super.except(:transport).compact.deep_merge(params)
       end
 
       # TODO overwrite this method to support transport parameter and transport section
