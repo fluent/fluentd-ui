@@ -10,7 +10,6 @@ describe "out_forward", js: true, stub: :daemon do
     Name: "name",
     Host: "localhost",
     Port: "9999",
-    Path: "/dev/null",
   } }
 
   it "Updated config after submit" do
@@ -28,7 +27,6 @@ describe "out_forward", js: true, stub: :daemon do
     form_values.each_pair do |k,v|
       daemon.agent.config.should include(v)
     end
-    daemon.agent.config.should include("type file") # out_forward's Secondary hidden field
   end
 
   it "Click to append Server fields", js: true do
