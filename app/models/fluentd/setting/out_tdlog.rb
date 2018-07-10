@@ -11,7 +11,7 @@ class Fluentd
           buffer_type: "file",
           buffer: {
             "0" => {
-              "@type" => "file",
+              "type" => "file",
               "path" => "/var/log/td-agent/buffer/td",
             }
           },
