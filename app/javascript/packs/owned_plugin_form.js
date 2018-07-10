@@ -13,6 +13,7 @@ const OwnedPluginForm = {
     "id",
     "optionsJson",
     "initialPluginName",
+    "initialParamsJson",
     "pluginType",
     "pluginLabel"
   ],
@@ -20,6 +21,7 @@ const OwnedPluginForm = {
     return {
       pluginName: "",
       options: [],
+      initialParams: {},
       commonOptions: [],
       advancedOptions: [],
       expression: null,
@@ -37,6 +39,7 @@ const OwnedPluginForm = {
 
   mounted: function() {
     this.options = JSON.parse(this.optionsJson)
+    this.initialParams = JSON.parse(this.initialParamsJson)
     this.pluginName = this.initialPluginName
     this.$on("hook:updated", () => {
       console.log("hook:updated")

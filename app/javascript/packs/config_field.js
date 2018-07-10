@@ -8,6 +8,7 @@ const ConfigField = {
     "option",
     "initialExpression",
     "initialTimeFormat",
+    "initialTextValue",
   ],
 
   data: function() {
@@ -30,7 +31,7 @@ const ConfigField = {
     } else if (this.option.name === "time_format") {
       this.timeFormat = this.initialTimeFormat
     } else {
-      this.textValue = this.option.default
+      this.textValue = this.initialTextValue || this.option.default
     }
   },
 
