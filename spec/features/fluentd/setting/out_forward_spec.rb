@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "out_forward", stub: :daemon do
+describe "out_forward", js: true, stub: :daemon do
   before { login_with exists_user }
 
   let(:type) { "out_forward" }
@@ -8,9 +8,8 @@ describe "out_forward", stub: :daemon do
   let(:form_values) { {
     Pattern: "*",
     Name: "name",
-    Host: "host",
+    Host: "localhost",
     Port: "9999",
-    Path: "/dev/null",
   } }
 
   it "Updated config after submit" do
@@ -19,7 +18,7 @@ describe "out_forward", stub: :daemon do
       daemon.agent.config.should_not include(v)
     end
     visit page_url
-    within("#new_fluentd_setting_#{type}") do
+    within("form") do
       form_values.each_pair do |k,v|
         fill_in k, with: v
       end
@@ -28,7 +27,6 @@ describe "out_forward", stub: :daemon do
     form_values.each_pair do |k,v|
       daemon.agent.config.should include(v)
     end
-    daemon.agent.config.should include("type file") # out_forward's Secondary hidden field
   end
 
   it "Click to append Server fields", js: true do

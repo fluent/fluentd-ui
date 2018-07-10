@@ -110,6 +110,25 @@ class Fluentd
           self._sections.key?(:format)
         end
 
+        def initial_params
+          new # ensure to load attributes
+          params = {}
+          self._defaults.each do |key, value|
+            if key.to_s.start_with?("@")
+              params[key.to_s[1..-1].to_sym] = value
+            else
+              params[key] = value
+            end
+          end
+          self._sections.each do |key, section|
+            next if section.initial_params.blank?
+            params[key] = {
+              "0" => section.initial_params.stringify_keys
+            }
+          end
+          params
+        end
+
         def permit_params
           self.new # init
           keys = self._types.keys
@@ -143,7 +162,7 @@ class Fluentd
                       else
                         type
                       end
-          Fluent::Config::REFORMAT_VALUE.call(type_name, value)
+          Fluent::Config::REFORMAT_VALUE.call(type_name, value.dup)
         end
       end
     end

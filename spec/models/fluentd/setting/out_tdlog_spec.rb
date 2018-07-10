@@ -17,7 +17,7 @@ describe Fluentd::Setting::OutTdlog do
       params.delete(:apikey)
       instance = klass.new(params)
       instance.should_not be_valid
-      instance.errors.full_messages.should == ["Apikey can't be blank"]
+      instance.errors.full_messages.should == ["'apikey' parameter is required"]
     end
   end
 
@@ -38,7 +38,6 @@ describe Fluentd::Setting::OutTdlog do
 <match td.*.*>
   @type tdlog
   apikey APIKEY
-  auto_create_table true
 </match>
       CONFIG
     }

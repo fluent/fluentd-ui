@@ -107,13 +107,13 @@ GEM
       msgpack (~> 1.0)
     bson (4.3.0)
     builder (3.2.3)
-    capybara (3.0.2)
+    capybara (3.3.1)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
-      xpath (~> 3.0)
+      xpath (~> 3.1)
     capybara-screenshot (1.0.19)
       capybara (>= 1.0, < 4)
       launchy
@@ -153,7 +153,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
-    ffi (1.9.23)
+    ffi (1.9.25)
     fluent-plugin-elasticsearch (2.10.1)
       elasticsearch
       excon
@@ -168,7 +168,7 @@ GEM
     fluent-plugin-td (1.0.0)
       fluentd (>= 0.14.13, < 2)
       td-client (~> 1.0)
-    fluentd (1.2.1)
+    fluentd (1.2.2)
       cool.io (>= 1.4.5, < 2.0.0)
       dig_rb (~> 1.0.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
@@ -236,7 +236,7 @@ GEM
     multi_json (1.13.1)
     multipart-post (2.0.0)
     nio4r (2.3.0)
-    nokogiri (1.8.2)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -246,7 +246,7 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.2)
     puma (3.11.4)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-proxy (0.6.4)
       rack
     rack-test (1.0.0)
@@ -314,7 +314,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.11.0)
+    selenium-webdriver (3.12.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     serverengine (2.0.6)
@@ -366,7 +366,7 @@ GEM
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
-    xpath (3.0.0)
+    xpath (3.1.0)
       nokogiri (~> 1.8)
     yajl-ruby (1.4.0)
 
@@ -376,7 +376,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  capybara (~> 3.0.2)
+  capybara (~> 3.3.1)
   capybara-screenshot
   factory_bot_rails
   fluentd-ui!
@@ -386,7 +386,7 @@ DEPENDENCIES
   pry-rails
   rake
   rspec-rails (~> 3.0)
-  selenium-webdriver (~> 3.11)
+  selenium-webdriver (~> 3.12.0)
   simplecov (~> 0.16.1)
   timecop
   web-console (~> 3.6)

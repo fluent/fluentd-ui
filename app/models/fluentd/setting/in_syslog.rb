@@ -6,17 +6,15 @@ class Fluentd
       register_plugin("input", "syslog")
 
       def self.initial_params
-        {
-          bind: "0.0.0.0",
-          port: 5140,
+        params = {
           parse_type: "syslog",
           parse: {
             "0" => {
               "type" => "syslog"
             }
-          },
-          protocol_type: :udp,
+          }
         }
+        super.compact.deep_merge(params)
       end
 
       def common_options

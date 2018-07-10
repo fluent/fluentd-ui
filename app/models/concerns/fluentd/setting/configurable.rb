@@ -64,11 +64,9 @@ class Fluentd
             self._built_in_params << name
             unless name == "type"
               attribute(name, type, **options.slice(:precision, :limit, :scale))
-              validates(name, presence: true) if options[:required]
             end
           else
             attribute(name, type, **options.slice(:precision, :limit, :scale))
-            validates(name, presence: true) if options[:required]
           end
           self._types[name] = type
           self._descriptions[name] = options[:desc] if options.key?(:desc)
@@ -100,7 +98,7 @@ class Fluentd
         end
 
         def config_argument(name, type = ActiveModel::Type::Value.new, **options)
-          config_param(name, **options)
+          config_param(name, type, **options)
           self._argument_name = name
         end
 

@@ -136,6 +136,7 @@ describe "source_and_output", js: true, stub: :daemon do
     end
 
     it "click delete button transform textarea" do
+      skip "accept_confirm does not work properly"
       page.should have_css('.input .card-body')
       accept_confirm do
         find(".btn", text: I18n.t('terms.destroy')).click
@@ -145,6 +146,7 @@ describe "source_and_output", js: true, stub: :daemon do
     end
 
     it "click delete button then cancel it" do
+      skip "accept_confirm does not work properly"
       page.should have_css('.input .card-body')
       dismiss_confirm do
         find(".btn", text: I18n.t('terms.destroy')).click

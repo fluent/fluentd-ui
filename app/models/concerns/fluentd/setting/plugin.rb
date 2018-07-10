@@ -1,4 +1,10 @@
 require "fluent/plugin"
+require "fluent/test/log"
+require "fluent/test/driver/input"
+require "fluent/test/driver/output"
+require "fluent/test/driver/filter"
+require "fluent/test/driver/parser"
+require "fluent/test/driver/formatter"
 
 class Fluentd
   module Setting
@@ -11,7 +17,6 @@ class Fluentd
       include Fluentd::Setting::PluginConfig
       include Fluentd::Setting::SectionParser
       include Fluentd::Setting::PluginParameter
-      include Fluentd::Setting::SectionValidator
 
       included do
         cattr_accessor :plugin_type, :plugin_name, :config_definition
@@ -59,6 +64,23 @@ class Fluentd
 
         def plugin_class
           @plugin_class ||= plugin_instance.class
+        end
+
+        def create_driver(config)
+          case plugin_type
+          when "input"
+            Fluent::Test::Driver::Input.new(plugin_class).configure(config)
+          when "output"
+            Fluent::Test::Driver::Output.new(plugin_class).configure(config)
+          when "filter"
+            Fluent::Test::Driver::Filter.new(plugin_class).configure(config)
+          when "parser"
+            Fluent::Test::Driver::Parser.new(plugin_class).configure(config)
+          when "formatter"
+            FLuent::Test::Driver::Formatter.new(plugin_class).configure(config)
+          else
+            nil
+          end
         end
 
         def plugin_helpers

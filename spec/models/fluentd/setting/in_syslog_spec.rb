@@ -36,9 +36,10 @@ describe Fluentd::Setting::InSyslog do
     let(:valid_attributes) {
       {
         tag: "test",
+        parse_type: "syslog",
         parse: {
           "0" => {
-            "@type" => "syslog",
+            "type" => "syslog",
             "message_format" => "rfc5424"
           }
         }
@@ -56,8 +57,11 @@ describe Fluentd::Setting::InSyslog do
 </source>
       CONFIG
     }
-    subject { instance.to_config.to_s }
-    it { should == expected }
+    it do
+      object = klass.new(valid_attributes)
+      puts object.to_config.to_s
+      object.to_config.to_s.should == expected
+    end
   end
 
   describe "with @log_level" do
@@ -67,7 +71,7 @@ describe Fluentd::Setting::InSyslog do
         log_level: "debug",
         parse: {
           "0" => {
-            "@type" => "syslog",
+            "type" => "syslog",
             "message_format" => "rfc5424"
           }
         }
@@ -86,8 +90,9 @@ describe Fluentd::Setting::InSyslog do
 </source>
       CONFIG
     }
-    subject { instance.to_config.to_s }
-    it { should == expected }
+    it do
+      object = klass.new(valid_attributes)
+      object.to_config.to_s.should == expected
+    end
   end
 end
-

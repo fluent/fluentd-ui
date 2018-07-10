@@ -9,11 +9,15 @@ class Fluentd
             include Fluentd::Setting::Configurable
             include Fluentd::Setting::SectionParser
             include Fluentd::Setting::PluginParameter
+            include Fluentd::Setting::SectionConfig
+            include Fluentd::Setting::RegistryLoader
 
             class_attribute :_klass, :_block, :_blocks
             class_attribute :section_name, :required, :multi, :alias
+            class_attribute :_dumped_config
             self._klass = klass
             self._blocks = []
+            self._dumped_config = {}
           end
         end
 

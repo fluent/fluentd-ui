@@ -74,6 +74,10 @@ RSpec.configure do |config|
     config.filter_run_excluding :td_agent_required => true
   end
 
+  config.before do
+    $log = DummyLogger.logger
+  end
+
   config.after(:suite) do
     FileUtils.rm_rf FluentdUI.data_dir
   end

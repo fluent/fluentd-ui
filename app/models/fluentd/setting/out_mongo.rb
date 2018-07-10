@@ -7,17 +7,6 @@ class Fluentd
       config_param(:capped, :bool, default: false)
       config_param(:capped_size, :size, default: nil)
 
-      # NOTE: fluent-plugin-mongo defines database parameter as required parameter
-      #       But Fluentd tells us that the database parameter is not required.
-      validates :database, presence: true
-      validate :validate_collection
-
-      def validate_collection
-        if tag_mapped.blank? && collection.blank?
-          errors.add(:collection, :blank)
-        end
-      end
-
       def self.initial_params
         {
           host: "127.0.0.1",
