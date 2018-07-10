@@ -69,6 +69,9 @@ class Fluentd
         def create_driver(config)
           case plugin_type
           when "input"
+            if plugin_class.class_variable_defined?(:@@pos_file_paths)
+              plugin_class.class_variable_set(:@@pos_file_paths, {})
+            end
             Fluent::Test::Driver::Input.new(plugin_class).configure(config)
           when "output"
             Fluent::Test::Driver::Output.new(plugin_class).configure(config)
