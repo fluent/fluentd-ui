@@ -31,7 +31,7 @@ class Fluentd
         ]
       end
 
-      def hidden
+      def hidden_options
         [
           :secondary, :inject, :buffer
         ]
