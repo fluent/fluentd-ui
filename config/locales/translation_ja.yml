@@ -111,7 +111,7 @@ ja:
       setup_in_monitor_agent: 監視エージェント
       setup_in_http: http
       setup_in_forward: 転送（他Fluentdからの受信）
-      setup_out_td: Treasure Data
+      setup_out_tdlog: Treasure Data
       setup_out_stdout: 標準出力（ログ）
       setup_out_mongo: MongoDB
       setup_out_forward: 転送
@@ -163,7 +163,7 @@ ja:
           <a target="_blank" href="http://docs.fluentd.org/articles/out_s3">out_s3プラグインの解説</a>もご参照ください。
         show:
           page_title: AWS S3書き出し設定
-      out_td:
+      out_tdlog:
         option_guide: |
           fluent-plugin-tdプラグインのインストールが必要です。<br />
         show:
