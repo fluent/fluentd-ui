@@ -6,7 +6,7 @@ class Fluentd
       register_plugin("output", "tdlog")
 
       def self.initial_params
-        {
+        params = {
           pattern: "td.*.*",
           buffer_type: "file",
           buffer: {
@@ -17,6 +17,7 @@ class Fluentd
           },
           auto_create_table: true,
         }
+        super.compact.deep_merge(params)
       end
 
       def common_options
