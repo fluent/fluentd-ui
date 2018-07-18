@@ -22,19 +22,19 @@ $(document).ready(() => {
       }
     },
     methods: {
-      onCancel: function(event) {
+      onCancel: function(_event) {
         this.initialState();
       },
-      onEdit: function(ev) {
+      onEdit: function(_event) {
         this.mode = "edit";
       },
-      onDelete: function(ev) {
+      onDelete: function(_event) {
         if (!confirm("really?")) {
           return;
         }
         this.destroy();
       },
-      onSubmit: function(ev) {
+      onSubmit: function(_event) {
         const token = document.getElementsByName("csrf-token")[0].getAttribute("content");
         this.processing = true;
         this.content = $(`#${this.id} textarea.form-control`)[0].dataset.content;

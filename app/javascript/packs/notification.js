@@ -2,7 +2,7 @@ const POLLING_INTERVAL = 3 * 1000;
 const POLLING_URL = "/polling/alerts";
 
 $(document).ready(()=> {
-  let alert = new Vue({
+  new Vue({
     el: "#vue-notification",
     data: {
       "alerts": []
@@ -30,11 +30,11 @@ $(document).ready(()=> {
           }
         });
       };
-      window.addEventListener("focus", function(ev){
+      window.addEventListener("focus", function(_event){
         currentInterval = POLLING_INTERVAL;
         timer = setTimeout(fetch, currentInterval);
       }, false);
-      window.addEventListener("blur", function(ev){
+      window.addEventListener("blur", function(_event){
         clearTimeout(timer);
       }, false);
       fetch();

@@ -51,13 +51,13 @@ const ConfigField = {
   },
 
   watch: {
-    "expression": function(newValue, oldValue) {
+    "expression": function(_newValue, _oldValue) {
       this.$emit("change-parse-config", {
         "expression": this.expression,
         "timeFormat": this.timeFormat
       });
     },
-    "timeFormat": function(newValue, oldValue) {
+    "timeFormat": function(_newValue, _oldValue) {
       this.$emit("change-parse-config", {
         "expression": this.expression,
         "timeFormat": this.timeFormat

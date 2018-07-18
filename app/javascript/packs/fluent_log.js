@@ -54,7 +54,7 @@ $(document).ready(()=> {
           setTimeout(function(){
             self.processing = false;
           }, 256); // delay to reduce flicking loading icon
-        })["catch"](function(error){
+        })["catch"](function(_error){
           self.processing = false;
         });
       }
