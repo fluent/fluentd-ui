@@ -1,0 +1,19 @@
+- add_javascript_pack_tag("out_s3_setting")
+
+= render "shared/vue/aws_credential"
+= render "shared/vue/owned_plugin_form"
+
+#out-s3-setting
+  %owned-plugin-form{"v-bind:id" => "'buffer-section'",
+                     "v-bind:options-json" => "'#{Fluent::Plugin::BUFFER_REGISTRY.map.keys.to_json}'",
+                     "v-bind:initial-plugin-name" => "'#{setting.buffer_type}'",
+                     "v-bind:plugin-type" => "'buffer'",
+                     "v-bind:plugin-label" => "'Buffer'"}
+  %owned-plugin-form{"v-bind:id" => "'format-section'",
+                     "v-bind:options-json" => "'#{Fluent::Plugin::FORMATTER_REGISTRY.map.keys.to_json}'",
+                     "v-bind:initial-plugin-name" => "'#{setting.format_type}'",
+                     "v-bind:plugin-type" => "'format'",
+                     "v-bind:plugin-label" => "'Format'"}
+  %aws-credential{"v-bind:id" => "'aws-credential'",
+                  "v-bind:plugin-type" => "'output'",
+                  "v-bind:plugin-name" => "'s3'"}

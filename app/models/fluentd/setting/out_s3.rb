@@ -26,14 +26,28 @@ class Fluentd
 
       def common_options
         [
-          :pattern, :aws_key_id, :aws_sec_key,
+          :pattern,
           :s3_region, :s3_bucket, :use_ssl, :path,
         ]
       end
 
       def hidden_options
         [
-          :secondary, :inject, :buffer
+          :secondary, :inject, :buffer, :format,
+        ] + aws_credential_options + aws_credential_sections
+      end
+
+      def aws_credential_options
+        [
+          :aws_key_id, :aws_sec_key,
+        ]
+      end
+
+      def aws_credential_sections
+        [
+          :assume_role_credentials,
+          :instance_profile_credentials,
+          :shared_credentials
         ]
       end
     end

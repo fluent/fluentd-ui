@@ -69,15 +69,14 @@ const ConfigField = {
       if (pluginType === "output") {
         return `setting_${option.name}`
       } else {
-        return `setting_${pluginType}_0__${option.name}`
+        return `setting_${_.snakeCase(pluginType)}_0__${option.name}`
       }
-
     },
     inputName: function(pluginType, option) {
       if (pluginType === "output") {
         return `setting[${option.name}]`
       } else {
-        return `setting[${pluginType}[0]][${option.name}]`
+        return `setting[${_.snakeCase(pluginType)}[0]][${option.name}]`
       }
     },
     checked: function(checked) {
