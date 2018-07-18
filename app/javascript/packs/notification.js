@@ -30,11 +30,11 @@ $(document).ready(()=> {
           }
         });
       };
-      window.addEventListener('focus', function(ev){
+      window.addEventListener("focus", function(ev){
         currentInterval = POLLING_INTERVAL;
         timer = setTimeout(fetch, currentInterval);
       }, false);
-      window.addEventListener('blur', function(ev){
+      window.addEventListener("blur", function(ev){
         clearTimeout(timer);
       }, false);
       fetch();

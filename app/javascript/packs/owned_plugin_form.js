@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-import ParserMultilineForm from './parser_multiline_form';
-import ConfigField from './config_field';
+import ParserMultilineForm from "./parser_multiline_form";
+import ConfigField from "./config_field";
 
 const OwnedPluginForm = {
   template: "#vue-owned-plugin-form",
@@ -78,7 +78,7 @@ const OwnedPluginForm = {
         method: "GET",
         url: "/api/config_definitions",
         headers: {
-          'X-CSRF-Token': this.token
+          "X-CSRF-Token": this.token
         },
         data: {
           type: this.pluginType,

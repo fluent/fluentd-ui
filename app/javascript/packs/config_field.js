@@ -1,5 +1,5 @@
-'use strict';
-import 'lodash/lodash';
+"use strict";
+import "lodash/lodash";
 
 const ConfigField = {
   template: "#vue-config-field",

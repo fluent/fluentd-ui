@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-import ConfigField from './config_field';
+import ConfigField from "./config_field";
 
 const TransportConfig = {
   template: "#vue-transport-config",
@@ -44,7 +44,7 @@ const TransportConfig = {
         method: "GET",
         url: "/api/config_definitions",
         headers: {
-          'X-CSRF-Token': this.token
+          "X-CSRF-Token": this.token
         },
         data: {
           type: this.pluginType,

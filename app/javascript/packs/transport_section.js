@@ -1,11 +1,11 @@
-'use strict';
-import 'lodash/lodash';
+"use strict";
+import "lodash/lodash";
 
-import ConfigField from './config_field';
+import ConfigField from "./config_field";
 
 $(document).ready(() => {
   new Vue({
-    el: '#transport-section',
+    el: "#transport-section",
     components: {
       "config-field": ConfigField
     },
@@ -55,7 +55,7 @@ $(document).ready(() => {
           method: "GET",
           url: "/api/config_definitions",
           headers: {
-            'X-CSRF-Token': this.token
+            "X-CSRF-Token": this.token
           },
           data: {
             type: this.pluginType,

@@ -1,12 +1,12 @@
-'use strict';
-import 'lodash/lodash';
-import 'popper.js/dist/popper';
-import 'bootstrap/dist/js/bootstrap';
-import OwnedPluginForm from './owned_plugin_form';
+"use strict";
+import "lodash/lodash";
+import "popper.js/dist/popper";
+import "bootstrap/dist/js/bootstrap";
+import OwnedPluginForm from "./owned_plugin_form";
 
 $(document).ready(() => {
   new Vue({
-    el: '#in-tail-parse',
+    el: "#in-tail-parse",
     props: [
       "path",
       "parseType"
@@ -22,18 +22,18 @@ $(document).ready(() => {
       }
     },
     components: {
-      'owned-plugin-form': OwnedPluginForm
+      "owned-plugin-form": OwnedPluginForm
     },
     watch: {
-      'parse.expression': function() {
+      "parse.expression": function() {
         console.log(`parse.expression: ${this.parse.expression}`);
         this.preview();
       },
-      'parse.time_format': function() {
+      "parse.time_format": function() {
         console.log(`parse.time_format: ${this.parse.time_format}`);
         this.preview();
       },
-      'parseType': function() {
+      "parseType": function() {
         this.preview();
       },
     },
@@ -71,7 +71,7 @@ $(document).ready(() => {
           return;
         }
 
-        let $container = $('<div>');
+        let $container = $("<div>");
         _.each(matches, (match) => {
           const colors = ["#ff9", "#cff", "#fcf", "#dfd"];
           const whole = match.whole;
@@ -99,7 +99,7 @@ $(document).ready(() => {
               "data-toggle": "tooltip",
               "data-placement": "top",
               "title": m.key,
-              'style': 'background-color:' + currentColor
+              "style": "background-color:" + currentColor
             });
             let highlightedHtml = $highlighted.wrap("<div>").parent().html();
             let pos = {
@@ -132,7 +132,7 @@ $(document).ready(() => {
           method: "POST",
           url: "/api/regexp_preview",
           headers: {
-            'X-CSRF-Token': this.token
+            "X-CSRF-Token": this.token
           },
           data: {
             parse_type: _.isEmpty(this.parseType) ? "regexp" : this.parseType,

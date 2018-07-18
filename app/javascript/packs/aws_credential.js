@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-import ConfigField from './config_field';
+import ConfigField from "./config_field";
 
 const AwsCredential = {
   template: "#vue-aws-credential",
@@ -45,7 +45,7 @@ const AwsCredential = {
         method: "GET",
         url: "/api/config_definitions",
         headers: {
-          'X-CSRF-Token': this.token
+          "X-CSRF-Token": this.token
         },
         data: {
           type: this.pluginType,

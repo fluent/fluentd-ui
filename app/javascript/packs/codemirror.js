@@ -1,10 +1,10 @@
-import CodeMirror from 'codemirror/lib/codemirror';
-import 'lodash/lodash';
+import CodeMirror from "codemirror/lib/codemirror";
+import "lodash/lodash";
 
 // See: http://codemirror.net/doc/manual.html#modeapi
 // and sample mode files: https://github.com/codemirror/CodeMirror/tree/master/mode
 
-CodeMirror.defineMode('fluentd', function(){
+CodeMirror.defineMode("fluentd", function(){
   return {
     startState: function(aa){
       return { "context" : null };
@@ -70,18 +70,18 @@ function codemirrorify(el) {
 }
 
 $(function(){
-  $('.js-fluentd-config-editor').each(function(_, el){
+  $(".js-fluentd-config-editor").each(function(_, el){
     codemirrorify(el);
   });
 });
 
-Vue.directive('config-editor', {
+Vue.directive("config-editor", {
   bind: function(el, binding, vnode, oldVnode){
     // NOTE: needed delay for waiting CodeMirror setup
     _.delay(function(textarea){
       let cm = codemirrorify(textarea);
       // textarea.codemirror = cm; // for test, but doesn't work for now (working on Chrome, but Poltergeist not)
-      cm.on('change', function(code_mirror){
+      cm.on("change", function(code_mirror){
         // bridge Vue - CodeMirror world
         el.dataset.content = code_mirror.getValue();
       });

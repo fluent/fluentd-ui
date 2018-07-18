@@ -1,10 +1,10 @@
 $(document).ready(() => {
   const SettingSection = {
-    template: '#vue-setting-section',
-    props: ['id', 'content', 'type', 'name', 'arg'],
+    template: "#vue-setting-section",
+    props: ["id", "content", "type", "name", "arg"],
     data: function() {
       return {
-        mode: 'default',
+        mode: "default",
         processing: false
       };
     },
@@ -13,7 +13,7 @@ $(document).ready(() => {
     },
     computed: {
       endpoint: function() {
-        return '/api/settings/' + this.id;
+        return "/api/settings/" + this.id;
       }
     },
     methods: {
@@ -30,7 +30,7 @@ $(document).ready(() => {
         this.destroy();
       },
       onSubmit: function(ev) {
-        const token = document.getElementsByName("csrf-token")[0].getAttribute('content');
+        const token = document.getElementsByName("csrf-token")[0].getAttribute("content");
         this.processing = true;
         this.content = $(`#${this.id} textarea.form-control`)[0].dataset.content;
         $.ajax({
@@ -42,7 +42,7 @@ $(document).ready(() => {
             content: this.content
           },
           headers: {
-            'X-CSRF-Token': token
+            "X-CSRF-Token": token
           }
         }).then((data)=> {
           _.each(data, function(v,k){
@@ -55,10 +55,10 @@ $(document).ready(() => {
       },
       initialState: function(){
         this.processing = false;
-        this.mode = 'default';
+        this.mode = "default";
       },
       destroy: function(){
-        const token = document.getElementsByName("csrf-token")[0].getAttribute('content');
+        const token = document.getElementsByName("csrf-token")[0].getAttribute("content");
         $.ajax({
           url: this.endpoint,
           method: "POST",
@@ -67,7 +67,7 @@ $(document).ready(() => {
             id: this.id
           },
           headers: {
-            'X-CSRF-Token': token
+            "X-CSRF-Token": token
           }
         }).then(()=> {
           this.$parent.update();
@@ -94,7 +94,7 @@ $(document).ready(() => {
       });
     },
     components: {
-      'setting-section': SettingSection
+      "setting-section": SettingSection
     },
     methods: {
       update: function() {

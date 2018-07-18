@@ -1,5 +1,5 @@
-'use strict';
-import 'lodash/lodash';
+"use strict";
+import "lodash/lodash";
 const ParserMultilineForm = {
   template: "#vue-parser-multiline-form",
   props: [

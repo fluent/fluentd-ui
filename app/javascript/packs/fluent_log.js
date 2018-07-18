@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 $(document).ready(()=> {
   new Vue({
     el: "#fluent-log",
