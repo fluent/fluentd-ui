@@ -44,6 +44,6 @@
       %template(v-else)
         %input{"v-bind:id" => "inputId(pluginType, option)",
                "v-bind:name" => "inputName(pluginType, option)",
-               "v-bind:value" => "option.default",
+               "v-model.lazy" => "textValue",
                "type" => "text",
                "class" => "form-control"}

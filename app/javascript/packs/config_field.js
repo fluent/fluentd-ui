@@ -8,12 +8,14 @@ const ConfigField = {
     "option",
     "initialExpression",
     "initialTimeFormat",
+    "initialTextValue",
   ],
 
   data: function() {
     return {
       expression: null,
-      timeFormat: null
+      timeFormat: null,
+      textValue: null,
     }
   },
 
@@ -26,9 +28,10 @@ const ConfigField = {
   mounted: function() {
     if (this.option.name === "expression") {
       this.expression = this.initialExpression
-    }
-    if (this.option.name === "time_format") {
+    } else if (this.option.name === "time_format") {
       this.timeFormat = this.initialTimeFormat
+    } else {
+      this.textValue = this.initialTextValue || this.option.default
     }
   },
 

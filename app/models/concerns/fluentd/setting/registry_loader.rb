@@ -26,8 +26,10 @@ class Fluentd
             end
           end
           attribute(:type, :string)
+          self._types[:type] = :string
           self._dumped_config.values.map(&:keys).flatten.uniq.each do |name|
             attribute(name, :object)
+            self._types[name] = :object
           end
         end
       end

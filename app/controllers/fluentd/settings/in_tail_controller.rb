@@ -58,7 +58,7 @@ class Fluentd::Settings::InTailController < ApplicationController
     permit_params = target_class._types.keys
     permit_params << :parse_type
     section_class = Fluentd::Setting.const_get("parser_#{params.dig(:setting, :parse_type)}".classify)
-    permit_params << { parse: section_class._types.keys }
+    permit_params << { parse: section_class._types.keys + [:type] }
     params.require(:setting).permit(*permit_params)
   end
 

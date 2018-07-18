@@ -5,45 +5,49 @@
 
 #plugin-setting
   - # NOTE: plugin_setting_form_action_url is defined at SettingConcern
-  = form_with(model: @setting, scope: :setting, url: plugin_setting_form_action_url(@fluentd), local: true, class: "ignore-rails-error-div", builder: FluentdFormBuilder) do |form|
+  = form_with(model: setting, scope: :setting, url: plugin_setting_form_action_url(fluentd), local: true, class: "ignore-rails-error-div", builder: FluentdFormBuilder) do |form|
     - @setting.common_options.each do |key|
       = form.field(key)
 
     - if @setting.have_buffer_section?
       %owned-plugin-form{"v-bind:id" => "'buffer-section'",
                          "v-bind:options-json" => "'#{Fluent::Plugin::BUFFER_REGISTRY.map.keys.to_json}'",
-                         "v-bind:initial-plugin-name" => "'#{@setting.buffer_type}'",
+                         "v-bind:initial-plugin-name" => "'#{setting.buffer_type}'",
+                         "v-bind:initial-params-json" => "'#{setting.class.initial_params[:buffer]["0"].to_json}'",
                          "v-bind:plugin-type" => "'buffer'",
                          "v-bind:plugin-label" => "'Buffer'"}
 
-    - if @setting.have_storage_section?
+    - if setting.have_storage_section?
       %owned-plugin-form{"v-bind:id" => "'storage-section'",
                          "v-bind:options-json" => "'#{Fluent::Plugin::STORAGE_REGISTRY.map.keys.to_json}'",
-                         "v-bind:initial-plugin-name" => "'#{@setting.storage_type}'",
+                         "v-bind:initial-plugin-name" => "'#{setting.storage_type}'",
+                         "v-bind:initial-params-json" => "'#{setting.class.initial_params[:storage]["0"].to_json}'",
                          "v-bind:plugin-type" => "'storage'",
                          "v-bind:plugin-label" => "'Storage'"}
 
-    - if @setting.have_parse_section?
+    - if setting.have_parse_section?
       %owned-plugin-form{"v-bind:id" => "'parse-section'",
                          "v-bind:options-json" => "'#{Fluent::Plugin::PARSER_REGISTRY.map.keys.to_json}'",
-                         "v-bind:initial-plugin-name" => "'#{@setting.parse_type}'",
+                         "v-bind:initial-plugin-name" => "'#{setting.parse_type}'",
+                         "v-bind:initial-params-json" => "'#{setting.class.initial_params[:parse]["0"].to_json}'",
                          "v-bind:plugin-type" => "'parse'",
                          "v-bind:plugin-label" => "'Parse'"}
 
-    - if @setting.have_format_section?
+    - if setting.have_format_section?
       %owned-plugin-form{"v-bind:id" => "'format-section'",
                          "v-bind:options-json" => "'#{Fluent::Plugin::FORMATTER_REGISTRY.map.keys.to_json}'",
-                         "v-bind:initial-plugin-name" => "'#{@setting.format_type}'",
+                         "v-bind:initial-plugin-name" => "'#{setting.format_type}'",
+                         "v-bind:initial-params-json" => "'#{setting.class.initial_params[:format]["0"].to_json}'",
                          "v-bind:plugin-type" => "'format'",
                          "v-bind:plugin-label" => "'Format'"}
 
-    - if @setting.advanced_options.present?
+    - if setting.advanced_options.present?
       .card.card-body.bg-light
         %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
           = icon('fa-caret-down')
           = t('terms.advanced_setting')
         #advanced-setting.collapse
-          - @setting.advanced_options.each do |key|
+          - setting.advanced_options.each do |key|
             = form.field(key)
 
     = form.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary float-right mt-3"
