@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-import OwnedPluginForm from "./owned_plugin_form"
-import AwsCredential from "./aws_credential"
+import OwnedPluginForm from "./owned_plugin_form";
+import AwsCredential from "./aws_credential";
 
 $(document).ready(() => {
   new Vue({
@@ -10,5 +10,5 @@ $(document).ready(() => {
       "owned-plugin-form": OwnedPluginForm,
       "aws-credential": AwsCredential
     }
-  })
+  });
 });

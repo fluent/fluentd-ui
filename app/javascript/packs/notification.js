@@ -1,5 +1,5 @@
-const POLLING_INTERVAL = 3 * 1000
-const POLLING_URL = "/polling/alerts"
+const POLLING_INTERVAL = 3 * 1000;
+const POLLING_URL = "/polling/alerts";
 
 $(document).ready(()=> {
   let alert = new Vue({

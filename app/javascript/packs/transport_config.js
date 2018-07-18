@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-import ConfigField from './config_field'
+import ConfigField from './config_field';
 
 const TransportConfig = {
   template: "#vue-transport-config",
@@ -16,29 +16,29 @@ const TransportConfig = {
       transportType: "tcp",
       options: ["tcp", "tls"],
       tlsOptions: []
-    }
+    };
   },
   computed: {
     token: function() {
-      return Rails.csrfToken()
+      return Rails.csrfToken();
     }
   },
   filters: {
     toUpper: function(value) {
-      return _.toUpper(value)
+      return _.toUpper(value);
     }
   },
   mounted: function() {
   },
   methods: {
     onChange: function() {
-      console.log(this.pluginType, this.pluginName, this.transportType)
-      this.updateSection()
+      console.log(this.pluginType, this.pluginName, this.transportType);
+      this.updateSection();
     },
 
     updateSection: function() {
       if (this.transportType === "tcp") {
-        return
+        return;
       }
       $.ajax({
         method: "GET",
@@ -51,10 +51,10 @@ const TransportConfig = {
           name: this.pluginName
         }
       }).then((data) => {
-        this.tlsOptions = data.tlsOptions
-      })
+        this.tlsOptions = data.tlsOptions;
+      });
     }
   }
-}
+};
 
-export { TransportConfig as default }
+export { TransportConfig as default };

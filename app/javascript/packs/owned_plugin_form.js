@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-import ParserMultilineForm from './parser_multiline_form'
-import ConfigField from './config_field'
+import ParserMultilineForm from './parser_multiline_form';
+import ConfigField from './config_field';
 
 const OwnedPluginForm = {
   template: "#vue-owned-plugin-form",
@@ -28,49 +28,49 @@ const OwnedPluginForm = {
       timeFormat: null,
       unwatchExpression: null,
       unwatchTimeFormat: null
-    }
+    };
   },
 
   computed: {
     token: function() {
-      return Rails.csrfToken()
+      return Rails.csrfToken();
     }
   },
 
   mounted: function() {
-    this.options = JSON.parse(this.optionsJson)
-    this.initialParams = JSON.parse(this.initialParamsJson || "{}")
-    this.pluginName = this.initialPluginName
+    this.options = JSON.parse(this.optionsJson);
+    this.initialParams = JSON.parse(this.initialParamsJson || "{}");
+    this.pluginName = this.initialPluginName;
     this.$on("hook:updated", () => {
-      console.log("hook:updated")
+      console.log("hook:updated");
       this.$nextTick(() => {
-        $("[data-toggle=tooltip]").tooltip("dispose")
-        $("[data-toggle=tooltip]").tooltip("enable")
-      })
-    })
+        $("[data-toggle=tooltip]").tooltip("dispose");
+        $("[data-toggle=tooltip]").tooltip("enable");
+      });
+    });
     this.$once("data-loaded", () => {
-      this.updateSection()
-    })
-    this.$emit("data-loaded")
+      this.updateSection();
+    });
+    this.$emit("data-loaded");
   },
 
   methods: {
     onChange: function() {
-      this.updateSection()
+      this.updateSection();
       if (this.pluginType === "parse") {
-        this.$emit("change-plugin-name", this.pluginName)
+        this.$emit("change-plugin-name", this.pluginName);
       }
     },
 
     onChangeFormats: function(data) {
-      console.log("ownedPluginForm:onChangeFormats", data)
-      this.$emit("change-formats", data)
+      console.log("ownedPluginForm:onChangeFormats", data);
+      this.$emit("change-formats", data);
     },
 
     onChangeParseConfig: function(data) {
-      console.log("ownedPluginForm:onChangeParseConfig", data)
-      this.expression = data.expression
-      this.timeFormat = data.timeFormat
+      console.log("ownedPluginForm:onChangeParseConfig", data);
+      this.expression = data.expression;
+      this.timeFormat = data.timeFormat;
     },
 
     updateSection: function() {
@@ -85,58 +85,58 @@ const OwnedPluginForm = {
           name: this.pluginName
         }
       }).then((data) => {
-        this.commonOptions = data.commonOptions
-        let foundExpression = false
-        let foundTimeFormat = false
+        this.commonOptions = data.commonOptions;
+        let foundExpression = false;
+        let foundTimeFormat = false;
         _.each(this.commonOptions, (option) => {
           if (option.name === "expression") {
-            foundExpression = true
-            this.expression = option.default
+            foundExpression = true;
+            this.expression = option.default;
             this.unwatchExpression = this.$watch("expression", (newValue, oldValue) => {
-              console.log(newValue)
+              console.log(newValue);
               this.$emit("change-parse-config", {
                 "expression": this.expression,
                 "time_format": this.timeFormat
-              })
-            })
+              });
+            });
           }
           if (option.name === "time_format") {
-            foundTimeFormat = true
-            this.timeFormat = option.default
-            console.log(this.timeFormat)
+            foundTimeFormat = true;
+            this.timeFormat = option.default;
+            console.log(this.timeFormat);
             this.unwatchTimeFormat = this.$watch("timeFormat", (newValue, oldValue) => {
-              console.log({"watch time_format": newValue})
+              console.log({"watch time_format": newValue});
               this.$emit("change-parse-config", {
                 "expression": this.expression,
                 "time_format": this.timeFormat
-              })
-            })
+              });
+            });
           }
 
           if (!foundExpression && this.unwatchExpression) {
-            this.expression = null
-            this.unwatchExpression()
-            this.unwatchExpression = null
+            this.expression = null;
+            this.unwatchExpression();
+            this.unwatchExpression = null;
           }
           if (!foundTimeFormat && this.unwatchTimeFormat) {
-            this.timeFormat = null
-            this.unwatchTimeFormat()
-            this.unwatchTimeFormat = null
+            this.timeFormat = null;
+            this.unwatchTimeFormat();
+            this.unwatchTimeFormat = null;
           }
-        })
-      })
+        });
+      });
     },
 
     selectId: function(pluginType) {
-      return `setting_${pluginType}_type`
+      return `setting_${pluginType}_type`;
     },
     selectClass: function(pluginType) {
-      return `${pluginType} form-control`
+      return `${pluginType} form-control`;
     },
     selectName: function(pluginType) {
-      return `setting[${pluginType}_type]`
+      return `setting[${pluginType}_type]`;
     }
   }
-}
+};
 
-export { OwnedPluginForm as default }
+export { OwnedPluginForm as default };

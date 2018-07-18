@@ -1,8 +1,8 @@
-'use strict'
-import 'lodash/lodash'
-import 'popper.js/dist/popper'
-import 'bootstrap/dist/js/bootstrap'
-import OwnedPluginForm from './owned_plugin_form'
+'use strict';
+import 'lodash/lodash';
+import 'popper.js/dist/popper';
+import 'bootstrap/dist/js/bootstrap';
+import OwnedPluginForm from './owned_plugin_form';
 
 $(document).ready(() => {
   new Vue({
@@ -14,11 +14,11 @@ $(document).ready(() => {
     data: function() {
       return {
         highlightedLines: null
-      }
+      };
     },
     computed: {
       token: function() {
-        return Rails.csrfToken()
+        return Rails.csrfToken();
       }
     },
     components: {
@@ -26,106 +26,106 @@ $(document).ready(() => {
     },
     watch: {
       'parse.expression': function() {
-        console.log(`parse.expression: ${this.parse.expression}`)
-        this.preview()
+        console.log(`parse.expression: ${this.parse.expression}`);
+        this.preview();
       },
       'parse.time_format': function() {
-        console.log(`parse.time_format: ${this.parse.time_format}`)
-        this.preview()
+        console.log(`parse.time_format: ${this.parse.time_format}`);
+        this.preview();
       },
       'parseType': function() {
-        this.preview()
+        this.preview();
       },
     },
     beforeMount: function() {
       this.path = this.$el.attributes.path.nodeValue;
     },
     mounted: function() {
-      this.parse = {}
+      this.parse = {};
       this.$on("hook:updated", () => {
         this.$nextTick(() => {
-          $("[data-toggle=tooltip]").tooltip("dispose")
-          $("[data-toggle=tooltip]").tooltip("enable")
-        })
-      })
+          $("[data-toggle=tooltip]").tooltip("dispose");
+          $("[data-toggle=tooltip]").tooltip("enable");
+        });
+      });
     },
     methods: {
       onChangePluginName: function(name) {
-        console.log("#in-tail-parse onChangePluginName", name)
-        this.parseType = name
-        this.parse = {} // clear parser plugin configuration
+        console.log("#in-tail-parse onChangePluginName", name);
+        this.parseType = name;
+        this.parse = {}; // clear parser plugin configuration
       },
       onChangeParseConfig: function(data) {
-        console.log("#in-tail-parse onChangeParseConfig", data)
-        _.merge(this.parse, data)
-        this.preview()
+        console.log("#in-tail-parse onChangeParseConfig", data);
+        _.merge(this.parse, data);
+        this.preview();
       },
       onChangeFormats: function(data) {
-        console.log("in_tail_parse:onChangeFormats", data)
-        _.merge(this.parse, data)
-        this.preview()
+        console.log("in_tail_parse:onChangeFormats", data);
+        _.merge(this.parse, data);
+        this.preview();
       },
       updateHighlightedLines: function(matches) {
         if (!matches) {
-          this.highlightedLines = null
-          return
+          this.highlightedLines = null;
+          return;
         }
 
-        let $container = $('<div>')
+        let $container = $('<div>');
         _.each(matches, (match) => {
-          const colors = ["#ff9", "#cff", "#fcf", "#dfd"]
-          const whole = match.whole
-          let html = ""
-          let _matches = []
-          let lastPos = 0
+          const colors = ["#ff9", "#cff", "#fcf", "#dfd"];
+          const whole = match.whole;
+          let html = "";
+          let _matches = [];
+          let lastPos = 0;
 
           _.each(match.matches, (m) => {
-            let matched = m.matched
+            let matched = m.matched;
             if (!matched) {
-              return
+              return;
             }
             // Ignore empty matched with "foobar".match(/foo(.*?)bar/)[1] #=> ""
             if (matched.length === 0) {
-              return
+              return;
             }
             // rotate color
-            let currentColor = colors.shift()
-            colors.push(currentColor)
+            let currentColor = colors.shift();
+            colors.push(currentColor);
 
             // create highlighted range HTML
-            let $highlighted = $("<span>").text(matched)
+            let $highlighted = $("<span>").text(matched);
             $highlighted.attr({
               "class": "regexp-preview",
               "data-toggle": "tooltip",
               "data-placement": "top",
               "title": m.key,
               'style': 'background-color:' + currentColor
-            })
-            let highlightedHtml = $highlighted.wrap("<div>").parent().html()
+            });
+            let highlightedHtml = $highlighted.wrap("<div>").parent().html();
             let pos = {
               start: m.pos[0],
               end: m.pos[1]
-            }
+            };
             if (pos.start > 0) {
-              html += _.escape(whole.substring(lastPos, pos.start))
+              html += _.escape(whole.substring(lastPos, pos.start));
             }
-            html += highlightedHtml
-            lastPos = pos.end
-          })
-          html += whole.substring(lastPos)
+            html += highlightedHtml;
+            lastPos = pos.end;
+          });
+          html += whole.substring(lastPos);
 
-          $container.append(html)
-          $container.append("<br>")
-        })
+          $container.append(html);
+          $container.append("<br>");
+        });
 
-        this.highlightedLines = $container.html()
-        this.$emit("hook:updated")
+        this.highlightedLines = $container.html();
+        this.$emit("hook:updated");
       },
 
       preview: function() {
-        console.log("preview!!!!")
+        console.log("preview!!!!");
         if (this.previewAjax && this.previewAjax.state() === "pending") {
-          this.previewAjax.abort()
+          this.previewAjax.abort();
         }
 
         this.previewAjax = $.ajax({
@@ -142,20 +142,20 @@ $(document).ready(() => {
         }).then(
           (result) => {
             if (result.matches) {
-              this.updateHighlightedLines(result.matches)
+              this.updateHighlightedLines(result.matches);
             } else {
-              console.error(result.error)
-              this.previewError = result.error
+              console.error(result.error);
+              this.previewError = result.error;
             }
           },
           (error) => {
-            this.highlightedLines = null
+            this.highlightedLines = null;
             // console.error(error.responseText)
             if (error.stack) {
-              console.error(error.stack)
+              console.error(error.stack);
             }
-          })
+          });
       }
     }
-  })
-})
+  });
+});

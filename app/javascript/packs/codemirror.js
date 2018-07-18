@@ -1,5 +1,5 @@
-import CodeMirror from 'codemirror/lib/codemirror'
-import 'lodash/lodash'
+import CodeMirror from 'codemirror/lib/codemirror';
+import 'lodash/lodash';
 
 // See: http://codemirror.net/doc/manual.html#modeapi
 // and sample mode files: https://github.com/codemirror/CodeMirror/tree/master/mode

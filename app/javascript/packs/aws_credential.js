@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-import ConfigField from './config_field'
+import ConfigField from './config_field';
 
 const AwsCredential = {
   template: "#vue-aws-credential",
@@ -22,12 +22,12 @@ const AwsCredential = {
         "instanceProfileCredentials",
         "sharedCredentials"
       ]
-    }
+    };
   },
 
   computed: {
     token: function() {
-      return Rails.csrfToken()
+      return Rails.csrfToken();
     }
   },
 
@@ -37,7 +37,7 @@ const AwsCredential = {
 
   methods: {
     onChange: function() {
-      this.updateSection()
+      this.updateSection();
     },
 
     updateSection: function() {
@@ -52,10 +52,10 @@ const AwsCredential = {
           name: this.pluginName
         }
       }).then((data) => {
-        this.credentialOptions = data["awsCredentialOptions"][this.credentialType]
-      })
+        this.credentialOptions = data["awsCredentialOptions"][this.credentialType];
+      });
     }
   }
-}
+};
 
-export { AwsCredential as default }
+export { AwsCredential as default };

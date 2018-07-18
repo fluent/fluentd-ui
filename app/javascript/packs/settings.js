@@ -91,7 +91,7 @@ $(document).ready(() => {
     mounted: function() {
       this.$nextTick(() => {
         this.update();
-      })
+      });
     },
     components: {
       'setting-section': SettingSection
@@ -119,4 +119,4 @@ $(document).ready(() => {
       }
     }
   });
-})
+});
