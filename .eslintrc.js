@@ -8,6 +8,11 @@ module.exports = {
     "ecmaVersion": 2017,
     "sourceType": "module"
   },
+  "globals": {
+    "$": true,
+    "Rails": true,
+    "Vue": true
+  },
   "rules": {
     "indent": [
       "error",

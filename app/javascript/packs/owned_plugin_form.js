@@ -1,5 +1,7 @@
+/* global _ */
 "use strict";
 
+import "lodash/lodash";
 import ParserMultilineForm from "./parser_multiline_form";
 import ConfigField from "./config_field";
 

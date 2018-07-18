@@ -1,5 +1,7 @@
+/* global _ */
 "use strict";
 
+import "lodash/lodash";
 import ConfigField from "./config_field";
 
 const TransportConfig = {

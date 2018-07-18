@@ -1,3 +1,4 @@
+/* global _ */
 "use strict";
 import "lodash/lodash";
 

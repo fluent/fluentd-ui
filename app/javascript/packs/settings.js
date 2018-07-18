@@ -1,3 +1,8 @@
+/* global _ */
+"use strict";
+
+import "lodash/lodash";
+
 $(document).ready(() => {
   const SettingSection = {
     template: "#vue-setting-section",

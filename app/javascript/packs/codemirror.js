@@ -1,3 +1,5 @@
+/* global _ */
+"use strict";
 import CodeMirror from "codemirror/lib/codemirror";
 import "lodash/lodash";
 
