@@ -47,6 +47,18 @@ class Api::ConfigDefinitionsController < ApplicationController
       options[:tlsOptions] = tls_options
     end
 
+    if target.respond_to?(:aws_credential_options)
+      aws_credential_options = build_options(target, target.aws_credential_options)
+      options[:awsCredentialOptions] = {
+        simple: aws_credential_options
+      }
+      target.aws_credential_sections.each do |key|
+        section = target._sections[key]
+        new_key = key.to_s.camelize(:lower).to_sym
+        options[:awsCredentialOptions][new_key] = build_options(section, section._types.keys)
+      end
+    end
+
     render json: options
   end
 
