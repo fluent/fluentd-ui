@@ -40,11 +40,11 @@ CodeMirror.defineMode("fluentd", function(){
           stream.eat(/[^#<>]+/);
           return "keyword";
         case "inner-definition":
-          var key = stream.eatWhile(/[^ \t#]/);
+          stream.eatWhile(/[^ \t#]/);
           state.context =  "inner-definition-keyword-appeared";
           return "variable";
         case "inner-definition-keyword-appeared":
-          var key = stream.eatWhile(/[^#]/);
+          stream.eatWhile(/[^#]/);
           state.context = "inner-definition";
           return "builtin";
         default:
