@@ -15,11 +15,11 @@ $(document).ready(() => {
         return _.toUpper(value);
       }
     },
-    props: [
-      "transportType",
-    ],
-    propsData: {
-      "transportType": "tcp"
+    props: {
+      "transportType": {
+        default: "tcp",
+        type: String
+      }
     },
     data: function() {
       return {

@@ -2,8 +2,9 @@
 $(document).ready(()=> {
   new Vue({
     el: "#fluent-log",
-    props: ["logUrl", "initialAutoReload"],
     data: {
+      "logUrl": "",
+      "initialAutoReload": false,
       "autoFetch": false,
       "logs": [],
       "limit": 30,

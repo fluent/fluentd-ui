@@ -11,13 +11,11 @@ $(document).ready(() => {
     components: {
       "owned-plugin-form": OwnedPluginForm
     },
-    props: [
-      "path",
-      "parseType"
-    ],
     data: function() {
       return {
-        highlightedLines: null
+        "path": "",
+        "parseType": "",
+        "highlightedLines": null
       };
     },
     computed: {
