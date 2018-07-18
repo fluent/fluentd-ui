@@ -12,14 +12,24 @@ rvm:
   - 2.3.7
   - 2.2.10
 
+gemfile:
+  - Gemfile
+  - gemfiles/ruby2.2.gemfile
+
+matrix:
+  exclude:
+    - rvm: 2.2.10
+      gemfile: Gemfile
+    - rvm: 2.5.1
+      gemfile: gemfiles/ruby2.2.gemfile
+    - rvm: 2.4.4
+      gemfile: gemfiles/ruby2.2.gemfile
+    - rvm: 2.3.7
+      gemfile: gemfiles/ruby2.2.gemfile
+
 before_install:
   - google-chrome-stable --version
   - wget http://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip
   - sudo mv chromedriver /usr/local/bin/chromedriver
-
-install:
-  - bundle -v
-  - gem i bundler
   - sudo sh -c 'curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent3.sh | sh'
-  - bin/setup
