@@ -1,19 +1,25 @@
-'use strict'
-import 'lodash/lodash'
+/* global _ */
+"use strict";
+import "lodash/lodash";
 
-import ConfigField from './config_field'
+import ConfigField from "./config_field";
 
 $(document).ready(() => {
   new Vue({
-    el: '#transport-section',
+    el: "#transport-section",
     components: {
       "config-field": ConfigField
     },
-    props: [
-      "transportType",
-    ],
-    propsData: {
-      "transportType": "tcp"
+    filters: {
+      toUpper: function(value) {
+        return _.toUpper(value);
+      }
+    },
+    props: {
+      "transportType": {
+        default: "tcp",
+        type: String
+      }
     },
     data: function() {
       return {
@@ -23,49 +29,44 @@ $(document).ready(() => {
         commonOptions: [],
         advancedOptions: []
 
-      }
+      };
     },
     computed: {
       token: function() {
-        return Rails.csrfToken()
-      }
-    },
-    filters: {
-      toUpper: function(value) {
-        return _.toUpper(value)
+        return Rails.csrfToken();
       }
     },
     beforeMount: function() {
-      this.pluginType = this.$el.attributes.pluginType.nodeValue
-      this.pluginName = this.$el.attributes.pluginName.nodeValue
+      this.pluginType = this.$el.attributes.pluginType.nodeValue;
+      this.pluginName = this.$el.attributes.pluginName.nodeValue;
     },
     mounted: function() {
     },
     methods: {
       onChange: function() {
-        console.log(this.pluginType, this.pluginName, this.transportType)
-        this.updateSection()
+        console.log(this.pluginType, this.pluginName, this.transportType);
+        this.updateSection();
       },
 
       updateSection: function() {
         if (this.transportType === "tcp") {
-          return
+          return;
         }
         $.ajax({
           method: "GET",
           url: "/api/config_definitions",
           headers: {
-            'X-CSRF-Token': this.token
+            "X-CSRF-Token": this.token
           },
           data: {
             type: this.pluginType,
             name: this.pluginName
           }
         }).then((data) => {
-          this.commonOptions = data.transport.commonOptions
-          this.advancedOptions = data.transport.advancedOptions
-        })
+          this.commonOptions = data.transport.commonOptions;
+          this.advancedOptions = data.transport.advancedOptions;
+        });
       }
     }
-  })
-})
+  });
+});

@@ -1,13 +1,20 @@
-'use strict';
+"use strict";
 $(document).ready(()=> {
   new Vue({
     el: "#fluent-log",
-    props: ["logUrl", "initialAutoReload"],
     data: {
+      "logUrl": "",
+      "initialAutoReload": false,
       "autoFetch": false,
       "logs": [],
       "limit": 30,
       "processing": false
+    },
+
+    computed: {
+      isPresentedLogs: function(){
+        return this.logs.length > 0;
+      }
     },
 
     beforeMount: function() {
@@ -36,12 +43,6 @@ $(document).ready(()=> {
       }
     },
 
-    computed: {
-      isPresentedLogs: function(){
-        return this.logs.length > 0;
-      }
-    },
-
     methods: {
       fetchLogs: function() {
         if(this.processing) return;
@@ -54,7 +55,7 @@ $(document).ready(()=> {
           setTimeout(function(){
             self.processing = false;
           }, 256); // delay to reduce flicking loading icon
-        })["catch"](function(error){
+        })["catch"](function(_error){
           self.processing = false;
         });
       }

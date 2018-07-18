@@ -7,34 +7,34 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log('Hello World from Webpacker')
+console.log("Hello World from Webpacker");
 
-import jQuery from 'jquery/dist/jquery'
+import jQuery from "jquery/dist/jquery";
 
-window.$ = jQuery
-window.jQuery = jQuery
+window.$ = jQuery;
+window.jQuery = jQuery;
 
-import Rails from 'rails-ujs/lib/assets/compiled/rails-ujs.js'
+import Rails from "rails-ujs/lib/assets/compiled/rails-ujs.js";
 
-window.Rails = Rails
-Rails.start()
+window.Rails = Rails;
+Rails.start();
 
-import 'popper.js/dist/popper'
-import 'bootstrap/dist/js/bootstrap'
-import 'datatables.net/js/jquery.dataTables'
-import 'startbootstrap-sb-admin/js/sb-admin'
-import 'startbootstrap-sb-admin/js/sb-admin-datatables'
+import "popper.js/dist/popper";
+import "bootstrap/dist/js/bootstrap";
+import "datatables.net/js/jquery.dataTables";
+import "startbootstrap-sb-admin/js/sb-admin";
+import "startbootstrap-sb-admin/js/sb-admin-datatables";
 
-import Vue from 'vue/dist/vue.esm'
+import Vue from "vue/dist/vue.esm";
 
-Vue.filter('to_json', function (value) {
-    return JSON.stringify(value);
-})
+Vue.filter("to_json", function (value) {
+  return JSON.stringify(value);
+});
 
-window.Vue = Vue
+window.Vue = Vue;
 
-import '../stylesheets/application.scss'
+import "../stylesheets/application.scss";
 
 $(document).ready(() => {
-  $("[data-toggle=tooltip]").tooltip()
-})
+  $("[data-toggle=tooltip]").tooltip();
+});

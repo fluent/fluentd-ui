@@ -1,6 +1,9 @@
 {
   "name": "fluentd-ui",
   "private": true,
+  "scripts": {
+    "lint": "eslint app/javascript"
+  },
   "dependencies": {
     "@rails/webpacker": "3.5",
     "codemirror": "^5.37.0",
@@ -15,6 +18,8 @@
     "vue-template-compiler": "^2.5.16"
   },
   "devDependencies": {
+    "eslint": "^5.1.0",
+    "eslint-plugin-vue": "^4.7.0",
     "webpack-dev-server": "2.11.2"
   }
 }

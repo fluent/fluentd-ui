@@ -1,5 +1,6 @@
-'use strict';
-import 'lodash/lodash';
+/* global _ */
+"use strict";
+import "lodash/lodash";
 $(document).ready(() => {
   new Vue({
     el: "#treeview",
@@ -13,14 +14,6 @@ $(document).ready(() => {
       preview: "",
       path: "",
       paths: []
-    },
-
-    mounted: function(){
-      console.log(this.initialPath);
-      this.path = this.initialPath;
-      this.fetchTree();
-      this.$watch("path", this.fetchTree);
-      this.$watch("path", this.fetchPreview);
     },
 
     computed: {
@@ -53,6 +46,14 @@ $(document).ready(() => {
         });
         return dirs;
       }
+    },
+
+    mounted: function(){
+      console.log(this.initialPath);
+      this.path = this.initialPath;
+      this.fetchTree();
+      this.$watch("path", this.fetchTree);
+      this.$watch("path", this.fetchPreview);
     },
 
     methods: {

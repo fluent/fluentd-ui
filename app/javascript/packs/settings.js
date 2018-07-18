@@ -1,10 +1,15 @@
+/* global _ */
+"use strict";
+
+import "lodash/lodash";
+
 $(document).ready(() => {
   const SettingSection = {
-    template: '#vue-setting-section',
-    props: ['id', 'content', 'type', 'name', 'arg'],
+    template: "#vue-setting-section",
+    props: ["id", "content", "type", "name", "arg"],
     data: function() {
       return {
-        mode: 'default',
+        mode: "default",
         processing: false
       };
     },
@@ -13,24 +18,24 @@ $(document).ready(() => {
     },
     computed: {
       endpoint: function() {
-        return '/api/settings/' + this.id;
+        return "/api/settings/" + this.id;
       }
     },
     methods: {
-      onCancel: function(event) {
+      onCancel: function(_event) {
         this.initialState();
       },
-      onEdit: function(ev) {
+      onEdit: function(_event) {
         this.mode = "edit";
       },
-      onDelete: function(ev) {
+      onDelete: function(_event) {
         if (!confirm("really?")) {
           return;
         }
         this.destroy();
       },
-      onSubmit: function(ev) {
-        const token = document.getElementsByName("csrf-token")[0].getAttribute('content');
+      onSubmit: function(_event) {
+        const token = document.getElementsByName("csrf-token")[0].getAttribute("content");
         this.processing = true;
         this.content = $(`#${this.id} textarea.form-control`)[0].dataset.content;
         $.ajax({
@@ -42,7 +47,7 @@ $(document).ready(() => {
             content: this.content
           },
           headers: {
-            'X-CSRF-Token': token
+            "X-CSRF-Token": token
           }
         }).then((data)=> {
           _.each(data, function(v,k){
@@ -55,10 +60,10 @@ $(document).ready(() => {
       },
       initialState: function(){
         this.processing = false;
-        this.mode = 'default';
+        this.mode = "default";
       },
       destroy: function(){
-        const token = document.getElementsByName("csrf-token")[0].getAttribute('content');
+        const token = document.getElementsByName("csrf-token")[0].getAttribute("content");
         $.ajax({
           url: this.endpoint,
           method: "POST",
@@ -67,7 +72,7 @@ $(document).ready(() => {
             id: this.id
           },
           headers: {
-            'X-CSRF-Token': token
+            "X-CSRF-Token": token
           }
         }).then(()=> {
           this.$parent.update();
@@ -78,6 +83,9 @@ $(document).ready(() => {
 
   new Vue({
     el: "#vue-setting",
+    components: {
+      "setting-section": SettingSection
+    },
     data: function(){
       return {
         loaded: false,
@@ -91,10 +99,7 @@ $(document).ready(() => {
     mounted: function() {
       this.$nextTick(() => {
         this.update();
-      })
-    },
-    components: {
-      'setting-section': SettingSection
+      });
     },
     methods: {
       update: function() {
@@ -119,4 +124,4 @@ $(document).ready(() => {
       }
     }
   });
-})
+});
