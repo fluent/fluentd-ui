@@ -83,6 +83,9 @@ $(document).ready(() => {
 
   new Vue({
     el: "#vue-setting",
+    components: {
+      "setting-section": SettingSection
+    },
     data: function(){
       return {
         loaded: false,
@@ -97,9 +100,6 @@ $(document).ready(() => {
       this.$nextTick(() => {
         this.update();
       });
-    },
-    components: {
-      "setting-section": SettingSection
     },
     methods: {
       update: function() {

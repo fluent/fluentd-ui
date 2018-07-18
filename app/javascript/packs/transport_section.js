@@ -10,6 +10,11 @@ $(document).ready(() => {
     components: {
       "config-field": ConfigField
     },
+    filters: {
+      toUpper: function(value) {
+        return _.toUpper(value);
+      }
+    },
     props: [
       "transportType",
     ],
@@ -29,11 +34,6 @@ $(document).ready(() => {
     computed: {
       token: function() {
         return Rails.csrfToken();
-      }
-    },
-    filters: {
-      toUpper: function(value) {
-        return _.toUpper(value);
       }
     },
     beforeMount: function() {

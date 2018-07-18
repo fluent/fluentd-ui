@@ -8,6 +8,9 @@ import OwnedPluginForm from "./owned_plugin_form";
 $(document).ready(() => {
   new Vue({
     el: "#in-tail-parse",
+    components: {
+      "owned-plugin-form": OwnedPluginForm
+    },
     props: [
       "path",
       "parseType"
@@ -21,9 +24,6 @@ $(document).ready(() => {
       token: function() {
         return Rails.csrfToken();
       }
-    },
-    components: {
-      "owned-plugin-form": OwnedPluginForm
     },
     watch: {
       "parse.expression": function() {

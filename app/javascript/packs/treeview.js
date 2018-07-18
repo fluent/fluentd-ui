@@ -16,14 +16,6 @@ $(document).ready(() => {
       paths: []
     },
 
-    mounted: function(){
-      console.log(this.initialPath);
-      this.path = this.initialPath;
-      this.fetchTree();
-      this.$watch("path", this.fetchTree);
-      this.$watch("path", this.fetchPreview);
-    },
-
     computed: {
       selected: function(){
         var self = this;
@@ -54,6 +46,14 @@ $(document).ready(() => {
         });
         return dirs;
       }
+    },
+
+    mounted: function(){
+      console.log(this.initialPath);
+      this.path = this.initialPath;
+      this.fetchTree();
+      this.$watch("path", this.fetchTree);
+      this.$watch("path", this.fetchPreview);
     },
 
     methods: {

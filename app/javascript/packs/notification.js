@@ -8,6 +8,15 @@ $(document).ready(()=> {
       "alerts": []
     },
 
+    computed: {
+      alertsCount: {
+        get: function(){ return this.alerts.length; }
+      },
+      hasAlerts: {
+        get: function(){ return this.alertsCount > 0; }
+      }
+    },
+
     created: function(){
       let timer;
       let self = this;
@@ -38,15 +47,6 @@ $(document).ready(()=> {
         clearTimeout(timer);
       }, false);
       fetch();
-    },
-
-    computed: {
-      alertsCount: {
-        get: function(){ return this.alerts.length; }
-      },
-      hasAlerts: {
-        get: function(){ return this.alertsCount > 0; }
-      }
     },
 
     methods: {

@@ -10,6 +10,12 @@ $(document).ready(()=> {
       "processing": false
     },
 
+    computed: {
+      isPresentedLogs: function(){
+        return this.logs.length > 0;
+      }
+    },
+
     beforeMount: function() {
       this.logUrl = this.$el.attributes.logUrl.nodeValue;
       this.initialAutoReload = this.$el.attributes.initialAutoReload.nodeValue;
@@ -33,12 +39,6 @@ $(document).ready(()=> {
       });
       if(this.initialAutoReload) {
         this.autoFetch = true;
-      }
-    },
-
-    computed: {
-      isPresentedLogs: function(){
-        return this.logs.length > 0;
       }
     },
 
