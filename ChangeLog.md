@@ -1,3 +1,21 @@
+## Release 1.0.0.beta.1 - 2018/07/19
+
+* [maintenance] Introduce ESLint [#249](https://github.com/fluent/fluentd-ui/pull/249)
+* [improvement] Support AWS credentials for out_s3 [#248](https://github.com/fluent/fluentd-ui/pull/248)
+* [maintenance] Bundle update
+  * [#246](https://github.com/fluent/fluentd-ui/pull/246)
+  * [#247](https://github.com/fluent/fluentd-ui/pull/247)
+* [maintenance] Organize specs and CI configurations
+  * [#245](https://github.com/fluent/fluentd-ui/pull/245)
+  * [#250](https://github.com/fluent/fluentd-ui/pull/250)
+  * [#251](https://github.com/fluent/fluentd-ui/pull/251)
+  * [#252](https://github.com/fluent/fluentd-ui/pull/252)
+* [improvement] Support transport section [#244](https://github.com/fluent/fluentd-ui/pull/244)
+* [improvement] Save owned plugin config properly [#243](https://github.com/fluent/fluentd-ui/pull/243)
+* [improvement] Make log level selectable [#242](https://github.com/fluent/fluentd-ui/pull/242)
+* [maintenance] Remove unused partial templates [#241](https://github.com/fluent/fluentd-ui/pull/241)
+* [maintenance] Remove unused helper methods [#240](https://github.com/fluent/fluentd-ui/pull/240)
+
 ## Release 1.0.0.alpha.3 - 2018/06/18
 
 * [improvement] Support Fluentd v1 [#238](https://github.com/fluent/fluentd-ui/pull/238)
