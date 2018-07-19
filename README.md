@@ -55,6 +55,9 @@ NOTE: `chromedriver` executable binary should be located under your `$PATH`.
 
 ## Building fluentd-ui.gem
 
+    # Generate ChangeLog.md and increment version
+    $ bin/rails release:prepare
+
     # Clear tmp/, public/assets and public/packs
     $ bin/rails tmp:clear assets:clobber && touch tmp/.gitkeep
 
