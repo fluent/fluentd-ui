@@ -28,7 +28,7 @@ And some additional packages (Debian / Ubuntu)
 - libxslt1-dev
 - ruby-dev
 
-## Install
+## How to install and run
 
     $ gem install fluentd-ui
     $ fluentd-ui setup
