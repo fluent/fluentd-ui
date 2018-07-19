@@ -24,6 +24,7 @@ Capybara.javascript_driver = :selenium
 require 'capybara-screenshot/rspec'
 
 require "fluent/load"
+require "fluent/plugin/buf_file"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
