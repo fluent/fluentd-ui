@@ -33,6 +33,7 @@ before_install:
   - unzip chromedriver_linux64.zip
   - sudo mv chromedriver /usr/local/bin/chromedriver
   - sudo sh -c 'curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent3.sh | sh'
+  - nvm install 10
 
 install:
   - bin/setup
