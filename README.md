@@ -28,6 +28,14 @@ And some additional packages (Debian / Ubuntu)
 - libxslt1-dev
 - ruby-dev
 
+## How to install and run
+
+    $ gem install fluentd-ui
+    $ fluentd-ui setup
+    $ fluentd-ui start --daemonize
+
+Access http://localhost:9292 by web browser.
+
 ## Development
 
     $ git clone https://github.com/fluent/fluentd-ui
@@ -46,6 +54,9 @@ Also you need a [chromedriver](https://sites.google.com/a/chromium.org/chromedri
 NOTE: `chromedriver` executable binary should be located under your `$PATH`.
 
 ## Building fluentd-ui.gem
+
+    # Clear tmp/, public/assets and public/packs
+    $ bin/rails tmp:clear assets:clobber && touch tmp/.gitkeep
 
     # Generate pre-compiled assets
     $ RAILS_ENV=production bin/rails assets:precompile
