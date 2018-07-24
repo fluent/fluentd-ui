@@ -86,8 +86,6 @@ defaults: &defaults
     - category: storage
       name: "redis"
     - category: storage
-      name: "redis-counter"
-    - category: storage
       name: "forward-aws"
     - category: data_source
       name: "snmp"
