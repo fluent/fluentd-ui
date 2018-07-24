@@ -7,11 +7,11 @@
     %table{class: "table table-striped table-hover"}
       %thead
         %tr
-          %th.col-xl-2= t('plugins.common.name')
-          %th.col-xl-2= t('plugins.common.authors')
-          %th.col-xl-6= t('plugins.common.summary')
-          %th.col-xl-1= t('plugins.common.installed_version')
-          %th.col-xl-1= t('plugins.common.latest_version')
+          %th= t('plugins.common.name')
+          %th= t('plugins.common.authors')
+          %th= t('plugins.common.summary')
+          %th= t('plugins.common.installed_version')
+          %th= t('plugins.common.latest_version')
       %tbody
         - @plugins.each do |plugin|
           %tr
@@ -28,4 +28,3 @@
             %td
               = plugin.latest_version
     = submit_tag t("terms.install_latest"), class: "btn btn-primary"
-
