@@ -94,8 +94,6 @@ defaults: &defaults
     - category: storage
       name: "dynamodb"
     - category: storage
-      name: "cassandra"
-    - category: storage
       name: "cassandra-cql"
     - category: data_source
       name: "cloudstack"
