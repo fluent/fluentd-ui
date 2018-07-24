@@ -149,8 +149,6 @@ defaults: &defaults
       name: "anonymizer"
     - category: search
       name: "splunk"
-    - category: search
-      name: "splunkapi"
     - category: notification
       name: "twilio"
     - category: notification
