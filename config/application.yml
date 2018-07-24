@@ -137,8 +137,6 @@ defaults: &defaults
       name: "time_parser"
     - category: monitoring
       name: "td-monitoring"
-    - category: filter
-      name: "reassemble"
     - category: data_source
       name: "jvmwatcher"
     - category: data_source
