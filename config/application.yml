@@ -127,8 +127,6 @@ defaults: &defaults
       name: "suppress"
     - category: filter
       name: "filter"
-    - category: filter
-      name: "select"
     - category: storage
       name: "resque"
     - category: data_source
