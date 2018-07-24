@@ -111,8 +111,6 @@ defaults: &defaults
       name: "nats"
     - category: notification
       name: "hipchat"
-    - category: processing
-      name: "histogram"
     - category: routing
       name: "hash-forward"
     - category: storage
