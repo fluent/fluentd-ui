@@ -138,8 +138,6 @@ defaults: &defaults
     - category: monitoring
       name: "td-monitoring"
     - category: data_source
-      name: "jvmwatcher"
-    - category: data_source
       name: "http-status"
     - category: data_source
       name: "df"
