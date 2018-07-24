@@ -129,8 +129,6 @@ defaults: &defaults
       name: "filter"
     - category: storage
       name: "resque"
-    - category: data_source
-      name: "resque_stat"
     - category: storage
       name: "gamobile"
     - category: storage
