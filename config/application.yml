@@ -226,6 +226,36 @@ defaults: &defaults
     - category: notification
       api_version: v1
       name: "terminal_notifier"
+    - category: notification
+      api_version: v1
+      name: "cloudwatch-logs"
+    - category: storage
+      api_version: v1
+      name: "kafka"
+    - category: storage
+      api_version: v1
+      name: "bigquery"
+    - category: processing
+      api_version: v1
+      name: "ec2-metadata"
+    - category: monitoring
+      api_version: v1
+      name: "prometheus"
+    - category: monitoring
+      api_version: v1
+      name: "mackerel"
+    - category: storage
+      api_version: v1
+      name: "influxdb"
+    - category: storage
+      api_version: v1
+      name: "sql"
+    - category: parser
+      api_version: v1
+      name: "grok-parser"
+    - category: processing
+      api_version: v1
+      name: "concat"
 
 development:
   <<: *defaults
