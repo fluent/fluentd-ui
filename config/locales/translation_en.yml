@@ -76,6 +76,7 @@ en:
       authors: Authors
       summary: Summary
       category: Category
+      api_version: API version
       installed_version: Installed Version
       latest_version: Latest Version
       install_specific_version: Install this version
