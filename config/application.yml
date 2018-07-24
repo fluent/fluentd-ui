@@ -6,152 +6,225 @@ defaults: &defaults
   in_tail_preview_line_count: 40
   recommended_plugins:
     - category: filter
+      api_version: v1
       name: "rewrite-tag-filter"
     - category: storage
+      api_version: v1
       name: "mongo"
     - category: storage
+      api_version: v1
       name: "td"
     - category: search
+      api_version: v1
       name: "elasticsearch"
     - category: storage
+      api_version: v1
       name: "s3"
     - category: routing
+      api_version: v1
       name: "config-expander"
     - category: routing
+      api_version: v1
       name: "rewrite"
     - category: processing
+      api_version: v1
       name: "flowcounter"
     - category: processing
+      api_version: v1
       name: "datacounter"
     - category: storage
+      api_version: v1
       name: "growthforecast"
     - category: storage
+      api_version: v1
       name: "couch"
     - category: processing
+      api_version: v1
       name: "numeric-counter"
     - category: storage
+      api_version: v1
       name: "webhdfs"
     - category: data_source
+      api_version: v0.12
       name: "dstat"
     - category: filter
+      api_version: v1
       name: "record-reformer"
     - category: storage
+      api_version: v1
       name: "zabbix-simple"
     - category: processing
+      api_version: v1
       name: "numeric-monitor"
     - category: notification
+      api_version: v1
       name: "ping-message"
     - category: processing
+      api_version: v1
       name: "extract_query_params"
     - category: processing
+      api_version: v0.12
       name: "norikra"
     - category: notification
+      api_version: v0.12
       name: "cloudwatch"
     - category: storage
+      api_version: v1
       name: "pghstore"
     - category: filter
+      api_version: v1
       name: "map"
     - category: notification
+      api_version: v1
       name: "notifier"
     - category: processing
+      api_version: v0.12
       name: "grepcounter"
     - category: processing
+      api_version: v0.12
       name: "groupcounter"
     - category: routing
+      api_version: v0.12
       name: "keep-forward"
     - category: notification
+      api_version: v0.12
       name: "mail"
     - category: filter
+      api_version: v1
       name: "record-modifier"
     - category: notification
+      api_version: v0.12
       name: "sns"
     - category: data_source
+      api_version: v0.12
       name: "munin"
     - category: monitoring
+      api_version: v0.12
       name: "metricsense"
     - category: storage
+      api_version: v1
       name: "sqs"
     - category: processing
+      api_version: v0.12
       name: "datacalculator"
     - category: filter
+      api_version: v1
       name: "amplifier-filter"
     - category: filter
+      api_version: v1
       name: "sampling-filter"
     - category: processing
+      api_version: v1
       name: "flatten"
     - category: processing
+      api_version: v0.12
       name: "anomalydetect"
     - category: notification
+      api_version: v1
       name: "ikachan"
     - category: storage
+      api_version: v1
       name: "redis"
     - category: storage
+      api_version: v0.12
       name: "forward-aws"
     - category: data_source
+      api_version: v0.12
       name: "snmp"
     - category: processing
+      api_version: v0.12
       name: "stats"
     - category: storage
+      api_version: v1
       name: "dynamodb"
     - category: storage
+      api_version: v0.12
       name: "cassandra-cql"
     - category: data_source
+      api_version: v0.12
       name: "cloudstack"
     - category: storage
+      api_version: v1
       name: "mysql"
     - category: data_source
+      api_version: v1
       name: "mysql-query"
     - category: data_source
+      api_version: v0.12
       name: "mysqlslowquery"
     - category: storage
+      api_version: v0.12
       name: "redshift"
     - category: data_source
+      api_version: v1
       name: "twitter"
     - category: data_source
+      api_version: v1
       name: "nats"
     - category: notification
+      api_version: v1
       name: "hipchat"
     - category: routing
       name: "hash-forward"
     - category: storage
+      api_version: v0.12
       name: "zmq"
     - category: monitoring
+      api_version: v1
       name: "zabbix"
     - category: notification
+      api_version: v1
       name: "irc"
     - category: processing
+      api_version: v0.12
       name: "mysql-replicator"
     - category: processing
+      api_version: v1
       name: "geoip"
     - category: filter
+      api_version: v1
       name: "suppress"
     - category: filter
+      api_version: v1
       name: "filter"
     - category: storage
+      api_version: v0.12
       name: "resque"
     - category: storage
+      api_version: v0.12
       name: "gamobile"
     - category: storage
+      api_version: v0.12
       name: "jabber"
     - category: processing
+      api_version: v1
       name: "time_parser"
     - category: monitoring
+      api_version: v0.12
       name: "td-monitoring"
     - category: data_source
+      api_version: v0.12
       name: "http-status"
     - category: data_source
+      api_version: v0.12
       name: "df"
     - category: processing
+      api_version: v0.12
       name: "typecast"
     - category: data_source
+      api_version: v1
       name: "rds-slowlog"
     - category: security
+      api_version: v1
       name: "anonymizer"
     - category: search
+      api_version: v0.12
       name: "splunk"
     - category: notification
+      api_version: v1
       name: "twilio"
     - category: notification
+      api_version: v1
       name: "terminal_notifier"
 
 development:
