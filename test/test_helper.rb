@@ -6,12 +6,17 @@ require 'webmock/test_unit'
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
+module FixturePath
+  def fixture_path(fixture_name)
+    Rails.root.join("test/fixtures", fixture_name).to_s
+  end
+end
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   #fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  def fixture_path(fixture_name)
-    Rails.root.join("test/fixtures", fixture_name).to_s
-  end
+  include FixturePath
+  extend FixturePath
 end
