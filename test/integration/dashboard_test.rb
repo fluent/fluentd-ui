@@ -16,10 +16,13 @@ class DashboardTest < ActionDispatch::IntegrationTest
     assert do
       find_link(I18n.t('terms.setup', target: 'td-agent'))
     end
+    assert do
+      !page.has_css?(".fluentd-status")
+    end
   end
 
   test "fluentd is stop" do
-    stub_daemon
+    stub_daemon(running: false)
     visit("/")
     assert do
       page.has_css?('h1', text: I18n.t('fluentd.show.page_title'))
@@ -29,6 +32,9 @@ class DashboardTest < ActionDispatch::IntegrationTest
     end
     assert do
       page.has_css?('h4', text: I18n.t('fluentd.common.fluentd_info'))
+    end
+    assert do
+      page.has_css?(".fluentd-status .stopped")
     end
   end
 
@@ -43,6 +49,9 @@ class DashboardTest < ActionDispatch::IntegrationTest
     end
     assert do
       page.has_css?('h4', text: I18n.t('fluentd.common.fluentd_info'))
+    end
+    assert do
+      page.has_css?(".fluentd-status .running")
     end
   end
 end
