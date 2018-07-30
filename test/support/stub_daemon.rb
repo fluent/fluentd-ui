@@ -7,6 +7,7 @@ module StubDaemon
       stub(object).running? { running }
     end
     daemon.agent.config_write("")
+    daemon
   end
 end
 
