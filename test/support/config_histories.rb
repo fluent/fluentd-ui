@@ -7,7 +7,7 @@ module ConfigHistories
 
     included do
       def daemon
-        @daemon ||= stub_daemon
+        @daemon ||= stub_daemon(variant: "fluentd_gem")
       end
 
       setup do
