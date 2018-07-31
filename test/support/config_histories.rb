@@ -17,7 +17,7 @@ module ConfigHistories
             port 24224
           </source>
         CONFIG
-        new_config = <<-CONFIG
+        new_config = <<-CONFIG.strip_heredoc
           <source>
             @type http
             port 8899
