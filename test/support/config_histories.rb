@@ -60,8 +60,12 @@ module ConfigHistories
         end
       end
 
+      def backup_content
+        @backup_content
+      end
+
       teardown do
-        FileUtils.rm_rf(daemon.agent.config_backup_dir)
+        FileUtils.rm_rf(daemon.agent.running_config_backup_dir)
       end
     end
   end
