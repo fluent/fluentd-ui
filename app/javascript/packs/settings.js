@@ -29,6 +29,9 @@ $(document).ready(() => {
     computed: {
       endpoint: function() {
         return "/api/settings/" + this.id;
+      },
+      token: function() {
+        return Rails.csrfToken();
       }
     },
     methods: {
@@ -45,7 +48,6 @@ $(document).ready(() => {
         this.destroy();
       },
       onSubmit: function(_event) {
-        const token = document.getElementsByName("csrf-token")[0].getAttribute("content");
         this.processing = true;
         this.content = $(`#${this.id} textarea.form-control`)[0].dataset.content;
         $.ajax({
@@ -57,7 +59,7 @@ $(document).ready(() => {
             content: this.content
           },
           headers: {
-            "X-CSRF-Token": token
+            "X-CSRF-Token": this.token
           }
         }).then((data)=> {
           _.each(data, (v, k) => {
@@ -73,7 +75,6 @@ $(document).ready(() => {
         this.mode = "default";
       },
       destroy: function(){
-        const token = document.getElementsByName("csrf-token")[0].getAttribute("content");
         $.ajax({
           url: this.endpoint,
           method: "POST",
@@ -82,7 +83,7 @@ $(document).ready(() => {
             id: this.id
           },
           headers: {
-            "X-CSRF-Token": token
+            "X-CSRF-Token": this.token
           }
         }).then(()=> {
           this.$parent.update();
