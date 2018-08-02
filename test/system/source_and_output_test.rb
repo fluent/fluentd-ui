@@ -94,5 +94,91 @@ class SourceAndOutputTest < ApplicationSystemTestCase
         end
       end
     end
+
+    sub_test_case "edit, update, delete" do
+      setup do
+        @config = <<-CONFIG.strip_heredoc
+          <source>
+            type forward
+            port 24224
+          </source>
+        CONFIG
+        @new_config = <<-CONFIG.strip_heredoc
+          <source>
+            @type http
+            port 8899
+          </source>
+        CONFIG
+        @daemon.agent.config_write(@config)
+        visit(source_and_output_daemon_setting_path)
+        all(".input .card .card-header").first.click
+      end
+
+      test "click edit button transform textarea, then click cancel button to reset" do
+        assert do
+          !page.has_css?(".input textarea")
+        end
+        find(".btn", text: I18n.t("terms.edit")).click
+        original_contents = page.evaluate_script(<<-JS)
+          document.querySelector(".CodeMirror").CodeMirror.getValue()
+        JS
+        assert_equal(@config, original_contents)
+        page.execute_script(<<-JS)
+          var cm = document.querySelector('.CodeMirror').CodeMirror;
+          cm.setValue(#{@new_config.to_json});
+        JS
+        find(".btn", text: I18n.t("terms.cancel")).click
+        contents = page.evaluate_script("document.querySelector('.input pre').textContent")
+        assert_equal(@config, contents)
+        assert_equal(@daemon.agent.config.strip, @config.strip)
+      end
+
+      test "click edit button transform textarea, then click update button to be stored" do
+        assert do
+          !page.has_css?(".input textarea")
+        end
+        find(".btn", text: I18n.t("terms.edit")).click
+        original_contents = page.evaluate_script(<<-JS)
+          document.querySelector(".CodeMirror").CodeMirror.getValue()
+        JS
+        assert_equal(@config, original_contents)
+        page.execute_script(<<-JS)
+          var cm = document.querySelector('.CodeMirror').CodeMirror;
+          cm.setValue(#{@new_config.to_json});
+        JS
+        find(".btn", text: I18n.t("terms.save")).click
+        contents = page.evaluate_script("document.querySelector('.input pre').textContent")
+        pend("contents does not include all lines under '.input pre'")
+        assert_equal(@new_config, contents)
+        assert_equal(@daemon.agent.config.strip, @new_config.strip)
+      end
+
+      test "click delete button transform textarea" do
+        assert do
+          page.has_css?(".input .card-body")
+        end
+        button = find(".btn", text: I18n.t('terms.destroy'))
+        page.accept_confirm do
+          button.click
+        end
+        assert do
+          !page.has_css?(".input .card-body")
+        end
+        assert_equal("", @daemon.agent.config.strip)
+      end
+
+      test "click delete button then cancel it" do
+        assert do
+          page.has_css?(".input .card-body")
+        end
+        page.dismiss_confirm("really?") do
+          find(".btn", text: I18n.t('terms.destroy')).click
+        end
+        assert do
+          page.has_css?(".input .card-body")
+        end
+        assert_equal(@config.strip, @daemon.agent.config.strip)
+      end
+    end
   end
 end
