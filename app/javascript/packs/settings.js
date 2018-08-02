@@ -6,15 +6,25 @@ import "lodash/lodash";
 $(document).ready(() => {
   const SettingSection = {
     template: "#vue-setting-section",
-    props: ["id", "content", "type", "name", "arg"],
+    props: ["initialId", "initialContent", "initialType", "initialName", "initialArg"],
     data: function() {
       return {
         mode: "default",
-        processing: false
+        processing: false,
+        id: null,
+        content: null,
+        type: null,
+        name: null,
+        arg: null
       };
     },
     created: function() {
       this.initialState();
+      this.id = this.initialId;
+      this.content = this.initialContent;
+      this.type = this.initialType;
+      this.name = this.initialName;
+      this.arg = this.initialArg;
     },
     computed: {
       endpoint: function() {
@@ -50,7 +60,7 @@ $(document).ready(() => {
             "X-CSRF-Token": token
           }
         }).then((data)=> {
-          _.each(data, function(v,k){
+          _.each(data, (v, k) => {
             this[k] = v;
           });
           this.initialState();
