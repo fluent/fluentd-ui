@@ -3,6 +3,7 @@ require_relative '../config/environment'
 require 'test/unit/rails/test_help'
 require 'test/unit/rr'
 require 'test/unit/capybara'
+require 'capybara-screenshot/testunit' # for integration test
 require 'webmock/test_unit'
 
 WebMock.disable_net_connect!(allow_localhost: true)
