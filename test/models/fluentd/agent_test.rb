@@ -177,6 +177,54 @@ class Fluentd
       end
     end
 
+    module RestartStrategy
+      extend ActiveSupport::Concern
+
+      included do
+        setup do
+          options = {
+            config_file: Rails.root.join("tmp", "fluentd-test", "fluentd.conf").to_s
+          }
+          @klass = Fluentd::Agent::FluentdGem
+          @agent = @klass.new(options)
+        end
+
+        data("succeeded to start" => true,
+             "failed to stard" => false)
+        test "not running" do |start|
+          stub(@agent).running? { false }
+          stub(@agent).start { start }
+          assert_equal(start, @agent.restart)
+        end
+
+        sub_test_case "running" do
+          data("stop: success, start: success" => [true, true, true],
+               "stop: success, start: failure" => [true, false, false],
+               "stop: failure, start: success" => [false, true, false],
+               "stop: failure, start: failure" => [false, false, false])
+          test "#validate_fluentd_options success" do |(stop_result, start_result, restarted)|
+            stub(@agent).validate_fluentd_options { true }
+            stub(@agent).running? { true }
+            stub(@agent).start { stop_result }
+            stub(@agent).stop { start_result }
+            assert_equal(restarted, @agent.restart)
+          end
+
+          data("stop: success, start: success" => [true, true, false],
+               "stop: success, start: failure" => [true, false, false],
+               "stop: failure, start: success" => [false, true, false],
+               "stop: failure, start: failure" => [false, false, false])
+          test "#validate_fluentd_options failure" do
+            stub(@agent).validate_fluentd_options { false }
+            stub(@agent).running? { true }
+            stub(@agent).start { stop_result }
+            stub(@agent).stop { start_result }
+            assert_equal(restarted, @agent.restart)
+          end
+        end
+      end
+    end
+
     sub_test_case "FluentdGem" do
       setup do
         options = {
@@ -241,6 +289,10 @@ class Fluentd
             @agent.stop
           end
         end
+      end
+
+      sub_test_case "#restart" do
+        include RestartStrategy
       end
     end
 
