@@ -6,7 +6,6 @@ class SourceAndOutputTest < ApplicationSystemTestCase
     @daemon = stub_daemon
   end
 
-  attribute :js, true
   test "config is blank" do
     @daemon.agent.config_write("")
     visit(source_and_output_daemon_setting_path)
@@ -50,7 +49,6 @@ class SourceAndOutputTest < ApplicationSystemTestCase
       visit(source_and_output_daemon_setting_path)
     end
 
-    attribute :js, true
     test "elements" do
       assert do
         !page.has_content?(I18n.t("fluentd.settings.source_and_output.setting_empty"))
@@ -63,7 +61,6 @@ class SourceAndOutputTest < ApplicationSystemTestCase
       end
     end
 
-    attribute :js, true
     test ".card-body is hidden by default and click .card-header for display"  do
       assert do
         !page.has_css?('.input .card .card-body')
@@ -81,7 +78,6 @@ class SourceAndOutputTest < ApplicationSystemTestCase
       end
     end
 
-    attribute :js, true
     test "display plugin name" do
       within ".input" do
         assert do
