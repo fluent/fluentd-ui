@@ -214,7 +214,7 @@ class Fluentd
                "stop: success, start: failure" => [true, false, false],
                "stop: failure, start: success" => [false, true, false],
                "stop: failure, start: failure" => [false, false, false])
-          test "#validate_fluentd_options failure" do
+          test "#validate_fluentd_options failure" do |(stop_result, start_result, restarted)|
             stub(@agent).validate_fluentd_options { false }
             stub(@agent).running? { true }
             stub(@agent).start { stop_result }
