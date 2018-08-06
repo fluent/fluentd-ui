@@ -36,6 +36,14 @@ And some additional packages (Debian / Ubuntu)
 
 Access http://localhost:9292 by web browser.
 
+### Run under sub path
+
+Use `RAILS_RELATIVE_URL_ROOT` environment variable.
+
+   $ RAILS_RELATIVE_URL_ROOT=/prefix fluentd-ui start --daemonize
+
+Access http://localhost:9292/prefix by web browser.
+
 ## Development
 
     $ git clone https://github.com/fluent/fluentd-ui
