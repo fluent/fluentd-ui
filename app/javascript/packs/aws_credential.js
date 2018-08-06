@@ -43,7 +43,7 @@ const AwsCredential = {
     updateSection: function() {
       $.ajax({
         method: "GET",
-        url: "/api/config_definitions",
+        url: `${relativeUrlRoot}/api/config_definitions`,
         headers: {
           "X-CSRF-Token": this.token
         },
