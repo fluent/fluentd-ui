@@ -8,7 +8,8 @@ group :development, :test do
   gem "rake"
   gem "pry"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.0"
+  gem "test-unit-rails", github: "test-unit/test-unit-rails", branch: "support-system-test-case"
+  gem "test-unit-notify"
 end
 
 group :development do
@@ -21,10 +22,11 @@ end
 
 group :test do
   gem "factory_bot_rails"
-  gem "capybara", "~> 3.3.1"
+  gem "capybara", "~> 3.4.2"
   gem "capybara-screenshot"
+  gem "chromedriver-helper"
   gem "simplecov", "~> 0.16.1", require: false
   gem "webmock", "~> 3.3.0"
   gem "timecop"
-  gem "selenium-webdriver", "~> 3.12.0"
+  gem "selenium-webdriver", "~> 3.13.1"
 end

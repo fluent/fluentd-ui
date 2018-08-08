@@ -44,19 +44,21 @@
         %p.empty= t('.setting_empty')
       %setting-section{"v-if" => "loaded && sections.sources.length > 0",
                        "v-for" => "source in sections.sources",
-                       "v-bind:id" => "source.id",
-                       "v-bind:content" => "source.content",
-                       "v-bind:type" => "source.type",
-                       "v-bind:name" => "source.name",
-                       "v-bind:arg" => "source.arg"}
+                       "v-bind:key" => "source.id",
+                       "v-bind:initial-id" => "source.id",
+                       "v-bind:initial-content" => "source.content",
+                       "v-bind:initial-type" => "source.type",
+                       "v-bind:initial-name" => "source.name",
+                       "v-bind:initial-arg" => "source.arg"}
     .col-xl-6.output
       %h3= t('.out')
       %div{"v-if" => "loaded && sections.matches.length == 0"}
         %p.empty= t('.setting_empty')
       %setting-section{"v-if" => "loaded && sections.matches.length > 0",
                        "v-for" => "match in sections.matches",
-                       "v-bind:id" => "match.id",
-                       "v-bind:content" => "match.content",
-                       "v-bind:type" => "match.type",
-                       "v-bind:name" => "match.name",
-                       "v-bind:arg" => "match.arg"}
+                       "v-bind:key" => "match.id",
+                       "v-bind:initial-id" => "match.id",
+                       "v-bind:initial-content" => "match.content",
+                       "v-bind:initial-type" => "match.type",
+                       "v-bind:initial-name" => "match.name",
+                       "v-bind:initial-arg" => "match.arg"}

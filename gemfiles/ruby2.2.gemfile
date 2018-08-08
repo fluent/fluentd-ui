@@ -4,7 +4,7 @@ group :development, :test do
   gem "rake"
   gem "pry"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.0"
+  gem "test-unit-rails", github: "test-unit/test-unit-rails"
 end
 
 group :development do
@@ -19,6 +19,7 @@ group :test do
   gem "factory_bot_rails"
   gem "capybara", "~> 3.1.1"
   gem "capybara-screenshot"
+  gem "chromedriver-helper"
   gem "simplecov", "~> 0.16.1", require: false
   gem "webmock", "~> 3.3.0"
   gem "timecop"

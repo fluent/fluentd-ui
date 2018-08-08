@@ -1,3 +1,15 @@
+GIT
+  remote: git://github.com/test-unit/test-unit-rails.git
+  revision: 32adf391ed6e35b55bf21193f0c0556f4bcc7792
+  branch: support-system-test-case
+  specs:
+    test-unit-rails (5.1.4)
+      rails (>= 5.1.2)
+      test-unit (>= 3.1.7)
+      test-unit-activesupport (>= 1.0.8)
+      test-unit-capybara (>= 1.0.5)
+      test-unit-rr (>= 1.0.4)
+
 PATH
   remote: .
   specs:
@@ -78,6 +90,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    archive-zip (0.11.0)
+      io-like (~> 0.3.0)
     arel (9.0.0)
     aws-eventstream (1.0.1)
     aws-partitions (1.96.0)
@@ -108,7 +122,7 @@ GEM
       msgpack (~> 1.0)
     bson (4.3.0)
     builder (3.2.3)
-    capybara (3.3.1)
+    capybara (3.4.2)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -120,6 +134,9 @@ GEM
       launchy
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
+    chromedriver-helper (1.2.0)
+      archive-zip (~> 0.10)
+      nokogiri (~> 1.8)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     cool.io (1.5.3)
@@ -155,14 +172,14 @@ GEM
     faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
-    fluent-plugin-elasticsearch (2.11.1)
+    fluent-plugin-elasticsearch (2.11.2)
       elasticsearch
       excon
       fluentd (>= 0.14.20)
     fluent-plugin-mongo (1.1.2)
       fluentd (>= 0.14.12, < 2)
       mongo (~> 2.6.0)
-    fluent-plugin-s3 (1.1.3)
+    fluent-plugin-s3 (1.1.4)
       aws-sdk-s3 (~> 1.0)
       aws-sdk-sqs (~> 1.0)
       fluentd (>= 0.14.2, < 2)
@@ -205,6 +222,7 @@ GEM
       concurrent-ruby (~> 1.0)
     i18n_generators (2.1.1)
       rails (>= 3.0.0)
+    io-like (0.3.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -239,6 +257,7 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
+    power_assert (1.1.3)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -249,7 +268,7 @@ GEM
     rack (2.0.5)
     rack-proxy (0.6.4)
       rack
-    rack-test (1.0.0)
+    rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.0)
       actioncable (= 5.2.0)
@@ -281,23 +300,7 @@ GEM
       ffi (>= 0.5.0, < 2)
     request_store (1.4.1)
       rack (>= 1.4)
-    rspec-core (3.7.1)
-      rspec-support (~> 3.7.0)
-    rspec-expectations (3.7.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.7.0)
-    rspec-mocks (3.7.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.7.0)
-    rspec-rails (3.7.2)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 3.7.0)
-      rspec-expectations (~> 3.7.0)
-      rspec-mocks (~> 3.7.0)
-      rspec-support (~> 3.7.0)
-    rspec-support (3.7.1)
+    rr (1.2.1)
     ruby_dep (1.5.0)
     ruby_parser (3.11.0)
       sexp_processor (~> 4.9)
@@ -314,7 +317,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.12.0)
+    selenium-webdriver (3.13.1)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     serverengine (2.0.7)
@@ -341,6 +344,20 @@ GEM
       httpclient (>= 2.7)
       msgpack (>= 0.5.6, < 2)
     temple (0.8.0)
+    test-unit (3.2.8)
+      power_assert
+    test-unit-activesupport (1.0.9)
+      activesupport
+      test-unit
+    test-unit-capybara (1.0.6)
+      capybara (>= 2.1.0)
+      json
+      test-unit (>= 2.5.3)
+    test-unit-notify (1.0.4)
+      test-unit (>= 2.4.9)
+    test-unit-rr (1.0.5)
+      rr (>= 1.1.1)
+      test-unit (>= 2.5.2)
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -375,8 +392,9 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  capybara (~> 3.3.1)
+  capybara (~> 3.4.2)
   capybara-screenshot
+  chromedriver-helper
   factory_bot_rails
   fluentd-ui!
   i18n_generators (= 2.1.1)
@@ -384,9 +402,10 @@ DEPENDENCIES
   pry
   pry-rails
   rake
-  rspec-rails (~> 3.0)
-  selenium-webdriver (~> 3.12.0)
+  selenium-webdriver (~> 3.13.1)
   simplecov (~> 0.16.1)
+  test-unit-notify
+  test-unit-rails!
   timecop
   web-console (~> 3.6)
   webmock (~> 3.3.0)
