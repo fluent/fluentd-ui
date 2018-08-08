@@ -1,3 +1,15 @@
+GIT
+  remote: git://github.com/test-unit/test-unit-rails.git
+  revision: 32adf391ed6e35b55bf21193f0c0556f4bcc7792
+  branch: support-system-test-case
+  specs:
+    test-unit-rails (5.1.4)
+      rails (>= 5.1.2)
+      test-unit (>= 3.1.7)
+      test-unit-activesupport (>= 1.0.8)
+      test-unit-capybara (>= 1.0.5)
+      test-unit-rr (>= 1.0.4)
+
 PATH
   remote: .
   specs:
@@ -343,12 +355,6 @@ GEM
       test-unit (>= 2.5.3)
     test-unit-notify (1.0.4)
       test-unit (>= 2.4.9)
-    test-unit-rails (5.1.3)
-      rails (>= 5.1.2)
-      test-unit (>= 3.1.7)
-      test-unit-activesupport (>= 1.0.8)
-      test-unit-capybara (>= 1.0.5)
-      test-unit-rr (>= 1.0.4)
     test-unit-rr (1.0.5)
       rr (>= 1.1.1)
       test-unit (>= 2.5.2)
@@ -399,7 +405,7 @@ DEPENDENCIES
   selenium-webdriver (~> 3.13.1)
   simplecov (~> 0.16.1)
   test-unit-notify
-  test-unit-rails
+  test-unit-rails!
   timecop
   web-console (~> 3.6)
   webmock (~> 3.3.0)
