@@ -16,6 +16,9 @@
     <%= javascript_pack_tag 'notification' %>
     <%= content_for(:additional_javascript_pack_tag) %>
     <%= csrf_meta_tags %>
+    <%= javascript_tag do %>
+    window.relativeUrlRoot = '<%= Rails.application.config.relative_url_root %>';
+    <% end %>
   </head>
   <body class="fixed-nav bg-light">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">

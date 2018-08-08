@@ -67,7 +67,7 @@ $(document).ready(() => {
       fetchTree: function() {
         var self = this;
         return new Promise(function(resolve, reject) {
-          $.getJSON("/api/tree?path=" + self.path, resolve).fail(reject);
+          $.getJSON(`${relativeUrlRoot}/api/tree?path=${self.path}`, resolve).fail(reject);
         }).then(function(paths){
           console.log(paths);
           self.paths = paths;
@@ -78,7 +78,7 @@ $(document).ready(() => {
         var self = this;
         this.preview = "";
         new Promise(function(resolve, reject) {
-          $.getJSON("/api/file_preview?file=" + self.selected.path, resolve).fail(reject);
+          $.getJSON(`${relativeUrlRoot}/api/file_preview?file=${self.selected.path}`, resolve).fail(reject);
         }).catch(function(e){
           console.error(e);
         }).then(function(lines){

@@ -28,7 +28,7 @@ $(document).ready(() => {
     },
     computed: {
       endpoint: function() {
-        return "/api/settings/" + this.id;
+        return `${relativeUrlRoot}/api/settings/${this.id}`;
       },
       token: function() {
         return Rails.csrfToken();
@@ -115,7 +115,7 @@ $(document).ready(() => {
     methods: {
       update: function() {
         this.loading = true;
-        $.getJSON("/api/settings", (data)=> {
+        $.getJSON(`${relativeUrlRoot}/api/settings`, (data)=> {
           var sources = [];
           var matches = [];
           data.forEach((v)=> {

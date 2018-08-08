@@ -129,7 +129,7 @@ $(document).ready(() => {
 
         this.previewAjax = $.ajax({
           method: "POST",
-          url: "/api/regexp_preview",
+          url: `${relativeUrlRoot}/api/regexp_preview`,
           headers: {
             "X-CSRF-Token": this.token
           },
