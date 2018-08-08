@@ -1,10 +1,5 @@
 require "test_helper"
 
-if ENV["TRAVIS"]
-  require "chromedriver/helper"
-  Chromedriver.set_version "2.35"
-end
-
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # For debugging JavaScript, make slower tests...
   # caps = Selenium::WebDriver::Remote::Capabilities.chrome(loggingPrefs: { browser: 'ALL' })
