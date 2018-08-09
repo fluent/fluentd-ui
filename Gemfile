@@ -8,7 +8,7 @@ group :development, :test do
   gem "rake"
   gem "pry"
   gem "pry-rails"
-  gem "test-unit-rails", github: "test-unit/test-unit-rails", branch: "support-system-test-case"
+  gem "test-unit-rails", github: "test-unit/test-unit-rails"
   gem "test-unit-notify"
 end
 
