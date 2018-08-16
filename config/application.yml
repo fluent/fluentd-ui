@@ -45,7 +45,7 @@ defaults: &defaults
       api_version: v1
       name: "webhdfs"
     - category: data_source
-      api_version: v0.12
+      api_version: v1
       name: "dstat"
     - category: filter
       api_version: v1
