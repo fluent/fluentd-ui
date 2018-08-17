@@ -221,41 +221,6 @@ ja:
         notice_for_multiline_limit: "改行区切りで正規表現を入力してください。空行はカウントされません。21行目以降の入力は無視されます。"
         notice_for_permission: "※%{user}ユーザーが読み込み可能なようにパーミッションやグループの設定をご確認ください。"
         restart_from_first: 最初からやり直す
-        grok_manual: |
-          <p>
-          Grokの記法が使えます。例えば<code>%{INT:foo}</code>とすると、<code>/(?&lt;foo&gt;(?:[+-]?(?:[0-9]+)))/</code>という正規表現に変換されます。
-          </p>
-          <p>
-          使えるキー・値については<a href="http://grokdebug.herokuapp.com/patterns" target="_blank">リファレンス</a>をご確認ください。
-          </p>
-          <p>
-            <h4>例</h4>
-
-            <code>Nov 29 17:02:55 MacBook-Pro-2.local UserEventAgent[239] : cannot find fw daemon port 1102</code>というログに対し、<br />
-            <code>%{MONTH:month}%{SPACE}%{MONTHDAY:day} %{TIME:time} %{DATA} \[%{INT:pid}\]</code>というパターンを適用すると以下の結果が得られます。
-
-            <table class="table">
-            <thead>
-            <tr>
-            <th>キー名</th>
-            <th>値</th>
-            </tr>
-            </thead>
-
-              <tr>
-              <th>month</th><td>Nov</td>
-              </tr>
-              <tr>
-              <th>day</th><td>29</td>
-              </tr>
-              <tr>
-              <th>time</th><td>17:02:55</td>
-              </tr>
-              <tr>
-              <th>pid</th><td>239</td>
-              </tr>
-            </table>
-          </p>
         show:
           page_title: "ファイル読み込み | ファイルの選択"
         after_file_choose:

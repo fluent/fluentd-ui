@@ -27,12 +27,6 @@ class ApiController < ApplicationController
     render json: { error: "#{ex.class}: #{ex.message}" }
   end
 
-  def grok_to_regexp
-    grok = GrokConverter.new
-    grok.load_patterns
-    render text: grok.convert_to_regexp(params[:grok_str]).source
-  end
-
   private
 
   def prepare_plugin_config
