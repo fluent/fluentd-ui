@@ -284,6 +284,7 @@ en:
         log_file: Log file
         pid_file: PID file
         config_file: Config file
+        note: Note
         variant: type
         api_endpoint: API Endpoint
 

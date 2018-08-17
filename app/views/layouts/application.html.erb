@@ -30,6 +30,9 @@
         <%= render partial: "shared/global_nav" %>
         <ul class="navbar-nav ml-auto">
           <%- if @fluentd %>
+            <li class="nav-item fluentd-note">
+              <%= @fluentd.note %>
+            </li>
             <li class="nav-item fluentd-status">
               <a class="nav-link" href="<%= daemon_path %>" data-toggle="tooltip" data-placement="bottom" title="fluentd <%= fluentd_status_message %>">
                 <%= fluentd_status_icon %>

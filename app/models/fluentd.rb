@@ -10,7 +10,7 @@ class Fluentd
 
   before_validation :expand_paths
 
-  COLUMNS = [:id, :variant, :log_file, :pid_file, :config_file]
+  COLUMNS = [:id, :variant, :log_file, :pid_file, :config_file, :note]
   DEFAULT_CONF = <<-CONF.strip_heredoc
     <source>
       # http://docs.fluentd.org/articles/in_forward

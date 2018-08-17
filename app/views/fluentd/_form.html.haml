@@ -28,4 +28,7 @@
         = f.hidden_field :config_file
       - else
         = f.text_field :config_file, class: "form-control"
+    .form-group
+      = f.label :note
+      = f.text_field :note, class: "form-control"
     = f.submit btn, class: "btn btn-primary"

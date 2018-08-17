@@ -161,6 +161,16 @@ label {
   resize: both;
 }
 
+.fluentd-note {
+  display: block;
+  padding: 0.5em 1rem;
+  color: #999;
+}
+
+.fluentd-note:hover {
+  color: #495057;
+}
+
 .fluentd-status {
   .running {
     color: #090;
@@ -188,4 +198,3 @@ label {
   border-radius: 3px;
   margin: 10px 0px;
 }
-
