@@ -5,6 +5,7 @@
     %tr
       %th{scope: "col", width: "24"}
       %th{scope: "col"}= t('plugins.common.name')
+      %th{scope: "col"}= t('plugins.common.api_version')
       %th{scope: "col"}= t('plugins.common.category')
       %th{scope: "col"}= t('plugins.common.status')
       %th{scope: "col"}
@@ -17,6 +18,8 @@
         %td
           %label{for: "plugin_#{plugin.gem_name}"}
             = plugin.gem_name
+        %td
+          = plugin.api_version
         %td
           = plugin.category
         %td

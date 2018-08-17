@@ -10,7 +10,7 @@ class Plugin
   include ActiveModel::Model
   include Draper::Decoratable
 
-  attr_accessor :gem_name, :version, :category
+  attr_accessor :gem_name, :version, :category, :api_version
   validates :gem_name, presence: true
   validates :version, presence: true
 
@@ -97,7 +97,7 @@ class Plugin
 
   def self.recommended
     Settings.recommended_plugins.map do |data|
-      new(category: data["category"], gem_name: "fluent-plugin-#{data["name"]}")
+      new(category: data["category"], gem_name: "fluent-plugin-#{data["name"]}", api_version: data["api_version"])
     end
   end
 

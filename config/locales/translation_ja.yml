@@ -76,6 +76,7 @@ ja:
       authors: 作者
       summary: 概要
       category: カテゴリ
+      api_version: APIバージョン
       installed_version: インストール済みバージョン
       latest_version: 最新バージョン
       install_specific_version: このバージョンをインストール
