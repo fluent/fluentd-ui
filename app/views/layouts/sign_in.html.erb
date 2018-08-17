@@ -6,13 +6,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Fluentd-UI</title>
+  <title><%= fluentd_ui_title %></title>
   <%= stylesheet_link_tag 'application', media: 'all'%>
   <%= javascript_pack_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 
-<body class="bg-light">
+<body class="fixed-nav bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
+    <%= link_to fluentd_ui_logo, root_path, class: "navbar-brand fluentd-ui-logo" %>
+  </nav>
   <div class="container">
     <%= yield %>
   </div>
