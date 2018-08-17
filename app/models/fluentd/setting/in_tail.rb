@@ -30,15 +30,6 @@ class Fluentd
           :regexp
         end
       end
-
-      def grok
-        @grok ||=
-          begin
-            grok = GrokConverter.new
-            grok.load_patterns
-            grok
-          end
-      end
     end
   end
 end
