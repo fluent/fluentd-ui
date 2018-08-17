@@ -29,7 +29,7 @@ class FluentdController < ApplicationController
     end
     redirect_to daemon_path
   end
-  
+
   def destroy
     @fluentd.agent.stop if @fluentd.agent.running?
     @fluentd.destroy
@@ -51,7 +51,7 @@ class FluentdController < ApplicationController
   private
 
   def fluentd_params
-    params.require(:fluentd).permit(:log_file, :pid_file, :config_file, :variant, :api_endpoint)
+    params.require(:fluentd).permit(:log_file, :pid_file, :config_file, :note, :variant, :api_endpoint)
   end
 
   def check_fluentd_exists

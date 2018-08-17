@@ -52,6 +52,9 @@
             %tr
               %th= @fluentd.class.human_attribute_name(:config_file)
               %td= @fluentd.agent.config_file
+            %tr
+              %th= @fluentd.class.human_attribute_name(:note)
+              %td= @fluentd.note
   .row
     .col-xl-12
       = preserve do # partial containing <pre>, so shouldn't break indent

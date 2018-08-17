@@ -290,6 +290,7 @@ ja:
         log_file: ログファイル
         pid_file: PIDファイル
         config_file: 設定ファイル
+        note: ノート
         variant: タイプ
         api_endpoint: APIエンドポイント
 
