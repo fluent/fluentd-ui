@@ -1,3 +1,9 @@
+## Release 1.0.0 - 2018/08/17
+
+* [maintenance] Update recommended plugins [#226](https://github.com/fluent/fluentd-ui/pull/226)
+* [improvement] Support relative path [#255](https://github.com/fluent/fluentd-ui/pull/255)
+* [maintenance] Use test-unit-rails [#254](https://github.com/fluent/fluentd-ui/pull/254)
+
 ## Release 1.0.0.beta.1 - 2018/07/19
 
 * [maintenance] Introduce ESLint [#249](https://github.com/fluent/fluentd-ui/pull/249)
