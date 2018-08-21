@@ -52,7 +52,7 @@ CodeMirror.defineMode("fluentd", function() {
               return;
             }
           };
-          eat(stream, state);
+          eatBuiltin(stream, state);
           state.context = "inner-definition";
           return "builtin";
         default:
