@@ -6,10 +6,10 @@
 #plugin-setting
   - # NOTE: plugin_setting_form_action_url is defined at SettingConcern
   = form_with(model: setting, scope: :setting, url: plugin_setting_form_action_url(fluentd), local: true, class: "ignore-rails-error-div", builder: FluentdFormBuilder) do |form|
-    - @setting.common_options.each do |key|
+    - setting.common_options.each do |key|
       = form.field(key)
 
-    - if @setting.have_buffer_section?
+    - if setting.have_buffer_section?
       %owned-plugin-form{"v-bind:id" => "'buffer-section'",
                          "v-bind:options-json" => "'#{Fluent::Plugin::BUFFER_REGISTRY.map.keys.to_json}'",
                          "v-bind:initial-plugin-name" => "'#{setting.buffer_type}'",
