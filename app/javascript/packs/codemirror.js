@@ -6,23 +6,23 @@ import "lodash/lodash";
 // See: http://codemirror.net/doc/manual.html#modeapi
 // and sample mode files: https://github.com/codemirror/CodeMirror/tree/master/mode
 
-CodeMirror.defineMode("fluentd", function(){
+CodeMirror.defineMode("fluentd", function() {
   return {
-    startState: function(aa){
+    startState: function(aa) {
       return { "context" : null };
     },
-    token: function(stream, state){
-      if(stream.eatWhile(/[ \t]/)){
+    token: function(stream, state) {
+      if (stream.eatWhile(/[ \t]/)) {
         // ignore indenting spaces
         stream.skipTo(stream.peek());
         return;
       }
-      if(stream.eol()){
+      if (stream.eol()) {
         // reached end of line
         return;
       }
 
-      switch(stream.peek()){
+      switch (stream.peek()) {
       case "#":
         stream.skipToEnd();
         return "comment";
@@ -35,7 +35,7 @@ CodeMirror.defineMode("fluentd", function(){
         state.context = "inner-definition";
         return "keyword";
       default:
-        switch(state.context){
+        switch (state.context) {
         case "inner-bracket":
           stream.eat(/[^#<>]+/);
           return "keyword";
@@ -66,18 +66,18 @@ function codemirrorify(el) {
 }
 
 $(function(){
-  $(".js-fluentd-config-editor").each(function(_, el){
+  $(".js-fluentd-config-editor").each(function(_, el) {
     codemirrorify(el);
   });
 });
 
 Vue.directive("config-editor", {
-  bind: function(el, binding, vnode, oldVnode){
+  bind: function(el, binding, vnode, oldVnode) {
     // NOTE: needed delay for waiting CodeMirror setup
-    _.delay(function(textarea){
+    _.delay(function(textarea) {
       let cm = codemirrorify(textarea);
       // textarea.codemirror = cm; // for test, but doesn't work for now (working on Chrome, but Poltergeist not)
-      cm.on("change", function(code_mirror){
+      cm.on("change", function(code_mirror) {
         // bridge Vue - CodeMirror world
         el.dataset.content = code_mirror.getValue();
       });
