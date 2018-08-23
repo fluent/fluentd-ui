@@ -41,14 +41,27 @@ class Api::SettingsController < ApplicationController
   end
 
   def set_section
-    @section = @config.elements.find do |elm|
-      element_id(elm) == params[:id]
+    id = params[:id]
+    return unless id
+    label_name = id.slice(/\A(sources|filters|matches):.+/)[1]
+    elements = @config.group_by_label.dig(label_name, element_type)
+    @section = elements.find do |elm|
+      element_id(elm) == id
     end
   end
 
-  def element_id(element)
-    index = @config.elements.index(element)
-    "#{"%06d" % index}#{Digest::MD5.hexdigest(element.to_s)}"
+  def element_id(label_name, element)
+    element_type = case element.name
+                   when "source"
+                     :sources
+                   when "filter"
+                     :filters
+                   when "match"
+                     :matches
+                   end
+    elements = @config.group_by_label.dig(label_name, element_type)
+    index = elements.index(element)
+    "#{label_name}:#{"%06d" % index}#{Digest::MD5.hexdigest(element.to_s)}"
   end
 
   def render_404
