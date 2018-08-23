@@ -144,6 +144,7 @@ ja:
         page_title: ソースと出力先の追加
         in: 入力
         out: 出力
+        filter: フィルター
         current: 現在の設定
         setting_empty: 設定されていません
       show:

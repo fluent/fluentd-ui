@@ -145,6 +145,7 @@ en:
         page_title: Add Source and Output
         in: Source
         out: Output
+        filter: Filter
         current: Current setting
         setting_empty: Not exists
       show:
