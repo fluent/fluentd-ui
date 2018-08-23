@@ -37,9 +37,17 @@
     .float-right
       %button.btn.btn-outline-dark.btn-sm{"v-on:click" => "update", "v-if" => "!loading"}= icon('fa-refresh')
       %button.btn.btn-outline-dark.btn-sm{"v-if" => "loading"}= icon('fa-spin fa-refresh')
-  .row{"v-for" => "(elements, label) in sections"}
-    .col-xl-6.input
+  .row
+    .col-xl-4.input
       %h3= t('.in')
+    .col-xl-4.filter
+      %h3= t('.filter')
+    .col-xl-4.output
+      %h3= t('.output')
+
+  .row{"v-for" => "(elements, label) in sections"}
+    .col-xl-4.input
+      %h5 {{ label }}
       %div{"v-if" => "loaded && elements.sources.length == 0"}
         %p.empty= t('.setting_empty')
       %setting-section{"v-if" => "loaded && elements.sources.length > 0",
@@ -50,8 +58,21 @@
                        "v-bind:initial-type" => "source.type",
                        "v-bind:initial-name" => "source.name",
                        "v-bind:initial-arg" => "source.arg"}
-    .col-xl-6.output
-      %h3= t('.out')
+    .col-xl-4.filter
+      %h5 {{ label }}
+      %div{"v-if" => "loaded && elements.filters.length == 0"}
+        %p.empty= t('.setting_empty')
+      %setting-section{"v-if" => "loaded && elements.filters.length > 0",
+                       "v-for" => "filter in elements.filters",
+                       "v-bind:key" => "filter.id",
+                       "v-bind:initial-id" => "filter.id",
+                       "v-bind:initial-content" => "filter.content",
+                       "v-bind:initial-type" => "filter.type",
+                       "v-bind:initial-name" => "filter.name",
+                       "v-bind:initial-arg" => "filter.arg"}
+
+    .col-xl-4.output
+      %h5 {{ label }}
       %div{"v-if" => "loaded && elements.matches.length == 0"}
         %p.empty= t('.setting_empty')
       %setting-section{"v-if" => "loaded && elements.matches.length > 0",
