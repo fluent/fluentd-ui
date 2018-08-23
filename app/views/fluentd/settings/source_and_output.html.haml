@@ -48,9 +48,9 @@
   .row{"v-for" => "(elements, label) in sections"}
     .col-xl-4.input
       %h5 {{ label }}
-      %div{"v-if" => "loaded && elements.sources.length == 0"}
+      %div{"v-if" => "loaded && !elements.sources || elements.sources.length == 0"}
         %p.empty= t('.setting_empty')
-      %setting-section{"v-if" => "loaded && elements.sources.length > 0",
+      %setting-section{"v-if" => "loaded && elements.sources && elements.sources.length > 0",
                        "v-for" => "source in elements.sources",
                        "v-bind:key" => "source.id",
                        "v-bind:initial-id" => "source.id",
