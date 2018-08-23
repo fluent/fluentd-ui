@@ -37,13 +37,13 @@
     .float-right
       %button.btn.btn-outline-dark.btn-sm{"v-on:click" => "update", "v-if" => "!loading"}= icon('fa-refresh')
       %button.btn.btn-outline-dark.btn-sm{"v-if" => "loading"}= icon('fa-spin fa-refresh')
-  .row
+  .row{"v-for" => "(elements, label) in sections"}
     .col-xl-6.input
       %h3= t('.in')
-      %div{"v-if" => "loaded && sections.sources.length == 0"}
+      %div{"v-if" => "loaded && elements.sources.length == 0"}
         %p.empty= t('.setting_empty')
-      %setting-section{"v-if" => "loaded && sections.sources.length > 0",
-                       "v-for" => "source in sections.sources",
+      %setting-section{"v-if" => "loaded && elements.sources.length > 0",
+                       "v-for" => "source in elements.sources",
                        "v-bind:key" => "source.id",
                        "v-bind:initial-id" => "source.id",
                        "v-bind:initial-content" => "source.content",
@@ -52,10 +52,10 @@
                        "v-bind:initial-arg" => "source.arg"}
     .col-xl-6.output
       %h3= t('.out')
-      %div{"v-if" => "loaded && sections.matches.length == 0"}
+      %div{"v-if" => "loaded && elements.matches.length == 0"}
         %p.empty= t('.setting_empty')
-      %setting-section{"v-if" => "loaded && sections.matches.length > 0",
-                       "v-for" => "match in sections.matches",
+      %setting-section{"v-if" => "loaded && elements.matches.length > 0",
+                       "v-for" => "match in elements.matches",
                        "v-bind:key" => "match.id",
                        "v-bind:initial-id" => "match.id",
                        "v-bind:initial-content" => "match.content",

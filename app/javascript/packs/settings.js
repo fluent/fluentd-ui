@@ -102,8 +102,11 @@ $(document).ready(() => {
         loaded: false,
         loading: false,
         sections: {
-          sources: [],
-          matches: []
+          "ROOT": {
+            sources: [],
+            filters: [],
+            matches: []
+          }
         }
       };
     },
@@ -115,20 +118,13 @@ $(document).ready(() => {
     methods: {
       update: function() {
         this.loading = true;
-        $.getJSON(`${relativeUrlRoot}/api/settings`, (data)=> {
-          var sources = [];
-          var matches = [];
-          data.forEach((v)=> {
-            if(v.name === "source"){
-              sources.push(v);
-            }else{
-              matches.push(v);
-            }
+        $.getJSON(`${relativeUrlRoot}/api/settings`, (data) => {
+          console.log(data);
+          _.each(data, (elements, label) => {
+            this.sections[label] = elements;
           });
-          this.sections.sources = sources;
-          this.sections.matches = matches;
           this.loaded = true;
-          setTimeout(()=> {
+          setTimeout(() => {
             this.loading = false;
           }, 500);
         });
