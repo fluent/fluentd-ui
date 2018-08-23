@@ -21,10 +21,46 @@ class Fluentd
         end
       end
 
+      def filters
+        elements.find_all do |elm|
+          elm.name == "filter"
+        end
+      end
+
       def matches
         elements.find_all do |elm|
           elm.name == "match"
         end
+      end
+
+      def labels
+        elements.find_all do |elm|
+          elm.name == "label"
+        end
+      end
+
+      def group_by_label
+        hash = Hash.new{|h, k| h[k] = {} }
+        sources.each do |source|
+          label = source["@label"] || source["label"]
+          if label
+            hash[label][:sources] = [source]
+          else
+            hash["ROOT"][:sources] = [source]
+          end
+        end
+        hash["ROOT"][:filters] = filters unless filters.empty?
+        hash["ROOT"][:matches] = matches unless matches.empty?
+
+        labels.each do |label|
+          hash[label.arg][:filters] = label.elements.find_all do |e|
+            e.name == "filter"
+          end
+          hash[label.arg][:matches] = label.elements.find_all do |e|
+            e.name == "match"
+          end
+        end
+        hash
       end
 
       def write_to_file
