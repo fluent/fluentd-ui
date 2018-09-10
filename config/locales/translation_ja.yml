@@ -115,7 +115,7 @@ ja:
       setup_filter_grep: フィルタリング（grep）
       setup_filter_parser: パース
       setup_filter_record_transformer: レコード加工
-      setup_filter_stdout: stdout(log)
+      setup_filter_stdout: 標準出力（ログ）
       setup_out_tdlog: Treasure Data
       setup_out_stdout: 標準出力（ログ）
       setup_out_mongo: MongoDB
