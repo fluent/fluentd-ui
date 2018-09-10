@@ -192,6 +192,30 @@ ja:
           <a target="_blank" href="https://docs.fluentd.org/articles/out_stdout">out_stdoutプラグインの解説</a>もご参照ください。
         show:
           page_title: 標準出力（ログ）
+      filter_grep:
+        option_guide: |
+          指定したフィールドの値を元にイベントを「Grep」します。<br />
+          <a target="_blank" href="https://docs.fluentd.org/articles/filter_parser">filter_parserプラグインの解説</a>もご参照ください。
+        show:
+          page_title: Grepフィルター設定
+      filter_parser:
+        option_guide: |
+          指定したフィールドの値をパースした結果を使ってイベントを加工します。<br />
+          <a target="_blank" href="https://docs.fluentd.org/articles/filter_grep">filter_grepプラグインの解説</a>もご参照ください。
+        show:
+          page_title: Parserフィルター設定
+      filter_record_transformer:
+        option_guide: |
+          様々な方法でイベントを加工します。<br />
+          <a target="_blank" href="https://docs.fluentd.org/articles/filter_record_transformer">filter_record_transformerプラグインの解説</a>もご参照ください。
+        show:
+          page_title: レコード加工設定
+      filter_stdout:
+        option_guide: |
+          標準出力（デーモンとして起動しているときはログファイル）へイベントを書き出します。<br />
+          <a target="_blank" href="https://docs.fluentd.org/articles/filter_stdout">filter_stdoutプラグインの解説</a>もご参照ください。
+        show:
+          page_title: 標準出力（ログ）
       in_syslog:
         option_guide: |
           <a target="_blank" href="https://docs.fluentd.org/articles/in_syslog">in_syslogプラグイン解説ページ</a>もご参照ください。

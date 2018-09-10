@@ -190,6 +190,30 @@ en:
           Print events to STDOUT (or fluentd log file if launched with daemon mode). Please refer to the <a href="https://docs.fluentd.org/articles/out_stdout" target="_blank">stdout output plugin</a> documentation page.
         show:
           page_title: stdout (log)
+      filter_grep:
+        option_guide: |
+          "Grep" events by the value of specified fields.<br />
+          Please refer to the <a target="_blank" href="https://docs.fluentd.org/articles/filter_grep">filter_grep plugin</a> documentation page.
+        show:
+          page_title: Add filter to grep records
+      filter_parser:
+        option_guide: |
+          Parse string field in event records and mutates its event record with parsed result.<br />
+          Please refer to the <a target="_blank" href="https://docs.fluentd.org/articles/filter_parser">filter_parser plugin</a> documentation page.
+        show:
+          page_title: Add filter to parse records
+      filter_record_transformer:
+        option_guide: |
+          Mutage/Transform incoming event streams in a versatile manner.<br />
+          Please refer to the <a target="_blank" href="https://docs.fluentd.org/articles/filter_record_transformer">filter_record_transformer plugin</a> documentation page.
+        show:
+          page_title: Add filter to transform records
+      filter_stdout:
+        option_guide: |
+          Print events to STDOUT (or logs if launched with daemon mode).<br />
+          Please refer to the <a target="_blank" href="https://docs.fluentd.org/articles/filter_stdout>filter_stdout plugin</a> documentation page.
+        show:
+          page_title: stdout (log)
       in_syslog:
         option_guide: |
           For each config parameter, please refer to the <a href="https://docs.fluentd.org/articles/in_syslog" target="_blank">MongoDB output plugin</a> documentation page.
