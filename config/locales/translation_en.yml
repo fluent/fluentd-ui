@@ -113,6 +113,10 @@ en:
       setup_in_monitor_agent: Monitoring Agent
       setup_in_http: http
       setup_in_forward: Forwarding (receiving from another fluentd)
+      setup_filter_grep: Filtering (grep)
+      setup_filter_parser: Parse field
+      setup_filter_record_transformer: Transform
+      setup_filter_stdout: stdout(log)
       setup_out_td: Treasure Data
       setup_out_mongo: MongoDB
       setup_out_stdout: stdout (log)
