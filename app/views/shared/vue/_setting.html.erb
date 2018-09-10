@@ -6,7 +6,7 @@
   <div class="card-header" data-toggle="collapse" v-bind:href="'#'+id" v-bind:title="content">
     <i class="fa fa-caret-down"></i>
     {{ type }}
-    <span v-if="name == 'match' || name == 'filter'">({{ arg }})</span>
+    <span v-if="!_.isEmpty(arg) && (name == 'match' || name == 'filter')">({{ arg }})</span>
   </div>
   <div class="card-body collapse" v-bind:id="id">
     <pre v-if="mode != 'edit'">{{ content }}</pre>
