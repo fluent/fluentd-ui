@@ -2,7 +2,7 @@
 - page_title t('.page_title')
 
 .row.fluentd-setting-inout
-  .col-xl-4
+  .col-xl-3
     .card.card-primary
       .card-header
         %h4= t('.in')
@@ -14,8 +14,16 @@
               = t("fluentd.common.setup_in_#{type}")
   .col-xl-1.arrow-right
     = icon "fa-arrow-circle-right"
-  .col-xl-2
-    = image_tag "/fluentd-logo.png", style: "max-width: 100%"
+  .col-xl-3
+    .card.card-primary
+      .card-header
+        %h4= t('.filter')
+      .card-body
+        - %w(grep parser record_transformer stdout).each do |type|
+          %p
+            = link_to(send("daemon_setting_filter_#{type}_path", @fluentd)) do
+              = icon('fa-file-text-o -fa-lg')
+              = t("fluentd.common.setup_filter_#{type}")
   .col-xl-1.arrow-right
     = icon "fa-arrow-circle-right"
   .col-xl-4
