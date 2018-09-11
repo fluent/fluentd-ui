@@ -1,0 +1,23 @@
+- add_javascript_pack_tag("filter_grep_setting")
+
+= render "shared/vue/grep_container"
+
+#filter-grep-setting
+  %grep-container{"v-bind:container-type" => '"and"',
+                  "v-bind:index" => "0",
+                  "v-on:add-grep-container" => "addGrepContainer",
+                  "v-on:remove-grep-container" => "removeGrepContainer"}
+  %template{"v-for" => "n in index"}
+    %grep-container{"v-bind:container-type" => '"and"',
+                    "v-bind:index" => "n",
+                    "v-on:add-grep-container" => "addGrepContainer",
+                    "v-on:remove-grep-container" => "removeGrepContainer"}
+  %grep-container{"v-bind:container-type" => '"or"',
+                  "v-bind:index" => "0",
+                  "v-on:add-grep-container" => "addGrepContainer",
+                  "v-on:remove-grep-container" => "removeGrepContainer"}
+  %template{"v-for" => "n in index"}
+    %grep-container{"v-bind:container-type" => '"or"',
+                    "v-bind:index" => "n",
+                    "v-on:add-grep-container" => "addGrepContainer",
+                    "v-on:remove-grep-container" => "removeGrepContainer"}

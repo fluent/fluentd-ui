@@ -1,0 +1,15 @@
+= render "shared/vue/grep_pattern"
+%script{type: "text/x-template", id: "vue-grep-container"}
+  .form-group
+    %a.btn.btn-xs{"v-on:click" => "add", "v-if" => "index == 0"}
+      = icon("fa-plus")
+    %a.btn.btn-xs{"v-on:click" => "remove", "v-if" => "index != 0"}
+      = icon("fa-minus")
+    %label
+      {{ containerType | humanize }}
+    %grep-pattern{"v-bind:container-type" => "containerType",
+                  "v-bind:grep-type" => '"regexp"',
+                  "v-bind:index" => "index"}
+    %grep-pattern{"v-bind:container-type" => "containerType",
+                  "v-bind:grep-type" => '"exclude"',
+                  "v-bind:index" => "index"}

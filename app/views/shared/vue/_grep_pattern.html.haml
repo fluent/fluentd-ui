@@ -1,0 +1,18 @@
+%script{type: "text/x-template", id: "vue-grep-pattern"}
+  .form-group
+    %label
+      {{ grepType | humanize }}
+    .form-group
+      %label
+        Key
+        %input.form-control{"v-bind:id" => 'inputId("key", index)',
+                            "v-bind:name" => 'inputName("key", index)',
+                            "v-model:lazy" => "key",
+                            "type" => "text"}
+    .form-group
+      %label
+        Pattern
+        %input.form-control{"v-bind:id" => 'inputId("pattern", index)',
+                            "v-bind:name" => 'inputName("pattern", index)',
+                            "v-model:lazy" => "pattern",
+                            "type" => "text"}
