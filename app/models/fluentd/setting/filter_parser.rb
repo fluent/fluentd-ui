@@ -7,17 +7,26 @@ class Fluentd
 
       def self.initial_params
         {
+          parse_type: "none",
+          parse: {
+            "0" => {
+              "type" => "none"
+            }
+          }
         }
       end
 
       def common_options
         [
           :pattern,
+          :key_name,
         ]
       end
 
       def hidden_options
-        []
+        [
+          :parse
+        ]
       end
     end
   end
