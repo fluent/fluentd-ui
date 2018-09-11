@@ -195,13 +195,13 @@ ja:
       filter_grep:
         option_guide: |
           指定したフィールドの値を元にイベントを「Grep」します。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/filter_parser">filter_parserプラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/articles/filter_grep">filter_grepプラグインの解説</a>もご参照ください。
         show:
           page_title: Grepフィルター設定
       filter_parser:
         option_guide: |
           指定したフィールドの値をパースした結果を使ってイベントを加工します。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/filter_grep">filter_grepプラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/articles/filter_parser">filter_parserプラグインの解説</a>もご参照ください。
         show:
           page_title: Parserフィルター設定
       filter_record_transformer:
