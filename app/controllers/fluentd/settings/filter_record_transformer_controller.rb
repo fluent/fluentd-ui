@@ -6,4 +6,9 @@ class Fluentd::Settings::FilterRecordTransformerController < ApplicationControll
   def target_class
     Fluentd::Setting::FilterRecordTransformer
   end
+
+  def setting_params
+    permit_params = target_class.permit_params + [:record]
+    params.require(:setting).permit(*permit_params)
+  end
 end

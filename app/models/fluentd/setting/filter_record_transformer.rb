@@ -5,6 +5,8 @@ class Fluentd
 
       register_plugin("filter", "record_transformer")
 
+      attribute(:record, :string)
+
       def self.initial_params
         {
         }

@@ -74,7 +74,16 @@ class Fluentd
             section_class.new(_section_params).to_config
           end.compact
         end
-        attrs = params.to_h.reject do |key, value|
+        params = params.to_h
+        if plugin_type == "filter" && plugin_name == "record_transformer"
+          record_params = {}
+          params.delete("record").lines.each do |line|
+            k, v = line.split(" ", 2)
+            record_params[k] = v
+          end
+          elements << config_element("record", "", record_params, [])
+        end
+        attrs = params.reject do |key, value|
           skip?(key.to_sym, value)
         end
         return attrs, elements
