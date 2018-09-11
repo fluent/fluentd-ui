@@ -12,7 +12,7 @@ class Fluentd
 
       def common_options
         [
-          :pattern,
+          :pattern
         ]
       end
 
@@ -21,7 +21,7 @@ class Fluentd
         excludes = (1..20).map {|n| :"exclude#{n}"}
         [
           *regexps, *excludes, :regexp, :exclude, :and, :or
-        ].tap{|s| p s}
+        ]
       end
     end
   end
