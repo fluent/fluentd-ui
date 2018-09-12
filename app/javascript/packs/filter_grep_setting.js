@@ -24,7 +24,7 @@ $(document).ready(() => {
     },
     methods: {
       addGrepContainer: function(containerType, index) {
-        let found = this.containers[containerType].indexOf(false);
+        const found = this.containers[containerType].indexOf(false);
         if (found < 0) {
           this.$set(this.containers[containerType], this.containers[containerType].length, true);
         } else {
