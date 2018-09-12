@@ -1,4 +1,6 @@
+/* global _ */
 "use strict";
+import "lodash/lodash";
 
 import GrepContainer from "./grep_container";
 
@@ -10,7 +12,10 @@ $(document).ready(() => {
     },
     data: function() {
       return {
-        index: 0
+        containers: {
+          and: [true],
+          or: [true]
+        }
       };
     },
     mounted: function() {
@@ -19,10 +24,16 @@ $(document).ready(() => {
     },
     methods: {
       addGrepContainer: function(containerType, index) {
-        this.index += 1;
+        let found = this.containers[containerType].indexOf(false);
+        if (found < 0) {
+          this.$set(this.containers[containerType], this.containers[containerType].length, true);
+        } else {
+          this.$set(this.containers[containerType], found, true);
+        }
       },
       removeGrepContainer: function(containerType, index) {
-        this.index -= 1;
+        this.$set(this.containers[containerType], index, false);
+
       }
     }
   });
