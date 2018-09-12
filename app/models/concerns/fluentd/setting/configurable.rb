@@ -35,6 +35,7 @@ class Fluentd
         self.class._sections.each do |name, klass|
           klass.init
           if klass.multi
+            next if attributes.nil?
             next if attributes[name].nil?
             attributes[name].each do |attr|
               next unless attr
