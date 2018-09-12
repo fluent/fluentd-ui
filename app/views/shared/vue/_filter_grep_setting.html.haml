@@ -3,17 +3,17 @@
 = render "shared/vue/grep_container"
 
 #filter-grep-setting
-  .row
+  %div
     %template{"v-for" => "(enabled, i) in containers.and"}
-      %grep-container.col-xl-3{"v-if" => "enabled",
-                               "v-bind:container-type" => '"and"',
-                               "v-bind:index" => "i",
-                               "v-on:add-grep-container" => "addGrepContainer",
-                               "v-on:remove-grep-container" => "removeGrepContainer"}
-  .row
+      %grep-container{"v-if" => "enabled",
+                      "v-bind:container-type" => '"and"',
+                      "v-bind:index" => "i",
+                      "v-on:add-grep-container" => "addGrepContainer",
+                      "v-on:remove-grep-container" => "removeGrepContainer"}
+  %div
     %template{"v-for" => "(enabled, i) in containers.or"}
-      %grep-container.col-xl-3{"v-if" => "enabled",
-                               "v-bind:container-type" => '"or"',
-                               "v-bind:index" => "i",
-                               "v-on:add-grep-container" => "addGrepContainer",
-                               "v-on:remove-grep-container" => "removeGrepContainer"}
+      %grep-container{"v-if" => "enabled",
+                      "v-bind:container-type" => '"or"',
+                      "v-bind:index" => "i",
+                      "v-on:add-grep-container" => "addGrepContainer",
+                      "v-on:remove-grep-container" => "removeGrepContainer"}
