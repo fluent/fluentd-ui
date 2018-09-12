@@ -68,7 +68,7 @@
                        "v-bind:initial-arg" => "source.arg"}
     .col-xl-4.filter
       %h5 {{ label }}
-      %div{"v-if" => "loaded && elements.filters.length == 0"}
+      %div{"v-if" => "loaded && !elements.filters || elements.filters.length == 0"}
         %p.empty= t('.setting_empty')
       %setting-section{"v-if" => "loaded && elements.filters.length > 0",
                        "v-for" => "filter in elements.filters",
@@ -81,7 +81,7 @@
 
     .col-xl-4.output
       %h5 {{ label }}
-      %div{"v-if" => "loaded && elements.matches.length == 0"}
+      %div{"v-if" => "loaded && !elements.matches || elements.matches.length == 0"}
         %p.empty= t('.setting_empty')
       %setting-section{"v-if" => "loaded && elements.matches.length > 0",
                        "v-for" => "match in elements.matches",
