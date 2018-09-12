@@ -70,9 +70,10 @@ class Fluentd
               }
             end
           end
-          elements = section_params.map do |index, _section_params|
+          _elements = section_params.map do |index, _section_params|
             section_class.new(_section_params).to_config
           end.compact
+          elements.concat(_elements)
         end
         params = params.to_h
         if plugin_type == "filter" && plugin_name == "record_transformer"
