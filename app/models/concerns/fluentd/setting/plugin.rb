@@ -1,4 +1,5 @@
 require "fluent/plugin"
+require "fluent/plugin/buf_file"
 require "fluent/test/log"
 require "fluent/test/driver/input"
 require "fluent/test/driver/output"
