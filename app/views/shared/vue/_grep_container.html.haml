@@ -1,15 +1,32 @@
 = render "shared/vue/grep_pattern"
 %script{type: "text/x-template", id: "vue-grep-container"}
-  .form-group
-    %a.btn.btn-xs{"v-on:click" => "add", "v-if" => "index == 0"}
-      = icon("fa-plus")
-    %a.btn.btn-xs{"v-on:click" => "remove", "v-if" => "index != 0"}
-      = icon("fa-minus")
-    %label
-      {{ containerType | humanize }}
-    %grep-pattern{"v-bind:container-type" => "containerType",
-                  "v-bind:grep-type" => '"regexp"',
-                  "v-bind:index" => "index"}
-    %grep-pattern{"v-bind:container-type" => "containerType",
-                  "v-bind:grep-type" => '"exclude"',
-                  "v-bind:index" => "index"}
+  .form-group.card
+    .card-header
+      %a.btn.btn-xs{"v-on:click" => "add", "v-if" => "index == 0"}
+        = icon("fa-plus")
+      %a.btn.btn-xs{"v-on:click" => "remove", "v-if" => "index != 0"}
+        = icon("fa-minus")
+      %label
+        {{ containerType | humanize }}
+      %label.pl-4.pr-2
+        %input{"type" => "radio",
+               "value" => "regexp",
+               "v-bind:name" => "inputName(index)",
+               "v-model" => "grepType"}
+        Regexp
+      %label
+        %input{"type" => "radio",
+               "value" => "exclude",
+               "v-bind:name" => "inputName(index)",
+               "v-model" => "grepType"}
+        Exclude
+    .card-body
+      .row
+        %template{"v-for" => "(enabled, i) in patterns"}
+          %grep-pattern.col-xl-3{"v-if" => "enabled",
+                                 "v-bind:container-type" => "containerType",
+                                 "v-bind:grep-type" => "grepType",
+                                 "v-bind:index" => "index",
+                                 "v-bind:subIndex" => "i",
+                                 "v-on:add-grep-pattern" => "addGrepPattern",
+                                 "v-on:remove-grep-pattern" => "removeGrepPattern"}
