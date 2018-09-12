@@ -7,14 +7,16 @@
     %label
       {{ grepType | humanize }}
     .form-group
-      %label
+      %label{"data" => {"toggle" => "tooltip", "placement" => "right"},
+             "title" => "The field name to which the regular expression is applied."}
         Key
         %input.form-control{"v-bind:id" => 'inputId("key", index, subIndex)',
                             "v-bind:name" => 'inputName("key", index, subIndex)',
                             "v-model:lazy" => "key",
                             "type" => "text"}
     .form-group
-      %label
+      %label{"data" => {"toggle" => "tooltip", "placement" => "right"},
+             "title" => "The regular expression"}
         Pattern
         %input.form-control{"v-bind:id" => 'inputId("pattern", index, subIndex)',
                             "v-bind:name" => 'inputName("pattern", index, subIndex)',
