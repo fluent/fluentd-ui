@@ -33,7 +33,6 @@ $(document).ready(() => {
       },
       removeGrepContainer: function(containerType, index) {
         this.$set(this.containers[containerType], index, false);
-
       }
     }
   });
