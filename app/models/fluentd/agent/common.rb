@@ -158,24 +158,30 @@ class Fluentd
             current_source = header + scanner.scan_until(%r{^</(?:source|filter|match)>})
             contents[section_type] << { pos: started, content: current_source.strip }
           when "label"
-            scanner.scan(/ ([^\s]+?)>/)
-            label = scanner[1]
-            sections = Hash.new {|h, k| h[k] = [] }
-            loop do
-              break if scanner.match?(%r{\s+?</label>})
-              section_pos = scanner.pos
-              section_header = scanner.scan_until(/^\s*<(filter|match)/)
-              section_type = scanner[1]
-              section_source = section_header + scanner.scan_until(%r{^\s*</(?:filter|match)>})
-              sections[section_type] << { pos: section_pos ,content: section_source.sub(/\n/, "")}
-            end
-            scanner.scan_until(%r{^</label>})
+            label_content = header + scanner.scan_until(%r{^</label>})
+            label, sections = parse_label_section(label_content, started)
             contents["label:#{label}"] << { pos: started, sections: sections }
           else
             raise TypeError, "Unknown section: #{started}: #{section_type}"
           end
         end
         contents
+      end
+
+      def parse_label_section(content, offset)
+        scanner = StringScanner.new(content)
+        scanner.scan_until(/^<label\s+?([^\s]+?)>/)
+        label = scanner[1]
+        sections = Hash.new {|h, k| h[k] = [] }
+        loop do
+          break if scanner.match?(%r{\s+?</label>})
+          pos = scanner.pos
+          header = scanner.scan_until(/^\s*<(filter|match)/)
+          type = scanner[1]
+          source = header + scanner.scan_until(%r{^\s*</(?:filter|match)>})
+          sections[type] << { pos: pos + offset, content: source.sub(/\n/, "") }
+        end
+        return label, sections
       end
     end
   end
