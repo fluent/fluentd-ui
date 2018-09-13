@@ -15,7 +15,7 @@ module ConfigurableDaemonSettings
       end
       visit(__send__("daemon_setting_#{@type}_path"))
       within("form") do
-        fill_in(@form_name.capitalize, with: @form_value)
+        fill_in(@form_name.humanize, with: @form_value)
       end
       click_button(I18n.t("fluentd.common.finish"))
       assert do
