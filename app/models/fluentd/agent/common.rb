@@ -160,7 +160,7 @@ class Fluentd
           when "label"
             label_content = header + scanner.scan_until(%r{^</label>})
             label, sections = parse_label_section(label_content, started)
-            contents["label:#{label}"] << { pos: started, sections: sections }
+            contents["label:#{label}"] << { label: label, pos: started, sections: sections }
           else
             raise TypeError, "Unknown section: #{started}: #{section_type}"
           end
@@ -179,9 +179,42 @@ class Fluentd
           header = scanner.scan_until(/^\s*<(filter|match)/)
           type = scanner[1]
           source = header + scanner.scan_until(%r{^\s*</(?:filter|match)>})
-          sections[type] << { pos: pos + offset, content: source.sub(/\n/, "") }
+          sections[type] << { label: label, pos: pos + offset, content: source.sub(/\n+/, "") }
         end
         return label, sections
+      end
+
+      def dump_parsed_config(parsed_config)
+        content = "".dup
+        sources = parsed_config["source"] || []
+        filters = parsed_config["filter"] || []
+        matches = parsed_config["match"] || []
+        labels = parsed_config.select do |key, sections|
+          key.start_with?("label:")
+        end
+        labels = labels.values.flatten
+        sorted_sections = (sources + filters + matches + labels).sort_by do |section|
+          section[:pos]
+        end
+        sorted_sections.each do |section|
+          if section.key?(:label)
+            label = section[:label]
+            sub_filters = section.dig(:sections, "filter") || []
+            sub_matches = section.dig(:sections, "match") || []
+            sub_sections = (sub_filters + sub_matches).sort_by do |sub_section|
+              sub_section[:pos]
+            end
+            content << "<label #{label}>\n"
+            sub_sections.each do |sub_section|
+              content << sub_section[:content] << "\n\n"
+            end
+            content.chomp!
+            content << "</label>\n\n"
+          else
+            content << section[:content] << "\n\n"
+          end
+        end
+        content.chomp
       end
     end
   end

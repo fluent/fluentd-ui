@@ -42,7 +42,7 @@ class Fluentd
             { pos: 44, content: filter_section_content }
           ],
           "match" => [
-            { pos: 84, content: match_section_content }
+            { pos: 85, content: match_section_content }
           ]
         }
         assert_equal(expected, actual)
@@ -69,10 +69,10 @@ class Fluentd
         CONFIG
         sections = {
           "filter" => [
-            { pos: 75, content: filter_section_content}
+            { label: "@INPUT", pos: 76, content: filter_section_content}
           ],
           "match" => [
-            { pos: 121, content: match_section_content}
+            { label: "@INPUT", pos: 122, content: match_section_content}
           ]
         }
         expected = {
@@ -80,7 +80,7 @@ class Fluentd
             { pos: 0, content: source_section_content }
           ],
           "label:@INPUT" => [
-            { pos: 60, sections: sections }
+            { label: "@INPUT", pos: 60, sections: sections }
           ]
         }
         assert_equal(expected, actual)
@@ -115,10 +115,10 @@ class Fluentd
         CONFIG
         input_sections = {
           "filter" => [
-            { pos: 140, content: filter_section_content }
+            { label: "@INPUT", pos: 140, content: filter_section_content }
           ],
           "match" => [
-            { pos: 187, content: match_section_content }
+            { label: "@INPUT", pos: 187, content: match_section_content }
           ]
         }
         filter_secion_content1 = <<-CONFIG.chomp
@@ -143,12 +143,12 @@ class Fluentd
         CONFIG
         main_sections = {
           "filter" => [
-            { pos: 274, content: filter_secion_content1 },
-            { pos: 321, content: filter_secion_content2 }
+            { label: "@MAIN", pos: 275, content: filter_secion_content1 },
+            { label: "@MAIN", pos: 322, content: filter_secion_content2 }
           ],
           "match" => [
-            { pos: 368, content: match_secion_content1 },
-            { pos: 413, content: match_secion_content2 }
+            { label: "@MAIN", pos: 370, content: match_secion_content1 },
+            { label: "@MAIN", pos: 416, content: match_secion_content2 }
           ]
         }
         expected = {
@@ -157,13 +157,33 @@ class Fluentd
             { pos: 61, content: source_section_content2 },
           ],
           "label:@INPUT" => [
-            { pos: 124, sections: input_sections }
+            { label: "@INPUT", pos: 124, sections: input_sections }
           ],
           "label:@MAIN" => [
-            { pos: 259, sections: main_sections }
+            { label: "@MAIN", pos: 260, sections: main_sections }
           ]
         }
         assert_equal(expected, actual)
+      end
+    end
+
+    sub_test_case "#dump_parsed_config" do
+      test "simple" do
+        parsed_config = @agent.__send__(:parse_config, fixture_content("config/simple.conf"))
+        config = @agent.__send__(:dump_parsed_config, parsed_config)
+        assert_equal(fixture_content("config/simple.conf"), config)
+      end
+
+      test "simple label" do
+        parsed_config = @agent.__send__(:parse_config, fixture_content("config/label.conf"))
+        config = @agent.__send__(:dump_parsed_config, parsed_config)
+        assert_equal(fixture_content("config/label.conf"), config)
+      end
+
+      test "multiple labels" do
+        parsed_config = @agent.__send__(:parse_config, fixture_content("config/multi-label.conf"))
+        config = @agent.__send__(:dump_parsed_config, parsed_config)
+        assert_equal(fixture_content("config/multi-label.conf"), config)
       end
     end
   end
