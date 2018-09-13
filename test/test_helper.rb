@@ -18,6 +18,10 @@ module FixturePath
   def fixture_path(fixture_name)
     Rails.root.join("test/fixtures", fixture_name).to_s
   end
+
+  def fixture_content(fixture_name)
+    Rails.root.join("test/fixtures", fixture_name).read
+  end
 end
 
 class ActiveSupport::TestCase

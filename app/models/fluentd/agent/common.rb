@@ -18,6 +18,8 @@
 #   - https://github.com/treasure-data/omnibus-td-agent/blob/master/templates/etc/systemd/td-agent.service.erb#L14
 #   fluentd: /etc/fluent/fluent.conf (created by fluentd -s)
 
+require "strscan"
+
 class Fluentd
   class Agent
     module Common
@@ -141,6 +143,39 @@ class Fluentd
           FileUtils.rm(note_file_attached_backup) if File.exist? note_file_attached_backup
           FileUtils.rm(file) if File.exist? file
         end
+      end
+
+      def parse_config(config_content)
+        scanner = StringScanner.new(config_content)
+        contents = Hash.new {|h, k| h[k] = [] }
+        until scanner.eos? do
+          started = scanner.pos
+          header = scanner.scan_until(/^<(source|filter|match|label)/)
+          section_type = scanner[1]
+          break unless header
+          case section_type
+          when "source", "filter", "match"
+            current_source = header + scanner.scan_until(%r{^</(?:source|filter|match)>})
+            contents[section_type] << { pos: started, content: current_source.strip }
+          when "label"
+            scanner.scan(/ ([^\s]+?)>/)
+            label = scanner[1]
+            sections = Hash.new {|h, k| h[k] = [] }
+            loop do
+              break if scanner.match?(%r{\s+?</label>})
+              section_pos = scanner.pos
+              section_header = scanner.scan_until(/^\s*<(filter|match)/)
+              section_type = scanner[1]
+              section_source = section_header + scanner.scan_until(%r{^\s*</(?:filter|match)>})
+              sections[section_type] << { pos: section_pos ,content: section_source.sub(/\n/, "")}
+            end
+            scanner.scan_until(%r{^</label>})
+            contents["label:#{label}"] << { pos: started, sections: sections }
+          else
+            raise TypeError, "Unknown section: #{started}: #{section_type}"
+          end
+        end
+        contents
       end
     end
   end
