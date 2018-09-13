@@ -23,7 +23,7 @@ module SettingConcern
       return render "shared/settings/show"
     end
 
-    @fluentd.agent.config_append @setting.to_config
+    @fluentd.agent.config_merge(@setting.to_config.to_s)
     if @fluentd.agent.running?
       unless @fluentd.agent.restart
         @setting.errors.add(:base, @fluentd.agent.log.tail(1).first)
