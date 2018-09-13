@@ -76,6 +76,25 @@ class Fluentd
         end
       end
 
+      def config_merge(content)
+        if content.start_with?("<label ")
+          label = content.slice(/<label\s+(.+?)>/, 1)
+          key = "label:#{label}"
+          parsed_config = parse_config(config)
+          if parsed_config.key?(key)
+            offset = parsed_config[key][0][:pos] + parsed_config[key][0][:size]
+            label, sections = parse_label_section(content, offset)
+            parsed_config[key][0][:sections]["filter"].concat(sections["filter"])
+            parsed_config[key][0][:sections]["match"].concat(sections["match"])
+            config_write(dump_parsed_config(parsed_config))
+          else
+            config_append(content)
+          end
+        else
+          config_append(content)
+        end
+      end
+
       def configuration
         if File.exists? config_file
           ::Fluentd::Agent::Configuration.new(config_file)
@@ -160,7 +179,7 @@ class Fluentd
           when "label"
             label_content = header + scanner.scan_until(%r{^</label>})
             label, sections = parse_label_section(label_content, started)
-            contents["label:#{label}"] << { label: label, pos: started, sections: sections }
+            contents["label:#{label}"] << { label: label, pos: started, sections: sections, size: label_content.size }
           else
             raise TypeError, "Unknown section: #{started}: #{section_type}"
           end

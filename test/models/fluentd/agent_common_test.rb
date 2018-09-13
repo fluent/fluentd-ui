@@ -80,7 +80,7 @@ class Fluentd
             { pos: 0, content: source_section_content }
           ],
           "label:@INPUT" => [
-            { label: "@INPUT", pos: 60, sections: sections }
+            { label: "@INPUT", pos: 60, sections: sections, size: 116 }
           ]
         }
         assert_equal(expected, actual)
@@ -157,10 +157,10 @@ class Fluentd
             { pos: 61, content: source_section_content2 },
           ],
           "label:@INPUT" => [
-            { label: "@INPUT", pos: 124, sections: input_sections }
+            { label: "@INPUT", pos: 124, sections: input_sections, size: 136 }
           ],
           "label:@MAIN" => [
-            { label: "@MAIN", pos: 260, sections: main_sections }
+            { label: "@MAIN", pos: 260, sections: main_sections, size: 211 }
           ]
         }
         assert_equal(expected, actual)
@@ -184,6 +184,69 @@ class Fluentd
         parsed_config = @agent.__send__(:parse_config, fixture_content("config/multi-label.conf"))
         config = @agent.__send__(:dump_parsed_config, parsed_config)
         assert_equal(fixture_content("config/multi-label.conf"), config)
+      end
+    end
+
+    sub_test_case "#config_merge" do
+      test "simple" do
+        stub(@agent).config { fixture_content("config/simple.conf") }
+        stub(@agent).backup_config
+        content = <<-CONFIG
+<match dummy3>
+  @type stdout
+</match>
+        CONFIG
+        mock(@agent).config_append(content)
+        @agent.config_merge(content)
+      end
+
+      test "simple with label" do
+        stub(@agent).config { fixture_content("config/simple.conf") }
+        stub(@agent).backup_config
+        content = <<-CONFIG
+<label @INPUT>
+  <match dummy3>
+    @type stdout
+  </match>
+</label>
+        CONFIG
+        mock(@agent).config_append(content)
+        @agent.config_merge(content)
+      end
+
+      test "append to label" do
+        stub(@agent).config { fixture_content("config/label.conf") }
+        stub(@agent).config_file { "tmp/fluent.conf" }
+        stub(@agent).backup_config
+        content = <<-CONFIG
+<label @INPUT>
+  <match dummy3>
+    @type stdout
+  </match>
+</label>
+        CONFIG
+        mock(@agent).config_write(<<-CONFIG)
+<source>
+  @type dummy
+  tag dummy
+  @label @INPUT
+</source>
+
+<label @INPUT>
+  <filter dummy>
+    @type stdout
+  </filter>
+
+  <match dummy>
+    @type stdout
+  </match>
+
+  <match dummy3>
+    @type stdout
+  </match>
+</label>
+        CONFIG
+        @agent.config_merge(content)
       end
     end
   end
