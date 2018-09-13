@@ -220,9 +220,13 @@ class Fluentd
             label = section[:label]
             sub_filters = section.dig(:sections, "filter") || []
             sub_matches = section.dig(:sections, "match") || []
-            sub_sections = (sub_filters + sub_matches).sort_by do |sub_section|
+            sorted_sub_filters = sub_filters.sort_by do |sub_section|
               sub_section[:pos]
             end
+            sorted_sub_matches =  sub_matches.sort_by do |sub_section|
+              sub_section[:pos]
+            end
+            sub_sections = sorted_sub_filters + sorted_sub_matches
             content << "<label #{label}>\n"
             sub_sections.each do |sub_section|
               content << sub_section[:content] << "\n\n"

@@ -248,6 +248,41 @@ class Fluentd
         CONFIG
         @agent.config_merge(content)
       end
+
+      test "append filter to label" do
+        stub(@agent).config { fixture_content("config/label.conf") }
+        stub(@agent).config_file { "tmp/fluent.conf" }
+        stub(@agent).backup_config
+        content = <<-CONFIG
+<label @INPUT>
+  <filter dummy3>
+    @type stdout
+  </filter>
+</label>
+        CONFIG
+        mock(@agent).config_write(<<-CONFIG)
+<source>
+  @type dummy
+  tag dummy
+  @label @INPUT
+</source>
+
+<label @INPUT>
+  <filter dummy>
+    @type stdout
+  </filter>
+
+  <filter dummy3>
+    @type stdout
+  </filter>
+
+  <match dummy>
+    @type stdout
+  </match>
+</label>
+        CONFIG
+        @agent.config_merge(content)
+      end
     end
   end
 end
