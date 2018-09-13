@@ -19,6 +19,7 @@ class Fluentd
 
       def common_options
         [
+          :label,
           :pattern,
         ]
       end

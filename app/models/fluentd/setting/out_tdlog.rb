@@ -22,7 +22,7 @@ class Fluentd
 
       def common_options
         [
-          :pattern, :apikey, :auto_create_table, :database, :table,
+          :label, :pattern, :apikey, :auto_create_table, :database, :table,
         ]
       end
 

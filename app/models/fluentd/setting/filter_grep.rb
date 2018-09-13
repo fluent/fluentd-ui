@@ -12,6 +12,7 @@ class Fluentd
 
       def self.permit_params
         [
+          :label,
           :pattern, :log_level, :@log_level,
           { and: {regexp: [:key, :pattern], exclude: [:key, :pattern]} },
           { or: {regexp: [:key, :pattern], exclude: [:key, :pattern]} }
@@ -20,7 +21,8 @@ class Fluentd
 
       def common_options
         [
-          :pattern
+          :label,
+          :pattern,
         ]
       end
 

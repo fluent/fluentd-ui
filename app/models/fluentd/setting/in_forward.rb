@@ -7,6 +7,7 @@ class Fluentd
 
       def common_options
         [
+          :label,
           :bind, :port
         ]
       end

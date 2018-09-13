@@ -25,6 +25,7 @@ class Fluentd
 
       def common_options
         [
+          :label,
           :pattern, :host, :port, :database, :collection,
           :tag_mapped, :user, :password,
         ]
