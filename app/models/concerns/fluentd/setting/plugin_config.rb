@@ -10,7 +10,12 @@ class Fluentd
       def validate_configuration
         original_log = $log
         $log = DummyLogger.logger
-        config = to_config.to_s.lines[1..-2].join
+        full_config = to_config.to_s
+        config = if full_config.start_with?("<label ")
+                   full_config.lines[2..-3].join
+                 else
+                   full_config.lines[1..-2].join
+                 end
         self.class.create_driver(config)
       rescue Fluent::ConfigError => ex
         errors.add(:base, :invalid, message: ex.message)
