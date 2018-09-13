@@ -145,8 +145,8 @@ class Fluentd
         end
       end
 
-      def parse_config(config_content)
-        scanner = StringScanner.new(config_content)
+      def parse_config(content)
+        scanner = StringScanner.new(content)
         contents = Hash.new {|h, k| h[k] = [] }
         until scanner.eos? do
           started = scanner.pos
