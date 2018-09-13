@@ -40,6 +40,10 @@ class Fluentd
         end
         _attributes = { "@type" => self.plugin_name }.merge(_attributes)
         _attributes["@log_level"] = _attributes.delete("log_level")
+        label = _attributes.delete("label")
+        if plugin_type == "input"
+          _attributes["@label"] = label
+        end
         argument = case plugin_type
                    when "output", "filter", "buffer"
                      _attributes.delete(self._argument_name.to_s) || ""
@@ -47,7 +51,14 @@ class Fluentd
                      ""
                    end
         attrs, elements = parse_attributes(_attributes)
-        config_element(name, argument, attrs, elements)
+        case plugin_type
+        when "output", "filter"
+          # e is <match> or <filter>
+          e = config_element(name, argument, attrs, elements)
+          config_element("label", label, {}, [e])
+        else
+          config_element(name, argument, attrs, elements)
+        end
       end
 
       def parse_attributes(attributes)
