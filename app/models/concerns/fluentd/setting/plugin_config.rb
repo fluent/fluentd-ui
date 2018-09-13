@@ -55,7 +55,11 @@ class Fluentd
         when "output", "filter"
           # e is <match> or <filter>
           e = config_element(name, argument, attrs, elements)
-          config_element("label", label, {}, [e])
+          if label.blank?
+            e
+          else
+            config_element("label", label, {}, [e])
+          end
         else
           config_element(name, argument, attrs, elements)
         end
