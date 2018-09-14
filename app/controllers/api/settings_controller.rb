@@ -54,7 +54,7 @@ class Api::SettingsController < ApplicationController
     element_type = element_type(element.name)
     elements = @config.group_by_label.dig(label_name, element_type)
     index = elements.index(element)
-    "#{label_name}:#{"%06d" % index}#{Digest::MD5.hexdigest(element.to_s)}"
+    "#{"%06d" % index}#{Digest::MD5.hexdigest(element.to_s)}"
   end
 
   def element_type(name)
