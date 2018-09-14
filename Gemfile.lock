@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fluentd-ui (1.0.0)
+    fluentd-ui (1.0.1)
       addressable
       bootsnap (>= 1.1.0)
       bundler
@@ -174,7 +174,7 @@ GEM
     fluent-plugin-td (1.0.0)
       fluentd (>= 0.14.13, < 2)
       td-client (~> 1.0)
-    fluentd (1.2.4)
+    fluentd (1.2.5)
       cool.io (>= 1.4.5, < 2.0.0)
       dig_rb (~> 1.0.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)

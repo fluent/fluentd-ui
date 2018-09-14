@@ -1,3 +1,11 @@
+## Release 1.0.1 - 2018/09/14
+
+* [maintenance] Update rubyzip [#263](https://github.com/fluent/fluentd-ui/pull/263)
+* [fixed] Fix CodeMirror visualization error[#260](https://github.com/fluent/fluentd-ui/pull/260)
+* [improvement] Add note on dashboard [#259](https://github.com/fluent/fluentd-ui/pull/259)
+* [maintenance] Remove unused grok support [#257](https://github.com/fluent/fluentd-ui/pull/257)
+* [improvement] Improve login page [#258](https://github.com/fluent/fluentd-ui/pull/258)
+
 ## Release 1.0.0 - 2018/08/17
 
 * [maintenance] Update recommended plugins [#226](https://github.com/fluent/fluentd-ui/pull/226)
