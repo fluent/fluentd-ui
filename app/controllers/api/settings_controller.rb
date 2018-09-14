@@ -2,7 +2,7 @@ class Api::SettingsController < ApplicationController
   before_action :login_required
   before_action :find_fluentd
   before_action :set_config
-  before_action :set_section, only: [:show, :update, :destroy]
+  before_action :set_target_element, only: [:show, :update, :destroy]
   helper_method :element_id
 
   def index
@@ -13,7 +13,7 @@ class Api::SettingsController < ApplicationController
 
   def update
     coming = Fluent::Config::V1Parser.parse(params[:content], @fluentd.config_file)
-    current = @section
+    current = @target_element
     index = @config.elements.index current
     unless index
       render_404
@@ -40,7 +40,7 @@ class Api::SettingsController < ApplicationController
     @config = Fluentd::Setting::Config.new(@fluentd.config_file)
   end
 
-  def set_section
+  def set_target_element
     id = params[:id]
     return unless id
     label_name = id.slice(/\A(sources|filters|matches):.+/)[1]
