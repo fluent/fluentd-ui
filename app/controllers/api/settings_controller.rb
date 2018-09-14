@@ -25,13 +25,19 @@ class Api::SettingsController < ApplicationController
   end
 
   def destroy
-    unless @config.elements.index(@section)
-      render_404
-      return
+    if params[:label] == "ROOT"
+      name = params[:pluginType]
+      arg = params[:arg]
+    else
+      name = "label"
+      arg = params[:label]
     end
-    @config.elements.delete @section
-    @config.write_to_file
-    head :no_content # 204
+    if @config.delete_element(name, arg, @target_element)
+      @config.write_to_file
+      head :no_content # 204
+    else
+      render_404
+    end
   end
 
   private
