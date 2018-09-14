@@ -42,11 +42,12 @@ class Api::SettingsController < ApplicationController
 
   def set_target_element
     id = params[:id]
+    plugin_type = params[:pluginType]
+    label_name = params[:label]
     return unless id
-    label_name = id.slice(/\A(sources|filters|matches):.+/)[1]
-    elements = @config.group_by_label.dig(label_name, element_type)
-    @section = elements.find do |elm|
-      element_id(elm) == id
+    elements = @config.group_by_label.dig(label_name, element_type(plugin_type))
+    @target_element = elements.find do |elm|
+      element_id(label_name, elm) == id
     end
   end
 
