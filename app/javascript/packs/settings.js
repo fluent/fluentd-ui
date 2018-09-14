@@ -7,6 +7,7 @@ $(document).ready(() => {
   const SettingSection = {
     template: "#vue-setting-section",
     props: [
+      "label",
       "initialId",
       "initialContent",
       "initialType",
