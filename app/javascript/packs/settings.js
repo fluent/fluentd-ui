@@ -6,7 +6,13 @@ import "lodash/lodash";
 $(document).ready(() => {
   const SettingSection = {
     template: "#vue-setting-section",
-    props: ["initialId", "initialContent", "initialType", "initialName", "initialArg"],
+    props: [
+      "initialId",
+      "initialContent",
+      "initialType",
+      "initialName",
+      "initialArg"
+    ],
     data: function() {
       return {
         mode: "default",
