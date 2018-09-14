@@ -50,14 +50,21 @@ class SourceAndOutputTest < ApplicationSystemTestCase
     end
 
     test "elements" do
-      assert do
-        !page.has_content?(I18n.t("fluentd.settings.source_and_output.setting_empty"))
+      within(".input .card") do
+        assert do
+          !has_content?(I18n.t("fluentd.settings.source_and_output.setting_empty"))
+        end
       end
-     assert do
-        page.has_css?('.input .card .card-header')
+      assert do
+        has_css?(".input .card .card-header")
       end
       assert do
-        page.has_css?('.output .card .card-header')
+        has_css?(".output .card .card-header")
+      end
+      within(".filter .empty") do
+        assert do
+          has_content?(I18n.t("fluentd.settings.source_and_output.setting_empty"))
+        end
       end
     end
 
@@ -79,20 +86,9 @@ class SourceAndOutputTest < ApplicationSystemTestCase
     end
 
     test "display plugin name" do
-      within ".input" do
-        assert do
-          page.has_content?("forward")
-        end
-      end
-
-      within ".output" do
-        assert do
-          page.has_content?("stdout")
-        end
-        assert do
-          page.has_content?("s3")
-        end
-      end
+      assert_equal(first(".input .card .card-header").text, "forward")
+      assert_equal(all(".output .card .card-header").map(&:text),
+                   ["stdout (debug.*)", "s3 (s3.*)"])
     end
 
     sub_test_case "edit, update, delete" do
@@ -179,6 +175,159 @@ class SourceAndOutputTest < ApplicationSystemTestCase
         end
         assert_equal(@config.strip, @daemon.agent.config.strip)
       end
+    end
+  end
+
+  sub_test_case "filter" do
+    setup do
+      config = <<-CONFIG.strip_heredoc
+        <source>
+           @type dummy
+           tag debug.*
+        </source>
+
+        <filter debug.*>
+          @type stdout
+        </filter>
+
+        <match debug.*>
+          # http://docs.fluentd.org/articles/out_stdout
+          type stdout
+        </match>
+      CONFIG
+      @daemon.agent.config_write(config)
+      visit(source_and_output_daemon_setting_path)
+    end
+
+    test "elements" do
+      assert_equal(first(".filter .card .card-header").text, "stdout (debug.*)")
+    end
+  end
+
+  sub_test_case "label" do
+    setup do
+      @config = <<-CONFIG.strip_heredoc
+        <source>
+           @type dummy
+           tag debug.*
+           @label @INPUT
+        </source>
+
+        <label @INPUT>
+          <filter debug.*>
+            @type grep
+            <regexp>
+              key message
+              pattern /debug.+/
+            </regexp>
+          </filter>
+
+          <match debug.*>
+            @type stdout
+          </match>
+        </label>
+      CONFIG
+      @daemon.agent.config_write(@config)
+      visit(source_and_output_daemon_setting_path)
+    end
+
+    test "elements under @INPUT" do
+      assert do
+        all(".input h5").map(&:text).include?("@INPUT")
+      end
+      assert_equal(first(".input .card .card-header").text, "dummy")
+      assert do
+        all(".filter h5").map(&:text).include?("@INPUT")
+      end
+      assert_equal(first(".filter .card .card-header").text, "grep (debug.*)")
+      assert do
+        all(".output h5").map(&:text).include?("@INPUT")
+      end
+      assert_equal(first(".output .card .card-header").text, "stdout (debug.*)")
+    end
+
+    test "click delete button" do
+      assert do
+        find(".filter .card-header").click
+      end
+      page.accept_confirm do
+        find(".filter .btn", text: I18n.t("terms.destroy")).click
+      end
+      within(".filter .empty") do
+        assert do
+          has_content?(I18n.t("fluentd.settings.source_and_output.setting_empty"))
+        end
+      end
+    end
+
+    test "click edit and cancel" do
+      config = <<-CONFIG.strip_heredoc
+        <filter debug.*>
+          @type grep
+          <regexp>
+            key message
+            pattern /debug.+/
+          </regexp>
+        </filter>
+      CONFIG
+      new_config = <<-CONFIG.strip_heredoc
+        <filter debug.*>
+          @type grep
+          <regexp>
+            key message
+            pattern /debug2.+/
+          </regexp>
+        </filter>
+      CONFIG
+      assert do
+        find(".filter .card-header").click
+      end
+      find(".filter .btn", text: I18n.t("terms.edit")).click
+      original_contents = page.evaluate_script(%Q!document.querySelector(".CodeMirror").CodeMirror.getValue()!)
+      assert_equal(original_contents, config)
+      page.execute_script(<<-JS)
+        var cm = document.querySelector('.CodeMirror').CodeMirror;
+        cm.setValue(#{new_config.to_json});
+      JS
+      find(".filter .btn", text: I18n.t("terms.cancel")).click
+      contents = page.evaluate_script("document.querySelector('.filter pre').textContent")
+      assert_equal(contents, config)
+      assert_equal(@daemon.agent.config.strip, @config.strip)
+    end
+
+    test "click edit and save" do
+      config = <<-CONFIG.strip_heredoc
+        <filter debug.*>
+          @type grep
+          <regexp>
+            key message
+            pattern /debug.+/
+          </regexp>
+        </filter>
+      CONFIG
+      new_config = <<-CONFIG.strip_heredoc
+        <filter debug.*>
+          @type grep
+          <regexp>
+            key message
+            pattern /debug2.+/
+          </regexp>
+        </filter>
+      CONFIG
+      assert do
+        find(".filter .card-header").click
+      end
+      find(".filter .btn", text: I18n.t("terms.edit")).click
+      original_contents = page.evaluate_script(%Q!document.querySelector(".CodeMirror").CodeMirror.getValue()!)
+      assert_equal(original_contents, config)
+      page.execute_script(<<-JS)
+        var cm = document.querySelector('.CodeMirror').CodeMirror;
+        cm.setValue(#{new_config.to_json});
+      JS
+      find(".filter .btn", text: I18n.t("terms.save")).click
+      sleep(1)
+      contents = page.evaluate_script("document.querySelector('.filter pre').textContent")
+      assert_equal(new_config, contents)
     end
   end
 end

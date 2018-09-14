@@ -1,4 +1,5 @@
 require "fluent/plugin"
+require "fluent/plugin/buf_file"
 require "fluent/test/log"
 require "fluent/test/driver/input"
 require "fluent/test/driver/output"
@@ -17,6 +18,7 @@ class Fluentd
       include Fluentd::Setting::PluginConfig
       include Fluentd::Setting::SectionParser
       include Fluentd::Setting::PluginParameter
+      include Fluentd::Setting::Label
 
       included do
         cattr_accessor :plugin_type, :plugin_name, :config_definition

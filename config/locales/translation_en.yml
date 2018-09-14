@@ -113,6 +113,10 @@ en:
       setup_in_monitor_agent: Monitoring Agent
       setup_in_http: http
       setup_in_forward: Forwarding (receiving from another fluentd)
+      setup_filter_grep: Filtering (grep)
+      setup_filter_parser: Parse field
+      setup_filter_record_transformer: Transform
+      setup_filter_stdout: stdout(log)
       setup_out_td: Treasure Data
       setup_out_mongo: MongoDB
       setup_out_stdout: stdout (log)
@@ -145,6 +149,7 @@ en:
         page_title: Add Source and Output
         in: Source
         out: Output
+        filter: Filter
         current: Current setting
         setting_empty: Not exists
       show:
@@ -155,19 +160,19 @@ en:
         page_title: Edit Config File
       out_forward:
         option_guide: |
-          For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/out_forward" target="_blank">Forward output plugin</a> documentation page.
+          For each config parameter, please refer to the <a href="https://docs.fluentd.org/articles/out_forward" target="_blank">Forward output plugin</a> documentation page.
         secondary_note: |
           All servers are unavailable, store data as a file to specified path.
         show:
           page_title: Add Output to another Fluentd
       out_s3:
         option_guide: |
-          For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/out_s3" target="_blank">Amazon S3 output plugin</a> documentation page.
+          For each config parameter, please refer to the <a href="https://docs.fluentd.org/articles/out_s3" target="_blank">Amazon S3 output plugin</a> documentation page.
         show:
           page_title: Add Output to Amazon S3
       out_td:
         option_guide: |
-          For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/out_td" target="_blank">Treasure Data output plugin</a> documentation page.
+          For each config parameter, please refer to the <a href="https://docs.fluentd.org/articles/out_td" target="_blank">Treasure Data output plugin</a> documentation page.
         show:
           page_title: Add Output to Treasure Data
       out_elasticsearch:
@@ -177,40 +182,64 @@ en:
           page_title: Add Output to Elasticsearch
       out_mongo:
         option_guide: |
-          For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/out_mongo" target="_blank">MongoDB output plugin</a> documentation page.
+          For each config parameter, please refer to the <a href="https://docs.fluentd.org/articles/out_mongo" target="_blank">MongoDB output plugin</a> documentation page.
         show:
           page_title: Add Output to MongoDB
       out_stdout:
         option_guide: |
-          Print events to STDOUT (or fluentd log file if launched with daemon mode). Please refer to the <a href="http://docs.fluentd.org/articles/out_stdout" target="_blank">stdout output plugin</a> documentation page.
+          Print events to STDOUT (or fluentd log file if launched with daemon mode). Please refer to the <a href="https://docs.fluentd.org/articles/out_stdout" target="_blank">stdout output plugin</a> documentation page.
+        show:
+          page_title: stdout (log)
+      filter_grep:
+        option_guide: |
+          "Grep" events by the value of specified fields.<br />
+          Please refer to the <a target="_blank" href="https://docs.fluentd.org/articles/filter_grep">filter_grep plugin</a> documentation page.
+        show:
+          page_title: Add filter to grep records
+      filter_parser:
+        option_guide: |
+          Parse string field in event records and mutates its event record with parsed result.<br />
+          Please refer to the <a target="_blank" href="https://docs.fluentd.org/articles/filter_parser">filter_parser plugin</a> documentation page.
+        show:
+          page_title: Add filter to parse records
+      filter_record_transformer:
+        option_guide: |
+          Mutage/Transform incoming event streams in a versatile manner.<br />
+          Please refer to the <a target="_blank" href="https://docs.fluentd.org/articles/filter_record_transformer">filter_record_transformer plugin</a> documentation page.
+        show:
+          page_title: Add filter to transform records
+      filter_stdout:
+        option_guide: |
+          Print events to STDOUT (or logs if launched with daemon mode).<br />
+          Please refer to the <a target="_blank" href="https://docs.fluentd.org/articles/filter_stdout>filter_stdout plugin</a> documentation page.
         show:
           page_title: stdout (log)
       in_syslog:
         option_guide: |
-          For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/in_syslog" target="_blank">MongoDB output plugin</a> documentation page.
+          For each config parameter, please refer to the <a href="https://docs.fluentd.org/articles/in_syslog" target="_blank">MongoDB output plugin</a> documentation page.
         show:
           page_title: Add Input from Syslog Protocol
       in_monitor_agent:
         option_guide: |
           Monitoring agent returns current fluentd/td-agent setting as JSON via HTTP. <br />
-          Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/monitoring">Monitoring Agent</a> documentation page.
+          Please see refer to the <a target="_blank" href="https://docs.fluentd.org/articles/monitoring">Monitoring Agent</a> documentation page.
         show:
           page_title: Monitoring Agent (monitor_agent)
       in_http:
         option_guide: |
           Retrieve records from http POST.<br />
           The URL path becomes the tag of the Fluentd event log and the POSTed body element becomes the record itself.<br />
-          Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/in_http">http Input Plugin</a> documentation page.
+          Please see refer to the <a target="_blank" href="https://docs.fluentd.org/articles/in_http">http Input Plugin</a> documentation page.
         show:
           page_title: Add http Input Plugin
       in_forward:
         option_guide: |
           Listen to a TCP socket to receive the event stream and an UDP socket to receive heartbeat messages.
-          Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/in_forward">forward Input Plugin</a> documentation page.
+          Please see refer to the <a target="_blank" href="https://docs.fluentd.org/articles/in_forward">forward Input Plugin</a> documentation page.
         show:
           page_title: Add forward Input Plugin
       in_tail_option_guide: |
-          For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/in_tail" target="_blank">Tail input plugin</a> documentation page.
+          For each config parameter, please refer to the <a href="https://docs.fluentd.org/articles/in_tail" target="_blank">Tail input plugin</a> documentation page.
       in_tail:
         notice_for_permission: "Please check permission or group setting for %{user} user can read it."
         notice_for_multiline_limit: "Please input Regexp(s) separated by newline. blank lines are ignored. Lines more than 20 are dropped."

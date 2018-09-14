@@ -33,7 +33,7 @@ class Fluentd
 
       def common_options
         [
-          :pattern, :server, :secondary,
+          :label, :pattern, :server, :secondary,
         ]
       end
 

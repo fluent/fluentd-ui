@@ -18,6 +18,8 @@
 #   - https://github.com/treasure-data/omnibus-td-agent/blob/master/templates/etc/systemd/td-agent.service.erb#L14
 #   fluentd: /etc/fluent/fluent.conf (created by fluentd -s)
 
+require "strscan"
+
 class Fluentd
   class Agent
     module Common
@@ -71,6 +73,25 @@ class Fluentd
         File.open(config_file, "a") do |f|
           f.write "\n"
           f.write content
+        end
+      end
+
+      def config_merge(content)
+        if content.start_with?("<label ")
+          label = content.slice(/<label\s+(.+?)>/, 1)
+          key = "label:#{label}"
+          parsed_config = parse_config(config)
+          if parsed_config.key?(key)
+            offset = parsed_config[key][0][:pos] + parsed_config[key][0][:size]
+            label, sections = parse_label_section(content, offset)
+            parsed_config[key][0][:sections]["filter"].concat(sections["filter"])
+            parsed_config[key][0][:sections]["match"].concat(sections["match"])
+            config_write(dump_parsed_config(parsed_config))
+          else
+            config_append(content)
+          end
+        else
+          config_append(content)
         end
       end
 
@@ -141,6 +162,82 @@ class Fluentd
           FileUtils.rm(note_file_attached_backup) if File.exist? note_file_attached_backup
           FileUtils.rm(file) if File.exist? file
         end
+      end
+
+      def parse_config(content)
+        scanner = StringScanner.new(content)
+        contents = Hash.new {|h, k| h[k] = [] }
+        until scanner.eos? do
+          started = scanner.pos
+          header = scanner.scan_until(/^<(source|filter|match|label)/)
+          section_type = scanner[1]
+          break unless header
+          case section_type
+          when "source", "filter", "match"
+            current_source = header + scanner.scan_until(%r{^</(?:source|filter|match)>})
+            contents[section_type] << { pos: started, content: current_source.strip }
+          when "label"
+            label_content = header + scanner.scan_until(%r{^</label>})
+            label, sections = parse_label_section(label_content, started)
+            contents["label:#{label}"] << { label: label, pos: started, sections: sections, size: label_content.size }
+          else
+            raise TypeError, "Unknown section: #{started}: #{section_type}"
+          end
+        end
+        contents
+      end
+
+      def parse_label_section(content, offset)
+        scanner = StringScanner.new(content)
+        scanner.scan_until(/^<label\s+?([^\s]+?)>/)
+        label = scanner[1]
+        sections = Hash.new {|h, k| h[k] = [] }
+        loop do
+          break if scanner.match?(%r{\s+?</label>})
+          pos = scanner.pos
+          header = scanner.scan_until(/^\s*<(filter|match)/)
+          type = scanner[1]
+          source = header + scanner.scan_until(%r{^\s*</(?:filter|match)>})
+          sections[type] << { label: label, pos: pos + offset, content: source.sub(/\n+/, "") }
+        end
+        return label, sections
+      end
+
+      def dump_parsed_config(parsed_config)
+        content = "".dup
+        sources = parsed_config["source"] || []
+        filters = parsed_config["filter"] || []
+        matches = parsed_config["match"] || []
+        labels = parsed_config.select do |key, sections|
+          key.start_with?("label:")
+        end
+        labels = labels.values.flatten
+        sorted_sections = (sources + filters + matches + labels).sort_by do |section|
+          section[:pos]
+        end
+        sorted_sections.each do |section|
+          if section.key?(:label)
+            label = section[:label]
+            sub_filters = section.dig(:sections, "filter") || []
+            sub_matches = section.dig(:sections, "match") || []
+            sorted_sub_filters = sub_filters.sort_by do |sub_section|
+              sub_section[:pos]
+            end
+            sorted_sub_matches =  sub_matches.sort_by do |sub_section|
+              sub_section[:pos]
+            end
+            sub_sections = sorted_sub_filters + sorted_sub_matches
+            content << "<label #{label}>\n"
+            sub_sections.each do |sub_section|
+              content << sub_section[:content] << "\n\n"
+            end
+            content.chomp!
+            content << "</label>\n\n"
+          else
+            content << section[:content] << "\n\n"
+          end
+        end
+        content.chomp
       end
     end
   end

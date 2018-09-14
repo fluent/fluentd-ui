@@ -6,11 +6,19 @@ import "lodash/lodash";
 $(document).ready(() => {
   const SettingSection = {
     template: "#vue-setting-section",
-    props: ["initialId", "initialContent", "initialType", "initialName", "initialArg"],
+    props: [
+      "initialLabel",
+      "initialId",
+      "initialContent",
+      "initialType",
+      "initialName",
+      "initialArg"
+    ],
     data: function() {
       return {
         mode: "default",
         processing: false,
+        current_label: null,
         id: null,
         content: null,
         type: null,
@@ -20,6 +28,7 @@ $(document).ready(() => {
     },
     created: function() {
       this.initialState();
+      this.current_label = this.initialLabel;
       this.id = this.initialId;
       this.content = this.initialContent;
       this.type = this.initialType;
@@ -55,6 +64,8 @@ $(document).ready(() => {
           method: "POST",
           data: {
             _method: "PATCH",
+            label: this.current_label,
+            pluginType: this.name,
             id: this.id,
             content: this.content
           },
@@ -80,7 +91,10 @@ $(document).ready(() => {
           method: "POST",
           data: {
             _method: "DELETE",
-            id: this.id
+            label: this.current_label,
+            pluginType: this.name,
+            arg: this.arg,
+            id: this.id,
           },
           headers: {
             "X-CSRF-Token": this.token
@@ -102,8 +116,11 @@ $(document).ready(() => {
         loaded: false,
         loading: false,
         sections: {
-          sources: [],
-          matches: []
+          "ROOT": {
+            sources: [],
+            filters: [],
+            matches: []
+          }
         }
       };
     },
@@ -115,20 +132,21 @@ $(document).ready(() => {
     methods: {
       update: function() {
         this.loading = true;
-        $.getJSON(`${relativeUrlRoot}/api/settings`, (data)=> {
-          var sources = [];
-          var matches = [];
-          data.forEach((v)=> {
-            if(v.name === "source"){
-              sources.push(v);
-            }else{
-              matches.push(v);
-            }
+        $.getJSON(`${relativeUrlRoot}/api/settings`, (data) => {
+          console.log(data);
+          _.each(data, (elements, label) => {
+            this.$set(this.sections, label, elements);
           });
-          this.sections.sources = sources;
-          this.sections.matches = matches;
+          _.each(this.sections, (elements, label) => {
+            if (_.isEmpty(data[label])) {
+              this.$delete(this.sections, label);
+            }
+          })
+          if (_.isEmpty(data["ROOT"])) {
+            this.$set(this.sections, "ROOT", []);
+          }
           this.loaded = true;
-          setTimeout(()=> {
+          setTimeout(() => {
             this.loading = false;
           }, 500);
         });

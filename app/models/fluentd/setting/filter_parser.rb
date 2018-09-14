@@ -1,33 +1,32 @@
 class Fluentd
   module Setting
-    class InSyslog
+    class FilterParser
       include Fluentd::Setting::Plugin
 
-      register_plugin("input", "syslog")
+      register_plugin("filter", "parser")
 
       def self.initial_params
-        params = {
-          parse_type: "syslog",
+        {
+          parse_type: "none",
           parse: {
             "0" => {
-              "type" => "syslog"
+              "type" => "none"
             }
           }
         }
-        super.compact.deep_merge(params)
       end
 
       def common_options
         [
-          :label, :tag, :bind, :port
+          :label,
+          :pattern,
+          :key_name,
         ]
       end
 
       def hidden_options
         [
-          :parse,
-          :transport,
-          :blocking_timeout
+          :parse
         ]
       end
     end

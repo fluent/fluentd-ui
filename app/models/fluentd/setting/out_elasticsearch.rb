@@ -26,6 +26,7 @@ class Fluentd
 
       def common_options
         [
+          :label,
           :pattern, :host, :port, :logstash_format,
           :index_name, :type_name,
         ]

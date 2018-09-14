@@ -22,9 +22,17 @@ class Fluentd
         end
         elements = sections.map do |key, section_params|
           if section_params.present?
-            self._sections[key.to_sym].new(section_params).to_config
+            section_class = self._sections[key.to_sym]
+            if section_class.multi?
+              section_params.map do |index, _section_params|
+                section_class.new(_section_params).to_config
+              end
+            else
+              section_class.new(section_params).to_config
+            end
           end
-        end.compact
+        end
+        elements = elements.flatten.compact
         attrs = params.to_h.reject do |key, value|
           skip?(key.to_sym, value)
         end

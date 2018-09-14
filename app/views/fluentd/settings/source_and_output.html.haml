@@ -2,20 +2,28 @@
 - page_title t('.page_title')
 
 .row.fluentd-setting-inout
-  .col-xl-4
+  .col-xl-3
     .card.card-primary
       .card-header
         %h4= t('.in')
       .card-body
-        - %w|tail syslog monitor_agent http forward|.each do |type|
+        - %w(tail syslog monitor_agent http forward).each do |type|
           %p
             = link_to(send("daemon_setting_in_#{type}_path", @fluentd)) do
               = icon('fa-file-text-o fa-lg')
               = t("fluentd.common.setup_in_#{type}")
   .col-xl-1.arrow-right
     = icon "fa-arrow-circle-right"
-  .col-xl-2
-    = image_tag "/fluentd-logo.png", style: "max-width: 100%"
+  .col-xl-3
+    .card.card-primary
+      .card-header
+        %h4= t('.filter')
+      .card-body
+        - %w(grep parser record_transformer stdout).each do |type|
+          %p
+            = link_to(send("daemon_setting_filter_#{type}_path", @fluentd)) do
+              = icon('fa-file-text-o -fa-lg')
+              = t("fluentd.common.setup_filter_#{type}")
   .col-xl-1.arrow-right
     = icon "fa-arrow-circle-right"
   .col-xl-4
@@ -23,7 +31,7 @@
       .card-header
         %h4= t('.out')
       .card-body
-        - %w|stdout tdlog s3 mongo elasticsearch forward|.each do |type|
+        - %w(stdout tdlog s3 mongo elasticsearch forward).each do |type|
           %p
             = link_to(send("daemon_setting_out_#{type}_path", @fluentd)) do
               = icon('fa-file-text-o fa-lg')
@@ -38,25 +46,49 @@
       %button.btn.btn-outline-dark.btn-sm{"v-on:click" => "update", "v-if" => "!loading"}= icon('fa-refresh')
       %button.btn.btn-outline-dark.btn-sm{"v-if" => "loading"}= icon('fa-spin fa-refresh')
   .row
-    .col-xl-6.input
+    .col-xl-4.input
       %h3= t('.in')
-      %div{"v-if" => "loaded && sections.sources.length == 0"}
+    .col-xl-4.filter
+      %h3= t('.filter')
+    .col-xl-4.output
+      %h3= t('.out')
+
+  .row{"v-for" => "(elements, label) in sections"}
+    .col-xl-4.input
+      %h5 {{ label }}
+      %div{"v-if" => "loaded && !elements.sources || elements.sources.length == 0"}
         %p.empty= t('.setting_empty')
-      %setting-section{"v-if" => "loaded && sections.sources.length > 0",
-                       "v-for" => "source in sections.sources",
+      %setting-section{"v-if" => "loaded && elements.sources && elements.sources.length > 0",
+                       "v-for" => "source in elements.sources",
                        "v-bind:key" => "source.id",
+                       "v-bind:initial-label" => "source.current_label",
                        "v-bind:initial-id" => "source.id",
                        "v-bind:initial-content" => "source.content",
                        "v-bind:initial-type" => "source.type",
                        "v-bind:initial-name" => "source.name",
                        "v-bind:initial-arg" => "source.arg"}
-    .col-xl-6.output
-      %h3= t('.out')
-      %div{"v-if" => "loaded && sections.matches.length == 0"}
+    .col-xl-4.filter
+      %h5 {{ label }}
+      %div{"v-if" => "loaded && !elements.filters || elements.filters.length == 0"}
         %p.empty= t('.setting_empty')
-      %setting-section{"v-if" => "loaded && sections.matches.length > 0",
-                       "v-for" => "match in sections.matches",
+      %setting-section{"v-if" => "loaded && elements.filters.length > 0",
+                       "v-for" => "filter in elements.filters",
+                       "v-bind:key" => "filter.id",
+                       "v-bind:initial-label" => "filter.current_label",
+                       "v-bind:initial-id" => "filter.id",
+                       "v-bind:initial-content" => "filter.content",
+                       "v-bind:initial-type" => "filter.type",
+                       "v-bind:initial-name" => "filter.name",
+                       "v-bind:initial-arg" => "filter.arg"}
+
+    .col-xl-4.output
+      %h5 {{ label }}
+      %div{"v-if" => "loaded && !elements.matches || elements.matches.length == 0"}
+        %p.empty= t('.setting_empty')
+      %setting-section{"v-if" => "loaded && elements.matches.length > 0",
+                       "v-for" => "match in elements.matches",
                        "v-bind:key" => "match.id",
+                       "v-bind:initial-label" => "match.current_label",
                        "v-bind:initial-id" => "match.id",
                        "v-bind:initial-content" => "match.content",
                        "v-bind:initial-type" => "match.type",

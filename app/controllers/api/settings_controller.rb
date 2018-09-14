@@ -2,7 +2,7 @@ class Api::SettingsController < ApplicationController
   before_action :login_required
   before_action :find_fluentd
   before_action :set_config
-  before_action :set_section, only: [:show, :update, :destroy]
+  before_action :set_target_element, only: [:show, :update, :destroy]
   helper_method :element_id
 
   def index
@@ -12,26 +12,38 @@ class Api::SettingsController < ApplicationController
   end
 
   def update
+    label_name = params[:label]
     coming = Fluent::Config::V1Parser.parse(params[:content], @fluentd.config_file)
-    current = @section
-    index = @config.elements.index current
-    unless index
+    coming_element = coming.elements.first
+
+    unless @target_element
       render_404
       return
     end
-    @config.elements[index] = coming.elements.first
+
+    @target_element.elements = coming_element.elements
+    @target_element.merge(coming_element)
+
     @config.write_to_file
-    redirect_to api_setting_path(id: element_id(coming.elements.first))
+    redirect_to api_setting_path(id: element_id(label_name, @target_element),
+                                 label: label_name,
+                                 pluginType: params[:pluginType])
   end
 
   def destroy
-    unless @config.elements.index(@section)
-      render_404
-      return
+    if params[:label] == "ROOT" || params[:pluginType] == "source"
+      name = params[:pluginType]
+      arg = params[:arg]
+    else
+      name = "label"
+      arg = params[:label]
     end
-    @config.elements.delete @section
-    @config.write_to_file
-    head :no_content # 204
+    if @config.delete_element(name, arg, @target_element)
+      @config.write_to_file
+      head :no_content # 204
+    else
+      render_404
+    end
   end
 
   private
@@ -40,15 +52,33 @@ class Api::SettingsController < ApplicationController
     @config = Fluentd::Setting::Config.new(@fluentd.config_file)
   end
 
-  def set_section
-    @section = @config.elements.find do |elm|
-      element_id(elm) == params[:id]
+  def set_target_element
+    id = params[:id]
+    plugin_type = params[:pluginType]
+    label_name = params[:label]
+    return unless id
+    elements = @config.group_by_label.dig(label_name, element_type(plugin_type))
+    @target_element = elements.find do |elm|
+      element_id(label_name, elm) == id
     end
   end
 
-  def element_id(element)
-    index = @config.elements.index(element)
+  def element_id(label_name, element)
+    element_type = element_type(element.name)
+    elements = @config.group_by_label.dig(label_name, element_type)
+    index = elements.index(element)
     "#{"%06d" % index}#{Digest::MD5.hexdigest(element.to_s)}"
+  end
+
+  def element_type(name)
+    case name
+    when "source"
+      :sources
+    when "filter"
+      :filters
+    when "match"
+      :matches
+    end
   end
 
   def render_404

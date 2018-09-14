@@ -10,7 +10,12 @@ class Fluentd
       def validate_configuration
         original_log = $log
         $log = DummyLogger.logger
-        config = to_config.to_s.lines[1..-2].join
+        full_config = to_config.to_s
+        config = if full_config.start_with?("<label ")
+                   full_config.lines[2..-3].join
+                 else
+                   full_config.lines[1..-2].join
+                 end
         self.class.create_driver(config)
       rescue Fluent::ConfigError => ex
         errors.add(:base, :invalid, message: ex.message)
@@ -40,6 +45,10 @@ class Fluentd
         end
         _attributes = { "@type" => self.plugin_name }.merge(_attributes)
         _attributes["@log_level"] = _attributes.delete("log_level")
+        label = _attributes.delete("label")
+        if plugin_type == "input"
+          _attributes["@label"] = label
+        end
         argument = case plugin_type
                    when "output", "filter", "buffer"
                      _attributes.delete(self._argument_name.to_s) || ""
@@ -47,7 +56,18 @@ class Fluentd
                      ""
                    end
         attrs, elements = parse_attributes(_attributes)
-        config_element(name, argument, attrs, elements)
+        case plugin_type
+        when "output", "filter"
+          # e is <match> or <filter>
+          e = config_element(name, argument, attrs, elements)
+          if label.blank?
+            e
+          else
+            config_element("label", label, {}, [e])
+          end
+        else
+          config_element(name, argument, attrs, elements)
+        end
       end
 
       def parse_attributes(attributes)
@@ -70,11 +90,21 @@ class Fluentd
               }
             end
           end
-          elements = section_params.map do |index, _section_params|
+          _elements = section_params.map do |index, _section_params|
             section_class.new(_section_params).to_config
           end.compact
+          elements.concat(_elements)
         end
-        attrs = params.to_h.reject do |key, value|
+        params = params.to_h
+        if plugin_type == "filter" && plugin_name == "record_transformer"
+          record_params = {}
+          params.delete("record").lines.each do |line|
+            k, v = line.split(" ", 2)
+            record_params[k] = v
+          end
+          elements << config_element("record", "", record_params, [])
+        end
+        attrs = params.reject do |key, value|
           skip?(key.to_sym, value)
         end
         return attrs, elements

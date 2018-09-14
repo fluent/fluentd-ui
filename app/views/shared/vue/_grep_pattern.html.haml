@@ -1,0 +1,24 @@
+%script{type: "text/x-template", id: "vue-grep-pattern"}
+  %div
+    %a.btn.btn-xs{"v-on:click" => "add", "v-if" => "subIndex == 0"}
+      = icon("fa-plus")
+    %a.btn.btn-xs{"v-on:click" => "remove", "v-if" => "subIndex != 0"}
+      = icon("fa-minus")
+    %label
+      {{ grepType | humanize }}
+    .form-group
+      %label{"data" => {"toggle" => "tooltip", "placement" => "right"},
+             "title" => "The field name to which the regular expression is applied."}
+        Key
+        %input.form-control{"v-bind:id" => 'inputId("key", index, subIndex)',
+                            "v-bind:name" => 'inputName("key", index, subIndex)',
+                            "v-model:lazy" => "key",
+                            "type" => "text"}
+    .form-group
+      %label{"data" => {"toggle" => "tooltip", "placement" => "right"},
+             "title" => "The regular expression"}
+        Pattern
+        %input.form-control{"v-bind:id" => 'inputId("pattern", index, subIndex)',
+                            "v-bind:name" => 'inputName("pattern", index, subIndex)',
+                            "v-model:lazy" => "pattern",
+                            "type" => "text"}

@@ -41,6 +41,12 @@ Rails.application.routes.draw do
           post "finish"
         end
 
+        %w(grep parser record_transformer stdout).each do |type|
+          resource "filter_#{type}", only: [:show], module: :settings, controller: "filter_#{type}" do
+            post "finish"
+          end
+        end
+
         resource :out_stdout, only: [:show], module: :settings, controller: :out_stdout do
           post "finish"
         end

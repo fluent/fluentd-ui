@@ -1,19 +1,12 @@
 class Fluentd
   module Setting
-    class OutStdout
+    class FilterStdout
       include Fluentd::Setting::Plugin
 
-      register_plugin("output", "stdout")
+      register_plugin("filter", "stdout")
 
       def self.initial_params
         {
-          pattern: "debug.**",
-          buffer_type: "memory",
-          buffer: {
-            "0" => {
-              "type" => "memory",
-            }
-          },
           format_type: "stdout",
           format: {
             "0" => {
@@ -26,13 +19,14 @@ class Fluentd
 
       def common_options
         [
-          :label, :pattern, :output_type
+          :label,
+          :pattern,
         ]
       end
 
       def hidden_options
         [
-          :secondary, :inject, :buffer
+          :inject
         ]
       end
     end

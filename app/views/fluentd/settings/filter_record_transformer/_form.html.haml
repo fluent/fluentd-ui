@@ -1,0 +1,20 @@
+= render "shared/setting_errors"
+
+- # NOTE: plugin_setting_form_action_url is defined at SettingConcern
+= form_with(model: setting, scope: "setting", url: plugin_setting_form_action_url(fluentd), local: true, class: "ignore-rails-error-div", builder: FluentdFormBuilder) do |f|
+  - setting.common_options.each do |key|
+    = f.field(key)
+
+  .form-group
+    = f.label(:record, nil, data: { toggle: "tooltip", placement: "right"}, title: "considered to be new key-value pairs")
+    = f.text_area(:record, class: "form-control")
+
+  .card.card-body.bg-light
+    %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
+      = icon('fa-caret-down')
+      = t('terms.advanced_setting')
+    #advanced-setting.collapse
+      - setting.advanced_options.each do |key|
+        = f.field(key)
+
+  = f.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary pull-right"

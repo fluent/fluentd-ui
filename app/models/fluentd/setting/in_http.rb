@@ -23,7 +23,7 @@ class Fluentd
 
       def common_options
         [
-          :bind, :port, :add_http_headers, :add_remote_addr
+          :label, :bind, :port, :add_http_headers, :add_remote_addr
         ]
       end
 

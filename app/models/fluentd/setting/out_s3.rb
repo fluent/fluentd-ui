@@ -26,6 +26,7 @@ class Fluentd
 
       def common_options
         [
+          :label,
           :pattern,
           :s3_region, :s3_bucket, :use_ssl, :path,
         ]
