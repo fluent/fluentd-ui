@@ -50,14 +50,21 @@ class SourceAndOutputTest < ApplicationSystemTestCase
     end
 
     test "elements" do
-      assert do
-        !page.has_content?(I18n.t("fluentd.settings.source_and_output.setting_empty"))
+      within(".input .card") do
+        assert do
+          !has_content?(I18n.t("fluentd.settings.source_and_output.setting_empty"))
+        end
       end
-     assert do
-        page.has_css?('.input .card .card-header')
+      assert do
+        has_css?(".input .card .card-header")
       end
       assert do
-        page.has_css?('.output .card .card-header')
+        has_css?(".output .card .card-header")
+      end
+      within(".filter .empty") do
+        assert do
+          has_content?(I18n.t("fluentd.settings.source_and_output.setting_empty"))
+        end
       end
     end
 
@@ -79,20 +86,9 @@ class SourceAndOutputTest < ApplicationSystemTestCase
     end
 
     test "display plugin name" do
-      within ".input" do
-        assert do
-          page.has_content?("forward")
-        end
-      end
-
-      within ".output" do
-        assert do
-          page.has_content?("stdout")
-        end
-        assert do
-          page.has_content?("s3")
-        end
-      end
+      assert_equal(first(".input .card .card-header").text, "forward")
+      assert_equal(all(".output .card .card-header").map(&:text),
+                   ["stdout (debug.*)", "s3 (s3.*)"])
     end
 
     sub_test_case "edit, update, delete" do
