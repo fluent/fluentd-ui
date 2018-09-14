@@ -133,6 +133,11 @@ $(document).ready(() => {
           _.each(data, (elements, label) => {
             this.$set(this.sections, label, elements);
           });
+          _.each(this.sections, (elements, label) => {
+            if (_.isEmpty(data[label])) {
+              this.$delete(this.sections, label);
+            }
+          })
           if (_.isEmpty(data["ROOT"])) {
             this.$set(this.sections, "ROOT", []);
           }
