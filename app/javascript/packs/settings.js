@@ -87,7 +87,10 @@ $(document).ready(() => {
           method: "POST",
           data: {
             _method: "DELETE",
-            id: this.id
+            label: this.label,
+            pluginType: this.name,
+            arg: this.arg,
+            id: this.id,
           },
           headers: {
             "X-CSRF-Token": this.token
