@@ -12,16 +12,22 @@ class Api::SettingsController < ApplicationController
   end
 
   def update
+    label_name = params[:label]
     coming = Fluent::Config::V1Parser.parse(params[:content], @fluentd.config_file)
-    current = @target_element
-    index = @config.elements.index current
-    unless index
+    coming_element = coming.elements.first
+
+    unless @target_element
       render_404
       return
     end
-    @config.elements[index] = coming.elements.first
+
+    @target_element.elements = coming_element.elements
+    @target_element.merge(coming_element)
+
     @config.write_to_file
-    redirect_to api_setting_path(id: element_id(coming.elements.first))
+    redirect_to api_setting_path(id: element_id(label_name, @target_element),
+                                 label: label_name,
+                                 pluginType: params[:pluginType])
   end
 
   def destroy

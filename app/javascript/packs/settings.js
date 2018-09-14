@@ -7,7 +7,7 @@ $(document).ready(() => {
   const SettingSection = {
     template: "#vue-setting-section",
     props: [
-      "label",
+      "initialLabel",
       "initialId",
       "initialContent",
       "initialType",
@@ -18,6 +18,7 @@ $(document).ready(() => {
       return {
         mode: "default",
         processing: false,
+        current_label: null,
         id: null,
         content: null,
         type: null,
@@ -27,6 +28,7 @@ $(document).ready(() => {
     },
     created: function() {
       this.initialState();
+      this.current_label = this.initialLabel;
       this.id = this.initialId;
       this.content = this.initialContent;
       this.type = this.initialType;
@@ -62,6 +64,8 @@ $(document).ready(() => {
           method: "POST",
           data: {
             _method: "PATCH",
+            label: this.current_label,
+            pluginType: this.name,
             id: this.id,
             content: this.content
           },
@@ -87,7 +91,7 @@ $(document).ready(() => {
           method: "POST",
           data: {
             _method: "DELETE",
-            label: this.label,
+            label: this.current_label,
             pluginType: this.name,
             arg: this.arg,
             id: this.id,
