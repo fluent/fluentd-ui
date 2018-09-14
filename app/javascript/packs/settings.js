@@ -131,7 +131,7 @@ $(document).ready(() => {
         $.getJSON(`${relativeUrlRoot}/api/settings`, (data) => {
           console.log(data);
           _.each(data, (elements, label) => {
-            this.sections[label] = elements;
+            this.$set(this.sections, label, elements);
           });
           this.loaded = true;
           setTimeout(() => {
