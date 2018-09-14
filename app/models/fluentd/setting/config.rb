@@ -63,6 +63,41 @@ class Fluentd
         hash
       end
 
+      def delete_element(name, arg, element)
+        if name == "label"
+          label_section = fl_config.elements(name: name, arg: arg).first
+          original_size = label_section.elements.size
+          remaining_elements = label_section.elements.reject do |e|
+            element == e
+          end
+          if remaining_elements.empty?
+            remaining_elements = fl_config.elements.reject do |e|
+              label_section == e
+            end
+            fl_config.elements = remaining_elements
+            return element
+          else
+            label_section.elements = remaining_elements
+            if original_size == label_section.elements.size
+              return nil
+            else
+              return element
+            end
+          end
+        else
+          original_size = fl_config.elements.size
+          remaining_elements = fl_config.elements.reject do |e|
+            element == e
+          end
+          fl_config.elements = remaining_elements
+          if original_size == fl_config.elements.size
+            return nil
+          else
+            return element
+          end
+        end
+      end
+
       def write_to_file
         return unless Fluentd.instance
         Fluentd.instance.agent.config_write formatted
