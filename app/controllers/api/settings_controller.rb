@@ -51,17 +51,21 @@ class Api::SettingsController < ApplicationController
   end
 
   def element_id(label_name, element)
-    element_type = case element.name
-                   when "source"
-                     :sources
-                   when "filter"
-                     :filters
-                   when "match"
-                     :matches
-                   end
+    element_type = element_type(element.name)
     elements = @config.group_by_label.dig(label_name, element_type)
     index = elements.index(element)
     "#{label_name}:#{"%06d" % index}#{Digest::MD5.hexdigest(element.to_s)}"
+  end
+
+  def element_type(name)
+    case name
+    when "source"
+      :sources
+    when "filter"
+      :filters
+    when "match"
+      :matches
+    end
   end
 
   def render_404
