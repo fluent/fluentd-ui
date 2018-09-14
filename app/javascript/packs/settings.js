@@ -133,6 +133,9 @@ $(document).ready(() => {
           _.each(data, (elements, label) => {
             this.$set(this.sections, label, elements);
           });
+          if (_.isEmpty(data["ROOT"])) {
+            this.$set(this.sections, "ROOT", []);
+          }
           this.loaded = true;
           setTimeout(() => {
             this.loading = false;

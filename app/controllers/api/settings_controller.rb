@@ -25,7 +25,7 @@ class Api::SettingsController < ApplicationController
   end
 
   def destroy
-    if params[:label] == "ROOT"
+    if params[:label] == "ROOT" || params[:pluginType] == "source"
       name = params[:pluginType]
       arg = params[:arg]
     else
