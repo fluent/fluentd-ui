@@ -43,17 +43,19 @@ const OwnedPluginForm = {
     this.options = JSON.parse(this.optionsJson);
     this.initialParams = JSON.parse(this.initialParamsJson || "{}");
     this.pluginName = this.initialPluginName;
-    this.$on("hook:updated", () => {
-      console.log("hook:updated");
-      this.$nextTick(() => {
-        $("[data-toggle=tooltip]").tooltip("dispose");
-        $("[data-toggle=tooltip]").tooltip("enable");
-      });
-    });
     this.$once("data-loaded", () => {
       this.updateSection();
     });
     this.$emit("data-loaded");
+  },
+
+  updated: function() {
+    this.$nextTick(() => {
+      if ($("[data-toggle=tooltip]").tooltip) {
+        $("[data-toggle=tooltip]").tooltip("dispose");
+        $("[data-toggle=tooltip]").tooltip("enable");
+      }
+    });
   },
 
   methods: {
