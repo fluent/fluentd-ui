@@ -1,3 +1,8 @@
+## Release 1.1.0 - 2018/09/25
+
+* [maintenance] Suppress JavaScript warnings [#265](https://github.com/fluent/fluentd-ui/pull/265)
+* [improvement] Support filter plugins and label feature [#262](https://github.com/fluent/fluentd-ui/pull/262)
+
 ## Release 1.0.1 - 2018/09/14
 
 * [maintenance] Update rubyzip [#263](https://github.com/fluent/fluentd-ui/pull/263)
