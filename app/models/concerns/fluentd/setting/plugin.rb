@@ -40,6 +40,10 @@ class Fluentd
             include Fluentd::Setting::ParserAdvancedOptions
           end
 
+          if ["formatter"].include?(type)
+            include Fluentd::Setting::FormatterAdvancedOptions
+          end
+
           self.load_plugin_config do |_name, params|
             params.each do |param_name, definition|
               if definition[:section]
