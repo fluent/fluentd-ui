@@ -2,13 +2,11 @@
 "use strict";
 
 import "lodash/lodash";
-import ParserMultilineForm from "./parser_multiline_form";
 import ConfigField from "./config_field";
 
 const OwnedPluginForm = {
   template: "#vue-owned-plugin-form",
   components: {
-    "parser-multiline-form": ParserMultilineForm,
     "config-field": ConfigField
   },
   props: [
@@ -26,10 +24,6 @@ const OwnedPluginForm = {
       initialParams: {},
       commonOptions: [],
       advancedOptions: [],
-      expression: null,
-      timeFormat: null,
-      unwatchExpression: null,
-      unwatchTimeFormat: null
     };
   },
 
@@ -71,12 +65,6 @@ const OwnedPluginForm = {
       this.$emit("change-formats", data);
     },
 
-    onChangeParseConfig: function(data) {
-      console.log("ownedPluginForm:onChangeParseConfig", data);
-      this.expression = data.expression;
-      this.timeFormat = data.timeFormat;
-    },
-
     updateSection: function() {
       $.ajax({
         method: "GET",
@@ -91,44 +79,6 @@ const OwnedPluginForm = {
       }).then((data) => {
         this.commonOptions = data.commonOptions;
         this.advancedOptions = data.advancedOptions;
-        let foundExpression = false;
-        let foundTimeFormat = false;
-        _.each(this.commonOptions, (option) => {
-          if (option.name === "expression") {
-            foundExpression = true;
-            this.expression = option.default;
-            this.unwatchExpression = this.$watch("expression", (newValue, oldValue) => {
-              console.log(newValue);
-              this.$emit("change-parse-config", {
-                "expression": this.expression,
-                "time_format": this.timeFormat
-              });
-            });
-          }
-          if (option.name === "time_format") {
-            foundTimeFormat = true;
-            this.timeFormat = option.default;
-            console.log(this.timeFormat);
-            this.unwatchTimeFormat = this.$watch("timeFormat", (newValue, oldValue) => {
-              console.log({"watch time_format": newValue});
-              this.$emit("change-parse-config", {
-                "expression": this.expression,
-                "time_format": this.timeFormat
-              });
-            });
-          }
-
-          if (!foundExpression && this.unwatchExpression) {
-            this.expression = null;
-            this.unwatchExpression();
-            this.unwatchExpression = null;
-          }
-          if (!foundTimeFormat && this.unwatchTimeFormat) {
-            this.timeFormat = null;
-            this.unwatchTimeFormat();
-            this.unwatchTimeFormat = null;
-          }
-        });
       });
     },
 
