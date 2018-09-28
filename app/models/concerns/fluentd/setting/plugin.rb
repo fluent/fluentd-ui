@@ -36,6 +36,10 @@ class Fluentd
             include Fluentd::Setting::Label
           end
 
+          if ["parser"].include?(type)
+            include Fluentd::Setting::ParserAdvancedOptions
+          end
+
           self.load_plugin_config do |_name, params|
             params.each do |param_name, definition|
               if definition[:section]
