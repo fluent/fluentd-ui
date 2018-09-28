@@ -45,8 +45,10 @@ const ConfigField = {
     }
     this.$nextTick(() => {
       console.log("config-field updated");
-      $("[data-toggle=tooltip]").tooltip("dispose");
-      $("[data-toggle=tooltip]").tooltip("enable");
+      if ($("[data-toggle=tooltip]").tooltip) {
+        $("[data-toggle=tooltip]").tooltip("dispose");
+        $("[data-toggle=tooltip]").tooltip("enable");
+      }
     });
   },
 
