@@ -90,6 +90,7 @@ const OwnedPluginForm = {
         }
       }).then((data) => {
         this.commonOptions = data.commonOptions;
+        this.advancedOptions = data.advancedOptions;
         let foundExpression = false;
         let foundTimeFormat = false;
         _.each(this.commonOptions, (option) => {
