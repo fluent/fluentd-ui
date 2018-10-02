@@ -26,12 +26,14 @@ import "startbootstrap-sb-admin/js/sb-admin";
 import "startbootstrap-sb-admin/js/sb-admin-datatables";
 
 import Vue from "vue/dist/vue.esm";
+import Vuex from "vuex/dist/vuex.esm";
 
 Vue.filter("to_json", function (value) {
   return JSON.stringify(value);
 });
 
 window.Vue = Vue;
+window.Vuex = Vuex;
 
 import "../stylesheets/application.scss";
 
