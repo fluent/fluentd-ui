@@ -13,10 +13,10 @@ const getters = {
   toParams: (state) => {
     return {
       expression: state.expression,
-      timeFormat: state.timeFormat,
-      messageFormat: state.messageFormat,
-      rfc5424TimeFormat: state.rfc5424TimeFormat,
-      withPriority: state.withPriority
+      time_format: state.timeFormat,
+      message_format: state.messageFormat,
+      rfc5424_time_format: state.rfc5424TimeFormat,
+      with_priority: state.withPriority
     };
   },
   pluginName: (state) => {
