@@ -21,7 +21,7 @@ class Fluentd
       end
 
       def advanced_options
-        [
+        super + [
           :delimiter_pattern
         ]
       end

@@ -13,15 +13,9 @@ class Fluentd
 
       def common_options
         [
-          :time_format,
-          :with_priority,
-        ]
-      end
-
-      def advanced_options
-        [
           :message_format,
-          :rfc5424_time_format
+          :rfc5424_time_format,
+          :with_priority,
         ]
       end
     end

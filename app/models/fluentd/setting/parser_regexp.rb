@@ -16,9 +16,9 @@ class Fluentd
       end
 
       def hidden_options
-        [
+        super + [
           :ignorecase,
-          :multiline
+          :multiline,
         ]
       end
     end
