@@ -4,13 +4,20 @@ import "lodash/lodash";
 import "popper.js/dist/popper";
 import "bootstrap/dist/js/bootstrap";
 import ParserPluginForm from "./parser_plugin_form";
+import store from "./store";
 
 $(document).ready(() => {
   new Vue({
     el: "#in-tail-parse",
+    store,
     components: {
       "parser-plugin-form": ParserPluginForm
     },
+    props: [
+      "initialPluginName",
+      "pluginType",
+      "pluginLabel",
+    ],
     data: function() {
       return {
         "path": "",
@@ -53,16 +60,17 @@ $(document).ready(() => {
     methods: {
       onChangePluginName: function(name) {
         console.log("#in-tail-parse onChangePluginName", name);
+        console.log("#in-tail-parse onChangePluginName store", this.$store);
         this.parseType = name;
         this.parse = {}; // clear parser plugin configuration
       },
       onChangeParseConfig: function(data) {
-        console.log("#in-tail-parse onChangeParseConfig", data);
-        _.merge(this.parse, data);
+        console.log("#in-tail-parse onChangeParseConfig", store.getters["parserParams/toParams"]);
+        _.merge(this.parse, store.getters["parserParams/toParams"]);
         this.preview();
       },
       onChangeFormats: function(data) {
-        console.log("in_tail_parse:onChangeFormats", data);
+        console.log("#in_tail_parse onChangeFormats", data);
         _.merge(this.parse, data);
         this.preview();
       },
@@ -128,7 +136,7 @@ $(document).ready(() => {
         if (this.previewAjax && this.previewAjax.state() === "pending") {
           this.previewAjax.abort();
         }
-
+        const parseType = store.getters["parserParams/pluginName"];
         this.previewAjax = $.ajax({
           method: "POST",
           url: `${relativeUrlRoot}/api/regexp_preview`,
@@ -136,7 +144,7 @@ $(document).ready(() => {
             "X-CSRF-Token": this.token
           },
           data: {
-            parse_type: _.isEmpty(this.parseType) ? "regexp" : this.parseType,
+            parse_type: _.isEmpty(parseType) ? "regexp" : parseType,
             file: this.path,
             plugin_config: this.parse
           }

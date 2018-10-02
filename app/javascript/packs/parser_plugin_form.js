@@ -4,6 +4,7 @@
 import "lodash/lodash";
 import ParserMultilineForm from "./parser_multiline_form";
 import ConfigField from "./config_field";
+import store from "./store";
 
 const ParserPluginForm = {
   template: "#vue-parser-plugin-form",
@@ -43,6 +44,7 @@ const ParserPluginForm = {
     this.options = JSON.parse(this.optionsJson);
     this.initialParams = JSON.parse(this.initialParamsJson || "{}");
     this.pluginName = this.initialPluginName;
+    store.commit("parserParams/setType", this.initialPluginName);
     this.$once("data-loaded", () => {
       this.updateSection();
     });
@@ -59,11 +61,9 @@ const ParserPluginForm = {
   },
 
   methods: {
-    onChange: function() {
+    onChange: function(event) {
+      store.dispatch("parserParams/updateType", event);
       this.updateSection();
-      if (this.pluginType === "parse") {
-        this.$emit("change-plugin-name", this.pluginName);
-      }
     },
 
     onChangeFormats: function(data) {
@@ -72,9 +72,8 @@ const ParserPluginForm = {
     },
 
     onChangeParseConfig: function(data) {
-      console.log("parserPluginForm:onChangeParseConfig", data);
-      this.expression = data.expression;
-      this.timeFormat = data.timeFormat;
+      console.log("parserPluginForm:onChangeParseConfig");
+      this.$emit("change-parse-config", {});
     },
 
     updateSection: function() {

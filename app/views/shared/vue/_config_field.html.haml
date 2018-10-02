@@ -8,6 +8,8 @@
         {{ option.name | humanize }}
       %select{"v-bind:id" => "inputId(pluginType, option)",
               "v-bind:name" => "inputName(pluginType, option)",
+              "v-model.lazy" => "selectedValue",
+              "v-on:change" => "onChange",
               "class" => "form-control"}
         %option{"v-for" => "item in option.list",
                 "v-bind:value" => "item",
@@ -17,6 +19,8 @@
       %input{"v-bind:id" => "inputId(pluginType, option)",
              "v-bind:name" => "inputName(pluginType, option)",
              "v-bind:checked" => "checked(option.default)",
+             "v-model.lazy" => "checkboxValue",
+             "v-on:change" => "onChange",
              "type" => "checkbox"}
       %label{"v-bind:for" => "inputId(pluginType, option)",
              "data-toggle" => "tooltip",
@@ -29,21 +33,9 @@
              "data-placement" => "right",
              "v-bind:title" => "option.desc"}
         {{ option.name | humanize }}
-      %template{"v-if" => 'option.name === "expression"'}
-        %input{"v-bind:id" => "inputId(pluginType, option)",
-               "v-bind:name" => "inputName(pluginType, option)",
-               "v-model.lazy" => "expression",
-               "type" => "text",
-               "class" => "form-control"}
-      %template{"v-else-if" => 'option.name === "time_format"'}
-        %input{"v-bind:id" => "inputId(pluginType, option)",
-               "v-bind:name" => "inputName(pluginType, option)",
-               "v-model.lazy" => "timeFormat",
-               "type" => "text",
-               "class" => "form-control"}
-      %template(v-else)
-        %input{"v-bind:id" => "inputId(pluginType, option)",
-               "v-bind:name" => "inputName(pluginType, option)",
-               "v-model.lazy" => "textValue",
-               "type" => "text",
-               "class" => "form-control"}
+      %input{"v-bind:id" => "inputId(pluginType, option)",
+             "v-bind:name" => "inputName(pluginType, option)",
+             "v-model.lazy" => "textValue",
+             "v-on:change" => "onChange",
+             "type" => "text",
+             "class" => "form-control"}
