@@ -42,7 +42,7 @@ const actions = {
     commit("setRfc5424TimeFormat", event.target.value);
   },
   updateWithPriority({ commit, state }, event) {
-    commit("setWithPriority", event.target.value);
+    commit("setWithPriority", event.target.checked);
   }
 };
 
