@@ -60,7 +60,6 @@ $(document).ready(() => {
     methods: {
       onChangePluginName: function(name) {
         console.log("#in-tail-parse onChangePluginName", name);
-        console.log("#in-tail-parse onChangePluginName store", this.$store);
         this.parseType = name;
         this.parse = {}; // clear parser plugin configuration
       },
