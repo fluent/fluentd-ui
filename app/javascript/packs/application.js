@@ -27,6 +27,7 @@ import "startbootstrap-sb-admin/js/sb-admin-datatables";
 
 import Vue from "vue/dist/vue.esm";
 import Vuex from "vuex/dist/vuex.esm";
+import BootstrapVue from "bootstrap-vue/dist/bootstrap-vue.esm";
 
 Vue.filter("to_json", function (value) {
   return JSON.stringify(value);
