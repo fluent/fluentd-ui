@@ -63,6 +63,7 @@ const ParserPluginForm = {
   methods: {
     onChange: function(event) {
       store.dispatch("parserParams/updateType", event);
+      this.$emit("change-plugin-name", event.target.value);
       this.updateSection();
     },
 

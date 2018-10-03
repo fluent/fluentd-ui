@@ -62,8 +62,9 @@ $(document).ready(() => {
     methods: {
       onChangePluginName: function(name) {
         console.log("#in-tail-parse onChangePluginName", name);
-        this.parseType = name;
+        this.updateHighlightedLines([]);
         this.parse = {}; // clear parser plugin configuration
+        this.onChangeParseConfig();
       },
       onChangeParseConfig: function(data) {
         console.log("#in-tail-parse onChangeParseConfig", store.getters["parserParams/toParams"]);
