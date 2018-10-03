@@ -1,0 +1,38 @@
+= render "shared/vue/parser_multiline_form"
+= render "shared/vue/config_field"
+
+%script{type: "text/x-template", id: "vue-parser-plugin-form"}
+  .form-group.card.bg-light.mb-3{"v-bind:id" => "id"}
+    .card-body
+      %label{"v-bind:for" => "selectId(pluginType)"}
+        {{ pluginLabel }}
+      %select{"v-bind:id" => "selectId(pluginType)",
+              "v-bind:class" => "selectClass(pluginType)",
+              "v-bind:name" => "selectName(pluginType)",
+              "v-model" => "pluginName",
+              "v-on:change" => "onChange"}
+        %option{"v-for" => "option in options",
+                "v-bind:value" => "option",
+                "v-bind:selected" => "pluginName===option"}
+          {{ option }}
+      %parser-multiline-form{"v-if" => 'pluginName==="multiline"',
+                             "v-bind:plugin-type" => "pluginType",
+                             "v-bind:common-options" => "commonOptions",
+                             "v-on:change-formats" => "onChangeFormats"}
+      %template(v-else)
+        %template{"v-for" => "option in commonOptions"}
+          %config-field{"v-bind:key" => "option.name",
+                        "v-bind:plugin-type" => "pluginType",
+                        "v-bind:option" => "option",
+                        "v-bind:initial-text-value" => "initialParams[option.name]",
+                        "v-on:change-parse-config" => "onChangeParseConfig"}
+        %template{"v-if" => '!_.isEmpty(advancedOptions)'}
+          .card.card-body.bg-light
+            %h4{"data-toggle" => "collapse", "href" => "#owned-plugin-advanced-setting"}
+              = icon('fa-caret-down')
+              = t('terms.advanced_setting')
+            #owned-plugin-advanced-setting.collapse
+              %config-field{"v-for" => "option in advancedOptions",
+                            "v-bind:key" => "option.name",
+                            "v-bind:plugin-type" => "pluginType",
+                            "v-bind:option" => "option"}

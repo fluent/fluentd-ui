@@ -3,14 +3,21 @@
 import "lodash/lodash";
 import "popper.js/dist/popper";
 import "bootstrap/dist/js/bootstrap";
-import OwnedPluginForm from "./owned_plugin_form";
+import ParserPluginForm from "./parser_plugin_form";
+import store from "./store";
 
 $(document).ready(() => {
   new Vue({
     el: "#in-tail-parse",
+    store,
     components: {
-      "owned-plugin-form": OwnedPluginForm
+      "parser-plugin-form": ParserPluginForm
     },
+    props: [
+      "initialPluginName",
+      "pluginType",
+      "pluginLabel",
+    ],
     data: function() {
       return {
         "path": "",
@@ -41,26 +48,31 @@ $(document).ready(() => {
     },
     mounted: function() {
       this.parse = {};
-      this.$on("hook:updated", () => {
-        this.$nextTick(() => {
+      this.parseType = this.initialPluginName;
+      this.preview();
+    },
+    updated: function() {
+      this.$nextTick(() => {
+        if ($("[data-toggle=tooltip]").tooltip) {
           $("[data-toggle=tooltip]").tooltip("dispose");
           $("[data-toggle=tooltip]").tooltip("enable");
-        });
+        }
       });
     },
     methods: {
       onChangePluginName: function(name) {
         console.log("#in-tail-parse onChangePluginName", name);
-        this.parseType = name;
+        this.updateHighlightedLines([]);
         this.parse = {}; // clear parser plugin configuration
+        this.onChangeParseConfig();
       },
       onChangeParseConfig: function(data) {
-        console.log("#in-tail-parse onChangeParseConfig", data);
-        _.merge(this.parse, data);
+        console.log("#in-tail-parse onChangeParseConfig", store.getters["parserParams/toParams"]);
+        _.merge(this.parse, store.getters["parserParams/toParams"]);
         this.preview();
       },
       onChangeFormats: function(data) {
-        console.log("in_tail_parse:onChangeFormats", data);
+        console.log("#in_tail_parse onChangeFormats", data);
         _.merge(this.parse, data);
         this.preview();
       },
@@ -124,9 +136,9 @@ $(document).ready(() => {
       preview: function() {
         console.log("preview!!!!");
         if (this.previewAjax && this.previewAjax.state() === "pending") {
-          this.previewAjax.abort();
+          this.previewAjax.abort && this.previewAjax.abort();
         }
-
+        const parseType = store.getters["parserParams/pluginName"];
         this.previewAjax = $.ajax({
           method: "POST",
           url: `${relativeUrlRoot}/api/regexp_preview`,
@@ -134,7 +146,7 @@ $(document).ready(() => {
             "X-CSRF-Token": this.token
           },
           data: {
-            parse_type: _.isEmpty(this.parseType) ? "regexp" : this.parseType,
+            parse_type: _.isEmpty(parseType) ? "regexp" : parseType,
             file: this.path,
             plugin_config: this.parse
           }

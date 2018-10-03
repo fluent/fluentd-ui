@@ -12,6 +12,10 @@ class Fluentd
       def common_options
         []
       end
+
+      def advanced_options
+        []
+      end
     end
   end
 end

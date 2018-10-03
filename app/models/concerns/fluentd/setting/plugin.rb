@@ -18,7 +18,6 @@ class Fluentd
       include Fluentd::Setting::PluginConfig
       include Fluentd::Setting::SectionParser
       include Fluentd::Setting::PluginParameter
-      include Fluentd::Setting::Label
 
       included do
         cattr_accessor :plugin_type, :plugin_name, :config_definition
@@ -31,6 +30,18 @@ class Fluentd
 
           if ["filter", "output"].include?(type)
             include Fluentd::Setting::Pattern
+          end
+
+          if ["input", "filter", "output"].include?(type)
+            include Fluentd::Setting::Label
+          end
+
+          if ["parser"].include?(type)
+            include Fluentd::Setting::ParserAdvancedOptions
+          end
+
+          if ["formatter"].include?(type)
+            include Fluentd::Setting::FormatterAdvancedOptions
           end
 
           self.load_plugin_config do |_name, params|

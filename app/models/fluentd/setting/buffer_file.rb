@@ -18,6 +18,10 @@ class Fluentd
           :dir_permission
         ]
       end
+
+      def advanced_options
+        []
+      end
     end
   end
 end

@@ -1,5 +1,6 @@
 = render "shared/setting_errors"
 = render "shared/vue/owned_plugin_form"
+= render "shared/vue/parser_plugin_form"
 
 = javascript_pack_tag("plugin_setting")
 
@@ -26,12 +27,12 @@
                          "v-bind:plugin-label" => "'Storage'"}
 
     - if setting.have_parse_section?
-      %owned-plugin-form{"v-bind:id" => "'parse-section'",
-                         "v-bind:options-json" => "'#{Fluent::Plugin::PARSER_REGISTRY.map.keys.to_json}'",
-                         "v-bind:initial-plugin-name" => "'#{setting.parse_type}'",
-                         "v-bind:initial-params-json" => "'#{setting.class.initial_params[:parse]["0"].to_json}'",
-                         "v-bind:plugin-type" => "'parse'",
-                         "v-bind:plugin-label" => "'Parse'"}
+      %parser-plugin-form{"v-bind:id" => "'parse-section'",
+                          "v-bind:options-json" => "'#{Fluent::Plugin::PARSER_REGISTRY.map.keys.to_json}'",
+                          "v-bind:initial-plugin-name" => "'#{setting.parse_type}'",
+                          "v-bind:initial-params-json" => "'#{setting.class.initial_params[:parse]["0"].to_json}'",
+                          "v-bind:plugin-type" => "'parse'",
+                          "v-bind:plugin-label" => "'Parse'"}
 
     - if setting.have_format_section?
       %owned-plugin-form{"v-bind:id" => "'format-section'",
