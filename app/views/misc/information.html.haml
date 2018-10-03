@@ -51,7 +51,7 @@
             = icon('fa-caret-down')
             = t('.env')
         %b-collapse#env-table
-          %b-form-group(horizontal){"label" => "Filter"}
+          %b-form-group.float-right(horizontal){"label" => t("terms.search")}
             %b-input-group
               %b-form-input{"v-model" => "filter"}
               %b-input-group-append
