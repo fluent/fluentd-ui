@@ -1,7 +1,5 @@
-.card.card-login.mx-auto.mt-5
-  .card-header
-    = t('messages.please_sign_in')
-  .card-body
+#login-form
+  %b-card.card-login.mx-auto.mt-5{"header" => t('messages.please_sign_in')}
     = render partial: "shared/error"
     = form_for(:session, url: sessions_path) do |f|
       .form-group
@@ -10,3 +8,11 @@
         = f.password_field :password, placeholder: t('terms.password'), class: "form-control"
 
       = submit_tag t("terms.sign_in"), class: "btn btn-primary btn-block"
+
+:javascript
+  window.addEventListener("load", () => {
+    new Vue({
+      name: "LoginForm",
+      el: "#login-form"
+    })
+  });
