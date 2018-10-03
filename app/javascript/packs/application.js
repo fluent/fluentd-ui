@@ -29,6 +29,9 @@ import Vue from "vue/dist/vue.esm";
 import Vuex from "vuex/dist/vuex.esm";
 import BootstrapVue from "bootstrap-vue/dist/bootstrap-vue.esm";
 
+Vue.use(Vuex);
+Vue.use(BootstrapVue);
+
 Vue.filter("to_json", function (value) {
   return JSON.stringify(value);
 });
