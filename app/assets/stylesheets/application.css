@@ -12,6 +12,7 @@
  *
  *= require font-awesome
  *= require bootstrap/dist/css/bootstrap
+ *= require bootstrap-vue/dist/bootstrap-vue
  *= require startbootstrap-sb-admin/css/sb-admin.css
  *= require datatables.net-bs4/css/dataTables.bootstrap4.css
  *= require codemirror/lib/codemirror
