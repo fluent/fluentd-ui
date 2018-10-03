@@ -48,6 +48,8 @@ $(document).ready(() => {
     },
     mounted: function() {
       this.parse = {};
+      this.parseType = this.initialPluginName;
+      this.preview();
     },
     updated: function() {
       this.$nextTick(() => {
@@ -133,7 +135,7 @@ $(document).ready(() => {
       preview: function() {
         console.log("preview!!!!");
         if (this.previewAjax && this.previewAjax.state() === "pending") {
-          this.previewAjax.abort();
+          this.previewAjax.abort && this.previewAjax.abort();
         }
         const parseType = store.getters["parserParams/pluginName"];
         this.previewAjax = $.ajax({
