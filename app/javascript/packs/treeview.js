@@ -1,7 +1,7 @@
 /* global _ */
 "use strict";
 import "lodash/lodash";
-$(document).ready(() => {
+window.addEventListener("load", () => {
   new Vue({
     el: "#treeview",
     props: {

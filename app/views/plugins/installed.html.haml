@@ -53,7 +53,7 @@
               = submit_tag t('plugins.common.install_latest_version'), class: "btn btn-primary"
 
 :javascript
-  $(document).ready(function() {
+  window.addEventListener("load", () => {
     $('#plugins-table').dataTable({
       "autoWidth": false,
       "ordering": true,

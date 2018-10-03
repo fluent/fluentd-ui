@@ -65,7 +65,7 @@
               %td= value
 
 :javascript
-  $(document).ready(function() {
+  window.addEventListener("load", () => {
     $('#env-table').dataTable({
       "autoWidth": false,
       "ordering": true,

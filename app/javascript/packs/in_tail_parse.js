@@ -6,7 +6,7 @@ import "bootstrap/dist/js/bootstrap";
 import ParserPluginForm from "./parser_plugin_form";
 import store from "./store";
 
-$(document).ready(() => {
+window.addEventListener("load", () => {
   new Vue({
     el: "#in-tail-parse",
     store,

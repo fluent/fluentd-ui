@@ -1,5 +1,5 @@
 "use strict";
-$(document).ready(()=> {
+window.addEventListener("load", ()=> {
   new Vue({
     el: "#fluent-log",
     data: {

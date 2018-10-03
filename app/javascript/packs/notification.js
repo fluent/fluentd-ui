@@ -1,7 +1,7 @@
 const POLLING_INTERVAL = 3 * 1000;
 const POLLING_URL = "/polling/alerts";
 
-$(document).ready(()=> {
+window.addEventListener("load", ()=> {
   new Vue({
     el: "#vue-notification",
     data: {

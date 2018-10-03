@@ -37,6 +37,6 @@ window.Vuex = Vuex;
 
 import "../stylesheets/application.scss";
 
-$(document).ready(() => {
+window.addEventListener("load", () => {
   $("[data-toggle=tooltip]").tooltip();
 });

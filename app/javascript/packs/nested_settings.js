@@ -1,7 +1,7 @@
 /* global _ */
 "use strict";
 import "lodash/lodash";
-$(document).ready(()=> {
+window.addEventListener("load", () => {
   var $firstSetting = $(".js-nested-column.js-multiple:first");
 
   if ($firstSetting.length === 0) {

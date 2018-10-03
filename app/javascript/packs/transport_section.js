@@ -4,7 +4,7 @@ import "lodash/lodash";
 
 import ConfigField from "./config_field";
 
-$(document).ready(() => {
+window.addEventListener("load", () => {
   new Vue({
     el: "#transport-section",
     components: {
