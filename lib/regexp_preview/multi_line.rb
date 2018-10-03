@@ -47,12 +47,13 @@ module RegexpPreview
             next unless record
             last_pos = 0
             record.each do |key, value|
-              start = chunk.index(value, last_pos)
-              finish = start + value.bytesize
+              v = value.to_s
+              start = chunk.index(v, last_pos)
+              finish = start + v.bytesize
               last_pos = finish
               parsed[:matches] << {
                 key: key,
-                matched: value,
+                matched: v,
                 pos: [start, finish]
               }
             end
