@@ -43,12 +43,14 @@
                          "v-bind:plugin-label" => "'Format'"}
 
     - if setting.advanced_options.present?
-      .card.card-body.bg-light
-        %h4{"v-b-toggle" => "'advanced-setting'"}
-          = icon('fa-caret-down')
-          = t('terms.advanced_setting')
+      %b-card(no-body){"bg-variant" => "light"}
+        %template{"slot" => "header"}
+          %h4{"v-b-toggle" => "'advanced-setting'"}
+            = icon('fa-caret-down')
+            = t('terms.advanced_setting')
         %b-collapse{"id" => "advanced-setting"}
-          - setting.advanced_options.each do |key|
-            = form.field(key)
+          %b-card-body
+            - setting.advanced_options.each do |key|
+              = form.field(key)
 
     = form.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary float-right mt-3"
