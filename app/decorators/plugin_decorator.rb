@@ -15,7 +15,7 @@ class PluginDecorator < Draper::Decorator
     {
       is_installed: installed?,
       is_processing: processing?,
-      uninstall_button: "#plugin-modal-#{gem_name}",
+      uninstall_button: "plugin-modal-#{gem_name}",
       name: gem_name,
       authors: authors,
       summary: summary,
