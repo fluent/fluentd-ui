@@ -43,18 +43,18 @@
   %h2
     = t('.current')
     .float-right
-      %button.btn.btn-outline-dark.btn-sm{"v-on:click" => "update", "v-if" => "!loading"}= icon('fa-refresh')
-      %button.btn.btn-outline-dark.btn-sm{"v-if" => "loading"}= icon('fa-spin fa-refresh')
-  .row
-    .col-xl-4.input
+      %b-btn{"variant" => "outline-dark", "size" => "sm", "v-if" => "loading"}= icon('fa-spin fa-refresh')
+      %b-btn{"variant" => "outline-dark", "size" => "sm", "v-on:click" => "update", "v-if" => "!loading"}= icon('fa-refresh')
+  %b-row
+    %b-col.input{"cols" => "4"}
       %h3= t('.in')
-    .col-xl-4.filter
+    %b-col.filter{"cols" => "4"}
       %h3= t('.filter')
-    .col-xl-4.output
+    %b-col.output{"cols" => "4"}
       %h3= t('.out')
 
-  .row{"v-for" => "(elements, label) in sections"}
-    .col-xl-4.input
+  %b-row{"v-for" => "(elements, label) in sections"}
+    %b-col.input{"cols" => "4"}
       %h5 {{ label }}
       %div{"v-if" => "loaded && !elements.sources || elements.sources.length == 0"}
         %p.empty= t('.setting_empty')
@@ -67,7 +67,7 @@
                        "v-bind:initial-type" => "source.type",
                        "v-bind:initial-name" => "source.name",
                        "v-bind:initial-arg" => "source.arg"}
-    .col-xl-4.filter
+    %b-col.filter{"cols" => "4"}
       %h5 {{ label }}
       %div{"v-if" => "loaded && !elements.filters || elements.filters.length == 0"}
         %p.empty= t('.setting_empty')
@@ -81,7 +81,7 @@
                        "v-bind:initial-name" => "filter.name",
                        "v-bind:initial-arg" => "filter.arg"}
 
-    .col-xl-4.output
+    %b-col.output{"cols" => "4"}
       %h5 {{ label }}
       %div{"v-if" => "loaded && !elements.matches || elements.matches.length == 0"}
         %p.empty= t('.setting_empty')
