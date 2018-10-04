@@ -30,7 +30,7 @@
       %b-card{"header" => t('terms.installed_plugins'),
               "header-tags" => "h4"}
         - if @plugins.present?
-          %table{class: "table table-hover", id: "plugins-table"}
+          %table{class: "table table-hover table-sm", id: "plugins-table"}
             %thead
               %tr
                 %th= t('plugins.common.name')
