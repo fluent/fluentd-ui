@@ -4,7 +4,7 @@ class PluginsController < ApplicationController
   end
 
   def installed
-    @plugins = Plugin.installed.reject{|plugin| plugin.processing? }
+    @plugins = PluginDecorator.decorate_collection(Plugin.installed.reject{|plugin| plugin.processing? })
   end
 
   def recommended
@@ -12,7 +12,7 @@ class PluginsController < ApplicationController
   end
 
   def updated
-    @plugins = Plugin.installed.reject{|plugin| plugin.latest_version? }
+    @plugins = PluginDecorator.decorate_collection(Plugin.installed.reject{|plugin| plugin.latest_version? })
   end
 
   def install
