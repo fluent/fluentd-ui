@@ -1,0 +1,20 @@
+- add_javascript_pack_tag('codemirror')
+
+%script{"type" => "text/x-template", "id" => "vue-setting-section"}
+  %b-card.mb-3(no-body){"variant" => "primary"}
+    %template{"slot" => "header"}
+      %div{"data-toggle" => "collapse", "v-bind:href" => "`#${id}`", "v-bind:title" => "content"}
+        = icon("fa-caret-down")
+        {{ type }}
+        %span{"v-if" => '!_.isEmpty(arg) && (name == "match" || name == "filter")'}
+          ({{ arg }})
+    %b-card-body.collapse{"v-bind:id" => "id"}
+      %pre{"v-if" => 'mode !== "edit"'}
+        {{ content }}
+      %p{"v-if" => 'mode === "edit"'}
+        %textarea.form-control(v-config-editor){"v-model.lazy" => "content", "v-bind:disabled" => "processing"}
+      %p.float-right
+        %b-button{"v-if" => 'mode !== "edit"', "variant" => "secondary", "v-on:click" => "onEdit"}=t("terms.edit")
+        %b-button{"v-if" => 'mode !== "edit"', "variant" => "danger", "v-on:click" => "onDelete"}=t("terms.destroy")
+        %b-button{"v-if" => 'mode === "edit"', "variant" => "secondary", "v-on:click" => "onCancel"}=t("terms.cancel")
+        %b-button{"v-if" => 'mode === "edit"', "variant" => "primary", "v-on:click" => "onSubmit"}=t("terms.save")
