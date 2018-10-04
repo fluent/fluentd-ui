@@ -44,10 +44,10 @@
 
     - if setting.advanced_options.present?
       .card.card-body.bg-light
-        %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
+        %h4{"v-b-toggle" => "'advanced-setting'"}
           = icon('fa-caret-down')
           = t('terms.advanced_setting')
-        #advanced-setting.collapse
+        %b-collapse{"id" => "advanced-setting"}
           - setting.advanced_options.each do |key|
             = form.field(key)
 

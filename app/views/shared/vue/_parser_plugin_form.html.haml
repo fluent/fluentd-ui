@@ -28,10 +28,10 @@
                         "v-on:change-parse-config" => "onChangeParseConfig"}
         %template{"v-if" => '!_.isEmpty(advancedOptions)'}
           .card.card-body.bg-light
-            %h4{"data-toggle" => "collapse", "href" => "#owned-plugin-advanced-setting"}
+            %h4{"v-b-toggle" => '"parser-section-advanced-setting"'}
               = icon('fa-caret-down')
               = t('terms.advanced_setting')
-            #owned-plugin-advanced-setting.collapse
+            %b-collapse{"id" => "parser-section-advanced-setting"}
               %config-field{"v-for" => "option in advancedOptions",
                             "v-bind:key" => "option.name",
                             "v-bind:plugin-type" => "pluginType",

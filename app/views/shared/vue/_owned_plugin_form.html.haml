@@ -21,10 +21,10 @@
                     "v-bind:option" => "option"}
       %template{"v-if" => '!_.isEmpty(advancedOptions)'}
         .card.card-body.bg-light
-          %h4{"data-toggle" => "collapse", "href" => "#owned-plugin-advanced-setting"}
+          %h4{"v-b-toggle" => "`${id}-advanced-setting`"}
             = icon('fa-caret-down')
             = t('terms.advanced_setting')
-          #owned-plugin-advanced-setting.collapse
+          %b-collapse{"v-bind:id" => "`${id}-advanced-setting`"}
             %config-field{"v-for" => "option in advancedOptions",
                           "v-bind:key" => "option.name",
                           "v-bind:plugin-type" => "pluginType",
