@@ -41,18 +41,18 @@ class Plugin
   end
 
   def installed?
-    self.class.installed.find do |plugin|
+    self.class.installed.any? do |plugin|
       plugin.gem_name == gem_name
     end
   end
 
   def processing?
-    !!WORKING.find{|data| data[:plugin].gem_name == gem_name}
+    WORKING.any?{|data| data[:plugin].gem_name == gem_name}
   end
 
   def installed_version
-    return unless inst = installed?
-    inst.version
+    return unless installed?
+    version
   end
 
   def latest_version?
