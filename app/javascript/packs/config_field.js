@@ -80,6 +80,9 @@ const ConfigField = {
       }
       this.$emit("change-parse-config", {});
     },
+    labelId: function(pluginType, option) {
+      return `label_${this.inputId(pluginType, option)}`;
+    },
     inputId: function(pluginType, option) {
       if (pluginType === "output") {
         return `setting_${option.name}`;

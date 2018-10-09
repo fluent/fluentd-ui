@@ -1,8 +1,10 @@
 %script{type: "text/x-template", id: "vue-parser-multiline-form"}
   .form-group
-    %label{"for" => "setting_parse_0__format_firstline",
-           "data-toggle" => "tooltip",
-           "data-placement" => "right",
+    %b-tooltip{"target" => "label_setting_parse_0__format_firstline",
+               "placement" => "right",
+               "v-bind:title" => "formatFirstlineDesc"}
+    %label{"id" => "label_setting_parse_0__format_firstline",
+           "for" => "setting_parse_0__format_firstline",
            "v-bind:title" => "formatFirstlineDesc"}
       Format first line
     %input.form-control{"type" => "text",
