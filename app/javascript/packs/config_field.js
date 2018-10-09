@@ -58,13 +58,6 @@ const ConfigField = {
     if (this.option.name === "time_format") {
       this.timeFormat = this.initialTimeFormat;
     }
-    this.$nextTick(() => {
-      console.log("config-field updated");
-      if ($("[data-toggle=tooltip]").tooltip) {
-        $("[data-toggle=tooltip]").tooltip("dispose");
-        $("[data-toggle=tooltip]").tooltip("enable");
-      }
-    });
   },
 
   methods: {

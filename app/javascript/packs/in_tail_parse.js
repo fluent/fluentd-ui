@@ -51,14 +51,6 @@ window.addEventListener("load", () => {
       this.parseType = this.initialPluginName;
       this.preview();
     },
-    updated: function() {
-      this.$nextTick(() => {
-        if ($("[data-toggle=tooltip]").tooltip) {
-          $("[data-toggle=tooltip]").tooltip("dispose");
-          $("[data-toggle=tooltip]").tooltip("enable");
-        }
-      });
-    },
     methods: {
       onChangePluginName: function(name) {
         console.log("#in-tail-parse onChangePluginName", name);
