@@ -3,7 +3,7 @@
 
 import "lodash/lodash";
 
-$(document).ready(() => {
+window.addEventListener("load", () => {
   const SettingSection = {
     template: "#vue-setting-section",
     props: [

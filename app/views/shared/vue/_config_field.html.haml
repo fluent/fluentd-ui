@@ -1,10 +1,8 @@
 %script{type: "text/x-template", id: "vue-config-field"}
   .form-group
     %template{"v-if" => 'option.type==="enum"'}
-      %label{"v-bind:for" => "inputId(pluginType, option)",
-             "data-toggle" => "tooltip",
-             "data-placement" => "right",
-             "v-bind:title" => "option.desc"}
+      %b-tooltip{"v-bind:target" => "labelId(pluginType, option)", "placement" => "right", "v-bind:title" => "option.desc"}
+      %label{"v-bind:id" => "labelId(pluginType, option)", "v-bind:for" => "inputId(pluginType, option)"}
         {{ option.name | humanize }}
       %select{"v-bind:id" => "inputId(pluginType, option)",
               "v-bind:name" => "inputName(pluginType, option)",
@@ -16,22 +14,18 @@
                 "v-bind:selected" => "option.default === item"}
           {{ item }}
     %template{"v-else-if" => 'option.type==="bool"'}
+      %b-tooltip{"v-bind:target" => "labelId(pluginType, option)", "placement" => "right", "v-bind:title" => "option.desc"}
       %input{"v-bind:id" => "inputId(pluginType, option)",
              "v-bind:name" => "inputName(pluginType, option)",
              "v-bind:checked" => "checked(option.default)",
              "v-model.lazy" => "checkboxValue",
              "v-on:change" => "onChange",
              "type" => "checkbox"}
-      %label{"v-bind:for" => "inputId(pluginType, option)",
-             "data-toggle" => "tooltip",
-             "data-placement" => "right",
-             "v-bind:title" => "option.desc"}
+      %label{"v-bind:id" => "labelId(pluginType, option)", "v-bind:for" => "inputId(pluginType, option)"}
         {{ option.name | humanize }}
     %template(v-else)
-      %label{"v-bind:for" => "inputId(pluginType, option)",
-             "data-toggle" => "tooltip",
-             "data-placement" => "right",
-             "v-bind:title" => "option.desc"}
+      %b-tooltip{"v-bind:target" => "labelId(pluginType, option)", "placement" => "right", "v-bind:title" => "option.desc"}
+      %label{"v-bind:id" => "labelId(pluginType, option)", "v-bind:for" => "inputId(pluginType, option)"}
         {{ option.name | humanize }}
       %input{"v-bind:id" => "inputId(pluginType, option)",
              "v-bind:name" => "inputName(pluginType, option)",

@@ -58,13 +58,6 @@ const ConfigField = {
     if (this.option.name === "time_format") {
       this.timeFormat = this.initialTimeFormat;
     }
-    this.$nextTick(() => {
-      console.log("config-field updated");
-      if ($("[data-toggle=tooltip]").tooltip) {
-        $("[data-toggle=tooltip]").tooltip("dispose");
-        $("[data-toggle=tooltip]").tooltip("enable");
-      }
-    });
   },
 
   methods: {
@@ -86,6 +79,9 @@ const ConfigField = {
         store.dispatch("parserParams/updateTimeFormat", event);
       }
       this.$emit("change-parse-config", {});
+    },
+    labelId: function(pluginType, option) {
+      return `label_${this.inputId(pluginType, option)}`;
     },
     inputId: function(pluginType, option) {
       if (pluginType === "output") {

@@ -50,6 +50,7 @@ en:
     installing: "Installing: %{target}"
     uninstalling: "Uninstalling: %{target}"
     search: Search
+    clear: Clear
     changeme_password: '<a href="/user">Change the password</a> from default for your security'
     destroy_confirm_title: "%{target} Deletion"
     confirm_body: |

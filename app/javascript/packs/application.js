@@ -7,8 +7,6 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log("Hello World from Webpacker");
-
 import jQuery from "jquery/dist/jquery";
 
 window.$ = jQuery;
@@ -27,6 +25,10 @@ import "startbootstrap-sb-admin/js/sb-admin-datatables";
 
 import Vue from "vue/dist/vue.esm";
 import Vuex from "vuex/dist/vuex.esm";
+import BootstrapVue from "bootstrap-vue/dist/bootstrap-vue.esm";
+
+Vue.use(Vuex);
+Vue.use(BootstrapVue);
 
 Vue.filter("to_json", function (value) {
   return JSON.stringify(value);
@@ -37,6 +39,6 @@ window.Vuex = Vuex;
 
 import "../stylesheets/application.scss";
 
-$(document).ready(() => {
+window.addEventListener("load", () => {
   $("[data-toggle=tooltip]").tooltip();
 });

@@ -3,7 +3,7 @@
 import TransportConfig from "./transport_config";
 import OwnedPluginForm from "./owned_plugin_form";
 
-$(document).ready(() => {
+window.addEventListener("load", () => {
   new Vue({
     el: "#out-forward-setting",
     components: {

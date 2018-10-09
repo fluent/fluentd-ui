@@ -4,7 +4,7 @@ import "lodash/lodash";
 
 import GrepContainer from "./grep_container";
 
-$(document).ready(() => {
+window.addEventListener("load", () => {
   new Vue({
     el: "#filter-grep-setting",
     components: {

@@ -43,15 +43,6 @@ const OwnedPluginForm = {
     this.$emit("data-loaded");
   },
 
-  updated: function() {
-    this.$nextTick(() => {
-      if ($("[data-toggle=tooltip]").tooltip) {
-        $("[data-toggle=tooltip]").tooltip("dispose");
-        $("[data-toggle=tooltip]").tooltip("enable");
-      }
-    });
-  },
-
   methods: {
     onChange: function() {
       this.updateSection();

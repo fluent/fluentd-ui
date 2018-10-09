@@ -1,19 +1,21 @@
 const POLLING_INTERVAL = 3 * 1000;
 const POLLING_URL = "/polling/alerts";
 
-window.addEventListener("load", ()=> {
+window.addEventListener("load", () => {
   new Vue({
-    el: "#vue-notification",
-    data: {
-      "alerts": []
+    el: "#mainNav",
+    data: function() {
+      return {
+        alerts: []
+      };
     },
 
     computed: {
       alertsCount: {
-        get: function(){ return this.alerts.length; }
+        get: function() { return this.alerts.length; }
       },
       hasAlerts: {
-        get: function(){ return this.alertsCount > 0; }
+        get: function() { return this.alertsCount > 0; }
       }
     },
 

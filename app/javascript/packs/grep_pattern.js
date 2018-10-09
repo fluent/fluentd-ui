@@ -30,10 +30,12 @@ const GrepPattern = {
     remove: function(event) {
       this.$emit("remove-grep-pattern", this.grepType, this.subIndex);
     },
+    labelId: function(name, index, subIndex) {
+      return `label_${this.inputId(name, index, subIndex)}`;
+    },
     inputId: function(name, index, subIndex) {
       return `setting_${this.containerType}_${index}_${this.grepType}_${subIndex}__${name}`;
     },
-
     inputName: function(name, index, subIndex) {
       return `setting[${this.containerType}[${index}]][${this.grepType}[${subIndex}]][${name}]`;
     }

@@ -3,7 +3,7 @@
 
 %script{type: "text/x-template", id: "vue-parser-plugin-form"}
   .form-group.card.bg-light.mb-3{"v-bind:id" => "id"}
-    .card-body
+    %b-card{"bg-variant" => "light"}
       %label{"v-bind:for" => "selectId(pluginType)"}
         {{ pluginLabel }}
       %select{"v-bind:id" => "selectId(pluginType)",
@@ -27,12 +27,14 @@
                         "v-bind:initial-text-value" => "initialParams[option.name]",
                         "v-on:change-parse-config" => "onChangeParseConfig"}
         %template{"v-if" => '!_.isEmpty(advancedOptions)'}
-          .card.card-body.bg-light
-            %h4{"data-toggle" => "collapse", "href" => "#owned-plugin-advanced-setting"}
-              = icon('fa-caret-down')
-              = t('terms.advanced_setting')
-            #owned-plugin-advanced-setting.collapse
-              %config-field{"v-for" => "option in advancedOptions",
-                            "v-bind:key" => "option.name",
-                            "v-bind:plugin-type" => "pluginType",
-                            "v-bind:option" => "option"}
+          %b-card(no-body){"bg-variant" => "light"}
+            %template{"slot" => "header"}
+              %h4{"v-b-toggle" => '"parser-section-advanced-setting"'}
+                = icon('fa-caret-down')
+                = t('terms.advanced_setting')
+            %b-collapse{"id" => "parser-section-advanced-setting"}
+              %b-card-body
+                %config-field{"v-for" => "option in advancedOptions",
+                              "v-bind:key" => "option.name",
+                              "v-bind:plugin-type" => "pluginType",
+                              "v-bind:option" => "option"}

@@ -1,10 +1,12 @@
 class PluginsController < ApplicationController
+  helper_method :plugins_json
+
   def index
     redirect_to installed_plugins_path
   end
 
   def installed
-    @plugins = Plugin.installed.reject{|plugin| plugin.processing? }
+    @plugins = PluginDecorator.decorate_collection(Plugin.installed.reject{|plugin| plugin.processing? })
   end
 
   def recommended
@@ -12,14 +14,23 @@ class PluginsController < ApplicationController
   end
 
   def updated
-    @plugins = Plugin.installed.reject{|plugin| plugin.latest_version? }
+    @plugins = PluginDecorator.decorate_collection(Plugin.installed.reject{|plugin| plugin.latest_version? })
   end
 
   def install
     params[:plugins].each do |gem_name|
       GemInstallerJob.perform_later(gem_name)
     end
-    redirect_to plugins_path
+    respond_to do |format|
+      format.html do
+        redirect_to plugins_path
+      end
+      format.json do
+        plugins = PluginDecorator.decorate_collection(Plugin.recommended.select {|item| params[:plugins].include?(item.gem_name)})
+        render json: plugins.map(&:to_hash).to_json
+      end
+    end
+
   end
 
   def uninstall
@@ -40,5 +51,11 @@ class PluginsController < ApplicationController
       GemInstallerJob.perform_later(gem_name, pl.latest_version)
     end
     redirect_to plugins_path
+  end
+
+  private
+
+  def plugins_json
+    JSON.pretty_generate(@plugins.map(&:to_hash))
   end
 end

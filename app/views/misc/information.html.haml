@@ -3,21 +3,20 @@
     = icon('fa-download')
     = t('.download_system_information')
 
-- if FluentdUI.update_available? && !FluentdUI.td_agent_ui?
-  - # NOTE: td-agent-ui shouldn't have auto update feature
-  .row
-    .col-xl-12
-      %p
-        = link_to misc_update_fluentd_ui_path, class: "btn btn-primary btn-lg", method: :post do
-          = t('.update_fluentd_ui', version: FluentdUI.latest_version, title: fluentd_ui_title)
-        = t('.update_fluentd_ui_caution', brand: fluentd_ui_brand)
+#information
+  - if FluentdUI.update_available? && !FluentdUI.td_agent_ui?
+    - # NOTE: td-agent-ui shouldn't have auto update feature
+    .row
+      .col-xl-12
+        %p
+          = link_to misc_update_fluentd_ui_path, class: "btn btn-primary btn-lg", method: :post do
+            = t('.update_fluentd_ui', version: FluentdUI.latest_version, title: fluentd_ui_title)
+          = t('.update_fluentd_ui_caution', brand: fluentd_ui_brand)
 
-.row
-  .col-xl-6.col-sm-6.mb-3
-    .card.card-default
-      .card-header
-        %h4= t("terms.version")
-      .card-body
+  .row
+    .col-xl-6.col-sm-6.mb-3
+      %b-card{"header" => t("terms.version"),
+              "header-tags" => "h4"}
         %dl{class: "dl-horizontal"}
           %dt ruby
           %dd= RUBY_DESCRIPTION
@@ -27,13 +26,11 @@
           %dt fluentd-ui
           %dd= FluentdUI::VERSION
 
-  .col-xl-6.col-sm-6.mb-3
-    .card.card-default
-      .card-header
-        %h4= t('terms.installed_plugins')
-      .card-body
+    .col-xl-6.col-sm-6.mb-3
+      %b-card{"header" => t('terms.installed_plugins'),
+              "header-tags" => "h4"}
         - if @plugins.present?
-          %table{class: "table table-hover", id: "plugins-table"}
+          %table{class: "table table-hover table-sm", id: "plugins-table"}
             %thead
               %tr
                 %th= t('plugins.common.name')
@@ -46,31 +43,38 @@
         - else
           = t "plugins.common.no_installed"
 
-.row
-  .col-xl-12.col-sm-12
-    .card.card-default
-      .card-header
-        %h4{"data-toggle" => "collapse", "href" => "#env-table"}
-          = icon('fa-caret-down')
-          = t('.env')
-      %table{class: "table table-hover collapse", id: "env-table"}
-        %thead
-          %tr
-            %th= t('.env_key')
-            %th= t('.env_value')
-        %tbody
-          - @env.each_pair do |key, value|
-            %tr
-              %td= key
-              %td= value
+  .row
+    .col-xl-12.col-sm-12
+      %b-card
+        %template{"slot" => "header"}
+          %h4{"v-b-toggle.env-table" => ""}
+            = icon('fa-caret-down')
+            = t('.env')
+        %b-collapse#env-table
+          %b-form-group.float-right(horizontal){"label" => t("terms.search")}
+            %b-input-group
+              %b-form-input{"v-model" => "filter"}
+              %b-input-group-append
+                %b-btn{ "v-bind:disabled" => "!filter", "v-on:click" => "filter = ''" }
+                  Clear
+          %b-table(stripped hover small){"v-bind:items" => "items",
+                                         "v-bind:fields" => "fields",
+                                         "v-bind:filter" => "filter"}
 
 :javascript
-  $(document).ready(function() {
-    $('#env-table').dataTable({
-      "autoWidth": false,
-      "ordering": true,
-      "paging": false,
-      "info": false,
-      "searching": false
+  window.addEventListener("load", () => {
+    new Vue({
+      name: "Information",
+      el: "#information",
+      data() {
+        return {
+          fields: {
+            key: { label: "#{t('.env_key')}", sortable: true },
+            value: { label: "#{t('.env_value')}" }
+          },
+          items: #{env_items.to_json.html_safe},
+          filter: null
+        };
+      }
     });
   });

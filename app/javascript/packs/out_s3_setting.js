@@ -3,7 +3,7 @@
 import OwnedPluginForm from "./owned_plugin_form";
 import AwsCredential from "./aws_credential";
 
-$(document).ready(() => {
+window.addEventListener("load", () => {
   new Vue({
     el: "#out-s3-setting",
     components: {

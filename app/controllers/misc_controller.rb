@@ -4,6 +4,8 @@ require "zip"
 class MiscController < ApplicationController
   after_action :update!, only: [:update_fluentd_ui]
 
+  helper_method :env_items
+
   def show
     redirect_to misc_information_path
   end
@@ -74,5 +76,11 @@ class MiscController < ApplicationController
 
   def update!
     FluentdUiRestart.perform_later
+  end
+
+  def env_items
+    @env.map do |key, value|
+      { key: key, value: value }
+    end
   end
 end

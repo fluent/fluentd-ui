@@ -6,7 +6,7 @@ import "bootstrap/dist/js/bootstrap";
 import ParserPluginForm from "./parser_plugin_form";
 import store from "./store";
 
-$(document).ready(() => {
+window.addEventListener("load", () => {
   new Vue({
     el: "#in-tail-parse",
     store,
@@ -50,14 +50,6 @@ $(document).ready(() => {
       this.parse = {};
       this.parseType = this.initialPluginName;
       this.preview();
-    },
-    updated: function() {
-      this.$nextTick(() => {
-        if ($("[data-toggle=tooltip]").tooltip) {
-          $("[data-toggle=tooltip]").tooltip("dispose");
-          $("[data-toggle=tooltip]").tooltip("enable");
-        }
-      });
     },
     methods: {
       onChangePluginName: function(name) {
