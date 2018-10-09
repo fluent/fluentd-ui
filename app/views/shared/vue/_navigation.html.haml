@@ -1,0 +1,43 @@
+%nav#mainNav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
+  = link_to fluentd_ui_logo, root_path, class: "navbar-brand fluentd-ui-logo"
+  %button{"type" => "button",
+          "class" => "navbar-toggler navbar-toggler-right",
+          "data-toggle" => "collapse",
+          "data-target" => "#navbarResponsive",
+          "aria-controls" => "navbarResponsive",
+          "aria-expanded" => "false",
+          "aria-label" => "Toggle navigation"}
+    %span.navbar-toggler-icon
+  #navbarResponsive.collapse.navbar-collapse
+    = render partial: "shared/vue/sidemenu"
+    %ul.navbar-nav.ml-auto
+      - if @fluentd
+        %li.nav-item.fluentd-note
+          = @fluentd.note
+        %li.nav-item.fluentd-status
+          %a.nav-link{"href" => daemon_path,
+                      "data-toggle" => "tooltip",
+                      "data-placement" => "bottom",
+                      "title" => "fluentd #{fluentd_status_message}"}
+            = fluentd_status_icon
+        %li.nav-item.dropdown
+          %a.nav-link.dropdown-toggle{"data-toggle" => "dropdown",
+                                      "aria-haspopup" => "true",
+                                      "aria-expanded" => "false",
+                                      "href" => "#"}
+            = icon("fa-bell fa-fw")
+            %span.badge{"v-if" => "hasAlerts"}
+              {{ alertsCount }}
+          %ul.dropdown-menu{"aria-labelledby" => "alertsDropdown"}
+            %li{"v-if" => "!hasAlerts"}
+              %a
+                .nothing.text.text-success
+                  = icon("fa-check")
+                  = t("terms.no-alert")
+            %li{"v-for" => "alert in alerts"}
+              %a
+                %div
+                  = icon("fa-cog fa-fw fa-la fa-spin")
+                  {{ alert }}
+        %li.nav-item
+          = link_to(icon("fa-fw fa-sign-out") + t("terms.sign_out"), sessions_path, method: :delete, class: "nav-link")

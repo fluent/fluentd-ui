@@ -1,0 +1,36 @@
+%ul#side-menu.navbar-nav.navbar-sidenav
+  %li.nav-item
+    %a.section{"data-toggle" => "tooltip", "data-placement" => "right", "title" => "Fluuentd"}
+      = icon("fa-puzzle-piece fa-fw") + "fluentd"
+    %ul.sidenav-second-level
+      - if fluentd_exists?
+        %li= link_to_other(t('fluentd.show.page_title'), daemon_path)
+        %li= link_to_other(t('fluentd.settings.source_and_output.page_title'), source_and_output_daemon_setting_path)
+        %li= link_to_other(t('fluentd.settings.show.page_title'), daemon_setting_path)
+        %li= link_to_other(t('fluentd.common.log'), log_daemon_path)
+        %li= link_to_other(t('fluentd.errors.page_title'), errors_daemon_path)
+      - else
+        %li= link_to_other(t('terms.initial_setup'), daemon_path)
+
+  - if fluentd_exists?
+    %li.nav-item
+      %a.section{"data-toggle" => "tooltip", "data-placement" => "right", "title" => "Plugins"}
+        = icon("fa-cogs fa-fw") + t("terms.plugins")
+      %ul.sidenav-second-level
+        %li= link_to_other(t("plugins.installed.page_title"), installed_plugins_path)
+        %li= link_to_other(t("plugins.recommended.page_title"), recommended_plugins_path)
+        %li= link_to_other(t("plugins.updated.page_title"), updated_plugins_path)
+
+  %li.nav-item
+    %a.section{"data-toggle" => "tooltip", "data-placement" => "right", "title" => "Misc"}
+      = icon("fa-coffee fa-fw") + t("terms.misc")
+    %ul.sidenav-second-level
+      %li= link_to_other(t("misc.information.page_title"), misc_information_path)
+      %li= link_to_other t('users.show.page_title'), user_path
+
+  %li.nav-item
+    %a.section{"data-toggle" => "tooltip", "data-placement" => "right", "title" => "Language"}
+      = icon("fa-font") + t("terms.languages")
+    %ul.sidenav-second-level
+      - I18n.available_locales.each do |locale|
+        %li= link_to((locale == current_locale ? icon("fa-check") : "") + language_name(locale), "?lang=#{locale}")

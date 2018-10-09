@@ -13,7 +13,7 @@
     <%= stylesheet_link_tag 'application', media: 'all'%>
     <%= stylesheet_pack_tag 'application', media: 'all'%>
     <%= javascript_pack_tag 'application' %>
-    <%= javascript_pack_tag 'notification' %>
+    <%= javascript_pack_tag 'navigation' %>
     <%= content_for(:additional_javascript_pack_tag) %>
     <%= csrf_meta_tags %>
     <%= javascript_tag do %>
@@ -21,33 +21,7 @@
     <% end %>
   </head>
   <body class="fixed-nav bg-light">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
-      <%= link_to fluentd_ui_logo, root_path, class: "navbar-brand fluentd-ui-logo" %>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <%= render partial: "shared/global_nav" %>
-        <ul class="navbar-nav ml-auto">
-          <%- if @fluentd %>
-            <li class="nav-item fluentd-note">
-              <%= @fluentd.note %>
-            </li>
-            <li class="nav-item fluentd-status">
-              <a class="nav-link" href="<%= daemon_path %>" data-toggle="tooltip" data-placement="bottom" title="fluentd <%= fluentd_status_message %>">
-                <%= fluentd_status_icon %>
-              </a>
-            </li>
-          <%- end %>
-
-          <%= render partial: "shared/vue/notification" %>
-
-          <li class="nav-item">
-            <%= link_to(icon("fa-fw fa-sign-out") + t("terms.sign_out"), sessions_path, method: :delete, class: "nav-link") %>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <%= render partial: "shared/vue/navigation" %>
 
     <div class="content-wrapper">
       <div class="container-fluid">
