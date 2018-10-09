@@ -15,10 +15,10 @@
         %li.nav-item.fluentd-note
           = @fluentd.note
         %li.nav-item.fluentd-status
-          %a.nav-link{"href" => daemon_path,
-                      "data-toggle" => "tooltip",
-                      "data-placement" => "bottom",
-                      "title" => "fluentd #{fluentd_status_message}"}
+          %b-tooltip{"target" => "fluentd-status-message",
+                     "placement" => "bottom",
+                     "title" => "fluentd #{fluentd_status_message}"}
+          %a.nav-link#fluentd-status-message{"href" => daemon_path}
             = fluentd_status_icon
         %li.nav-item.dropdown
           %a.nav-link.dropdown-toggle{"data-toggle" => "dropdown",

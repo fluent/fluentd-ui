@@ -1,6 +1,7 @@
 %ul#side-menu.navbar-nav.navbar-sidenav
   %li.nav-item
-    %a.section{"data-toggle" => "tooltip", "data-placement" => "right", "title" => "Fluuentd"}
+    %b-tooltip{"target" => "side-menu-fluentd", "placement" => "right", "title" => "Fluentd"}
+    %a#side-menu-fluentd.section
       = icon("fa-puzzle-piece fa-fw") + "fluentd"
     %ul.sidenav-second-level
       - if fluentd_exists?
@@ -14,7 +15,8 @@
 
   - if fluentd_exists?
     %li.nav-item
-      %a.section{"data-toggle" => "tooltip", "data-placement" => "right", "title" => "Plugins"}
+      %b-tooltip{"target" => "side-menu-plugins", "placement" => "right", "title" => "Plugins"}
+      %a#side-menu-plugins.section
         = icon("fa-cogs fa-fw") + t("terms.plugins")
       %ul.sidenav-second-level
         %li= link_to_other(t("plugins.installed.page_title"), installed_plugins_path)
@@ -22,14 +24,16 @@
         %li= link_to_other(t("plugins.updated.page_title"), updated_plugins_path)
 
   %li.nav-item
-    %a.section{"data-toggle" => "tooltip", "data-placement" => "right", "title" => "Misc"}
+    %b-tooltip{"target" => "side-menu-misc", "placement" => "right", "title" => "Misc"}
+    %a#side-menu-misc.section
       = icon("fa-coffee fa-fw") + t("terms.misc")
     %ul.sidenav-second-level
       %li= link_to_other(t("misc.information.page_title"), misc_information_path)
       %li= link_to_other t('users.show.page_title'), user_path
 
   %li.nav-item
-    %a.section{"data-toggle" => "tooltip", "data-placement" => "right", "title" => "Language"}
+    %b-tooltip{"target" => "side-menu-language", "placement" => "right", "title" => "Language"}
+    %a#side-menu-language.section
       = icon("fa-font") + t("terms.languages")
     %ul.sidenav-second-level
       - I18n.available_locales.each do |locale|
