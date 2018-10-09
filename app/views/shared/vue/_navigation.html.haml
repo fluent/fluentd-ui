@@ -20,24 +20,19 @@
                      "title" => "fluentd #{fluentd_status_message}"}
           %a.nav-link#fluentd-status-message{"href" => daemon_path}
             = fluentd_status_icon
-        %li.nav-item.dropdown
-          %a.nav-link.dropdown-toggle{"data-toggle" => "dropdown",
-                                      "aria-haspopup" => "true",
-                                      "aria-expanded" => "false",
-                                      "href" => "#"}
-            = icon("fa-bell fa-fw")
-            %span.badge{"v-if" => "hasAlerts"}
-              {{ alertsCount }}
-          %ul.dropdown-menu{"aria-labelledby" => "alertsDropdown"}
-            %li{"v-if" => "!hasAlerts"}
-              %a
-                .nothing.text.text-success
-                  = icon("fa-check")
-                  = t("terms.no-alert")
-            %li{"v-for" => "alert in alerts"}
-              %a
-                %div
-                  = icon("fa-cog fa-fw fa-la fa-spin")
-                  {{ alert }}
+        %li.nav-item
+          %b-dropdown(no-caret){"variant" => "light"}
+            %template{"slot" => "button-content"}
+              = icon("fa-bell fa-fw")
+              %span.badge{"v-if" => "hasAlerts"}
+                {{ alertsCount }}
+            %b-dropdown-item{"v-if" => "!hasAlerts"}
+              .nothing.text.text-success
+                = icon("fa-check")
+                = t("terms.no-alert")
+            %b-dropdown-item{"v-for" => "alert in alerts"}
+              = icon("fa-cog fa-fw fa-la fa-spin")
+              {{ alert }}
+
       %li.nav-item
         = link_to(icon("fa-fw fa-sign-out") + t("terms.sign_out"), sessions_path, method: :delete, class: "nav-link")
