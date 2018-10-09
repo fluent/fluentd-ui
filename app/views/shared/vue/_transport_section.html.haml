@@ -20,11 +20,13 @@
       %template{"v-for" => "option in commonOptions"}
         %config-field{"v-bind:plugin-type" => "pluginType",
                       "v-bind:option" => "option"}
-      .card.card-body.bg-light
-        %h4{"data-toggle" => "collapse", "href" => "#transport-advanced-setting"}
-          = icon('fa-caret-down')
-          = t('terms.advanced_setting') + '(TLS)'
-        #transport-advanced-setting.collapse
-          %template{"v-for" => "option in advancedOptions"}
-            %config-field{"v-bind:plugin-type" => "pluginType",
-                          "v-bind:option" => "option"}
+      %b-card(no-body){"bg-variant" => "light"}
+        %template{"slot" => "header"}
+          %h4{"v-b-toggle" => "'transport-advanced-setting'"}
+            = icon('fa-caret-down')
+            = t('terms.advanced_setting') + '(TLS)'
+        %b-collapse{"id" => "transport-advanced-setting"}
+          %b-card-body
+            %template{"v-for" => "option in advancedOptions"}
+              %config-field{"v-bind:plugin-type" => "pluginType",
+                            "v-bind:option" => "option"}
