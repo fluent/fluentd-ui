@@ -1,4 +1,9 @@
 ENV['RAILS_ENV'] ||= 'test'
+if ENV['RAILS_ENV'] == 'test'
+  require 'simplecov'
+  SimpleCov.start("rails")
+end
+
 require_relative '../config/environment'
 require 'test/unit/rails/test_help'
 require 'test/unit/rr'
