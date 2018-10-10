@@ -19,9 +19,7 @@ Rails.start();
 
 import "popper.js/dist/popper";
 import "bootstrap/dist/js/bootstrap";
-import "datatables.net/js/jquery.dataTables";
 import "startbootstrap-sb-admin/js/sb-admin";
-import "startbootstrap-sb-admin/js/sb-admin-datatables";
 
 import Vue from "vue/dist/vue.esm";
 import Vuex from "vuex/dist/vuex.esm";
