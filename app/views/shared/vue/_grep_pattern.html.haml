@@ -1,8 +1,8 @@
 %script{type: "text/x-template", id: "vue-grep-pattern"}
   %div
-    %a.btn.btn-xs{"v-on:click" => "add", "v-if" => "subIndex == 0"}
+    %b-button{"v-on:click" => "add", "size" => "sm", "variant" => "light", "v-if" => "subIndex === 0"}
       = icon("fa-plus")
-    %a.btn.btn-xs{"v-on:click" => "remove", "v-if" => "subIndex != 0"}
+    %b-button{"v-on:click" => "remove", "size" => "sm", "variant" => "light", "v-if" => "subIndex !== 0"}
       = icon("fa-minus")
     %label
       {{ grepType | humanize }}
