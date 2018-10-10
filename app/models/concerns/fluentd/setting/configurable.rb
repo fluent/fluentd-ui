@@ -100,7 +100,7 @@ class Fluentd
 
         def config_argument(name, type = ActiveModel::Type::Value.new, **options)
           config_param(name, type, **options)
-          self._argument_name = name
+          set_argument_name(name)
         end
 
         def set_argument_name(name)
