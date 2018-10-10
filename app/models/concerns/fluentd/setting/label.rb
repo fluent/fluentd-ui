@@ -4,7 +4,7 @@ class Fluentd
       extend ActiveSupport::Concern
 
       included do
-        config_argument(:label, :string)
+        config_param(:label, :string)
       end
     end
   end
