@@ -12,9 +12,9 @@
                       "v-on:change-plugin-name" => "onChangePluginName",
                       "v-on:change-formats" => "onChangeFormats"}
 
-  .card.mb-3
-    %pre{"class" => "card-body", "v-html" => "highlightedLines"}
+  %b-card.mb-3
+    %pre{"v-html" => "highlightedLines"}
 
-  .card.md-3
-    %p.card-body.pb-0
+  %b-card.mb-3
+    %p.pb-0.mb-0
       =raw(t("fluentd.settings.in_tail_option_guide"))
