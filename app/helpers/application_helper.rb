@@ -27,16 +27,6 @@ module ApplicationHelper
     }[locale] || locale
   end
 
-  def language_menu
-    html = ""
-    I18n.available_locales.each do |locale|
-      text = (locale == current_locale ? icon("fa-check") : "")
-      text << language_name(locale)
-      html << %Q|<li>#{link_to text , "?lang=#{locale}"}</li>|
-    end
-    raw html
-  end
-
   def link_to_other(text, path, **options)
     if current_page?(path)
       # NOTE: sb-admin set style for element name instead of class name, such as ".nav a". So use "a" element even if it isn't a link.
