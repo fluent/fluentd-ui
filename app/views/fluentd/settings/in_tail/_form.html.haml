@@ -23,11 +23,11 @@
 = form.field(:tag)
 = form.field(:pos_file)
 
-.well.well-sm
-  %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
+.card.mb-3
+  %h4.card-header{"data-toggle" => "collapse", "href" => "#advanced-setting"}
     = icon('fa-caret-down')
     = t('terms.advanced_setting')
-  #advanced-setting.collapse
+  #advanced-setting.card-body.collapse
     .form-group
       = form.field(:rotate_wait)
     .form-group
