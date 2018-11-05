@@ -14,7 +14,8 @@ module.exports = {
   "globals": {
     "$": true,
     "Rails": true,
-    "Vue": true
+    "Vue": true,
+    "relativeUrlRoot": true
   },
   "rules": {
     "indent": [

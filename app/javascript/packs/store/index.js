@@ -1,3 +1,4 @@
+/* global process:true */
 import Vue from "vue/dist/vue.esm";
 import Vuex from "vuex/dist/vuex.esm";
 import { createNamespaceHelpers } from "vuex/dist/vuex.esm";
