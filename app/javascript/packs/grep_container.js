@@ -16,7 +16,7 @@ const GrepContainer = {
     return {
       grepType: "regexp",
       patterns: [true],
-    }
+    };
   },
   filters: {
     humanize: function(value) {

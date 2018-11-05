@@ -14,7 +14,7 @@ const GrepPattern = {
     return {
       key: null,
       pattern: null,
-    }
+    };
   },
 
   filters: {
