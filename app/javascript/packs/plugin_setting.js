@@ -2,8 +2,8 @@
 import "lodash/lodash";
 import "popper.js/dist/popper";
 import "bootstrap/dist/js/bootstrap";
-import OwnedPluginForm from "./owned_plugin_form";
-import ParserPluginForm from "./parser_plugin_form";
+import OwnedPluginForm from "./components/owned_plugin_form";
+import ParserPluginForm from "./components/parser_plugin_form";
 
 window.addEventListener("load", () => {
   new Vue({

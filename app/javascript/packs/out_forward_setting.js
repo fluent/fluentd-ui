@@ -1,7 +1,7 @@
 "use strict";
 
-import TransportConfig from "./transport_config";
-import OwnedPluginForm from "./owned_plugin_form";
+import TransportConfig from "./components/transport_config";
+import OwnedPluginForm from "./components/owned_plugin_form";
 
 window.addEventListener("load", () => {
   new Vue({

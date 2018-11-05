@@ -2,7 +2,7 @@
 "use strict";
 import "lodash/lodash";
 
-import GrepContainer from "./grep_container";
+import GrepContainer from "./components/grep_container";
 
 window.addEventListener("load", () => {
   new Vue({
