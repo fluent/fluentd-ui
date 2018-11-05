@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fluentd-ui (1.1.0)
+    fluentd-ui (1.2.0)
       addressable
       bootsnap (>= 1.1.0)
       bundler
@@ -160,7 +160,7 @@ GEM
     faraday (0.15.3)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
-    fluent-plugin-elasticsearch (2.11.11)
+    fluent-plugin-elasticsearch (2.12.0)
       elasticsearch
       excon
       fluentd (>= 0.14.20)
@@ -358,7 +358,7 @@ GEM
     timecop (0.9.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2018.5)
+    tzinfo-data (1.2018.7)
       tzinfo (>= 1.0.0)
     web-console (3.7.0)
       actionview (>= 5.0)
@@ -405,4 +405,4 @@ DEPENDENCIES
   webmock (~> 3.3.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.6

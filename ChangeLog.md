@@ -1,3 +1,11 @@
+## Release 1.2.0 - 2018/11/05
+
+* [maintenance] Add app/javascript/packs/components [#275](https://github.com/fluent/fluentd-ui/pull/275)
+* [maintenance] Fix eslint errors [#274](https://github.com/fluent/fluentd-ui/pull/274)
+* [fixed] Set label properly [#270](https://github.com/fluent/fluentd-ui/pull/270)
+* [maintenance] Use bootstrap-vue [#269](https://github.com/fluent/fluentd-ui/pull/269) [#273](https://github.com/fluent/fluentd-ui/pull/273)
+* [fixed] Fix preview functionality in in_tail wizard [#267](https://github.com/fluent/fluentd-ui/pull/267)
+
 ## Release 1.1.0 - 2018/09/25
 
 * [maintenance] Suppress JavaScript warnings [#265](https://github.com/fluent/fluentd-ui/pull/265)
