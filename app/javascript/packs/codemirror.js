@@ -43,7 +43,7 @@ CodeMirror.defineMode("fluentd", function() {
           stream.eatWhile(/[^ \t#]/);
           state.context =  "inner-definition-keyword-appeared";
           return "variable";
-        case "inner-definition-keyword-appeared":
+        case "inner-definition-keyword-appeared": {
           let eatBuiltin = function(stream, state) {
             stream.eatWhile(/[^#]/);
             if (stream.current().match(/\\$/)) {
@@ -55,6 +55,7 @@ CodeMirror.defineMode("fluentd", function() {
           eatBuiltin(stream, state);
           state.context = "inner-definition";
           return "builtin";
+        }
         default:
           stream.eat(/[^<>#]+/);
           return "string";

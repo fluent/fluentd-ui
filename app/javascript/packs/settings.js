@@ -141,7 +141,7 @@ window.addEventListener("load", () => {
             if (_.isEmpty(data[label])) {
               this.$delete(this.sections, label);
             }
-          })
+          });
           if (_.isEmpty(data["ROOT"])) {
             this.$set(this.sections, "ROOT", []);
           }
