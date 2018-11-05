@@ -1,0 +1,30 @@
+:ruby
+  add_javascript_pack_tag("treeview")
+  name ||= ""
+  action ||= ""
+  submit_button ||= ""
+
+= form_tag(action, method: :post) do
+  #treeview
+    %b-card{"variant" => "light"}
+      %pre.pb-0.mb-0
+        {{ path }}
+    %input{"type" => "hidden", "name" => name, "v-model" => "path"}
+    .dirs
+      %span{"v-for" => "(dir, index) in currentDirs"}
+        %span{"v-if" => "index > 0"}= icon("fa-caret-right")
+        %span.dir{"v-on:click" => "selectPath(dir)"}
+          {{ basename(dir) }}
+    .tree
+      %span{"v-on:click" => "selectPath(value.path)",
+            "v-bind:class" => "{ selected: isSelected(value.path) }",
+            "v-for" => "value in paths"}
+        %span{"v-if" => "value.is_dir"}= icon("fa-folder")
+        %span{"v-if" => "!value.is_dir"}= icon("fa-file-o")
+        {{ basename(value.path) }}
+        %br
+
+    %pre.preview{"v-if" => "preview"}
+      {{ preview }}
+    %p.mt-3
+      = submit_tag(submit_button, class: "btn btn-lg btn-primary float-right", "v-bind:disabled" => "selectedIsDir")

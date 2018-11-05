@@ -2,7 +2,7 @@
 = render "shared/vue/config_field"
 
 %script{type: "text/x-template", id: "vue-parser-plugin-form"}
-  .form-group.card.bg-light.mb-3{"v-bind:id" => "id"}
+  .form-group.mb-3{"v-bind:id" => "id"}
     %b-card{"bg-variant" => "light"}
       %label{"v-bind:for" => "selectId(pluginType)"}
         {{ pluginLabel }}

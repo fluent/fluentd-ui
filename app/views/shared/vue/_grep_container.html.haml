@@ -1,10 +1,10 @@
 = render "shared/vue/grep_pattern"
 %script{type: "text/x-template", id: "vue-grep-container"}
-  .form-group.card
-    .card-header
-      %a.btn.btn-xs{"v-on:click" => "add", "v-if" => "index == 0"}
+  %b-card.form-group
+    %template{"slot" => "header"}
+      %b-button{"v-on:click" => "add", "size" => "sm", "variant" => "light", "v-if" => "index === 0"}
         = icon("fa-plus")
-      %a.btn.btn-xs{"v-on:click" => "remove", "v-if" => "index != 0"}
+      %b-button{"v-on:click" => "remove", "size" => "sm", "variant" => "light", "v-if" => "index !== 0"}
         = icon("fa-minus")
       %label
         {{ containerType | humanize }}
@@ -20,13 +20,12 @@
                "v-bind:name" => "inputName(index)",
                "v-model" => "grepType"}
         Exclude
-    .card-body
-      .row
-        %template{"v-for" => "(enabled, i) in patterns"}
-          %grep-pattern.col-xl-3{"v-if" => "enabled",
-                                 "v-bind:container-type" => "containerType",
-                                 "v-bind:grep-type" => "grepType",
-                                 "v-bind:index" => "index",
-                                 "v-bind:subIndex" => "i",
-                                 "v-on:add-grep-pattern" => "addGrepPattern",
-                                 "v-on:remove-grep-pattern" => "removeGrepPattern"}
+    .row
+      %template{"v-for" => "(enabled, i) in patterns"}
+        %grep-pattern.col-xl-3{"v-if" => "enabled",
+                               "v-bind:container-type" => "containerType",
+                               "v-bind:grep-type" => "grepType",
+                               "v-bind:index" => "index",
+                               "v-bind:subIndex" => "i",
+                               "v-on:add-grep-pattern" => "addGrepPattern",
+                               "v-on:remove-grep-pattern" => "removeGrepPattern"}
