@@ -1,7 +1,7 @@
 /* global _ */
 "use strict";
 import "lodash/lodash";
-import store from "./store";
+import store from "../store";
 
 const ConfigField = {
   template: "#vue-config-field",

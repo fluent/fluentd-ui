@@ -1,7 +1,7 @@
 "use strict";
 
-import OwnedPluginForm from "./owned_plugin_form";
-import AwsCredential from "./aws_credential";
+import OwnedPluginForm from "./components/owned_plugin_form";
+import AwsCredential from "./components/aws_credential";
 
 window.addEventListener("load", () => {
   new Vue({

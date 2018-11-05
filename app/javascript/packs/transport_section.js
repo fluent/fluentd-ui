@@ -2,7 +2,7 @@
 "use strict";
 import "lodash/lodash";
 
-import ConfigField from "./config_field";
+import ConfigField from "./components/config_field";
 
 window.addEventListener("load", () => {
   new Vue({

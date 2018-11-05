@@ -3,7 +3,7 @@
 import "lodash/lodash";
 import "popper.js/dist/popper";
 import "bootstrap/dist/js/bootstrap";
-import ParserPluginForm from "./parser_plugin_form";
+import ParserPluginForm from "./components/parser_plugin_form";
 import store from "./store";
 
 window.addEventListener("load", () => {
