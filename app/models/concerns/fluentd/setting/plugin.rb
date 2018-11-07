@@ -52,7 +52,7 @@ class Fluentd
                   attribute("#{param_name}_type", :string)
                 end
               else
-                config_param(param_name, definition[:type], **definition.except(:type))
+                config_param(param_name, definition[:type] || self._types[param_name], **definition.except(:type))
               end
             end
           end
