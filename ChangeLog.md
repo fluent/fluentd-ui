@@ -1,3 +1,8 @@
+## Release 1.2.1 - 2018/11/12
+
+* [fixed] Stop overwriting parameter type by `nil` [#278](https://github.com/fluent/fluentd-ui/pull/278) [#277](https://github.com/fluent/fluentd-ui/issues/277)
+* [maintenance] Update loofah to 2.2.3 [#279](https://github.com/fluent/fluentd-ui/pull/279)
+
 ## Release 1.2.0 - 2018/11/05
 
 * [maintenance] Add app/javascript/packs/components [#275](https://github.com/fluent/fluentd-ui/pull/275)
