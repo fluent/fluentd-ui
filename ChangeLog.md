@@ -1,3 +1,7 @@
+## Release 1.2.2 - 2018/12/06
+
+* [fixed] Bundle update
+
 ## Release 1.2.1 - 2018/11/12
 
 * [fixed] Stop overwriting parameter type by `nil` [#278](https://github.com/fluent/fluentd-ui/pull/278) [#277](https://github.com/fluent/fluentd-ui/issues/277)
