@@ -5,7 +5,7 @@
     "lint": "eslint app/javascript"
   },
   "dependencies": {
-    "@rails/webpacker": "3.5",
+    "@rails/webpacker": "^4.0.2",
     "bootstrap-vue": "^2.0.0-rc.11",
     "codemirror": "^5.37.0",
     "es6-promise": "^4.2.4",
@@ -15,13 +15,13 @@
     "rails-ujs": "^5.2.0",
     "startbootstrap-sb-admin": "^4.0.0",
     "vue": "^2.5.16",
-    "vue-loader": "14.2.2",
+    "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.5.16",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
     "eslint": "^5.1.0",
     "eslint-plugin-vue": "^4.7.0",
-    "webpack-dev-server": "2.11.2"
+    "webpack-dev-server": ">=3.1.11"
   }
 }
