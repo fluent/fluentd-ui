@@ -1,4 +1,4 @@
-%nav#mainNav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
+%nav#mainNav.navbar.navbar-expand-lg.navbar-light.bg-light
   = link_to fluentd_ui_logo, root_path, class: "navbar-brand fluentd-ui-logo"
   %button{"type" => "button",
           "class" => "navbar-toggler navbar-toggler-right",
@@ -9,7 +9,6 @@
           "aria-label" => "Toggle navigation"}
     %span.navbar-toggler-icon
   #navbarResponsive.collapse.navbar-collapse
-    = render partial: "shared/vue/sidemenu"
     %ul.navbar-nav.ml-auto
       - if @fluentd
         %li.nav-item.fluentd-note
