@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@rails/webpacker": "^4.0.2",
-    "bootstrap-vue": "^2.0.0-rc.11",
+    "bootstrap-vue": "^2.0.0-rc.14",
     "codemirror": "^5.37.0",
     "es6-promise": "^4.2.4",
     "jquery": "^3.3.1",
