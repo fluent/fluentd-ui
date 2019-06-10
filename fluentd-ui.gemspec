@@ -41,7 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'addressable'
   spec.add_dependency "font-awesome-rails"
   spec.add_dependency 'sass-rails', '~> 5.0.7'
-  spec.add_dependency "haml-rails", "~> 1.0"
+  spec.add_dependency "haml-rails", "~> 2.0"
   spec.add_dependency 'jbuilder', '~> 2.0'
   spec.add_dependency "draper", '~> 3.0'
   spec.add_dependency "bundler"
