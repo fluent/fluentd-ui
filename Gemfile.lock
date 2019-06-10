@@ -138,17 +138,17 @@ GEM
       activemodel-serializers-xml (>= 1.0)
       activesupport (>= 5.0)
       request_store (>= 1.0)
-    elasticsearch (6.1.0)
-      elasticsearch-api (= 6.1.0)
-      elasticsearch-transport (= 6.1.0)
-    elasticsearch-api (6.1.0)
+    elasticsearch (7.1.0)
+      elasticsearch-api (= 7.1.0)
+      elasticsearch-transport (= 7.1.0)
+    elasticsearch-api (7.1.0)
       multi_json
-    elasticsearch-transport (6.1.0)
+    elasticsearch-transport (7.1.0)
       faraday
       multi_json
     erubi (1.8.0)
     erubis (2.7.0)
-    excon (0.62.0)
+    excon (0.64.0)
     factory_bot (5.0.2)
       activesupport (>= 4.2.0)
     factory_bot_rails (5.0.2)
@@ -157,7 +157,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
-    fluent-plugin-elasticsearch (2.12.3)
+    fluent-plugin-elasticsearch (2.12.5)
       elasticsearch
       excon
       fluentd (>= 0.14.20)
@@ -237,7 +237,7 @@ GEM
       bson (>= 4.3.0, < 5.0.0)
     msgpack (1.2.10)
     multi_json (1.13.1)
-    multipart-post (2.0.0)
+    multipart-post (2.1.1)
     nio4r (2.3.1)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
