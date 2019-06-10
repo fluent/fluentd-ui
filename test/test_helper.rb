@@ -11,8 +11,8 @@ require 'test/unit/capybara'
 require 'capybara-screenshot/testunit' # for integration test
 
 require 'webmock/test_unit'
-WebMock.disable_net_connect!(allow_localhost: true)
-
+WebMock.disable_net_connect!(allow_localhost: true,
+                             allow: "chromedriver.storage.googleapis.com")
 
 module FixturePath
   def fixture_path(fixture_name)
