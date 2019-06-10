@@ -212,7 +212,7 @@ GEM
       multi_json (>= 1.2)
     jmespath (1.4.0)
     json (2.1.0)
-    kramdown (1.17.0)
+    kramdown (2.1.0)
     kramdown-haml (0.0.3)
       haml
     launchy (2.4.3)
