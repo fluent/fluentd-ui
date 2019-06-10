@@ -325,7 +325,7 @@ GEM
     strptime (0.2.3)
     sucker_punch (2.0.4)
       concurrent-ruby (~> 1.0.0)
-    td-client (1.0.6)
+    td-client (1.0.7)
       httpclient (>= 2.7)
       msgpack (>= 0.5.6, < 2)
     temple (0.8.1)
