@@ -155,7 +155,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
-    ffi (1.9.25)
+    ffi (1.11.1)
     fluent-plugin-elasticsearch (2.12.3)
       elasticsearch
       excon
@@ -279,8 +279,8 @@ GEM
       thor (>= 0.19.0, < 2.0)
     rake (12.3.2)
     rb-fsevent (0.10.3)
-    rb-inotify (0.9.10)
-      ffi (>= 0.5.0, < 2)
+    rb-inotify (0.10.0)
+      ffi (~> 1.0)
     regexp_parser (1.5.1)
     request_store (1.4.1)
       rack (>= 1.4)
@@ -290,7 +290,7 @@ GEM
       sexp_processor (~> 4.9)
     rubyzip (1.2.2)
     safe_yaml (1.0.5)
-    sass (3.7.2)
+    sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
