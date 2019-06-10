@@ -22,7 +22,6 @@ end
 
 group :test do
   gem "factory_bot_rails"
-  gem "capybara", "~> 3.4.2"
   gem "capybara-screenshot"
   gem "simplecov", "~> 0.16.1", require: false
   gem "webmock", "~> 3.6.0"
