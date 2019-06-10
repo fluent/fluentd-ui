@@ -116,7 +116,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
-    capybara-screenshot (1.0.22)
+    capybara-screenshot (1.0.23)
       capybara (>= 1.0, < 4)
       launchy
     childprocess (1.0.1)
