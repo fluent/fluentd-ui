@@ -24,7 +24,7 @@ PATH
       rubyzip (~> 1.1)
       sass-rails (~> 5.0.7)
       settingslogic
-      sucker_punch (~> 2.0.4)
+      sucker_punch (~> 2.1)
       thor
       webpacker
 
@@ -123,7 +123,7 @@ GEM
     childprocess (1.0.1)
       rake (< 13.0)
     coderay (1.1.2)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.5)
     cool.io (1.5.4)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -323,8 +323,8 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     strptime (0.2.3)
-    sucker_punch (2.0.4)
-      concurrent-ruby (~> 1.0.0)
+    sucker_punch (2.1.2)
+      concurrent-ruby (~> 1.0)
     td-client (1.0.7)
       httpclient (>= 2.7)
       msgpack (>= 0.5.6, < 2)
