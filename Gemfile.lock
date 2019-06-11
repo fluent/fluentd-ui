@@ -205,8 +205,9 @@ GEM
     httpclient (2.8.3)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
-    i18n_generators (2.1.1)
-      rails (>= 3.0.0)
+    i18n_generators (2.2.1)
+      activerecord (>= 3.0.0)
+      railties (>= 3.0.0)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
     jmespath (1.4.0)
@@ -389,7 +390,7 @@ DEPENDENCIES
   capybara-screenshot
   factory_bot_rails
   fluentd-ui!
-  i18n_generators (= 2.1.1)
+  i18n_generators (~> 2.1)
   listen (>= 3.0.5, < 3.2)
   pry
   pry-rails
