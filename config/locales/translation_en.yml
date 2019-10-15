@@ -184,7 +184,7 @@ en:
       out_mongo:
         option_guide: |
           For each config parameter, please refer to the <a href="https://docs.fluentd.org/output/mongo" target="_blank">MongoDB output plugin</a> documentation page.
-          show:
+        show:
           page_title: Add Output to MongoDB
       out_stdout:
         option_guide: |
