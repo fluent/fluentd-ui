@@ -35,6 +35,7 @@ And some additional packages (Debian / Ubuntu)
     $ fluentd-ui start --daemonize
 
 Access http://localhost:9292 by web browser.
+The default account is username="admin" and password="changeme".
 
 ### Run under sub path
 
@@ -46,12 +47,35 @@ Access http://localhost:9292/prefix by web browser.
 
 ## Development
 
+### Get the source
+
     $ git clone https://github.com/fluent/fluentd-ui
     $ cd fluentd-ui
-    $ bundle install
-    $ bin/rails s
 
-Also you need a [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) or chromiumdriver for test.
+### Install dependent gems
+
+Use bundler:
+
+    $ gem install bundler
+    $ bundle install --path vendor/bundle
+
+### Install dependent JavaScript packages
+
+Use [yarn](https://yarnpkg.com/).
+See https://yarnpkg.com/en/docs/install to install it to your environment.
+After install it, run following command:
+
+    $ yarn install
+
+### Run fluentd-ui
+
+    $ bin/rails server
+
+Access http://localhost:3000 by web browser.
+
+### Run tests
+
+You need [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) or chromiumdriver to run tests.
 
     $ npm install -g chromedriver
     Or,
@@ -61,7 +85,11 @@ Also you need a [chromedriver](https://sites.google.com/a/chromium.org/chromedri
 
 NOTE: `chromedriver` executable binary should be located under your `$PATH`.
 
-## Building fluentd-ui.gem
+After that you can run tests by following command:
+
+    $ bundle exec rake test
+
+### Building fluentd-ui.gem
 
     # Generate ChangeLog.md and increment version
     $ bin/rails release:prepare
