@@ -73,6 +73,12 @@ After install it, run following command:
 
 Access http://localhost:3000 by web browser.
 
+#### Run with Docker
+
+    $ docker build -t fluent/fluentd-ui:1.0.0 .
+    $ docker run --net=host fluent/fluentd-ui:1.0.0
+
+
 ### Run tests
 
 You need [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) or chromiumdriver to run tests.
