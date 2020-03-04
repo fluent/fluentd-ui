@@ -246,7 +246,8 @@ GEM
     pry-rails (0.3.8)
       pry (>= 0.10.4)
     public_suffix (3.0.3)
-    puma (3.12.0)
+    puma (4.3.3)
+      nio4r (~> 2.0)
     rack (2.0.6)
     rack-proxy (0.6.5)
       rack
