@@ -61,11 +61,7 @@ Use bundler:
 
 ### Install dependent JavaScript packages
 
-Use [yarn](https://yarnpkg.com/).
-See https://yarnpkg.com/en/docs/install to install it to your environment.
-After install it, run following command:
-
-    $ yarn install
+    $ ./bin/yarn
 
 ### Run fluentd-ui
 
