@@ -17,6 +17,8 @@ before_install:
   - sudo mv chromedriver /usr/local/bin/chromedriver
   - sudo sh -c 'curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent3.sh | sh'
   - nvm install 10
+  # mini_portile2 requires bundler ~> 1.17
+  - gem install bundler --version 1.17.3
 
 install:
   - bin/setup
