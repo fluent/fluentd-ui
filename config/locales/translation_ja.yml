@@ -159,7 +159,7 @@ ja:
         page_title: 設定ファイルの編集
       out_forward:
         option_guide: |
-          <a target="_blank" href="https://docs.fluentd.org/articles/out_forward">out_forwardプラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/output/forward">out_forwardプラグインの解説</a>もご参照ください。
         secondary_note: |
           ※どのserverにも転送できなかった場合、上記のパスにファイルとしてデータが保存されます。
         show:
@@ -167,7 +167,7 @@ ja:
       out_s3:
         option_guide: |
           fluent-plugin-s3プラグインのインストールが必要です。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/out_s3">out_s3プラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/output/s3">out_s3プラグインの解説</a>もご参照ください。
         show:
           page_title: AWS S3書き出し設定
       out_tdlog:
@@ -178,61 +178,61 @@ ja:
       out_elasticsearch:
         option_guide: |
           fluent-plugin-elasticsearchプラグインのインストールが必要です。<br />
-          <a target="_blank" href="httpss://github.com/uken/fluent-plugin-elasticsearch">out_elasticsearchプラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://github.com/uken/fluent-plugin-elasticsearch">out_elasticsearchプラグインの解説</a>もご参照ください。
         show:
           page_title: Elasticsearch設定
       out_mongo:
         option_guide: |
           fluent-plugin-mongoプラグインのインストールが必要です。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/out_mongo">out_mongoプラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/output/mongo">out_mongoプラグインの解説</a>もご参照ください。
         show:
           page_title: MongoDB書き出し設定
       out_stdout:
         option_guide: |
           標準出力（デーモンとして起動しているときはログファイル）へイベントを書き出します。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/out_stdout">out_stdoutプラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/output/stdout">out_stdoutプラグインの解説</a>もご参照ください。
         show:
           page_title: 標準出力（ログ）
       filter_grep:
         option_guide: |
           指定したフィールドの値を元にイベントを「Grep」します。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/filter_grep">filter_grepプラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/filter/grep">filter_grepプラグインの解説</a>もご参照ください。
         show:
           page_title: Grepフィルター設定
       filter_parser:
         option_guide: |
           指定したフィールドの値をパースした結果を使ってイベントを加工します。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/filter_parser">filter_parserプラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/filter/parser">filter_parserプラグインの解説</a>もご参照ください。
         show:
           page_title: Parserフィルター設定
       filter_record_transformer:
         option_guide: |
           様々な方法でイベントを加工します。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/filter_record_transformer">filter_record_transformerプラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/filter/record_transformer">filter_record_transformerプラグインの解説</a>もご参照ください。
         show:
           page_title: レコード加工設定
       filter_stdout:
         option_guide: |
           標準出力（デーモンとして起動しているときはログファイル）へイベントを書き出します。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/filter_stdout">filter_stdoutプラグインの解説</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/filter/stdout">filter_stdoutプラグインの解説</a>もご参照ください。
         show:
           page_title: 標準出力（ログ）
       in_syslog:
         option_guide: |
-          <a target="_blank" href="https://docs.fluentd.org/articles/in_syslog">in_syslogプラグイン解説ページ</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/input/syslog">in_syslogプラグイン解説ページ</a>もご参照ください。
         show:
           page_title: Syslog読み込み設定
       in_monitor_agent:
         option_guide: |
           HTTP経由で現在稼働中のfluentdが使用しているconfigやプラグインをJSONやLTSV形式で取得できます。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/monitoring">監視エージェント</a>のページもご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/input/monitor_agent">監視エージェント</a>のページもご参照ください。
         show:
           page_title: 監視エージェント設定(monitor_agent)
       in_http:
         option_guide: |
           http POSTからレコードを取得可能にします。<br />
           URLパスはFluentdイベントログのタグとなり、ポストされたbody要素はレコードそのものになります。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/in_http">httpインプットプラグイン解説ページ</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/input/http">httpインプットプラグイン解説ページ</a>もご参照ください。
         show:
           page_title: http入力設定
       in_forward:
@@ -240,13 +240,13 @@ ja:
           TCPソケットをリッスンし、イベントストリームを受信します。<br />
           UDPソケットもリッスンし、ハートビートメッセージを受信します。<br />
           他のFluentdインスタンス、fluent-catコマンドまたはクライアントライブラリーからイベントログを受信するために使用されます。<br />
-          <a target="_blank" href="https://docs.fluentd.org/articles/in_forward">forwardインプットプラグイン解説ページ</a>もご参照ください。
+          <a target="_blank" href="https://docs.fluentd.org/input/forward">forwardインプットプラグイン解説ページ</a>もご参照ください。
         show:
           page_title: forward入力設定
 
       in_tail_option_guide: |
-        <a target="_blank" href="https://docs.fluentd.org/articles/in_tail">in_tailプラグインの解説ページ</a>や
-        <a target="_blank" href="http://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。
+        <a target="_blank" href="https://docs.fluentd.org/input/tail">in_tailプラグインの解説ページ</a>や
+        <a target="_blank" href="https://fluentular.herokuapp.com/">Fluentular</a>もご参照ください。
       in_tail:
         notice_for_multiline_limit: "改行区切りで正規表現を入力してください。空行はカウントされません。21行目以降の入力は無視されます。"
         notice_for_permission: "※%{user}ユーザーが読み込み可能なようにパーミッションやグループの設定をご確認ください。"
