@@ -78,8 +78,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    archive-zip (0.11.0)
-      io-like (~> 0.3.0)
     arel (9.0.0)
     aws-eventstream (1.0.1)
     aws-partitions (1.122.0)
@@ -122,9 +120,6 @@ GEM
       launchy
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
-    chromedriver-helper (2.1.0)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     cool.io (1.5.3)
@@ -210,7 +205,6 @@ GEM
       concurrent-ruby (~> 1.0)
     i18n_generators (2.1.1)
       rails (>= 3.0.0)
-    io-like (0.3.0)
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -365,6 +359,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webdrivers (4.1.2)
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (>= 3.0, < 4.0)
     webmock (3.3.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -388,7 +386,6 @@ DEPENDENCIES
   binding_of_caller
   capybara (~> 3.4.2)
   capybara-screenshot
-  chromedriver-helper
   factory_bot_rails
   fluentd-ui!
   i18n_generators (= 2.1.1)
@@ -402,7 +399,8 @@ DEPENDENCIES
   test-unit-rails
   timecop
   web-console (~> 3.6)
+  webdrivers
   webmock (~> 3.3.0)
 
 BUNDLED WITH
-   1.17.2
+   1.17.3

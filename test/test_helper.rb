@@ -10,14 +10,9 @@ require 'test/unit/rr'
 require 'test/unit/capybara'
 require 'capybara-screenshot/testunit' # for integration test
 
-if ENV["TRAVIS"]
-  require "chromedriver/helper"
-  Chromedriver.set_version "2.35"
-end
-
 require 'webmock/test_unit'
-WebMock.disable_net_connect!(allow_localhost: true)
-
+WebMock.disable_net_connect!(allow_localhost: true,
+                             allow: "chromedriver.storage.googleapis.com")
 
 module FixturePath
   def fixture_path(fixture_name)
