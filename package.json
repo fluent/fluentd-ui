@@ -10,7 +10,7 @@
     "codemirror": "^5.37.0",
     "es6-promise": "^4.2.4",
     "jquery": "^3.3.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.13",
     "popper.js": "^1.14.3",
     "rails-ujs": "^5.2.0",
     "startbootstrap-sb-admin": "^5.0.3",
