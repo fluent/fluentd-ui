@@ -56,7 +56,7 @@ Access http://localhost:9292/prefix by web browser.
 
 Use bundler:
 
-    $ gem install bundler
+    $ gem install bundler --version 1.17.3
     $ bundle install --path vendor/bundle
 
 ### Install dependent JavaScript packages
