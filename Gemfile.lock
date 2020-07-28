@@ -208,7 +208,7 @@ GEM
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
-    json (2.1.0)
+    json (2.3.1)
     kramdown (2.1.0)
     kramdown-haml (0.0.3)
       haml
