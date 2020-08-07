@@ -209,7 +209,8 @@ GEM
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
     json (2.3.1)
-    kramdown (2.1.0)
+    kramdown (2.3.0)
+      rexml
     kramdown-haml (0.0.3)
       haml
     launchy (2.4.3)
@@ -282,6 +283,7 @@ GEM
       ffi (>= 0.5.0, < 2)
     request_store (1.5.0)
       rack (>= 1.4)
+    rexml (3.2.4)
     rr (1.2.1)
     ruby_dep (1.5.0)
     ruby_parser (3.14.2)
