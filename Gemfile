@@ -8,7 +8,7 @@ group :development, :test do
   gem "rake"
   gem "pry"
   gem "pry-rails"
-  gem "test-unit-rails"
+  gem "test-unit-rails", ">= 5.2.2"
   gem "test-unit-notify"
 end
 
