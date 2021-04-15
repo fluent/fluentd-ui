@@ -8,6 +8,7 @@ module Fluentd::Setting
 
     test ".initial_params" do
       expected = {
+        add_tag_prefix: nil,
         log_level: nil,
         port: 24224,
         bind: "0.0.0.0",
@@ -18,6 +19,7 @@ module Fluentd::Setting
         chunk_size_warn_limit: nil,
         deny_keepalive: false,
         resolve_hostname: nil,
+        send_keepalive_packet: false,
         skip_invalid_event: false,
         source_address_key: nil,
         source_hostname_key: nil,
@@ -35,6 +37,7 @@ module Fluentd::Setting
             }
           }
         },
+        tag: nil,
         transport: {
           "0" => {
             "protocol" => :tcp,
@@ -43,6 +46,7 @@ module Fluentd::Setting
             "insecure" => false,
             "ca_path" => nil,
             "cert_path" => nil,
+            "cert_verifier" => nil,
             "private_key_path" => nil,
             "private_key_passphrase" => nil,
             "client_cert_auth" => false,
@@ -56,6 +60,8 @@ module Fluentd::Setting
             "generate_cert_common_name" => nil,
             "generate_cert_expiration" => 315360000,
             "generate_cert_digest" => :sha256,
+            "max_version" => nil,
+            "min_version" => nil,
           }
         },
       }
