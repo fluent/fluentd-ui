@@ -8,7 +8,6 @@ env:
 
 rvm:
   - 2.5.1
-  - 2.4.4
 
 before_install:
   - google-chrome-stable --version
