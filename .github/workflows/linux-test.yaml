@@ -1,0 +1,55 @@
+name: Testing on Ubuntu
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    env:
+      DISPLAY: ":99.0"
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - 2.5
+          - 2.6
+        os: [ubuntu-latest]
+        experimental: [false]
+        include:
+          - ruby-version: 2.7
+            os: ubuntu-latest
+            experimental: true
+          - ruby-version: 3.0
+            os: ubuntu-latest
+            experimental: true
+          - ruby-version: head
+            os: ubuntu-latest
+            experimental: true
+
+    name: Unit testing with Ruby ${{ matrix.ruby-version }} on ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+      - name: Use node 10
+        run: nvm install 10
+        shell: bash --login {0}
+      - uses: browser-actions/setup-chrome@latest
+      - name: Check Chrome version
+        run: chrome --version
+      - uses: nanasess/setup-chromedriver@master
+      - name: Check ChromeDriver version
+        run: chromedriver --version
+      - name: Install TD Agent
+        run: sudo sh -c 'curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent3.sh | sh'
+      - name: Use specific version of bundler
+        run: gem install bundler --version 1.17.3
+      - name: Setup rails
+        run: ./bin/setup
+      - name: Run tests
+        run: bundle exec rake test
