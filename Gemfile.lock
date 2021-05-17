@@ -232,7 +232,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.0.2)
-    mini_portile2 (2.5.0)
+    mini_portile2 (2.5.1)
     minitest (5.14.4)
     mongo (2.6.4)
       bson (>= 4.3.0, < 5.0.0)
@@ -240,7 +240,7 @@ GEM
     multi_json (1.14.1)
     multipart-post (2.1.1)
     nio4r (2.5.5)
-    nokogiri (1.11.1)
+    nokogiri (1.11.4)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     power_assert (1.1.3)
