@@ -8,7 +8,7 @@ group :development, :test do
   gem "rake"
   gem "pry"
   gem "pry-rails"
-  gem "test-unit-rails"
+  gem "test-unit-rails", ">= 5.2.2"
   gem "test-unit-notify"
 end
 
@@ -23,7 +23,7 @@ end
 group :test do
   gem "factory_bot_rails"
   gem "capybara", "~> 3.4.2"
-  gem "capybara-screenshot"
+  gem "capybara-screenshot", ">= 1.0.22"
   gem "webdrivers"
   gem "simplecov", "~> 0.16.1", require: false
   gem "webmock", "~> 3.12.2"
