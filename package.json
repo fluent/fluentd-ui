@@ -8,7 +8,7 @@
     "@rails/webpacker": "^4.0.2",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.0.0-rc.14",
-    "codemirror": "^5.37.0",
+    "codemirror": "^5.58.2",
     "datatables.net-bs4": "1.10.24",
     "es6-promise": "^4.2.4",
     "jquery": "^3.5.0",
