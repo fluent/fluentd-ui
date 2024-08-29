@@ -26,7 +26,7 @@ group :test do
   gem "capybara-screenshot"
   gem "webdrivers"
   gem "simplecov", "~> 0.16.1", require: false
-  gem "webmock", "~> 3.12.2"
+  gem "webmock", "~> 3.13.0"
   gem "timecop"
   gem "selenium-webdriver", "~> 3.13.1"
 end
