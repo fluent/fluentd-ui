@@ -4,7 +4,7 @@
 [![Gem Version](https://badge.fury.io/rb/fluentd-ui.svg)](http://badge.fury.io/rb/fluentd-ui)
 [![Code Climate](https://codeclimate.com/github/fluent/fluentd-ui/badges/gpa.svg)](https://codeclimate.com/github/fluent/fluentd-ui)
 
-fluentd-ui is a browser-based [fluentd](http://www.fluentd.org) and [td-agent](https://docs.treasuredata.com/articles/td-agent) manager that supports following operations.
+fluentd-ui is a browser-based [fluentd](http://www.fluentd.org) and [td-agent](https://www.fluentd.org/download/fluent_package) manager that supports following operations.
 
 * Install, uninstall, and upgrade Fluentd plugins
 * start/stop/restart fluentd process
@@ -81,7 +81,7 @@ Access http://localhost:3000 by web browser.
 
 ### Run tests
 
-You need [chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) or chromiumdriver to run tests.
+You need [chromedriver](https://chromedriver.chromium.org/downloads) or chromiumdriver to run tests.
 
     $ npm install -g chromedriver
     Or,
