@@ -15,7 +15,7 @@ end
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'i18n_generators', '2.1.1'
-  gem 'better_errors'
+  gem 'better_errors', '>= 2.8.0'
   gem 'web-console', '~> 3.6'
   gem 'binding_of_caller'
 end
