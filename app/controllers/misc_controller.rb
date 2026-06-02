@@ -27,7 +27,7 @@ class MiscController < ApplicationController
 
     if $$.to_s == params[:old_pid]
       # restarting fluentd-ui is finished, but PID doesn't changed.
-      # maybe error occured at FluentdUiRestart#perform
+      # maybe error occurred at FluentdUiRestart#perform
       render text: "failed"
     else
       render text: "finished"
